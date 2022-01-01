@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathAlgo", "..\MathAlgo\Mat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "..\Helpers\Helpers.csproj", "{9DDA8AC6-0509-408B-BB4A-8FA4ACBCC0EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distance", "..\Distance\Distance.csproj", "{A9C660F5-B1FE-4198-846C-B7C1A4E6D0D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distance", "..\Distance\Distance.csproj", "{A9C660F5-B1FE-4198-846C-B7C1A4E6D0D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExemplesRunning", "..\ExemplesRunning\ExemplesRunning.csproj", "{063FB702-38A2-4F68-8DB3-333A41DAF922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "..\Models\Models.csproj", "{6CC20512-8E61-42CE-979D-ECF48125F4D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finding", "..\Finding\Finding.csproj", "{81D618E9-627E-46FB-AE2C-F9C05F9CE7F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{A9C660F5-B1FE-4198-846C-B7C1A4E6D0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C660F5-B1FE-4198-846C-B7C1A4E6D0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C660F5-B1FE-4198-846C-B7C1A4E6D0D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{063FB702-38A2-4F68-8DB3-333A41DAF922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{063FB702-38A2-4F68-8DB3-333A41DAF922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{063FB702-38A2-4F68-8DB3-333A41DAF922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{063FB702-38A2-4F68-8DB3-333A41DAF922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC20512-8E61-42CE-979D-ECF48125F4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC20512-8E61-42CE-979D-ECF48125F4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC20512-8E61-42CE-979D-ECF48125F4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC20512-8E61-42CE-979D-ECF48125F4D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D618E9-627E-46FB-AE2C-F9C05F9CE7F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D618E9-627E-46FB-AE2C-F9C05F9CE7F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D618E9-627E-46FB-AE2C-F9C05F9CE7F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D618E9-627E-46FB-AE2C-F9C05F9CE7F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

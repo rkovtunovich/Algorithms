@@ -51,7 +51,6 @@ namespace Sorting
                     result[i] = leftHalf[currLeft];
                     currLeft++;
                 }
-                //else if ( leftHalf[currLeft] <= rightHalf[currRight] )
                 else if (_comparer.Compare(leftHalf[currLeft], rightHalf[currRight]) <= 0)
                 {
                     result[i] = leftHalf[currLeft];

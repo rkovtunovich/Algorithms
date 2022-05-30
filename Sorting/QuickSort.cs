@@ -7,23 +7,21 @@ public class QuickSort
 {
     private static readonly Random _random = new();
 
-    public static void Sort(ref int[] array)
+    public static void Sort<T>(ref T[] array) where T : INumber<T>
     {
         SortRec(array, 0, array.Length - 1);
-        //QuicksortWiki(array, 0, array.Length - 1);
     }
 
-    private static void SortRec(int[] array, int leftIndex, int rightIndex) // 1 1 4
+    private static void SortRec<T>(T[] array, int leftIndex, int rightIndex) where T : INumber<T>
     {
         if (leftIndex == rightIndex)
             return;
 
-        //int baseIndex = leftIndex;
         int pivotIndex = GetBaseIndexRandom(leftIndex, rightIndex);
-        //Console.WriteLine($"[{pivotIndex}] = {array[pivotIndex]}");
+   
         (array[pivotIndex], array[rightIndex]) = (array[rightIndex], array[pivotIndex]);
         pivotIndex = rightIndex;
-        //Viewer.ShowArray(array);
+
         int innerBorder = leftIndex; // border between smaller and greater elements compared with base
 
         for (int i = leftIndex; i < rightIndex; i++)

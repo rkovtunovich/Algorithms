@@ -27,7 +27,7 @@ public static class GraphHelper
     {
         int numberConnections = _random.Next(0, (countVertices - 1) / 3);
 
-        numberConnections -= graph.GetDigree(owner);
+        numberConnections -= graph.GetDegree(owner);
 
         var alreadyAdded = new HashSet<int>();
 

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Graphs;
 
-namespace Graphs;
-public class Vertice
+public struct Vertice<T> where T : INumber<T>
 {
     public int Index { get; set; }
+
+    public T Value { get; set; }
+
+    public string Label { get; set; }
 }

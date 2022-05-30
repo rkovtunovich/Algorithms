@@ -6,7 +6,7 @@ public class Graph<T> : IEnumerable<T> where T : notnull
 {
     private readonly Dictionary<T, LinkedList<T>> _nodes = new();
 
-    private int[]? _digreeDistribuition = null;  
+    private int[]? _degreeDistribuition = null;  
 
     public string Name { get; set; } = "undirected";
 
@@ -41,46 +41,65 @@ public class Graph<T> : IEnumerable<T> where T : notnull
         return edges.Contains(secondVertice);
     }
 
-    public int GetDigree(T vertice)
+    #region Degree
+
+    public int GetDegree(T vertice)
     {
-        return _nodes[vertice].Count();
+        return _nodes[vertice].Count;
     }
 
-    public int[] GetDidreeDistributionsCount()
+    public int[] GetDedreeDistributionsCount()
     {
-        if (_digreeDistribuition is not null)
-            return _digreeDistribuition;
+        if (_degreeDistribuition is not null)
+            return _degreeDistribuition;
 
-        if(_nodes.Count == 0)
+        if (_nodes.Count == 0)
             return Array.Empty<int>();
 
-        _digreeDistribuition = new int[_nodes.Count - 1];
+        _degreeDistribuition = new int[_nodes.Count - 1];
 
-        foreach(var node in _nodes)
+        foreach (var node in _nodes)
         {
-            _digreeDistribuition[GetDigree(node.Key)]++;
+            _degreeDistribuition[GetDegree(node.Key)]++;
         }
 
-        return _digreeDistribuition;
+        return _degreeDistribuition;
     }
 
-    public double[] GetDidreeDistributionsFraction()
+    public double[] GetDedreeDistributionsFraction()
     {
         if (_nodes.Count == 0)
             return Array.Empty<double>();
 
-        if (_digreeDistribuition is null)
-            _digreeDistribuition = GetDidreeDistributionsCount();
+        if (_degreeDistribuition is null)
+            _degreeDistribuition = GetDedreeDistributionsCount();
 
         var digreeDistribuition = new double[_nodes.Count - 1];
 
-        for (int i = 0; i < _digreeDistribuition.Length; i++)
+        for (int i = 0; i < _degreeDistribuition.Length; i++)
         {
-            digreeDistribuition[i] = (double)_digreeDistribuition[i] / _nodes.Count;
+            digreeDistribuition[i] = (double)_degreeDistribuition[i] / _nodes.Count;
         }
 
         return digreeDistribuition;
     }
+    
+    public double[] GetDegreeDistributionsCumulative()
+    {
+        var fracDigreeDistr = GetDedreeDistributionsFraction();
+
+        var cumulativeDegreeDistr = new double[_nodes.Count];
+        cumulativeDegreeDistr[0] = 1;
+
+        for (int i = 1; i < fracDigreeDistr.Length; i++)
+        {
+            cumulativeDegreeDistr[i] = cumulativeDegreeDistr[i - 1] - fracDigreeDistr[i];
+        }
+
+        return cumulativeDegreeDistr;
+    }
+
+    #endregion
 
     private static void AddConnection(LinkedList<T> edges, T vertice)
     {

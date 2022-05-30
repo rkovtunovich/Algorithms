@@ -14,16 +14,19 @@ internal class GraphExample
 
     internal static void Run()
     {
-        var graph = GraphHelper.GenerateNonOriented(15);
+        var graph = GraphHelper.GenerateNonOriented(20);
 
         var origin = graph.First();
         var connected = BFS<int>.SearchConnected(graph, origin);
 
-        var deegreDistributionsCount = graph.GetDidreeDistributionsCount();
+        var deegreDistributionsCount = graph.GetDedreeDistributionsCount();
         Viewer.ShowArray(deegreDistributionsCount);
 
-        var deegreDistributionsFraction = graph.GetDidreeDistributionsFraction();
+        var deegreDistributionsFraction = graph.GetDedreeDistributionsFraction();
         Viewer.ShowArray(deegreDistributionsFraction);
+
+        var deegreDistributionsCumulative = graph.GetDegreeDistributionsCumulative();
+        Viewer.ShowArray(deegreDistributionsCumulative);
 
         var dotSerializer = new DOTSerializer<int>(graph);
         dotSerializer.AddImportantVertice(origin);

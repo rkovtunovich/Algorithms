@@ -1,68 +1,116 @@
 strict graph undirected { 
 	1 -- {
-		5
+		17
 		7
+		10
+		20
 	} [color = Green, style = bold]
 	2 -- {
-		11
+		13
+		5
+		16
+		6
 	} [color = Green, style = bold]
 	3 -- {
-		5
-		4
-		9
-		8
-		11
-		13
+		14
+		18
+		7
+		19
+		15
+		6
 	} [color = Green, style = bold]
 	4 -- {
-		3
-		5
-		12
-		13
+		8
+		17
+		19
 	} [color = Green, style = bold]
 	5 -- {
-		3
-		4
-		1
-		7
-		10
+		2
 	} [color = Green, style = bold]
 	6 -- {
-		15
-	} 
+		2
+		3
+		20
+	} [color = Green, style = bold]
 	7 -- {
-		5
+		3
+		10
 		1
 		12
-	} [color = Green, style = bold]
-	8 -- {
-		3
-	} [color = Green, style = bold]
-	9 -- {
-		3
-		10
-	} [color = Green, style = bold]
-	10 -- {
-		5
-		9
 		11
 	} [color = Green, style = bold]
+	8 -- {
+		4
+		9
+		11
+		17
+	} [color = Green, style = bold]
+	9 -- {
+		8
+		18
+	} [color = Green, style = bold]
+	10 -- {
+		7
+		13
+		11
+		1
+		19
+		20
+	} [color = Green, style = bold]
 	11 -- {
-		3
-		2
+		7
 		10
+		8
+		16
 	} [color = Green, style = bold]
 	12 -- {
-		4
 		7
+		14
+		16
 	} [color = Green, style = bold]
 	13 -- {
-		3
-		4
+		2
+		10
+		17
 	} [color = Green, style = bold]
 	14 -- {
-	} 
+		3
+		12
+		16
+		18
+		17
+	} [color = Green, style = bold]
 	15 -- {
+		3
+		20
+	} [color = Green, style = bold]
+	16 -- {
+		2
+		11
+		12
+		14
+	} [color = Green, style = bold]
+	17 -- {
+		1
+		8
+		13
+		14
+		4
+	} [color = Green, style = bold]
+	18 -- {
+		3
+		14
+		9
+	} [color = Green, style = bold]
+	19 -- {
+		3
+		10
+		4
+	} [color = Green, style = bold]
+	20 -- {
+		15
 		6
-	} 
+		1
+		10
+	} [color = Green, style = bold]
 1 [color = Green, style = bold]}

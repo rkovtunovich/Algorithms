@@ -1,11 +1,11 @@
 ﻿namespace Graphs;
-public  static class BFS<T> where T : notnull
+public  static class BFS<T> where T : INumber<T>
 {
-    public static HashSet<T> SearchConnected(Graph<T> graph, T originVertice)
+    public static HashSet<Vertice<T>> SearchConnected(Graph<T> graph, Vertice<T> originVertice)
     {
-        var visited = new HashSet<T>();
+        var visited = new HashSet<Vertice<T>>();
 
-        var queue = new Queue<T>();
+        var queue = new Queue<Vertice<T>>();
         queue.Enqueue(originVertice);
 
         while (queue.Count > 0)

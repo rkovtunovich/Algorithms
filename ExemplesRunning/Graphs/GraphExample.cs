@@ -14,7 +14,7 @@ internal class GraphExample
 
     internal static void Run()
     {
-        var graph = GraphHelper.GenerateNonOriented(20);
+        var graph = GraphGenerator<int>.GenerateNonOriented(20);
 
         var origin = graph.First();
         var connected = BFS<int>.SearchConnected(graph, origin);

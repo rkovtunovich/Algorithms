@@ -2,23 +2,23 @@
 
 namespace Graphs;
 
-public class Graph<T> : IEnumerable<T> where T : notnull
+public class Graph<T> : IEnumerable<Vertice<T>> where T : INumber<T>
 {
-    private readonly Dictionary<T, LinkedList<T>> _nodes = new();
+    private readonly Dictionary<Vertice<T>, LinkedList<Vertice<T>>> _nodes = new();
 
     private int[]? _degreeDistribuition = null;  
 
     public string Name { get; set; } = "undirected";
 
-    public void AddVertice(T vertice)
+    public void AddVertice(Vertice<T> vertice)
     {
         if (_nodes.ContainsKey(vertice))
             return;
 
-        _nodes.TryAdd(vertice, new LinkedList<T>());
+        _nodes.TryAdd(vertice, new LinkedList<Vertice<T>>());
     }
 
-    public void AddEdge(T sourse, T destination)
+    public void AddEdge(Vertice<T> sourse, Vertice<T> destination)
     {
         if (!_nodes.ContainsKey(sourse) || !_nodes.ContainsKey(destination))
             throw new Exception("this vertices isn't included in the garph!");
@@ -30,20 +30,32 @@ public class Graph<T> : IEnumerable<T> where T : notnull
         Graph<T>.AddConnection(destinationEdges, sourse);     
     } 
 
-    public LinkedList<T> GetEdges(T vertice)
+    public LinkedList<Vertice<T>> GetEdges(Vertice<T> vertice)
     {
         return _nodes[vertice];
     }
 
-    public bool IsConnected(T firstVertice, T secondVertice)
+    #region Connections
+
+    private static void AddConnection(LinkedList<Vertice<T>> edges, Vertice<T> vertice)
+    {
+        if (edges.Count == 0)
+            edges.AddFirst(vertice);
+        else
+            edges.AddLast(vertice);
+    }
+
+    public bool IsConnected(Vertice<T> firstVertice, Vertice<T> secondVertice)
     {
         var edges = GetEdges(firstVertice);
         return edges.Contains(secondVertice);
     }
 
+    #endregion
+
     #region Degree
 
-    public int GetDegree(T vertice)
+    public int GetDegree(Vertice<T> vertice)
     {
         return _nodes[vertice].Count;
     }
@@ -101,20 +113,14 @@ public class Graph<T> : IEnumerable<T> where T : notnull
 
     #endregion
 
-    private static void AddConnection(LinkedList<T> edges, T vertice)
-    {
-        if (edges.Count == 0)
-            edges.AddFirst(vertice);
-        else
-            edges.AddLast(vertice);
-    }
+    #region Enumerable
 
-    public IEnumerator<T> GetEnumerator()
+    public IEnumerator<Vertice<T>> GetEnumerator()
     {
         foreach (var item in _nodes)
         {
             yield return item.Key;
-        }  
+        }
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -124,4 +130,6 @@ public class Graph<T> : IEnumerable<T> where T : notnull
             yield return item.Key;
         }
     }
+
+    #endregion
 }

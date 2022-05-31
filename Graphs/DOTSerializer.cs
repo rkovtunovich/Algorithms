@@ -3,12 +3,12 @@ using System.Drawing;
 using System.Text;
 
 namespace Graphs;
-public class DOTSerializer<T> : ISerializer<T> where T : notnull
+public class DOTSerializer<T> : ISerializer<T> where T : INumber<T>
 {
     private readonly Graph<T> _graph;
 
-    private readonly HashSet<T> _importantVetices = new();
-    private readonly HashSet<T> _importantEdges = new();
+    private readonly HashSet<Vertice<T>> _importantVetices = new();
+    private readonly HashSet<Vertice<T>> _importantEdges = new();
 
     public Color ImportantVericeColor { get; set; } = Color.Green;
     public Color ImportantEdgeColor { get; set; } = Color.Green;
@@ -18,19 +18,19 @@ public class DOTSerializer<T> : ISerializer<T> where T : notnull
         _graph = graph;
     }
 
-    public void AddImportantVertice(T verice)
+    public void AddImportantVertice(Vertice<T> verice)
     {
         _importantVetices.Add(verice);
     }
 
-    public void AddImportantEdges(T verice)
+    public void AddImportantEdges(Vertice<T> verice)
     {
         _importantEdges.Add(verice);
     }
 
-    public void AddImportantEdges(HashSet<T> verices)
+    public void AddImportantEdges(HashSet<Vertice<T>> verices)
     {
-        foreach (T verice in verices)
+        foreach (Vertice<T> verice in verices)
             _importantEdges.Add(verice);
     }
 
@@ -70,7 +70,7 @@ public class DOTSerializer<T> : ISerializer<T> where T : notnull
         return format;
     }
     
-    private string AddImportantEdgesFormat(T vertice)
+    private string AddImportantEdgesFormat(Vertice<T> vertice)
     {
         if (_importantEdges.Count == 0)
             return "";

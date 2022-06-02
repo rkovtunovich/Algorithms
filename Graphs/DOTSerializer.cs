@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Text;
 
 namespace Graphs;
-public class DOTSerializer<T> : ISerializer<T> where T : INumber<T>
+public class DOTSerializer<T> : ISerializer<T>
 {
     private readonly Graph<T> _graph;
 

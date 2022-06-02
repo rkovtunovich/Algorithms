@@ -1,6 +1,6 @@
 ﻿namespace Graphs;
 
-public static class GraphGenerator<T> where T : INumber<T>
+public static class GraphGenerator<T>
 {
     private static readonly Random _random = new();
 
@@ -10,7 +10,7 @@ public static class GraphGenerator<T> where T : INumber<T>
 
         for (int i = 1; i <= countVertices; i++)
         {
-            graph.AddVertice(new Vertice<T> { Index = i });
+            graph.AddVertice(new(i));
         }
 
         foreach (var vertice in graph)
@@ -36,7 +36,7 @@ public static class GraphGenerator<T> where T : INumber<T>
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = new Vertice<T>() { Index = newIndex };
+            var newConnection = new Vertice<T>(newIndex);
 
             if (alreadyAdded.Contains<Vertice<T>>(newConnection))
                 continue;

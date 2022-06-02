@@ -2,7 +2,7 @@
 
 namespace Graphs;
 
-public class Graph<T> : IEnumerable<Vertice<T>> where T : INumber<T>
+public class Graph<T> : IEnumerable<Vertice<T>>
 {
     private readonly Dictionary<Vertice<T>, LinkedList<Vertice<T>>> _nodes = new();
 
@@ -33,6 +33,11 @@ public class Graph<T> : IEnumerable<Vertice<T>> where T : INumber<T>
     public LinkedList<Vertice<T>> GetEdges(Vertice<T> vertice)
     {
         return _nodes[vertice];
+    }
+    
+    public void SetVerticeValue(Vertice<T> vertice, double value)
+    {
+
     }
 
     #region Connections

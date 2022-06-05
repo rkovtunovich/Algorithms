@@ -36,15 +36,16 @@ public static class BFS<T>
         originVertice.Value = level;
 
         var visited = new HashSet<Vertice<T>>();
+        visited.Add(originVertice);
 
         var queue = new Queue<Vertice<T>>();
         queue.Enqueue(originVertice);
 
         while (queue.Count > 0)
-        {
-            level++;
-
+        {         
             var current = queue.Dequeue();
+
+            level = (int)(current.Value ?? 0) + 1;
 
             var edges = graph.GetEdges(current);
 
@@ -64,23 +65,23 @@ public static class BFS<T>
             if (edgeNode is null)
                 continue;
 
-            while (true)
+            while (edgeNode is not null)
             {
                 var edge = edgeNode.Value;
 
                 if (visited.Contains(edge))
+                {
+                    edgeNode = edgeNode.Next;
                     continue;
-
-                //edge.Value = level;
+                }
+                    
+                edge.Value = level;
 
                 visited.Add(edge);
                 queue.Enqueue(edge);
 
-                if (edgeNode?.Next is null)
-                    break;
+                edgeNode = edgeNode.Next;
             }
-
-
         }
 
         return visited;

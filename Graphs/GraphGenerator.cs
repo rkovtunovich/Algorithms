@@ -23,7 +23,7 @@ public static class GraphGenerator<T>
 
     private static void GenerateConnections(Graph<T> graph, int countVertices, Vertice<T> owner)
     {
-        int numberConnections = _random.Next(0, (countVertices - 1) / 3);
+        int numberConnections = _random.Next(0, (countVertices - 1) / 4);
 
         numberConnections -= graph.GetDegree(owner);
 
@@ -36,7 +36,7 @@ public static class GraphGenerator<T>
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = new Vertice<T>(newIndex);
+            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
 
             if (alreadyAdded.Contains<Vertice<T>>(newConnection))
                 continue;

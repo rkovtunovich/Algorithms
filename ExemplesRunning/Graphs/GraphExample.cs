@@ -17,7 +17,8 @@ internal class GraphExample
         var graph = GraphGenerator<int>.GenerateNonOriented(20);
 
         var origin = graph.First();
-        var connected = BFS<int>.SearchConnected(graph, origin);
+        //var connected = BFS<int>.SearchConnected(graph, origin);
+        var connected = BFS<int>.MarkPaths(graph, origin);
 
         var deegreDistributionsCount = graph.GetDedreeDistributionsCount();
         Viewer.ShowArray(deegreDistributionsCount);
@@ -27,6 +28,9 @@ internal class GraphExample
 
         var deegreDistributionsCumulative = graph.GetDegreeDistributionsCumulative();
         Viewer.ShowArray(deegreDistributionsCumulative);
+
+        var correlationCoefficient = graph.GetCorrelationCoefficient();
+        Console.WriteLine($"correlation coefficient: {correlationCoefficient}");
 
         var dotSerializer = new DOTSerializer<int>(graph);
         dotSerializer.AddImportantVertice(origin);

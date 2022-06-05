@@ -2,9 +2,9 @@
 
 namespace Graphs;
 
-public struct Vertice<T>: IEquatable<Vertice<T>>
+public class Vertice<T>: IEquatable<Vertice<T>>
 {
-    public Vertice(int index) : this()
+    public Vertice(int index)
     {
         Index = index;
         Value = null;
@@ -28,9 +28,9 @@ public struct Vertice<T>: IEquatable<Vertice<T>>
         return Equals((Vertice<T>)obj);
     }
 
-    public bool Equals(Vertice<T> other)
+    public bool Equals(Vertice<T>? other)
     {
-        return Index == other.Index;
+        return other is not null && Index == other.Index;
     }
 
     public override int GetHashCode()

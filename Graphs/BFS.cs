@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 
 namespace Graphs;
 public static class BFS<T>
@@ -42,21 +43,12 @@ public static class BFS<T>
         queue.Enqueue(originVertice);
 
         while (queue.Count > 0)
-        {         
+        {
             var current = queue.Dequeue();
 
             level = (int)(current.Value ?? 0) + 1;
 
             var edges = graph.GetEdges(current);
-
-            //foreach (var edge in edges)
-            //{
-            //    if (visited.Contains(edge))
-            //        continue;
-
-            //    visited.Add(edge);
-            //    queue.Enqueue(edge);
-            //}
 
             if (edges.Count == 0)
                 continue;
@@ -74,7 +66,7 @@ public static class BFS<T>
                     edgeNode = edgeNode.Next;
                     continue;
                 }
-                    
+
                 edge.Value = level;
 
                 visited.Add(edge);
@@ -85,5 +77,43 @@ public static class BFS<T>
         }
 
         return visited;
+    }
+
+    public static void FindingConnectedComponents(Graph<T> graph)
+    {
+        int component = 0;
+        var visited = new HashSet<Vertice<T>>();
+
+        var queue = new Queue<Vertice<T>>();
+        //queue.Enqueue(graph.First() ?? throw new Exception("Graph is empty"));
+
+        foreach (var vertive in graph)
+        {
+            if (visited.Contains(vertive))
+                continue;
+
+            component++;
+
+            vertive.Component = component;
+            queue.Enqueue(vertive);
+
+            while (queue.Count > 0)
+            {
+                var current = queue.Dequeue();
+
+                var edges = graph.GetEdges(current);
+
+                foreach (var edge in edges)
+                {
+                    if (visited.Contains(edge))
+                        continue;
+
+                    edge.Component = component;
+
+                    visited.Add(edge);
+                    queue.Enqueue(edge);
+                }
+            }
+        }
     }
 }

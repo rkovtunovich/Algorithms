@@ -18,6 +18,7 @@ internal class GraphExample
 
         var origin = graph.First();
         //var connected = BFS<int>.SearchConnected(graph, origin);
+        BFS<int>.FindingConnectedComponents(graph);
         var connected = BFS<int>.MarkPaths(graph, origin);
 
         var deegreDistributionsCount = graph.GetDedreeDistributionsCount();

@@ -16,6 +16,8 @@ public class Vertice<T>: IEquatable<Vertice<T>>
 
     public double? Value { get; set; }
 
+    public int? Component { get; set; }
+
     public string? Label { get; set; }
 
     #region Equality
@@ -38,11 +40,6 @@ public class Vertice<T>: IEquatable<Vertice<T>>
         return Index;
     }
 
-    public override string ToString()
-    {
-        return $"\"{Index}:{Value}\"";
-    }
-
     public static bool operator ==(Vertice<T> left, Vertice<T> right)
     {
         return left.Equals(right);
@@ -54,4 +51,10 @@ public class Vertice<T>: IEquatable<Vertice<T>>
     }
 
     #endregion
+
+    public override string ToString()
+    {
+        return $"\"{Component}  {Index}:{Value}\"";
+    }
+
 }

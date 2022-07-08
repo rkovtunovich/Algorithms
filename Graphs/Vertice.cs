@@ -18,6 +18,8 @@ public class Vertice<T>: IEquatable<Vertice<T>>
 
     public int? Component { get; set; }
 
+    public double? LocalClusteringCoefficient { get; set; } = null;
+
     public string? Label { get; set; }
 
     #region Equality
@@ -53,8 +55,7 @@ public class Vertice<T>: IEquatable<Vertice<T>>
     #endregion
 
     public override string ToString()
-    {
-        return $"\"{Component}  {Index}:{Value}\"";
+    {   
+        return $"\"index:{Index}\ncomp:{Component}\nvalue:{Value}\nlcc:{LocalClusteringCoefficient:0.00}\"";
     }
-
 }

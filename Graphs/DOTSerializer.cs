@@ -8,9 +8,11 @@ public class DOTSerializer<T> : ISerializer<T>
     private readonly Graph<T> _graph;
 
     private readonly HashSet<Vertice<T>> _importantVetices = new();
+
     private readonly HashSet<Vertice<T>> _importantEdges = new();
 
     public Color ImportantVericeColor { get; set; } = Color.Green;
+
     public Color ImportantEdgeColor { get; set; } = Color.Green;
 
     public DOTSerializer(Graph<T> graph)
@@ -40,7 +42,7 @@ public class DOTSerializer<T> : ISerializer<T>
 
         foreach (var verice in _graph)
         {
-            builder.AppendLine($"\t{verice} -- {{");
+            builder.AppendLine($"\t{verice} {GetEdgeLine(_graph)} {{");
 
             foreach (var connection in _graph.GetEdges(verice))
             {
@@ -52,7 +54,7 @@ public class DOTSerializer<T> : ISerializer<T>
 
         var vertices = builder.ToString();
 
-        var dot = $"strict graph {_graph.Name} {{ \n" +
+        var dot = $"{GetTypeOfGraph(_graph)} {_graph.Name} {{ \n" +
             $"{vertices}" +
             $"{AddImportantVetricesFormatting()}" +
             $"}}";
@@ -79,5 +81,22 @@ public class DOTSerializer<T> : ISerializer<T>
             return $"[color = {ImportantEdgeColor.Name}, style = bold]";
         else
             return "";
+    }
+
+    private static string GetTypeOfGraph(Graph<T> _graph)
+    {
+        return _graph.IsOriented() ? "digraph" : "strict graph";
+    }
+
+    private static string GetEdgeLine(Graph<T> _graph)
+    {
+        return _graph.IsOriented() ? "->" : "--";
+    }
+
+    public void SaveToFile(string fileName, string dotString)
+    {
+        using var streamWriter = new StreamWriter(fileName);
+        streamWriter.Write(dotString);
+        streamWriter.Close();
     }
 }

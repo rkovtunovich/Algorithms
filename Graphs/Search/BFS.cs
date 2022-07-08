@@ -1,10 +1,9 @@
-﻿using System.ComponentModel;
-using System.Linq;
+﻿using Graphs.GraphImplementation;
 
-namespace Graphs;
+namespace Graphs.Search;
 public static class BFS<T>
 {
-    public static HashSet<Vertice<T>> SearchConnected(Graph<T> graph, Vertice<T> originVertice)
+    public static HashSet<Vertice<T>> SearchConnected(UndirectedGraph<T> graph, Vertice<T> originVertice)
     {
         var visited = new HashSet<Vertice<T>>();
 
@@ -30,14 +29,16 @@ public static class BFS<T>
         return visited;
     }
 
-    public static HashSet<Vertice<T>> MarkPaths(Graph<T> graph, Vertice<T> originVertice)
+    public static HashSet<Vertice<T>> MarkPaths(UndirectedGraph<T> graph, Vertice<T> originVertice)
     {
         int level = 0;
 
         originVertice.Value = level;
 
-        var visited = new HashSet<Vertice<T>>();
-        visited.Add(originVertice);
+        var visited = new HashSet<Vertice<T>>
+        {
+            originVertice
+        };
 
         var queue = new Queue<Vertice<T>>();
         queue.Enqueue(originVertice);
@@ -79,13 +80,12 @@ public static class BFS<T>
         return visited;
     }
 
-    public static void FindingConnectedComponents(Graph<T> graph)
+    public static void FindingConnectedComponents(UndirectedGraph<T> graph)
     {
         int component = 0;
         var visited = new HashSet<Vertice<T>>();
 
         var queue = new Queue<Vertice<T>>();
-        //queue.Enqueue(graph.First() ?? throw new Exception("Graph is empty"));
 
         foreach (var vertive in graph)
         {
@@ -115,5 +115,69 @@ public static class BFS<T>
                 }
             }
         }
+    }
+
+    public static OrientedGraph<T> GetSimpleShortestPathTree(UndirectedGraph<T> graph, Vertice<T> originVertice)
+    {
+        var tree = new OrientedGraph<T>("simple_tree");
+        graph.CopyVerticesTo(tree);
+
+        var visited = new HashSet<Vertice<T>>();
+
+        var queue = new Queue<Vertice<T>>();
+        queue.Enqueue(originVertice);
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+
+            var edges = graph.GetEdges(current);
+
+            foreach (var edge in edges)
+            {
+                if (visited.Contains(edge))
+                    continue;
+
+                visited.Add(edge);
+                queue.Enqueue(edge);
+
+                if(!edge.Equals(originVertice))
+                    tree.AddEdge(edge, current);
+            }
+        }
+
+        return tree;
+    }
+
+    public static OrientedGraph<T> GetFullShortestPathTree(UndirectedGraph<T> graph, Vertice<T> originVertice)
+    {
+        var tree = new OrientedGraph<T>("full_tree");
+        graph.CopyVerticesTo(tree);
+
+        var visited = new HashSet<Vertice<T>>();
+
+        var queue = new Queue<Vertice<T>>();
+        queue.Enqueue(originVertice);
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+
+            var edges = graph.GetEdges(current);
+
+            foreach (var edge in edges)
+            {
+                if (visited.Contains(edge))
+                    continue;
+
+                visited.Add(edge);
+                queue.Enqueue(edge);
+
+                if (!edge.Equals(originVertice))
+                    tree.AddEdge(edge, current);
+            }
+        }
+
+        return tree;
     }
 }

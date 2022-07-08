@@ -1,24 +1,18 @@
-﻿using System.Collections;
+﻿using Graphs.Abstraction;
+using System.Collections;
 
-namespace Graphs;
+namespace Graphs.GraphImplementation;
 
-public class Graph<T> : IEnumerable<Vertice<T>>
+public class UndirectedGraph<T> : Graph<T>
 {
-    private readonly Dictionary<Vertice<T>, LinkedList<Vertice<T>>> _nodes = new();
-
     private int[]? _degreeDistribuition = null;
 
-    public string Name { get; set; } = "undirected";
-
-    public void AddVertice(Vertice<T> vertice)
+    public UndirectedGraph(string name)
     {
-        if (_nodes.ContainsKey(vertice))
-            return;
-
-        _nodes.TryAdd(vertice, new LinkedList<Vertice<T>>());
+        Name = name;
     }
 
-    public void AddEdge(Vertice<T> sourse, Vertice<T> destination)
+    public override void AddEdge(Vertice<T> sourse, Vertice<T> destination)
     {
         if (!_nodes.ContainsKey(sourse) || !_nodes.ContainsKey(destination))
             throw new Exception("this vertices isn't included in the garph!");
@@ -26,50 +20,16 @@ public class Graph<T> : IEnumerable<Vertice<T>>
         var sourceEdges = _nodes[sourse];
         var destinationEdges = _nodes[destination];
 
-        Graph<T>.AddConnection(sourceEdges, destination);
-        Graph<T>.AddConnection(destinationEdges, sourse);
+        AddConnection(sourceEdges, destination);
+        AddConnection(destinationEdges, sourse);
     }
 
-    public LinkedList<Vertice<T>> GetEdges(Vertice<T> vertice)
+    public override bool IsOriented()
     {
-        return _nodes[vertice];
+        return false;
     }
-
-    public Vertice<T>? GetVerticeByIndex(int index)
-    {
-        foreach (var node in _nodes)
-        {
-            if (node.Key.Index == index)
-                return node.Key;
-        }
-
-        return null;
-    }
-
-    #region Connections
-
-    private static void AddConnection(LinkedList<Vertice<T>> edges, Vertice<T> vertice)
-    {
-        if (edges.Count == 0)
-            edges.AddFirst(vertice);
-        else
-            edges.AddLast(vertice);
-    }
-
-    public bool IsConnected(Vertice<T> firstVertice, Vertice<T> secondVertice)
-    {
-        var edges = GetEdges(firstVertice);
-        return edges.Contains(secondVertice);
-    }
-
-    #endregion
 
     #region Degree
-
-    public int GetDegree(Vertice<T> vertice)
-    {
-        return _nodes[vertice].Count;
-    }
 
     public int[] GetDedreeDistributionsCount()
     {
@@ -79,7 +39,7 @@ public class Graph<T> : IEnumerable<Vertice<T>>
         if (_nodes.Count == 0)
             return Array.Empty<int>();
 
-        _degreeDistribuition = new int[_nodes.Count - 1];
+        _degreeDistribuition = new int[_nodes.Count];
 
         foreach (var node in _nodes)
         {
@@ -97,7 +57,7 @@ public class Graph<T> : IEnumerable<Vertice<T>>
         if (_degreeDistribuition is null)
             _degreeDistribuition = GetDedreeDistributionsCount();
 
-        var digreeDistribuition = new double[_nodes.Count - 1];
+        var digreeDistribuition = new double[_nodes.Count];
 
         for (int i = 0; i < _degreeDistribuition.Length; i++)
         {
@@ -132,15 +92,15 @@ public class Graph<T> : IEnumerable<Vertice<T>>
         {
             int degree = GetDegree(item.Key);
             S1 += degree;
-            S2 += (degree * degree);
-            S3 += (degree * degree * degree);
+            S2 += degree * degree;
+            S3 += degree * degree * degree;
 
             foreach (var connectedVertice in item.Value)
             {
                 if (added.Contains((item.Key, connectedVertice)))
                     continue;
 
-                Sl += (degree * GetDegree(connectedVertice));
+                Sl += degree * GetDegree(connectedVertice);
 
                 added.Add((connectedVertice, item.Key));
             }
@@ -155,23 +115,57 @@ public class Graph<T> : IEnumerable<Vertice<T>>
 
     #endregion
 
-    #region Enumerable
-
-    public IEnumerator<Vertice<T>> GetEnumerator()
+    public void CalculateLocalClusteringCoefficient()
     {
         foreach (var item in _nodes)
         {
-            yield return item.Key;
+            var degree = GetDegree(item.Key);
+
+            var neighbors = GetEdges(item.Key);
+
+            var pairs = from item1 in neighbors
+                        from item2 in neighbors
+                        where item1.Index < item2.Index
+                        select Tuple.Create(item1, item2);
+
+            double connectedNeighbors = 0;
+            foreach (var pair in pairs)
+            {
+                if (IsConnected(pair.Item1, pair.Item2))
+                    connectedNeighbors++;
+            }
+
+            item.Key.LocalClusteringCoefficient = !pairs.Any() ? 0 : connectedNeighbors / pairs.Count();
         }
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    public double CalculateOverallClusteringCoefficient()
     {
+        double connectedTriplets = 0;
+        double numberOfTriangles = 0;
+
         foreach (var item in _nodes)
         {
-            yield return item.Key;
-        }
-    }
+            double degree = GetDegree(item.Key);
 
-    #endregion
+            connectedTriplets += degree / 2 * (degree - 1);
+
+            var neighbors = GetEdges(item.Key);
+
+            var pairs = from item1 in neighbors
+                        from item2 in neighbors
+                        where item1.Index < item2.Index
+                        select Tuple.Create(item1, item2);
+
+            foreach (var pair in pairs)
+            {
+                if (IsConnected(pair.Item1, pair.Item2))
+                    numberOfTriangles++;
+            }
+        }
+
+        double coeff = connectedTriplets == 0 ? 0 : numberOfTriangles * 3 / connectedTriplets;
+
+        return coeff;
+    }
 }

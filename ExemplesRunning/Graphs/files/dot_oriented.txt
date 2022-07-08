@@ -1,0 +1,42 @@
+digraph oriended_acyclic { 
+	"index:1
+comp:
+value:4
+lcc:" -> {
+		"index:4
+comp:
+value:5
+lcc:"
+	} [color = Green, style = bold]
+	"index:2
+comp:
+value:2
+lcc:" -> {
+		"index:3
+comp:
+value:3
+lcc:"
+	} 
+	"index:3
+comp:
+value:3
+lcc:" -> {
+	} 
+	"index:4
+comp:
+value:5
+lcc:" -> {
+	} [color = Green, style = bold]
+	"index:5
+comp:
+value:1
+lcc:" -> {
+		"index:3
+comp:
+value:3
+lcc:"
+	} 
+"index:1
+comp:
+value:4
+lcc:" [color = Green, style = bold]}

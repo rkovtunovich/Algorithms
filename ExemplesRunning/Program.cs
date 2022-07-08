@@ -9,4 +9,7 @@
 
 //SortingExample.RunQuickSort();
 
-GraphExample.Run();
+GraphExample.RunUndirectedExample();
+GraphExample.RunOrientedExample();
+
+Console.ReadLine();

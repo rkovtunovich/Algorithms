@@ -7,20 +7,24 @@ public class Vertice<T>: IEquatable<Vertice<T>>
     public Vertice(int index)
     {
         Index = index;
-        Value = null;
+        Distance = null;
     }
 
     public int Index { get; set; }
 
     public T? Data { get; set; }
 
-    public double? Value { get; set; }
+    public double? Distance { get; set; }
 
     public int? Component { get; set; }
 
     public double? LocalClusteringCoefficient { get; set; } = null;
 
+    public double? Betweeness { get; set; } = null;
+
     public string? Label { get; set; }
+
+    public double? Weight { get; set; } = null;
 
     #region Equality
 
@@ -55,7 +59,26 @@ public class Vertice<T>: IEquatable<Vertice<T>>
     #endregion
 
     public override string ToString()
-    {   
-        return $"\"index:{Index}\ncomp:{Component}\nvalue:{Value}\nlcc:{LocalClusteringCoefficient:0.00}\"";
+    {
+        var name = $"\"index:{Index}";
+
+        if (Component is not null)
+            name += $"\ncomp:{Component}";
+
+        if (Distance is not null)
+            name += $"\ndist:{Distance}";
+
+        if (LocalClusteringCoefficient is not null)
+            name += $"\nlcc:{LocalClusteringCoefficient:0.00}";
+
+        if (Betweeness is not null)
+            name += $"\nbetweeness:{Betweeness:0.00}";
+
+        if (Weight is not null)
+            name += $"\nweight:{Weight:0.00}";
+
+        name += "\"";
+
+        return name;
     }
 }

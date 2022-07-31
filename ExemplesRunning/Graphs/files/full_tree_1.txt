@@ -1,0 +1,52 @@
+digraph full_tree_1 { 
+	"index:1
+dist:0
+lcc:1.00
+betweeness:5.00
+weight:1.00" -> {
+	} 
+	"index:2
+dist:1
+lcc:0.33
+betweeness:3.00
+weight:1.00" -> {
+		"index:1
+dist:0
+lcc:1.00
+betweeness:5.00
+weight:1.00"
+	} 
+	"index:3
+dist:1
+lcc:1.00
+betweeness:1.00
+weight:1.00" -> {
+		"index:1
+dist:0
+lcc:1.00
+betweeness:5.00
+weight:1.00"
+	} 
+	"index:4
+dist:3
+lcc:0.00
+betweeness:1.00
+weight:1.00" -> {
+		"index:5
+dist:2
+lcc:0.00
+betweeness:2.00
+weight:1.00"
+	} 
+	"index:5
+dist:2
+lcc:0.00
+betweeness:2.00
+weight:1.00" -> {
+		"index:2
+dist:1
+lcc:0.33
+betweeness:3.00
+weight:1.00"
+	} 
+}

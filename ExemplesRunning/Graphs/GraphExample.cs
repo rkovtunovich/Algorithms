@@ -10,15 +10,15 @@ internal class GraphExample
 
     internal static void RunUndirectedExample()
     {
-        var graph = GraphGenerator<int>.GenerateNonOriented(10);
+        var graph = GraphGenerator<double>.GenerateNonOrientedOneComponent(5);
 
         var origin = graph.First();
         //var connected = BFS<int>.SearchConnected(graph, origin);
-        var connected = DFS<int>.SearchConnectedRec(graph, origin);
+        var connected = DFS<double>.SearchConnectedRec(graph, origin);
         //BFS<int>.FindingConnectedComponents(graph);
         //var connected = BFS<int>.MarkPaths(graph, origin);
-        var siplePathTree = BFS<int>.GetSimpleShortestPathTree(graph, origin);
-        var fullPathTree = BFS<int>.GetFullShortestPathTree(graph, origin);
+        var siplePathTree = BFS<double>.GetSimpleShortestPathTree(graph, origin, out _);
+        var fullPathTree = BFS<double>.GetFullShortestPathTree(graph, origin, out _);
 
         var deegreDistributionsCount = graph.GetDedreeDistributionsCount();
         Viewer.ShowArray(deegreDistributionsCount);
@@ -36,7 +36,10 @@ internal class GraphExample
         var clustCoeff = graph.CalculateOverallClusteringCoefficient();
         Console.WriteLine($"clustering coefficient: {clustCoeff}");
 
-        var dotSerializer = new DOTSerializer<int>(graph);
+        BFS<double>.CalculateBetweeness(graph);
+        //BFS<int>.CalculateBetweenessSimple(graph);
+
+        var dotSerializer = new DOTSerializer<double>(graph);
         dotSerializer.AddImportantVertice(origin);
         dotSerializer.AddImportantEdges(connected);
         var dotString = dotSerializer.Seralize();

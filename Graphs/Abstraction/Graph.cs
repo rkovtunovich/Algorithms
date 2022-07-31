@@ -67,9 +67,15 @@ public abstract class Graph<T> : IEnumerable<Vertice<T>>
     protected static void AddConnection(LinkedList<Vertice<T>> edges, Vertice<T> vertice)
     {
         if (edges.Count == 0)
+        {
             edges.AddFirst(vertice);
-        else
-            edges.AddLast(vertice);
+            return;
+        }
+
+        if (edges.Contains(vertice))
+            return;
+        
+        edges.AddLast(vertice);
     }
 
     #endregion

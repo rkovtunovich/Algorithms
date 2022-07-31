@@ -33,7 +33,7 @@ public static class BFS<T>
     {
         int level = 0;
 
-        originVertice.Value = level;
+        originVertice.Distance = level;
 
         var visited = new HashSet<Vertice<T>>
         {
@@ -47,7 +47,7 @@ public static class BFS<T>
         {
             var current = queue.Dequeue();
 
-            level = (int)(current.Value ?? 0) + 1;
+            level = (int)(current.Distance ?? 0) + 1;
 
             var edges = graph.GetEdges(current);
 
@@ -68,7 +68,7 @@ public static class BFS<T>
                     continue;
                 }
 
-                edge.Value = level;
+                edge.Distance = level;
 
                 visited.Add(edge);
                 queue.Enqueue(edge);
@@ -117,12 +117,20 @@ public static class BFS<T>
         }
     }
 
-    public static OrientedGraph<T> GetSimpleShortestPathTree(UndirectedGraph<T> graph, Vertice<T> originVertice)
+    public static OrientedGraph<T> GetSimpleShortestPathTree(UndirectedGraph<T> graph, Vertice<T> originVertice, out HashSet<Vertice<T>> leaves)
     {
-        var tree = new OrientedGraph<T>("simple_tree");
+        var tree = new OrientedGraph<T>($"simple_tree_{originVertice.Index}");
         graph.CopyVerticesTo(tree);
+        
+        leaves = new HashSet<Vertice<T>>();
+        leaves.UnionWith(tree);
 
-        var visited = new HashSet<Vertice<T>>();
+        var visited = new List<Vertice<T>>
+        {
+            originVertice
+        };
+
+        originVertice.Distance = 0;
 
         var queue = new Queue<Vertice<T>>();
         queue.Enqueue(originVertice);
@@ -131,30 +139,46 @@ public static class BFS<T>
         {
             var current = queue.Dequeue();
 
+            int level = (int)(current.Distance ?? 0) + 1;
             var edges = graph.GetEdges(current);
 
             foreach (var edge in edges)
             {
+                if (edge.Distance == level)
+                {
+                    tree.AddEdge(edge, current);
+                    leaves.Remove(current);
+                }
+
                 if (visited.Contains(edge))
                     continue;
 
                 visited.Add(edge);
                 queue.Enqueue(edge);
 
-                if(!edge.Equals(originVertice))
-                    tree.AddEdge(edge, current);
+                tree.AddEdge(edge, current);
+                edge.Distance = level;
             }
         }
 
         return tree;
     }
 
-    public static OrientedGraph<T> GetFullShortestPathTree(UndirectedGraph<T> graph, Vertice<T> originVertice)
+    public static OrientedGraph<T> GetFullShortestPathTree(UndirectedGraph<T> graph, Vertice<T> originVertice, out HashSet<Vertice<T>> leaves)
     {
-        var tree = new OrientedGraph<T>("full_tree");
+        var tree = new OrientedGraph<T>($"full_tree_{originVertice.Index}");
         graph.CopyVerticesTo(tree);
 
-        var visited = new HashSet<Vertice<T>>();
+        leaves = new HashSet<Vertice<T>>();
+        leaves.UnionWith(tree);
+
+        var visited = new List<Vertice<T>>
+        {
+            originVertice
+        };
+
+        originVertice.Distance = 0;
+        originVertice.Weight = 1;
 
         var queue = new Queue<Vertice<T>>();
         queue.Enqueue(originVertice);
@@ -163,21 +187,96 @@ public static class BFS<T>
         {
             var current = queue.Dequeue();
 
+            int level = (int)(current.Distance ?? 0) + 1;
             var edges = graph.GetEdges(current);
 
             foreach (var edge in edges)
             {
+                if (edge.Distance == level)
+                {
+                    tree.AddEdge(edge, current);
+                    edge.Weight += current.Weight;
+
+                    leaves.Remove(current);
+                }
+                   
                 if (visited.Contains(edge))
                     continue;
 
                 visited.Add(edge);
                 queue.Enqueue(edge);
 
-                if (!edge.Equals(originVertice))
-                    tree.AddEdge(edge, current);
+                if (edge.Equals(originVertice))
+                    continue;
+
+                tree.AddEdge(edge, current);
+                edge.Distance = level;
+                edge.Weight = current.Weight;
             }
         }
 
         return tree;
     }
+
+    #region Betweeness
+
+    public static void CalculateBetweeness(UndirectedGraph<T> graph)
+    {
+        foreach (var vertice in graph)
+        {
+            var tree = GetFullShortestPathTree(graph, vertice, out HashSet<Vertice<T>> leaves);
+
+            foreach (var leaf in leaves)
+            {
+                leaf.Betweeness ??= 1;
+                leaf.Weight ??= 1;
+                TraceNextTreeNode(tree, leaf);
+            }
+
+            DOTVisualizer.VisualizeGraph(tree);
+        }
+    }
+
+    private static void TraceNextTreeNode(OrientedGraph<T> tree, Vertice<T> vertice)
+    {
+        var edges = tree.GetEdges(vertice);
+
+        foreach (var edge in edges)
+        {
+            edge.Betweeness ??= 1;
+            edge.Betweeness += vertice.Betweeness * edge.Weight / vertice.Weight;
+
+            TraceNextTreeNode(tree, edge);
+        }     
+    }
+
+    private static void TraceNextTreeNodeForSimpleTree(OrientedGraph<T> tree, Vertice<T> vertice)
+    {
+        vertice.Betweeness ??= 0;
+        vertice.Betweeness++;
+
+        var edges = tree.GetEdges(vertice);
+
+        if (edges.Count == 0)
+            return;
+
+        TraceNextTreeNodeForSimpleTree(tree, edges.First());
+    }
+
+    public static void CalculateBetweenessSimple(UndirectedGraph<T> graph)
+    {
+        foreach (var vertice in graph)
+        {
+            var tree = GetSimpleShortestPathTree(graph, vertice, out HashSet<Vertice<T>> leaves);
+
+            foreach (var leaf in leaves)
+            {
+                TraceNextTreeNodeForSimpleTree(tree, leaf);
+            }
+
+            DOTVisualizer.VisualizeGraph(tree);
+        }
+    }
+
+    #endregion
 }

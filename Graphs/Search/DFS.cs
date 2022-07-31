@@ -81,6 +81,6 @@ public static class DFS<T>
             if (!visited.Contains(edge))
                 SearchTopo(graph, edge, visited, ref curLabel);
         }
-        current.Value = curLabel--;
+        current.Distance = curLabel--;
     }
 }

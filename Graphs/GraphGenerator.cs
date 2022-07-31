@@ -19,23 +19,25 @@ public static class GraphGenerator<T>
 
         foreach (var vertice in graph)
         {
-            GenerateMutualConnections(graph, countVertices, vertice);
+            GenerateMutualConnections(graph, vertice, 0, graph.Count() / 2);
         }
 
         return graph;
     }
 
-    private static void GenerateMutualConnections(UndirectedGraph<T> graph, int countVertices, Vertice<T> owner)
+    private static void GenerateMutualConnections(UndirectedGraph<T> graph, Vertice<T> owner, int minConnections, int maxConnections)
     {
-        int numberConnections = _random.Next(0, (countVertices - 1) / 2);
-
-        numberConnections -= graph.GetDegree(owner);
+        int numberConnections = _random.Next(minConnections, maxConnections);
+        
+        // for potential non one compomen graphs 
+        if(minConnections == 0)
+            numberConnections -= graph.GetDegree(owner);
 
         var alreadyAdded = new HashSet<Vertice<T>>();
 
         while (numberConnections > 0)
         {
-            int newIndex = _random.Next(1, countVertices);
+            int newIndex = _random.Next(1, graph.Count() + 1);
 
             if (newIndex == owner.Index)
                 continue;
@@ -45,15 +47,32 @@ public static class GraphGenerator<T>
             if (alreadyAdded.Contains<Vertice<T>>(newConnection))
                 continue;
 
-            numberConnections--;
-
             if (graph.IsConnected(newConnection, owner))
                 continue;
+
+            numberConnections--;
 
             graph.AddEdge(owner, newConnection);
 
             alreadyAdded.Add(newConnection);
         }
+    }
+
+    public static UndirectedGraph<T> GenerateNonOrientedOneComponent(int countVertices)
+    {
+        var graph = new UndirectedGraph<T>("undirected");
+
+        for (int i = 1; i <= countVertices; i++)
+        {
+            graph.AddVertice(new(i));
+        }
+
+        foreach (var vertice in graph)
+        {
+            GenerateMutualConnections(graph, vertice, 1, graph.Count() / 2);
+        }
+
+        return graph;
     }
 
     #endregion

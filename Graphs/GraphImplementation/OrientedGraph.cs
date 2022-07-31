@@ -2,14 +2,14 @@
 
 namespace Graphs.GraphImplementation;
 
-public class OrientedGraph<T> : Graph<T>
+public class OrientedGraph : Graph
 {
     public OrientedGraph(string name)
     {
         Name = name;
     }
 
-    public override void AddEdge(Vertice<T> sourse, Vertice<T> destination)
+    public override void AddEdge(Vertice sourse, Vertice destination)
     {
         if (!_nodes.ContainsKey(sourse) || !_nodes.ContainsKey(destination))
             throw new Exception("this vertices isn't included in the garph!");

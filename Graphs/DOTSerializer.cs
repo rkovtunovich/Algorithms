@@ -3,36 +3,36 @@ using System.Drawing;
 using System.Text;
 
 namespace Graphs;
-public class DOTSerializer<T> : ISerializer<T>
+public class DOTSerializer : ISerializer
 {
-    private readonly Graph<T> _graph;
+    private readonly Graph _graph;
 
-    private readonly HashSet<Vertice<T>> _importantVetices = new();
+    private readonly HashSet<Vertice> _importantVetices = new();
 
-    private readonly HashSet<Vertice<T>> _importantEdges = new();
+    private readonly HashSet<Vertice> _importantEdges = new();
 
     public Color ImportantVericeColor { get; set; } = Color.Green;
 
     public Color ImportantEdgeColor { get; set; } = Color.Green;
 
-    public DOTSerializer(Graph<T> graph)
+    public DOTSerializer(Graph graph)
     {
         _graph = graph;
     }
 
-    public void AddImportantVertice(Vertice<T> verice)
+    public void AddImportantVertice(Vertice verice)
     {
         _importantVetices.Add(verice);
     }
 
-    public void AddImportantEdges(Vertice<T> verice)
+    public void AddImportantEdges(Vertice verice)
     {
         _importantEdges.Add(verice);
     }
 
-    public void AddImportantEdges(HashSet<Vertice<T>> verices)
+    public void AddImportantEdges(HashSet<Vertice> verices)
     {
-        foreach (Vertice<T> verice in verices)
+        foreach (Vertice verice in verices)
             _importantEdges.Add(verice);
     }
 
@@ -72,7 +72,7 @@ public class DOTSerializer<T> : ISerializer<T>
         return format;
     }
     
-    private string AddImportantEdgesFormat(Vertice<T> vertice)
+    private string AddImportantEdgesFormat(Vertice vertice)
     {
         if (_importantEdges.Count == 0)
             return "";
@@ -83,12 +83,12 @@ public class DOTSerializer<T> : ISerializer<T>
             return "";
     }
 
-    private static string GetTypeOfGraph(Graph<T> _graph)
+    private static string GetTypeOfGraph(Graph _graph)
     {
         return _graph.IsOriented() ? "digraph" : "strict graph";
     }
 
-    private static string GetEdgeLine(Graph<T> _graph)
+    private static string GetEdgeLine(Graph _graph)
     {
         return _graph.IsOriented() ? "->" : "--";
     }

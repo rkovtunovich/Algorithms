@@ -2,22 +2,22 @@
 
 namespace Graphs.Abstraction;
 
-public abstract class Graph<T> : IEnumerable<Vertice<T>>
+public abstract class Graph : IEnumerable<Vertice>
 {
-    protected readonly Dictionary<Vertice<T>, LinkedList<Vertice<T>>> _nodes = new();
+    protected readonly Dictionary<Vertice, LinkedList<Vertice>> _nodes = new();
 
     public string? Name { get; set; }
 
-    public abstract void AddEdge(Vertice<T> sourse, Vertice<T> destination);
+    public abstract void AddEdge(Vertice sourse, Vertice destination);
 
     public abstract bool IsOriented();
 
-    public virtual void AddVertice(Vertice<T> vertice)
+    public virtual void AddVertice(Vertice vertice)
     {
         if (_nodes.ContainsKey(vertice))
             return;
 
-        _nodes.TryAdd(vertice, new LinkedList<Vertice<T>>());
+        _nodes.TryAdd(vertice, new LinkedList<Vertice>());
     }
 
     public virtual void Clear()
@@ -25,7 +25,7 @@ public abstract class Graph<T> : IEnumerable<Vertice<T>>
         _nodes.Clear();
     }
 
-    public virtual void CopyVerticesTo(Graph<T> graph)
+    public virtual void CopyVerticesTo(Graph graph)
     {
         graph.Clear();
 
@@ -35,12 +35,12 @@ public abstract class Graph<T> : IEnumerable<Vertice<T>>
         }
     }
 
-    public virtual LinkedList<Vertice<T>> GetEdges(Vertice<T> vertice)
+    public virtual LinkedList<Vertice> GetEdges(Vertice vertice)
     {
         return _nodes[vertice];
     }
 
-    public virtual Vertice<T>? GetVerticeByIndex(int index)
+    public virtual Vertice? GetVerticeByIndex(int index)
     {
         foreach (var node in _nodes)
         {
@@ -51,20 +51,20 @@ public abstract class Graph<T> : IEnumerable<Vertice<T>>
         return null;
     }
 
-    public virtual int GetDegree(Vertice<T> vertice)
+    public virtual int GetDegree(Vertice vertice)
     {
         return _nodes[vertice].Count;
     }
 
     #region Connections
 
-    public virtual bool IsConnected(Vertice<T> firstVertice, Vertice<T> secondVertice)
+    public virtual bool IsConnected(Vertice firstVertice, Vertice secondVertice)
     {
         var edges = GetEdges(firstVertice);
         return edges.Contains(secondVertice);
     }
 
-    protected static void AddConnection(LinkedList<Vertice<T>> edges, Vertice<T> vertice)
+    protected static void AddConnection(LinkedList<Vertice> edges, Vertice vertice)
     {
         if (edges.Count == 0)
         {
@@ -82,7 +82,7 @@ public abstract class Graph<T> : IEnumerable<Vertice<T>>
 
     #region Enumerable
 
-    public IEnumerator<Vertice<T>> GetEnumerator()
+    public IEnumerator<Vertice> GetEnumerator()
     {
         foreach (var item in _nodes)
         {

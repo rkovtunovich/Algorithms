@@ -2,7 +2,7 @@
 
 namespace Graphs;
 
-public class Vertice<T>: IEquatable<Vertice<T>>
+public class Vertice: IEquatable<Vertice>
 {
     public Vertice(int index)
     {
@@ -12,7 +12,7 @@ public class Vertice<T>: IEquatable<Vertice<T>>
 
     public int Index { get; set; }
 
-    public T? Data { get; set; }
+    public double? ServiceValue { get; set; }
 
     public double? Distance { get; set; }
 
@@ -33,10 +33,10 @@ public class Vertice<T>: IEquatable<Vertice<T>>
         if (obj is null)
             return false;
 
-        return Equals((Vertice<T>)obj);
+        return Equals((Vertice)obj);
     }
 
-    public bool Equals(Vertice<T>? other)
+    public bool Equals(Vertice? other)
     {
         return other is not null && Index == other.Index;
     }
@@ -46,12 +46,12 @@ public class Vertice<T>: IEquatable<Vertice<T>>
         return Index;
     }
 
-    public static bool operator ==(Vertice<T> left, Vertice<T> right)
+    public static bool operator ==(Vertice left, Vertice right)
     {
         return left.Equals(right);
     }
 
-    public static bool operator !=(Vertice<T> left, Vertice<T> right)
+    public static bool operator !=(Vertice left, Vertice right)
     {
         return !(left == right);
     }

@@ -21,9 +21,9 @@ public static class DOTVisualizer
         p.WaitForExit();
     }
 
-    public static void VisualizeGraph<T>(Graph<T> graph) {
+    public static void VisualizeGraph(Graph graph) {
 
-        var dotSerializer = new DOTSerializer<T>(graph);
+        var dotSerializer = new DOTSerializer(graph);
         var dotString = dotSerializer.Seralize();
 
         var dotFileName = $"{_workingDirectory}\\{graph.Name}.txt";

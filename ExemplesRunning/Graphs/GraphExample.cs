@@ -10,15 +10,15 @@ internal class GraphExample
 
     internal static void RunUndirectedExample()
     {
-        var graph = GraphGenerator<double>.GenerateNonOrientedOneComponent(5);
+        var graph = GraphGenerator.GenerateNonOrientedOneComponent(5);
 
         var origin = graph.First();
-        //var connected = BFS<int>.SearchConnected(graph, origin);
-        var connected = DFS<double>.SearchConnectedRec(graph, origin);
-        //BFS<int>.FindingConnectedComponents(graph);
-        //var connected = BFS<int>.MarkPaths(graph, origin);
-        var siplePathTree = BFS<double>.GetSimpleShortestPathTree(graph, origin, out _);
-        var fullPathTree = BFS<double>.GetFullShortestPathTree(graph, origin, out _);
+        //var connected = BFS.SearchConnected(graph, origin);
+        var connected = DFS.SearchConnectedRec(graph, origin);
+        //BFS.FindingConnectedComponents(graph);
+        //var connected = BFS.MarkPaths(graph, origin);
+        var siplePathTree = BFS.GetSimpleShortestPathTree(graph, origin, out _);
+        var fullPathTree = BFS.GetFullShortestPathTree(graph, origin, out _);
 
         var deegreDistributionsCount = graph.GetDedreeDistributionsCount();
         Viewer.ShowArray(deegreDistributionsCount);
@@ -36,10 +36,10 @@ internal class GraphExample
         var clustCoeff = graph.CalculateOverallClusteringCoefficient();
         Console.WriteLine($"clustering coefficient: {clustCoeff}");
 
-        BFS<double>.CalculateBetweeness(graph);
+        BFS.CalculateBetweeness(graph);
         //BFS<int>.CalculateBetweenessSimple(graph);
 
-        var dotSerializer = new DOTSerializer<double>(graph);
+        var dotSerializer = new DOTSerializer(graph);
         dotSerializer.AddImportantVertice(origin);
         dotSerializer.AddImportantEdges(connected);
         var dotString = dotSerializer.Seralize();
@@ -55,17 +55,17 @@ internal class GraphExample
 
     internal static void RunOrientedExample()
     {
-        var graph = GraphGenerator<int>.GenerateOrientedAcyclic(5);
+        var graph = GraphGenerator.GenerateOrientedAcyclic(5);
 
         var origin = graph.First();
-        //var connected = BFS<int>.SearchConnected(graph, origin);
-        var connected = DFS<int>.SearchConnectedRec(graph, origin);
-        //BFS<int>.FindingConnectedComponents(graph);
-        //var connected = BFS<int>.MarkPaths(graph, origin);
+        //var connected = BFS.SearchConnected(graph, origin);
+        var connected = DFS.SearchConnectedRec(graph, origin);
+        //BFS.FindingConnectedComponents(graph);
+        //var connected = BFS.MarkPaths(graph, origin);
 
-        DFS<int>.GetTopologicalOrdering(graph);
+        DFS.GetTopologicalOrdering(graph);
 
-        var dotSerializer = new DOTSerializer<int>(graph);
+        var dotSerializer = new DOTSerializer(graph);
         dotSerializer.AddImportantVertice(origin);
         dotSerializer.AddImportantEdges(connected);
         var dotString = dotSerializer.Seralize();

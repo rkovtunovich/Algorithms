@@ -1,5 +1,5 @@
 ﻿namespace Graphs.Abstraction;
-public interface ISerializer<T>
+public interface ISerializer
 {
     public string Seralize(); 
 }

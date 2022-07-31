@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Graphs.GraphImplementation;
 
-public class UndirectedGraph<T> : Graph<T>
+public class UndirectedGraph : Graph
 {
     private int[]? _degreeDistribuition = null;
 
@@ -12,7 +12,7 @@ public class UndirectedGraph<T> : Graph<T>
         Name = name;
     }
 
-    public override void AddEdge(Vertice<T> sourse, Vertice<T> destination)
+    public override void AddEdge(Vertice sourse, Vertice destination)
     {
         if (!_nodes.ContainsKey(sourse) || !_nodes.ContainsKey(destination))
             throw new Exception("this vertices isn't included in the garph!");
@@ -86,7 +86,7 @@ public class UndirectedGraph<T> : Graph<T>
     {
         double S1 = 0, S2 = 0, S3 = 0, Sl = 0;
 
-        var added = new HashSet<(Vertice<T>, Vertice<T>)>();
+        var added = new HashSet<(Vertice, Vertice)>();
 
         foreach (var item in _nodes)
         {

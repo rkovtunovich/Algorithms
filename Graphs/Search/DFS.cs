@@ -2,13 +2,13 @@
 
 namespace Graphs.Search;
 
-public static class DFS<T>
+public static class DFS
 {
-    public static HashSet<Vertice<T>> SearchConnected(Graph<T> graph, Vertice<T> originVertice)
+    public static HashSet<Vertice> SearchConnected(Graph graph, Vertice originVertice)
     {
-        var visited = new HashSet<Vertice<T>>();
+        var visited = new HashSet<Vertice>();
 
-        var stack = new Stack<Vertice<T>>();
+        var stack = new Stack<Vertice>();
         stack.Push(originVertice);
 
         while (stack.Count > 0)
@@ -31,16 +31,16 @@ public static class DFS<T>
         return visited;
     }
 
-    public static HashSet<Vertice<T>> SearchConnectedRec(Graph<T> graph, Vertice<T> originVertice)
+    public static HashSet<Vertice> SearchConnectedRec(Graph graph, Vertice originVertice)
     {
-        var visited = new HashSet<Vertice<T>>();
+        var visited = new HashSet<Vertice>();
 
         Search(graph, originVertice, visited);
 
         return visited;
     }
 
-    private static void Search(Graph<T> graph, Vertice<T> current, HashSet<Vertice<T>> visited)
+    private static void Search(Graph graph, Vertice current, HashSet<Vertice> visited)
     {
         if (visited.Contains(current))
             return;
@@ -55,11 +55,11 @@ public static class DFS<T>
         }
     }
 
-    public static void GetTopologicalOrdering(Graph<T> graph)
+    public static void GetTopologicalOrdering(Graph graph)
     {
         int curLabel = graph.Count();
 
-        var visited = new HashSet<Vertice<T>>();
+        var visited = new HashSet<Vertice>();
 
         foreach (var item in graph)
         {
@@ -70,7 +70,7 @@ public static class DFS<T>
         }
     }
 
-    private static void SearchTopo(Graph<T> graph, Vertice<T> current, HashSet<Vertice<T>> visited, ref int curLabel)
+    private static void SearchTopo(Graph graph, Vertice current, HashSet<Vertice> visited, ref int curLabel)
     {
         visited.Add(current);
 

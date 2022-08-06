@@ -80,7 +80,7 @@ public static class BFS
         return visited;
     }
 
-    public static void FindingConnectedComponents(UndirectedGraph graph)
+    public static void FindStronglyConnectedComponents(UndirectedGraph graph)
     {
         int component = 0;
         var visited = new HashSet<Vertice>();
@@ -195,6 +195,7 @@ public static class BFS
                 if (edge.Distance == level)
                 {
                     tree.AddEdge(edge, current);
+                    tree.AddBelowNeighbor(current, edge);
                     edge.Weight += current.Weight;
 
                     leaves.Remove(current);
@@ -212,6 +213,8 @@ public static class BFS
                 tree.AddEdge(edge, current);
                 edge.Distance = level;
                 edge.Weight = current.Weight;
+
+                tree.AddBelowNeighbor(current, edge);
             }
         }
 
@@ -226,10 +229,13 @@ public static class BFS
         {
             var tree = GetFullShortestPathTree(graph, vertice, out HashSet<Vertice> leaves);
 
+            DOTVisualizer.VisualizeGraph(tree);
+
             foreach (var leaf in leaves)
             {
-                leaf.Betweeness ??= 1;
                 leaf.Weight ??= 1;
+                leaf.Betweeness ??= 1;
+
                 TraceNextTreeNode(tree, leaf);
             }
 
@@ -243,8 +249,14 @@ public static class BFS
 
         foreach (var edge in edges)
         {
-            edge.Betweeness ??= 1;
-            edge.Betweeness += vertice.Betweeness * edge.Weight / vertice.Weight;
+            double? currValue = 1;
+            var belowNeigbors = tree.GetBelowNeighbors(edge);
+            foreach (var neighbor in belowNeigbors)
+            {
+                currValue += neighbor.Betweeness * edge.Weight / neighbor.Weight;
+            }
+
+            edge.Betweeness = currValue;
 
             TraceNextTreeNode(tree, edge);
         }     

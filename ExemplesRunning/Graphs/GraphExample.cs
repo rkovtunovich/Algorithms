@@ -10,12 +10,12 @@ internal class GraphExample
 
     internal static void RunUndirectedExample()
     {
-        var graph = GraphGenerator.GenerateNonOrientedOneComponent(5);
+        var graph = GraphGenerator.GenerateNonOriented(10);
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
         var connected = DFS.SearchConnectedRec(graph, origin);
-        //BFS.FindingConnectedComponents(graph);
+        //BFS.FindStronglyConnectedComponents(graph);
         //var connected = BFS.MarkPaths(graph, origin);
         var siplePathTree = BFS.GetSimpleShortestPathTree(graph, origin, out _);
         var fullPathTree = BFS.GetFullShortestPathTree(graph, origin, out _);
@@ -37,7 +37,6 @@ internal class GraphExample
         Console.WriteLine($"clustering coefficient: {clustCoeff}");
 
         BFS.CalculateBetweeness(graph);
-        //BFS<int>.CalculateBetweenessSimple(graph);
 
         var dotSerializer = new DOTSerializer(graph);
         dotSerializer.AddImportantVertice(origin);
@@ -55,7 +54,7 @@ internal class GraphExample
 
     internal static void RunOrientedExample()
     {
-        var graph = GraphGenerator.GenerateOrientedAcyclic(5);
+        var graph = GraphGenerator.GenerateOrientedAcyclic(6);
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);

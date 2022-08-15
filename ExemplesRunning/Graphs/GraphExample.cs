@@ -54,7 +54,7 @@ internal class GraphExample
 
     internal static void RunOrientedExample()
     {
-        var graph = GraphGenerator.GenerateOrientedAcyclic(6);
+        var graph = GraphGenerator.GenerateOrientedAcyclic( "oriended_acyclic", 6);
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
@@ -62,7 +62,8 @@ internal class GraphExample
         //BFS.FindingConnectedComponents(graph);
         //var connected = BFS.MarkPaths(graph, origin);
 
-        DFS.GetTopologicalOrdering(graph);
+        DFS.SortTopologicaly(graph);
+        //DOTVisualizer.VisualizeGraph(graph);
 
         var dotSerializer = new DOTSerializer(graph);
         dotSerializer.AddImportantVertice(origin);
@@ -72,6 +73,11 @@ internal class GraphExample
         var dotFileName = $"{_workingDirectory}\\dot_oriented.txt";
         dotSerializer.SaveToFile(dotFileName, dotString);
 
-        DOTVisualizer.VisualizeDotString(dotFileName,"output_oriented.svg");
+        DOTVisualizer.VisualizeDotString(dotFileName, "output_oriented.svg");
+
+        var graph2 = GraphGenerator.GenerateOriented("Kasaraju",8);
+        DOTVisualizer.VisualizeGraph(graph2);
+        DFS.KosarajuSharirSearch(graph2);
+        DOTVisualizer.VisualizeGraph(graph2);
     }
 }

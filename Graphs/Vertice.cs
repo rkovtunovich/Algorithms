@@ -60,13 +60,13 @@ public class Vertice: IEquatable<Vertice>
 
     public override string ToString()
     {
-        var name = $"\"index:{Index}";
+        var name = $"\"{Index}";
 
         if (Component is not null)
             name += $"\ncomp:{Component}";
 
         if (Distance is not null)
-            name += $"\ndist:{Distance}";
+            name += $"\nd={Distance}";
 
         if (LocalClusteringCoefficient is not null)
             name += $"\nlcc:{LocalClusteringCoefficient:0.00}";

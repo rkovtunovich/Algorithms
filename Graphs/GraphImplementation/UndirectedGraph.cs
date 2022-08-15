@@ -1,5 +1,4 @@
 ﻿using Graphs.Abstraction;
-using System.Collections;
 
 namespace Graphs.GraphImplementation;
 
@@ -27,6 +26,11 @@ public class UndirectedGraph : Graph
     public override bool IsOriented()
     {
         return false;
+    }
+
+    public override Graph Transpose(Graph graph)
+    {
+        return graph;
     }
 
     #region Degree

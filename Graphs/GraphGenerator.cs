@@ -79,9 +79,9 @@ public static class GraphGenerator
 
     #region Oriented
 
-    public static OrientedGraph GenerateOriented(int countVertices)
+    public static OrientedGraph GenerateOriented(string name, int countVertices)
     {
-        var graph = new OrientedGraph("oriended");
+        var graph = new OrientedGraph(name);
 
         for (int i = 1; i <= countVertices; i++)
         {
@@ -96,9 +96,9 @@ public static class GraphGenerator
         return graph;
     }
 
-    public static OrientedGraph GenerateOrientedAcyclic(int countVertices)
+    public static OrientedGraph GenerateOrientedAcyclic(string name, int countVertices)
     {
-        var graph = new OrientedGraph("oriended_acyclic");
+        var graph = new OrientedGraph(name);
 
         for (int i = 1; i <= countVertices; i++)
         {
@@ -117,7 +117,7 @@ public static class GraphGenerator
 
     private static void GenerateDirecredConnections(OrientedGraph graph, int countVertices, Vertice owner)
     {
-        int numberConnections = _random.Next(0, (countVertices - 1) / 4);
+        int numberConnections = _random.Next(0, (countVertices - 1) / 2);
 
         var alreadyAdded = new HashSet<Vertice>();
 

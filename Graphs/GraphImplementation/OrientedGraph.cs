@@ -40,4 +40,22 @@ public class OrientedGraph : Graph
     {
         return _belowNeighbors[owner];
     }
+
+    public override Graph Transpose(Graph graph)
+    {
+        OrientedGraph transposed = new("Transposed");
+        graph.CopyVerticesTo(transposed);
+
+        foreach (var vertice in graph)
+        {
+            var edges = graph.GetEdges(vertice);
+
+            foreach (var edge in edges)
+            {
+                transposed.AddConnection(edge, vertice); 
+            }
+        }
+
+        return transposed;
+    }
 }

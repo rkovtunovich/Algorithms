@@ -55,9 +55,11 @@ public static class DFS
         }
     }
 
-    public static void GetTopologicalOrdering(Graph graph)
+    public static Vertice[] SortTopologicaly(Graph graph)
     {
         int curLabel = graph.Count();
+
+        var vertices = new Vertice[curLabel]; 
 
         var visited = new HashSet<Vertice>();
 
@@ -66,11 +68,13 @@ public static class DFS
             if (visited.Contains(item))
                 continue;
 
-            SearchTopo(graph, item, visited, ref curLabel);
+            TopoSort(graph, item, visited, ref curLabel, vertices);
         }
+
+        return vertices;
     }
 
-    private static void SearchTopo(Graph graph, Vertice current, HashSet<Vertice> visited, ref int curLabel)
+    private static void TopoSort(Graph graph, Vertice current, HashSet<Vertice> visited, ref int curLabel, Vertice[] vertices)
     {
         visited.Add(current);
 
@@ -79,8 +83,51 @@ public static class DFS
         foreach (var edge in edges)
         {
             if (!visited.Contains(edge))
-                SearchTopo(graph, edge, visited, ref curLabel);
+                TopoSort(graph, edge, visited, ref curLabel, vertices);
         }
+
         current.Distance = curLabel--;
+        vertices[curLabel] = current;
     }
+
+    #region StronglyConenctedComponents
+
+    public static void KosarajuSharirSearch(Graph graph)
+    {
+        var transposed = graph.Transpose(graph);       
+        var vertices = SortTopologicaly(transposed);
+
+        DOTVisualizer.VisualizeGraph(transposed);
+
+        var visited = new HashSet<Vertice>();
+        int numSCC = 0;
+
+        foreach (var vertice in vertices)
+        {
+            if (visited.Contains(vertice))
+                continue;
+
+            numSCC++;
+
+            SearchSCC(graph, vertice, visited, ref numSCC);
+        }
+    }
+
+    private static void SearchSCC(Graph graph, Vertice current, HashSet<Vertice> visited, ref int numSCC)
+    {
+        if (visited.Contains(current))
+            return;
+
+        visited.Add(current);
+        current.Component = numSCC;
+
+        var edges = graph.GetEdges(current);
+
+        foreach (var edge in edges)
+        {
+            SearchSCC(graph, edge, visited, ref numSCC);
+        }
+    }
+
+    #endregion
 }

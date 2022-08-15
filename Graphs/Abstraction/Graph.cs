@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Graphs.GraphImplementation;
+using System.Collections;
 
 namespace Graphs.Abstraction;
 
@@ -11,6 +12,8 @@ public abstract class Graph : IEnumerable<Vertice>
     public abstract void AddEdge(Vertice sourse, Vertice destination);
 
     public abstract bool IsOriented();
+
+    public abstract Graph Transpose(Graph graph);
 
     public virtual void AddVertice(Vertice vertice)
     {
@@ -58,10 +61,23 @@ public abstract class Graph : IEnumerable<Vertice>
 
     #region Connections
 
+    public bool hasVertice(Vertice vertice)
+    {
+        return _nodes.ContainsKey(vertice);
+    }
+
     public virtual bool IsConnected(Vertice firstVertice, Vertice secondVertice)
     {
         var edges = GetEdges(firstVertice);
         return edges.Contains(secondVertice);
+    }
+
+    public void AddConnection(Vertice begin, Vertice end)
+    {
+        if (!hasVertice(begin))
+            AddVertice(begin);
+
+        _nodes[begin].AddLast(end);
     }
 
     protected static void AddConnection(LinkedList<Vertice> edges, Vertice vertice)

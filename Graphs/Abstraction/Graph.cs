@@ -6,40 +6,34 @@ public abstract class Graph : IEnumerable<Vertice>
 {
     protected readonly Dictionary<Vertice, LinkedList<Vertice>> _nodes = new();
 
-    public string? Name { get; set; }
+    protected readonly Dictionary<(Vertice, Vertice), double> _edgesLengths = new();
 
-    public abstract void AddEdge(Vertice sourse, Vertice destination);
+    public string? Name { get; set; } 
 
     public abstract bool IsOriented();
 
-    public abstract Graph Transpose(Graph graph);
-
-    public virtual void AddVertice(Vertice vertice)
+    public virtual bool IsVariableEdgeLength()
     {
-        if (_nodes.ContainsKey(vertice))
-            return;
-
-        _nodes.TryAdd(vertice, new LinkedList<Vertice>());
+        return false;
     }
+
+    public abstract Graph Transpose(Graph graph);
 
     public virtual void Clear()
     {
         _nodes.Clear();
     }
 
-    public virtual void CopyVerticesTo(Graph graph)
+    public virtual int GetDegree(Vertice vertice)
     {
-        graph.Clear();
-
-        foreach (var item in _nodes)
-        {
-            graph.AddVertice(item.Key);
-        }
+        return _nodes[vertice].Count;
     }
 
-    public virtual LinkedList<Vertice> GetEdges(Vertice vertice)
+    #region Vertices
+
+    public bool hasVertice(Vertice vertice)
     {
-        return _nodes[vertice];
+        return _nodes.ContainsKey(vertice);
     }
 
     public virtual Vertice? GetVerticeByIndex(int index)
@@ -53,17 +47,45 @@ public abstract class Graph : IEnumerable<Vertice>
         return null;
     }
 
-    public virtual int GetDegree(Vertice vertice)
+    public virtual void AddVertice(Vertice vertice)
     {
-        return _nodes[vertice].Count;
+        if (_nodes.ContainsKey(vertice))
+            return;
+
+        _nodes.TryAdd(vertice, new LinkedList<Vertice>());
     }
+
+    public virtual void CopyVerticesTo(Graph graph)
+    {
+        graph.Clear();
+
+        foreach (var item in _nodes)
+        {
+            graph.AddVertice(item.Key);
+        }
+    }
+
+    #endregion
+
+    #region Edges
+
+    public abstract void AddEdge(Vertice sourse, Vertice destination);
+
+    public abstract double GetEdgeLength(Vertice begin, Vertice end);
+
+    public virtual LinkedList<Vertice> GetEdges(Vertice vertice)
+    {
+        return _nodes[vertice];
+    }
+
+    public virtual void SetEdgeLength(Vertice begin, Vertice end, double length)
+    {
+        _edgesLengths.TryAdd((begin, end), length);
+    }
+
+    #endregion
 
     #region Connections
-
-    public bool hasVertice(Vertice vertice)
-    {
-        return _nodes.ContainsKey(vertice);
-    }
 
     public virtual bool IsConnected(Vertice firstVertice, Vertice secondVertice)
     {

@@ -50,6 +50,9 @@ internal class GraphExample
 
         DOTVisualizer.VisualizeGraph(siplePathTree);
         DOTVisualizer.VisualizeGraph(fullPathTree);
+
+        var graphVarLength = GraphGenerator.GenerateUndirectedVariableEdgeLength(10);
+        DOTVisualizer.VisualizeGraph(graphVarLength);
     }
 
     internal static void RunOrientedExample()

@@ -172,4 +172,9 @@ public class UndirectedGraph : Graph
 
         return coeff;
     }
+
+    public override double GetEdgeLength(Vertice begin, Vertice end)
+    {
+        return 1;
+    }
 }

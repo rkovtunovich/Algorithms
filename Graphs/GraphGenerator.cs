@@ -77,6 +77,39 @@ public static class GraphGenerator
 
     #endregion
 
+    #region UndirectedVariableEdgeLength
+
+    public static UndirectedGraph GenerateUndirectedVariableEdgeLength(int countVertices)
+    {
+        var graph = new UndirectedVariableEdgeLengthGraph("undirected_var_length");
+
+        for (int i = 1; i <= countVertices; i++)
+        {
+            graph.AddVertice(new(i));
+        }
+
+        foreach (var vertice in graph)
+        {
+            GenerateMutualConnections(graph, vertice, 0, graph.Count() / 2);
+        }
+
+        var random = new Random();
+
+        foreach (var vertice in graph)
+        {
+            var edges = graph.GetEdges(vertice);
+
+            foreach (var edge in edges)
+            {
+                graph.SetEdgeLength(vertice, edge, random.NextDouble() * 10);
+            }
+        }
+
+        return graph;
+    }
+
+    #endregion
+
     #region Oriented
 
     public static OrientedGraph GenerateOriented(string name, int countVertices)

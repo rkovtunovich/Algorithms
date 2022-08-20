@@ -36,20 +36,45 @@ public class DOTSerializer : ISerializer
             _importantEdges.Add(verice);
     }
 
+    #region Serialization
+
     public string Seralize()
     {
         var builder = new StringBuilder();
 
         foreach (var verice in _graph)
         {
-            builder.AppendLine($"\t{verice} {GetEdgeLine(_graph)} {{");
-
-            foreach (var connection in _graph.GetEdges(verice))
+            if(_graph.IsVariableEdgeLength())
             {
-                builder.AppendLine($"\t\t{connection}");
-            }
+                foreach (var edge in _graph.GetEdges(verice))
+                {
+                    builder.AppendLine($"\t{verice} {GetEdgeLine(_graph)} ");
+                    string line = $"\t\t{edge}";
 
-            builder.AppendLine($"\t}} {AddImportantEdgesFormat(verice)}");
+                    if (_graph.IsVariableEdgeLength())
+                        line += $" [label = \"{_graph.GetEdgeLength(verice, edge):0.00}\"];";
+
+                    builder.AppendLine(line);
+                }
+
+                builder.AppendLine($"\t {AddImportantEdgesFormat(verice)}");
+            }
+            else
+            {
+                builder.AppendLine($"\t{verice} {GetEdgeLine(_graph)} {{");
+
+                foreach (var edge in _graph.GetEdges(verice))
+                {
+                    string line = $"\t\t{edge}";
+
+                    if (_graph.IsVariableEdgeLength())
+                        line += $" [label = \"{_graph.GetEdgeLength(verice, edge)}\"];";
+
+                    builder.AppendLine(line);
+                }
+
+                builder.AppendLine($"\t}} {AddImportantEdgesFormat(verice)}");
+            }
         }
 
         var vertices = builder.ToString();
@@ -71,7 +96,7 @@ public class DOTSerializer : ISerializer
 
         return format;
     }
-    
+
     private string AddImportantEdgesFormat(Vertice vertice)
     {
         if (_importantEdges.Count == 0)
@@ -92,6 +117,8 @@ public class DOTSerializer : ISerializer
     {
         return _graph.IsOriented() ? "->" : "--";
     }
+
+    #endregion
 
     public void SaveToFile(string fileName, string dotString)
     {

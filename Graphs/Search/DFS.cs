@@ -97,8 +97,6 @@ public static class DFS
         var transposed = graph.Transpose(graph);       
         var vertices = SortTopologicaly(transposed);
 
-        DOTVisualizer.VisualizeGraph(transposed);
-
         var visited = new HashSet<Vertice>();
         int numSCC = 0;
 

@@ -51,7 +51,8 @@ internal class GraphExample
         DOTVisualizer.VisualizeGraph(siplePathTree);
         DOTVisualizer.VisualizeGraph(fullPathTree);
 
-        var graphVarLength = GraphGenerator.GenerateUndirectedVariableEdgeLength(10);
+        var graphVarLength = GraphGenerator.GenerateUndirectedVariableEdgeLength(7);
+        DijkstrasAlgorithm.Search(graphVarLength, graphVarLength.First());
         DOTVisualizer.VisualizeGraph(graphVarLength);
     }
 

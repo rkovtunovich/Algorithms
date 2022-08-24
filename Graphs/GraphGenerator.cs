@@ -101,7 +101,9 @@ public static class GraphGenerator
 
             foreach (var edge in edges)
             {
-                graph.SetEdgeLength(vertice, edge, random.NextDouble() * 10);
+                double leangth = Math.Round(random.NextDouble() * 10, 2);
+                graph.SetEdgeLength(vertice, edge, leangth);
+                graph.SetEdgeLength(edge, vertice, leangth);
             }
         }
 

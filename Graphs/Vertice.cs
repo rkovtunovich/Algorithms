@@ -26,6 +26,8 @@ public class Vertice: IEquatable<Vertice>
 
     public double? Weight { get; set; } = null;
 
+    public bool Mark { get; set; }
+
     #region Equality
 
     public override bool Equals([NotNullWhen(true)] object? obj)
@@ -62,11 +64,17 @@ public class Vertice: IEquatable<Vertice>
     {
         var name = $"\"{Index}";
 
+        if(Mark)
+            name += $"\n\u2605";
+
+        if (Label is not null)
+            name += $"\n{Label}";
+
         if (Component is not null)
             name += $"\ncomp:{Component}";
 
         if (Distance is not null)
-            name += $"\nd={Distance}";
+            name += $"\nd={Distance:0.00}";
 
         if (LocalClusteringCoefficient is not null)
             name += $"\nlcc:{LocalClusteringCoefficient:0.00}";

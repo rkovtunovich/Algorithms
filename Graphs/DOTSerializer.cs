@@ -46,18 +46,24 @@ public class DOTSerializer : ISerializer
         {
             if(_graph.IsVariableEdgeLength())
             {
-                foreach (var edge in _graph.GetEdges(verice))
+                var edges = _graph.GetEdges(verice);
+
+                foreach (var edge in edges)
                 {
-                    builder.AppendLine($"\t{verice} {GetEdgeLine(_graph)} ");
+                    builder.Append($"\t{verice} {GetEdgeLine(_graph)} ");
                     string line = $"\t\t{edge}";
 
                     if (_graph.IsVariableEdgeLength())
                         line += $" [label = \"{_graph.GetEdgeLength(verice, edge):0.00}\"];";
 
-                    builder.AppendLine(line);
+                    builder.Append(line);
                 }
 
-                builder.AppendLine($"\t {AddImportantEdgesFormat(verice)}");
+                if(edges.Count == 0)
+                    builder.Append($"\t{verice} ");
+
+                builder.Append($"\t {AddImportantEdgesFormat(verice)}");
+                builder.Append("\n");
             }
             else
             {

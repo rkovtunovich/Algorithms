@@ -5,7 +5,10 @@ public static class BFS
 {
     public static HashSet<Vertice> SearchConnected(UndirectedGraph graph, Vertice originVertice)
     {
-        var visited = new HashSet<Vertice>();
+        var visited = new HashSet<Vertice>
+        {
+            originVertice
+        };
 
         var queue = new Queue<Vertice>();
         queue.Enqueue(originVertice);
@@ -229,8 +232,6 @@ public static class BFS
         {
             var tree = GetFullShortestPathTree(graph, vertice, out HashSet<Vertice> leaves);
 
-            DOTVisualizer.VisualizeGraph(tree);
-
             foreach (var leaf in leaves)
             {
                 leaf.Weight ??= 1;
@@ -238,8 +239,6 @@ public static class BFS
 
                 TraceNextTreeNode(tree, leaf);
             }
-
-            DOTVisualizer.VisualizeGraph(tree);
         }
     }
 
@@ -285,8 +284,6 @@ public static class BFS
             {
                 TraceNextTreeNodeForSimpleTree(tree, leaf);
             }
-
-            DOTVisualizer.VisualizeGraph(tree);
         }
     }
 

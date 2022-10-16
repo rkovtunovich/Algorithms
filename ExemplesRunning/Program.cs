@@ -1,4 +1,5 @@
-﻿using ExemplesRunning.Graphs;
+﻿using ExemplesRunning;
+using ExemplesRunning.Graphs;
 
 //FindingExemple.RunFindingMaxUnimodalArray();
 //FindingExemple.RunFindingMatchArrayIndexToValue();
@@ -8,8 +9,11 @@
 //HanoiTowersExample.Run();
 
 //SortingExample.RunQuickSort();
+SortingExample.RunHeapSort();
 
-GraphExample.RunUndirectedExample();
-GraphExample.RunOrientedExample();
+//GraphExample.RunUndirectedExample();
+//GraphExample.RunOrientedExample();
+
+//DataStructuresExample.RunHeapExample();
 
 Console.ReadLine();

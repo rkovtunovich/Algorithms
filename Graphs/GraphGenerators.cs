@@ -2,7 +2,7 @@
 
 namespace Graphs;
 
-public static class GraphGenerator
+public static class GraphGenerators
 {
     private static readonly Random _random = new();
 
@@ -25,39 +25,6 @@ public static class GraphGenerator
         return graph;
     }
 
-    private static void GenerateMutualConnections(UndirectedGraph graph, Vertice owner, int minConnections, int maxConnections)
-    {
-        int numberConnections = _random.Next(minConnections, maxConnections);
-        
-        // for potential non one compomen graphs 
-        if(minConnections == 0)
-            numberConnections -= graph.GetDegree(owner);
-
-        var alreadyAdded = new HashSet<Vertice>();
-
-        while (numberConnections > 0)
-        {
-            int newIndex = _random.Next(1, graph.Count() + 1);
-
-            if (newIndex == owner.Index)
-                continue;
-
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
-
-            if (alreadyAdded.Contains<Vertice>(newConnection))
-                continue;
-
-            if (graph.IsConnected(newConnection, owner))
-                continue;
-
-            numberConnections--;
-
-            graph.AddEdge(owner, newConnection);
-
-            alreadyAdded.Add(newConnection);
-        }
-    }
-
     public static UndirectedGraph GenerateNonOrientedOneComponent(int countVertices)
     {
         var graph = new UndirectedGraph("undirected");
@@ -74,10 +41,6 @@ public static class GraphGenerator
 
         return graph;
     }
-
-    #endregion
-
-    #region UndirectedVariableEdgeLength
 
     public static UndirectedGraph GenerateUndirectedVariableEdgeLength(int countVertices)
     {
@@ -109,6 +72,43 @@ public static class GraphGenerator
 
         return graph;
     }
+
+    #region Service methods
+
+    private static void GenerateMutualConnections(UndirectedGraph graph, Vertice owner, int minConnections, int maxConnections)
+    {
+        int numberConnections = _random.Next(minConnections, maxConnections);
+
+        // for potential non one compomen graphs 
+        if (minConnections == 0)
+            numberConnections -= graph.GetDegree(owner);
+
+        var alreadyAdded = new HashSet<Vertice>();
+
+        while (numberConnections > 0)
+        {
+            int newIndex = _random.Next(1, graph.Count() + 1);
+
+            if (newIndex == owner.Index)
+                continue;
+
+            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
+
+            if (alreadyAdded.Contains<Vertice>(newConnection))
+                continue;
+
+            if (graph.IsConnected(newConnection, owner))
+                continue;
+
+            numberConnections--;
+
+            graph.AddEdge(owner, newConnection);
+
+            alreadyAdded.Add(newConnection);
+        }
+    }
+
+    #endregion
 
     #endregion
 
@@ -150,9 +150,39 @@ public static class GraphGenerator
         return graph;
     }
 
+    public static OrientedGraph GenerateOrientedFlow(string name, int countVertices)
+    {
+        var graph = new OrientedGraph(name);
+
+        for (int i = 1; i <= countVertices; i++)
+        {
+            graph.AddVertice(new(i));
+        }
+
+        foreach (var vertice in graph)
+        {
+            GenerateDirecredConnections(graph, countVertices, vertice);
+        }
+
+        var random = new Random();
+
+        foreach (var vertice in graph)
+        {
+            var edges = graph.GetEdges(vertice);
+
+            foreach (var edge in edges)
+            {
+                int leangth = random.Next(1, 10);
+                graph.SetEdgeLength(vertice, edge, leangth);
+            }
+        }
+
+        return graph;
+    }
+
     private static void GenerateDirecredConnections(OrientedGraph graph, int countVertices, Vertice owner)
     {
-        int numberConnections = _random.Next(0, (countVertices - 1) / 2);
+        int numberConnections = _random.Next(0, countVertices  / 2);
 
         var alreadyAdded = new HashSet<Vertice>();
 

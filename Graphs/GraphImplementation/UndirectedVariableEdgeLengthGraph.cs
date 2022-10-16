@@ -8,8 +8,8 @@ public class UndirectedVariableEdgeLengthGraph : UndirectedGraph
 
     public override double GetEdgeLength(Vertice begin, Vertice end)
     {
-        if (_edgesLengths.TryGetValue((begin, end), out double leangth))
-            return leangth;
+        if (_edgesLengths.TryGetValue((begin, end), out double length))
+            return length;
 
         return 0;
     }

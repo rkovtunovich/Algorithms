@@ -17,7 +17,7 @@ public abstract class Graph : IEnumerable<Vertice>
         return false;
     }
 
-    public abstract Graph Transpose(Graph graph);
+    public abstract Graph Transpose();
 
     public virtual void Clear()
     {
@@ -27,6 +27,26 @@ public abstract class Graph : IEnumerable<Vertice>
     public virtual int GetDegree(Vertice vertice)
     {
         return _nodes[vertice].Count;
+    }
+
+    public virtual Graph Clone()
+    {
+        var type = GetType();
+        var clone = Activator.CreateInstance(type, $"{Name}_clone") as Graph ?? throw new NullReferenceException();
+
+        CopyVerticesTo(clone);
+
+        foreach (var node in _nodes)
+        {
+            clone._nodes[node.Key] = new(node.Value);    
+        }
+
+        foreach (var length in _edgesLengths)
+        {
+            clone._edgesLengths.TryAdd(length.Key, length.Value);
+        }
+
+        return clone;
     }
 
     #region Vertices
@@ -71,6 +91,8 @@ public abstract class Graph : IEnumerable<Vertice>
 
     public abstract void AddEdge(Vertice sourse, Vertice destination);
 
+    public abstract void RemoveEdge(Vertice sourse, Vertice destination);
+
     public abstract double GetEdgeLength(Vertice begin, Vertice end);
 
     public virtual LinkedList<Vertice> GetEdges(Vertice vertice)
@@ -81,6 +103,25 @@ public abstract class Graph : IEnumerable<Vertice>
     public virtual void SetEdgeLength(Vertice begin, Vertice end, double length)
     {
         _edgesLengths.TryAdd((begin, end), length);
+    }
+
+    public virtual void ChangeEdgeLength(Vertice begin, Vertice end, double length)
+    {
+        if (!_edgesLengths.TryGetValue((begin, end), out double currLength))
+        {
+            AddEdge(begin, end);
+            SetEdgeLength(begin, end, length);
+            return;
+        }
+        
+        double newLength = currLength + length;
+        if(newLength == 0)
+        {
+            RemoveEdge(begin, end);
+            _edgesLengths.Remove((begin, end));
+        }
+        
+
     }
 
     #endregion
@@ -113,6 +154,14 @@ public abstract class Graph : IEnumerable<Vertice>
             return;
         
         edges.AddLast(vertice);
+    }
+
+    protected static void RemoveConnection(LinkedList<Vertice> edges, Vertice vertice)
+    {
+        if (edges.Count == 0)
+            return;
+
+        edges.Remove(vertice);
     }
 
     #endregion

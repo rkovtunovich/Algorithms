@@ -1,9 +1,10 @@
-﻿using Graphs.GraphImplementation;
+﻿using Graphs.Abstraction;
+using Graphs.GraphImplementation;
 
 namespace Graphs.Search;
 public static class BFS
 {
-    public static HashSet<Vertice> SearchConnected(UndirectedGraph graph, Vertice originVertice)
+    public static HashSet<Vertice> SearchConnected(Graph graph, Vertice originVertice)
     {
         var visited = new HashSet<Vertice>
         {
@@ -124,7 +125,7 @@ public static class BFS
     {
         var tree = new OrientedGraph($"simple_tree_{originVertice.Index}");
         graph.CopyVerticesTo(tree);
-        
+
         leaves = new HashSet<Vertice>();
         leaves.UnionWith(tree);
 
@@ -203,7 +204,7 @@ public static class BFS
 
                     leaves.Remove(current);
                 }
-                   
+
                 if (visited.Contains(edge))
                     continue;
 
@@ -223,6 +224,99 @@ public static class BFS
 
         return tree;
     }
+
+    #region Maximum Flow
+
+    // Ford and Fullkerson algorithm
+    public static double AugmentingPathSearch(Graph graph, Vertice source, Vertice target)
+    {
+        double maxFlow = 0;
+
+        var residualGraph = graph.Clone();
+
+        while (true)
+        {
+            var (isExist, path) = SearchPath(residualGraph, source, target);
+
+            if (!isExist)
+                break;
+
+            double curFlow = 0;
+            var current = target;
+
+            while (true)
+            {
+                var parent = path[current.ArrayIndex()];
+
+                var currLength = residualGraph.GetEdgeLength(parent, current);
+                if(curFlow == 0)
+                    curFlow = currLength;
+                else
+                    curFlow = Math.Min(curFlow, currLength);
+
+                current = parent;
+                if(current == source)
+                    break;
+            }
+
+            current = target;
+            while (true)
+            {
+                var parent = path[current.ArrayIndex()];
+
+                residualGraph.ChangeEdgeLength(parent, current, -curFlow);
+                residualGraph.ChangeEdgeLength(current, parent, curFlow);
+
+                current = parent;
+                if (current == source)
+                    break;
+            }
+
+            maxFlow += curFlow;
+
+            DOTVisualizer.VisualizeGraph(residualGraph);
+        }
+
+        return maxFlow;
+    }
+
+    public static (bool isExist, Vertice[] path) SearchPath(Graph graph, Vertice source, Vertice target)
+    {
+        var parents = new Vertice[graph.Count()];
+
+        var visited = new HashSet<Vertice>
+        {
+            source
+        };
+
+        var queue = new Queue<Vertice>();
+        queue.Enqueue(source);
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+
+            var edges = graph.GetEdges(current);
+
+            foreach (var edge in edges)
+            {
+                if (visited.Contains(edge))
+                    continue;
+
+                parents[edge.ArrayIndex()] = current;
+
+                if (edge == target)
+                    return (true, parents); // path founded
+
+                visited.Add(edge);
+                queue.Enqueue(edge);
+            }
+        }
+
+        return (false, parents);
+    }
+
+    #endregion
 
     #region Betweeness
 

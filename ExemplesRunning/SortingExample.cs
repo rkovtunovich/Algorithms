@@ -1,4 +1,7 @@
-﻿using Helpers;
+﻿using DataStructures;
+using Graphs;
+using Graphs.Generators;
+using Helpers;
 using Sorting;
 using System.Diagnostics;
 using View;
@@ -50,6 +53,44 @@ internal class SortingExample
 
         Console.WriteLine($"-------------------");
         Console.WriteLine($"Run time {stopWatch.Elapsed}");
+
+        Viewer.ShowArray(array);
+
+        Console.ReadKey();
+    }
+
+    static public void RunHeapSort()
+    {
+        var array = ArrayHelper.GetUnsortedArray(10, 0, 15);
+        //int[] array = new[] { 9, 5, 4, 3, 9, 1, 6 };
+        //var array = ArrayHelper.GetUnsortedArray(6, 0, 20);
+        Viewer.ShowArray(array);
+
+        var stopWatch = new Stopwatch();
+
+        //var heap = new Heap<int>();
+
+        //for (int i = 0; i < array.Length; i++)
+        //{
+        //    heap.Insert(array[i]);
+        //}
+        //var generator = new GraphByHeapGenerator<int>(heap);
+        //var graph = generator.Generate();
+        //DOTVisualizer.VisualizeGraph(graph);
+
+        //for (int i = 0; i < array.Length; i++)
+        //{
+        //    array[i] = heap.ExtractMimimum();
+        //    graph = generator.Generate();
+        //    DOTVisualizer.VisualizeGraph(graph);
+        //}
+
+        //stopWatch.Start();
+        HeapSort.Sort(ref array);
+        //stopWatch.Stop();
+
+        //Console.WriteLine($"-------------------");
+        //Console.WriteLine($"Run time {stopWatch.Elapsed}");
 
         Viewer.ShowArray(array);
 

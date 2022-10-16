@@ -19,11 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finding", "Finding\Finding.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{F00CF403-EE37-48CB-9FEE-149D9B779FE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowersOfHanoi", "TowersOfHanoi\TowersOfHanoi.csproj", "{0A0ECB55-F595-4295-9C20-5AAC39907B58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TowersOfHanoi", "TowersOfHanoi\TowersOfHanoi.csproj", "{0A0ECB55-F595-4295-9C20-5AAC39907B58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphs", "Graphs\Graphs.csproj", "{966A4F51-95F6-44E8-A163-A4C7F823A467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graphs", "Graphs\Graphs.csproj", "{966A4F51-95F6-44E8-A163-A4C7F823A467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "Graphics\Graphics.csproj", "{2139383E-282D-4CCD-90B0-F82BD4F6BA31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graphics", "Graphics\Graphics.csproj", "{2139383E-282D-4CCD-90B0-F82BD4F6BA31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures", "DataStructures\DataStructures.csproj", "{EC1C673F-B70E-4441-B3E6-5941C2FEF5EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{2139383E-282D-4CCD-90B0-F82BD4F6BA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2139383E-282D-4CCD-90B0-F82BD4F6BA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2139383E-282D-4CCD-90B0-F82BD4F6BA31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC1C673F-B70E-4441-B3E6-5941C2FEF5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC1C673F-B70E-4441-B3E6-5941C2FEF5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC1C673F-B70E-4441-B3E6-5941C2FEF5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC1C673F-B70E-4441-B3E6-5941C2FEF5EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

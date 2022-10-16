@@ -10,7 +10,7 @@ internal class GraphExample
 
     internal static void RunUndirectedExample()
     {
-        var graph = GraphGenerator.GenerateNonOriented(10);
+        var graph = GraphGenerators.GenerateNonOriented(10);
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
@@ -51,14 +51,14 @@ internal class GraphExample
         DOTVisualizer.VisualizeGraph(siplePathTree);
         DOTVisualizer.VisualizeGraph(fullPathTree);
 
-        var graphVarLength = GraphGenerator.GenerateUndirectedVariableEdgeLength(7);
+        var graphVarLength = GraphGenerators.GenerateUndirectedVariableEdgeLength(7);
         DijkstrasAlgorithm.Search(graphVarLength, graphVarLength.First());
         DOTVisualizer.VisualizeGraph(graphVarLength);
     }
 
     internal static void RunOrientedExample()
     {
-        var graph = GraphGenerator.GenerateOrientedAcyclic( "oriended_acyclic", 6);
+        var graph = GraphGenerators.GenerateOrientedAcyclic( "oriended_acyclic", 6);
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
@@ -79,9 +79,14 @@ internal class GraphExample
 
         DOTVisualizer.VisualizeDotString(dotFileName, "output_oriented.svg");
 
-        var graph2 = GraphGenerator.GenerateOriented("Kasaraju",8);
+        var graph2 = GraphGenerators.GenerateOriented("Kasaraju",8);
         DOTVisualizer.VisualizeGraph(graph2);
         DFS.KosarajuSharirSearch(graph2);
         DOTVisualizer.VisualizeGraph(graph2);
+
+        var graphMaxFlow = GraphGenerators.GenerateOrientedFlow("Oriented_flow", 8);
+        DOTVisualizer.VisualizeGraph(graphMaxFlow);
+        BFS.AugmentingPathSearch(graphMaxFlow, graphMaxFlow.First(), graphMaxFlow.Last());
+        
     }
 }

@@ -60,6 +60,11 @@ public class Vertice: IEquatable<Vertice>
 
     #endregion
 
+    public int ArrayIndex()
+    {
+        return Index - 1;
+    }
+
     public override string ToString()
     {
         var name = $"\"{Index}";

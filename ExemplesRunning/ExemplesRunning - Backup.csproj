@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataStructures\DataStructures.csproj" />
     <ProjectReference Include="..\Distance\Distance.csproj" />
     <ProjectReference Include="..\Finding\Finding.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />

@@ -28,9 +28,9 @@ public class UndirectedGraph : Graph
         return false;
     }
 
-    public override Graph Transpose(Graph graph)
+    public override Graph Transpose()
     {
-        return graph;
+        return this;
     }
 
     #region Degree
@@ -176,5 +176,11 @@ public class UndirectedGraph : Graph
     public override double GetEdgeLength(Vertice begin, Vertice end)
     {
         return 1;
+    }
+
+    public override void RemoveEdge(Vertice sourse, Vertice destination)
+    {
+        RemoveConnection(_nodes[sourse], destination);
+        RemoveConnection(_nodes[destination], sourse);
     }
 }

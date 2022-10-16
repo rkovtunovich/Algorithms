@@ -41,14 +41,14 @@ public class OrientedGraph : Graph
         return _belowNeighbors[owner];
     }
 
-    public override Graph Transpose(Graph graph)
+    public override Graph Transpose()
     {
         OrientedGraph transposed = new("Transposed");
-        graph.CopyVerticesTo(transposed);
+        CopyVerticesTo(transposed);
 
-        foreach (var vertice in graph)
+        foreach (var vertice in this)
         {
-            var edges = graph.GetEdges(vertice);
+            var edges = GetEdges(vertice);
 
             foreach (var edge in edges)
             {
@@ -59,8 +59,25 @@ public class OrientedGraph : Graph
         return transposed;
     }
 
+    #region Edges
+
     public override double GetEdgeLength(Vertice begin, Vertice end)
     {
-        return 1;
+        if (_edgesLengths.TryGetValue((begin, end), out double length))
+            return length;
+
+        return 0;
     }
+
+    public override void RemoveEdge(Vertice sourse, Vertice destination)
+    {
+        RemoveConnection(_nodes[sourse], destination);
+    }
+
+    public override bool IsVariableEdgeLength()
+    {
+        return true;
+    }
+
+    #endregion
 }

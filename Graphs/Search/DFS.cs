@@ -94,7 +94,7 @@ public static class DFS
 
     public static void KosarajuSharirSearch(Graph graph)
     {
-        var transposed = graph.Transpose(graph);       
+        var transposed = graph.Transpose();       
         var vertices = SortTopologicaly(transposed);
 
         var visited = new HashSet<Vertice>();

@@ -86,7 +86,15 @@ internal class SortingExample
         //}
 
         //stopWatch.Start();
-        HeapSort.Sort(ref array);
+        HeapSort.Sort(ref array, new HeapMin<int>());
+        //stopWatch.Stop();
+
+        //Console.WriteLine($"-------------------");
+        //Console.WriteLine($"Run time {stopWatch.Elapsed}");
+
+        Viewer.ShowArray(array);
+
+        HeapSort.Sort(ref array, new HeapMax<int>());
         //stopWatch.Stop();
 
         //Console.WriteLine($"-------------------");

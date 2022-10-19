@@ -4,10 +4,8 @@ namespace Sorting;
 
 public static class HeapSort
 {
-    public static void Sort(ref int[] array)
+    public static void Sort(ref int[] array, Heap<int> heap)
     {
-        var heap = new Heap<int>();
-
         for (int i = 0; i < array.Length; i++)
         {
             heap.Insert(array[i]);
@@ -15,7 +13,7 @@ public static class HeapSort
 
         for (int i = 0; i < array.Length; i++)
         {
-            array[i] = heap.ExtractMimimum();
+            array[i] = heap.Extract();
         }
     }
 }

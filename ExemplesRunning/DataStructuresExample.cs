@@ -9,7 +9,7 @@ public static class DataStructuresExample
     public static void RunHeapExample()
     {
         var keys = new List<int>() { 4, 9, 4, 13, 12, 8, 11, 9, 4};
-        var heap = new Heap<int>();
+        var heap = new HeapMin<int>();
 
         foreach (var key in keys)
         {
@@ -20,12 +20,12 @@ public static class DataStructuresExample
         var graph = generator.Generate();
         DOTVisualizer.VisualizeGraph(graph);
 
-        int min = heap.ExtractMimimum();
+        int min = heap.Extract();
 
         graph = generator.Generate();
         DOTVisualizer.VisualizeGraph(graph);
 
-        int max = heap.ExtractMimimum();
+        int max = heap.Extract();
 
         graph = generator.Generate();
         DOTVisualizer.VisualizeGraph(graph);

@@ -2,7 +2,7 @@
 
 namespace DataStructures;
 
-public class Heap<TKey> where TKey : INumber<TKey>
+public abstract class Heap<TKey> where TKey : INumber<TKey>
 {
     private const int InitialSize = 8;
 
@@ -29,7 +29,7 @@ public class Heap<TKey> where TKey : INumber<TKey>
     public TKey this[int i]
     {
         get { return _keys[i - 1]; }
-        private set { _keys[i - 1] = value; }
+        protected set { _keys[i - 1] = value; }
     }
 
     public int Length { get => _length; }
@@ -61,7 +61,7 @@ public class Heap<TKey> where TKey : INumber<TKey>
         return childPos > _length ? -1 : childPos;
     }
 
-    public TKey ExtractMimimum()
+    public TKey Extract()
     {
         var mimimum = _keys[0];
 
@@ -84,7 +84,7 @@ public class Heap<TKey> where TKey : INumber<TKey>
         _keys = keys;
     }
 
-    private int GetParentPosition(int childPosition)
+    protected int GetParentPosition(int childPosition)
     {
         if (_length == 1)
             return 1;
@@ -92,46 +92,9 @@ public class Heap<TKey> where TKey : INumber<TKey>
         return childPosition / 2;
     }
 
-    private void HeapifyUp(int position)
-    {
-        if (position is 1)
-            return;
+    protected abstract void HeapifyUp(int position);
 
-        int parent = GetParentPosition(position);
-
-        if (this[parent] <= this[position])
-            return;
-
-        (this[parent], this[position]) = (this[position], this[parent]);
-
-        HeapifyUp(parent);
-    }
-
-    private void HeapifyDown(int position)
-    {
-        int leftChildPos = GetLeftChildPosition(position);
-        int rightChildPos = GetRightChildPosition(position);
-
-        int nextPos = GetHeapifyDownPosition(position, leftChildPos, rightChildPos);
-
-        if (nextPos == position)
-            return;
-
-        (this[position], this[nextPos]) = (this[nextPos], this[position]);
-        HeapifyDown(nextPos);
-    }
-
-    private int GetHeapifyDownPosition(int parent, int left, int right) => (parent, left, right) switch
-    {
-        (_, -1, -1) => parent,
-        (_, -1, _) when this[right] < this[parent] => right,
-        (_, -1, _) when this[right] >= this[parent] => parent,
-        (_, _, -1) when this[left] < this[parent] => left,
-        (_, _, -1) when this[left] >= this[parent] => parent,
-        (_, _, _) when this[left] < this[parent] && this[left] <= this[right] => left,
-        (_, _, _) when this[right] < this[parent] && this[right] < this[left] => right,
-        (_, _, _) => parent
-    };
+    protected abstract void HeapifyDown(int position);
 
     #endregion
 }

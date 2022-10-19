@@ -18,6 +18,7 @@
     <ProjectReference Include="..\Distance\Distance.csproj" />
     <ProjectReference Include="..\Finding\Finding.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\MathAlgo\MathAlgo.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.csproj" />
     <ProjectReference Include="..\TowersOfHanoi\TowersOfHanoi.csproj" />
     <ProjectReference Include="..\View\View.csproj" />

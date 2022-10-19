@@ -4,7 +4,7 @@ namespace DataStructures;
 
 public class HeapMin<T> : Heap<T> where T : INumber<T>
 {
-    protected override void HeapifyUp(int position)
+    protected override void SiftUp(int position)
     {
         if (position is 1)
             return;
@@ -16,10 +16,10 @@ public class HeapMin<T> : Heap<T> where T : INumber<T>
 
         (this[parent], this[position]) = (this[position], this[parent]);
 
-        HeapifyUp(parent);
+        SiftUp(parent);
     }
 
-    protected override void HeapifyDown(int position)
+    protected override void SiftDown(int position)
     {
         int leftChildPos = GetLeftChildPosition(position);
         int rightChildPos = GetRightChildPosition(position);
@@ -30,7 +30,7 @@ public class HeapMin<T> : Heap<T> where T : INumber<T>
             return;
 
         (this[position], this[nextPos]) = (this[nextPos], this[position]);
-        HeapifyDown(nextPos);
+        SiftDown(nextPos);
     }
 
     private int GetHeapifyDownPosition(int parent, int left, int right) => (parent, left, right) switch

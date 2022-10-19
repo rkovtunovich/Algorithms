@@ -2,31 +2,31 @@
 
 namespace DataStructures;
 
-public abstract class Heap<TKey> where TKey : INumber<TKey>
+public abstract class Heap<T> where T : INumber<T>
 {
     private const int InitialSize = 8;
 
     private int _length = 0;
 
-    private TKey[] _keys;
+    private T[] _keys;
 
     #region Constructors
 
     public Heap(int size)
     {
-        _keys = new TKey[size];
+        _keys = new T[size];
     }
 
     public Heap()
     {
-        _keys = new TKey[InitialSize];
+        _keys = new T[InitialSize];
     }
 
     #endregion
 
     #region public
 
-    public TKey this[int i]
+    public T this[int i]
     {
         get { return _keys[i - 1]; }
         protected set { _keys[i - 1] = value; }
@@ -34,9 +34,9 @@ public abstract class Heap<TKey> where TKey : INumber<TKey>
 
     public int Length { get => _length; }
 
-    public TKey Root { get => _keys[0]; }
+    public T Extremum { get => _keys[0]; }
 
-    public void Insert(TKey key)
+    public void Insert(T key)
     {
         if (_length == _keys.Length)
             IncreaseContainer();
@@ -44,7 +44,7 @@ public abstract class Heap<TKey> where TKey : INumber<TKey>
         _length++;
         this[_length] = key;
 
-        HeapifyUp(_length);
+        SiftUp(_length);
     }
 
     public int GetLeftChildPosition(int pos)
@@ -61,14 +61,14 @@ public abstract class Heap<TKey> where TKey : INumber<TKey>
         return childPos > _length ? -1 : childPos;
     }
 
-    public TKey Extract()
+    public T Extract()
     {
         var mimimum = _keys[0];
 
         (_keys[0], _keys[_length - 1]) = (_keys[_length - 1], _keys[0]);
         _length--;
 
-        HeapifyDown(1);
+        SiftDown(1);
 
         return mimimum;
     }
@@ -79,7 +79,7 @@ public abstract class Heap<TKey> where TKey : INumber<TKey>
 
     private void IncreaseContainer()
     {
-        TKey[] keys = new TKey[_length * 2];
+        T[] keys = new T[_length * 2];
         Array.Copy(_keys, 0, keys, 0, _keys.Length);
         _keys = keys;
     }
@@ -92,9 +92,9 @@ public abstract class Heap<TKey> where TKey : INumber<TKey>
         return childPosition / 2;
     }
 
-    protected abstract void HeapifyUp(int position);
+    protected abstract void SiftUp(int position);
 
-    protected abstract void HeapifyDown(int position);
+    protected abstract void SiftDown(int position);
 
     #endregion
 }

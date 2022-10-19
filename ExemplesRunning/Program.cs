@@ -9,11 +9,13 @@ using ExemplesRunning.Graphs;
 //HanoiTowersExample.Run();
 
 //SortingExample.RunQuickSort();
-SortingExample.RunHeapSort();
+//SortingExample.RunHeapSort();
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
 
 //DataStructuresExample.RunHeapExample();
+
+MathAlgoExample.RunMedianExample();
 
 Console.ReadLine();

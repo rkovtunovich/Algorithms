@@ -20,7 +20,7 @@ public class GraphByHeapGenerator<T> : GraphGenerator where T : INumber<T>
 
         var vertice = new Vertice(1)
         {
-            Label = $"[{_heap.Root.ToString()}]"
+            Label = $"[{_heap.Extremum.ToString()}]"
         };
         graph.AddVertice(vertice);
         

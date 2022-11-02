@@ -9,7 +9,7 @@ internal static class MathAlgoExample
         var keys = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };
         //var keys = new List<int>() { 5, 4, 3, 2, 1 };
 
-        var median = new Median<int>();
+        var median = new Median<int, int>();
 
         foreach (var key in keys) { 
             median.Add(key);

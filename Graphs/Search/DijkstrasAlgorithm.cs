@@ -36,11 +36,8 @@ public static class DijkstrasAlgorithm
     {
         Vertice? closest = null;
 
-        int index = 0;
         foreach (var vertice in graph)
         {
-            index++;
-
             if (!(vertice?.Mark ?? false))
                 continue;
 

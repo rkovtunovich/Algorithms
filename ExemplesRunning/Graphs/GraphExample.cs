@@ -1,4 +1,5 @@
 ﻿using Graphs;
+using Graphs.Generators;
 using Graphs.Search;
 using View;
 
@@ -51,8 +52,13 @@ internal class GraphExample
         DOTVisualizer.VisualizeGraph(siplePathTree);
         DOTVisualizer.VisualizeGraph(fullPathTree);
 
-        var graphVarLength = GraphGenerators.GenerateUndirectedVariableEdgeLength(7);
-        DijkstrasAlgorithm.Search(graphVarLength, graphVarLength.First());
+        var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1)
+        {
+            Distance = int.MaxValue,
+        });
+        var graphVarLength = generator.Generate();
+        //DijkstrasAlgorithm.Search(graphVarLength, graphVarLength.First());
+        DijkstrasHeapAlgorithm.Search(graphVarLength, graphVarLength.First());
         DOTVisualizer.VisualizeGraph(graphVarLength);
     }
 
@@ -86,7 +92,6 @@ internal class GraphExample
 
         var graphMaxFlow = GraphGenerators.GenerateOrientedFlow("Oriented_flow", 8);
         DOTVisualizer.VisualizeGraph(graphMaxFlow);
-        BFS.AugmentingPathSearch(graphMaxFlow, graphMaxFlow.First(), graphMaxFlow.Last());
-        
+        BFS.AugmentingPathSearch(graphMaxFlow, graphMaxFlow.First(), graphMaxFlow.Last());       
     }
 }

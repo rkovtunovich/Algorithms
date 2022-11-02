@@ -1,10 +1,11 @@
-﻿using DataStructures;
+﻿using DataStructures.Heap;
+using System.Numerics;
 
 namespace Sorting;
 
-public static class HeapSort
+public static class HeapSort<TKey, TValue> where TKey : INumber<TKey>
 {
-    public static void Sort(ref int[] array, Heap<int> heap)
+    public static void Sort(ref TKey[] array, Heap<TKey, TValue> heap)
     {
         for (int i = 0; i < array.Length; i++)
         {
@@ -13,7 +14,7 @@ public static class HeapSort
 
         for (int i = 0; i < array.Length; i++)
         {
-            array[i] = heap.Extract();
+            array[i] = heap.ExtractNode().Key;
         }
     }
 }

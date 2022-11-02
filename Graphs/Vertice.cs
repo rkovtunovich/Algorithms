@@ -94,4 +94,20 @@ public class Vertice: IEquatable<Vertice>
 
         return name;
     }
+
+    public void CopyFrom(Vertice? sourse)
+    {
+        if (sourse is null)
+            return;
+
+        var type = typeof(Vertice);
+        foreach (var sourceProperty in type.GetProperties())
+        {
+            if (sourceProperty.Name is nameof(Index))
+                continue;
+
+            var targetProperty = type.GetProperty(sourceProperty.Name);
+            targetProperty?.SetValue(this, sourceProperty.GetValue(sourse, null), null);
+        }
+    }
 }

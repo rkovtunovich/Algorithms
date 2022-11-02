@@ -1,11 +1,11 @@
-﻿using DataStructures;
+﻿using DataStructures.Heap;
 using System.Numerics;
 
 namespace MathAlgo;
-public class Median<T> where T : INumber<T>
+public class Median<TKey, TValue> where TKey : INumber<TKey>
 {
-    private readonly HeapMin<T> _heapMin;
-    private readonly HeapMax<T> _heapMax;
+    private readonly HeapMin<TKey, TValue> _heapMin;
+    private readonly HeapMax<TKey, TValue> _heapMax;
 
     public Median()
     {
@@ -13,9 +13,9 @@ public class Median<T> where T : INumber<T>
         _heapMax = new();
     }
 
-    public void Add(T value)
+    public void Add(TKey value)
     {
-        if (value <=_heapMax.Extremum)
+        if (value <=_heapMax.Extremum.Key)
             _heapMax.Insert(value);
         else
             _heapMin.Insert(value);
@@ -24,13 +24,13 @@ public class Median<T> where T : INumber<T>
 
         if (lengthDiff is 2)
         {
-            _heapMin.Insert(_heapMax.Extract());
+            _heapMin.Insert(_heapMax.ExtractKey());
         }
         else if(lengthDiff is -2)
         {
-            _heapMax.Insert(_heapMin.Extract());
+            _heapMax.Insert(_heapMin.ExtractKey());
         }
     }
 
-    public T Current { get => _heapMax.Length >= _heapMin.Length ? _heapMax.Extremum : _heapMin.Extremum; }
+    public TKey Current { get => _heapMax.Length >= _heapMin.Length ? _heapMax.Extremum.Key : _heapMin.Extremum.Key; }
 }

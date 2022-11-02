@@ -1,15 +1,15 @@
-﻿using DataStructures;
+﻿using DataStructures.Heap;
 using Graphs.Abstraction;
 using Graphs.GraphImplementation;
 using System.Numerics;
 
 namespace Graphs.Generators;
 
-public class GraphByHeapGenerator<T> : GraphGenerator where T : INumber<T>
+public class GraphByHeapGenerator<TKey, TValue> : GraphGenerator where TKey : INumber<TKey>
 {
-    private readonly Heap<T> _heap; 
+    private readonly Heap<TKey, TValue> _heap; 
 
-    public GraphByHeapGenerator(Heap<T> heap)
+    public GraphByHeapGenerator(Heap<TKey, TValue> heap)
     {
         _heap = heap;
     }
@@ -20,7 +20,7 @@ public class GraphByHeapGenerator<T> : GraphGenerator where T : INumber<T>
 
         var vertice = new Vertice(1)
         {
-            Label = $"[{_heap.Extremum.ToString()}]"
+            Label = $"[{_heap.Extremum.Key}]"
         };
         graph.AddVertice(vertice);
         
@@ -36,7 +36,7 @@ public class GraphByHeapGenerator<T> : GraphGenerator where T : INumber<T>
 
             var leftChild = new Vertice(leftPos)
             {
-                Label = $"[{_heap[leftPos].ToString()}]"
+                Label = $"[{_heap[leftPos].Key}]"
             };
 
             graph.AddVertice(leftChild);
@@ -51,7 +51,7 @@ public class GraphByHeapGenerator<T> : GraphGenerator where T : INumber<T>
         {
             var rightChild = new Vertice(rightPos)
             {
-                Label = $"[{_heap[rightPos].ToString()}]"
+                Label = $"[{_heap[rightPos].Key}]"
             };
 
             graph.AddVertice(rightChild);

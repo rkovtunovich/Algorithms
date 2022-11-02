@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 
-namespace DataStructures;
+namespace DataStructures.Heap;
 
-public class HeapMax<T> : Heap<T> where T : INumber<T>
+public class HeapMin<TKey, TValue> : Heap<TKey, TValue> where TKey : INumber<TKey>
 {
     protected override void SiftUp(int position)
     {
@@ -11,10 +11,10 @@ public class HeapMax<T> : Heap<T> where T : INumber<T>
 
         int parent = GetParentPosition(position);
 
-        if (this[parent] >= this[position])
+        if (this[parent].Key <= this[position].Key)
             return;
 
-        (this[parent], this[position]) = (this[position], this[parent]);
+        Swap(parent, position);
 
         SiftUp(parent);
     }
@@ -29,19 +29,19 @@ public class HeapMax<T> : Heap<T> where T : INumber<T>
         if (nextPos == position)
             return;
 
-        (this[position], this[nextPos]) = (this[nextPos], this[position]);
+        Swap(position, nextPos);
         SiftDown(nextPos);
     }
 
     private int GetHeapifyDownPosition(int parent, int left, int right) => (parent, left, right) switch
     {
         (_, -1, -1) => parent,
-        (_, -1, _) when this[right] > this[parent] => right,
-        (_, -1, _) when this[right] <= this[parent] => parent,
-        (_, _, -1) when this[left] > this[parent] => left,
-        (_, _, -1) when this[left] <= this[parent] => parent,
-        (_, _, _) when this[left] > this[parent] && this[left] >= this[right] => left,
-        (_, _, _) when this[right] > this[parent] && this[right] > this[left] => right,
+        (_, -1, _) when this[right].Key < this[parent].Key => right,
+        (_, -1, _) when this[right].Key >= this[parent].Key => parent,
+        (_, _, -1) when this[left].Key < this[parent].Key => left,
+        (_, _, -1) when this[left].Key >= this[parent].Key => parent,
+        (_, _, _) when this[left].Key < this[parent].Key && this[left].Key <= this[right].Key => left,
+        (_, _, _) when this[right].Key < this[parent].Key && this[right].Key < this[left].Key => right,
         (_, _, _) => parent
     };
 }

@@ -1,6 +1,4 @@
-﻿using DataStructures;
-using Graphs;
-using Graphs.Generators;
+﻿using DataStructures.Heap;
 using Helpers;
 using Sorting;
 using System.Diagnostics;
@@ -86,7 +84,7 @@ internal class SortingExample
         //}
 
         //stopWatch.Start();
-        HeapSort.Sort(ref array, new HeapMin<int>());
+        HeapSort<int, int>.Sort(ref array, new HeapMin<int, int>());
         //stopWatch.Stop();
 
         //Console.WriteLine($"-------------------");
@@ -94,7 +92,7 @@ internal class SortingExample
 
         Viewer.ShowArray(array);
 
-        HeapSort.Sort(ref array, new HeapMax<int>());
+        HeapSort<int, int>.Sort(ref array, new HeapMax<int, int>());
         //stopWatch.Stop();
 
         //Console.WriteLine($"-------------------");

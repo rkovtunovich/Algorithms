@@ -42,37 +42,6 @@ public static class GraphGenerators
         return graph;
     }
 
-    public static UndirectedGraph GenerateUndirectedVariableEdgeLength(int countVertices)
-    {
-        var graph = new UndirectedVariableEdgeLengthGraph("undirected_var_length");
-
-        for (int i = 1; i <= countVertices; i++)
-        {
-            graph.AddVertice(new(i));
-        }
-
-        foreach (var vertice in graph)
-        {
-            GenerateMutualConnections(graph, vertice, 0, graph.Count() / 2);
-        }
-
-        var random = new Random();
-
-        foreach (var vertice in graph)
-        {
-            var edges = graph.GetEdges(vertice);
-
-            foreach (var edge in edges)
-            {
-                double leangth = Math.Round(random.NextDouble() * 10, 2);
-                graph.SetEdgeLength(vertice, edge, leangth);
-                graph.SetEdgeLength(edge, vertice, leangth);
-            }
-        }
-
-        return graph;
-    }
-
     #region Service methods
 
     private static void GenerateMutualConnections(UndirectedGraph graph, Vertice owner, int minConnections, int maxConnections)

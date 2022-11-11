@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 
-namespace DataStructures.Heap;
+namespace DataStructures.Heaps;
 
-public struct HeapNode<Tkey, TValue> where Tkey: INumber<Tkey>
+public struct HeapNode<Tkey, TValue> where Tkey : INumber<Tkey>
 {
     public Tkey Key { get; internal set; }
 

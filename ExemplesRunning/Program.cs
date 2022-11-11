@@ -11,10 +11,11 @@ using ExemplesRunning.Graphs;
 //SortingExample.RunQuickSort();
 //SortingExample.RunHeapSort();
 
-GraphExample.RunUndirectedExample();
+//GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
 
 //DataStructuresExample.RunHeapExample();
+DataStructuresExample.RunSearchTreeExample();
 
 //MathAlgoExample.RunMedianExample();
 

@@ -15,9 +15,9 @@ public class UndirectedVariableEdgeLengthGenerator : GraphGenerator
         _prototype = prototype;
     }
 
-    public override Graph Generate()
+    public override Graph Generate(string name = "undirected_var_length")
     {
-        var graph = new UndirectedVariableEdgeLengthGraph("undirected_var_length");
+        var graph = new UndirectedVariableEdgeLengthGraph(name);
 
         for (int i = 1; i <= _countVertices; i++)
         {

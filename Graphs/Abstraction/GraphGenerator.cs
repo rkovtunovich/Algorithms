@@ -2,5 +2,5 @@
 
 public abstract class GraphGenerator
 {
-    public abstract Graph Generate();
+    public abstract Graph Generate(string name);
 }

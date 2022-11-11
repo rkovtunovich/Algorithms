@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 
-namespace DataStructures.Heap;
+namespace DataStructures.Heaps
+    ;
 
 public abstract class Heap<TKey, TValue> where TKey : INumber<TKey>
 {

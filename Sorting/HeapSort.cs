@@ -1,4 +1,4 @@
-﻿using DataStructures.Heap;
+﻿using DataStructures.Heaps;
 using System.Numerics;
 
 namespace Sorting;

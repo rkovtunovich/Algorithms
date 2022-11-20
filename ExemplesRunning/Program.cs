@@ -15,7 +15,8 @@ using ExemplesRunning.Graphs;
 //GraphExample.RunOrientedExample();
 
 //DataStructuresExample.RunHeapExample();
-DataStructuresExample.RunSearchTreeExample();
+//DataStructuresExample.RunSearchTreeExample();
+DataStructuresExample.RunAVLTreeExample();
 
 //MathAlgoExample.RunMedianExample();
 

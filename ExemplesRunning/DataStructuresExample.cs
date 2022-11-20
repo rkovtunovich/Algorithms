@@ -3,7 +3,6 @@ using DataStructures.SearchTrees;
 using Graphs;
 using Graphs.Generators;
 using Helpers;
-using OpenTK.Graphics.OpenGL;
 
 namespace ExemplesRunning;
 
@@ -36,8 +35,8 @@ public static class DataStructuresExample
 
     public static void RunSearchTreeExample()
     {
-        int random = new Random().Next(0, 8);
-        var array = ArrayHelper.GetUnsortedArray(8, 1, 30);
+        int random = new Random().Next(0, 10);
+        var array = ArrayHelper.GetUnsortedArray(10, 1, 40);
 
 
         //var keys = new List<int>() { 2, 1, 3, 4, 5 };
@@ -61,6 +60,54 @@ public static class DataStructuresExample
 
         Console.WriteLine($"Remove with key: {array[random]}");
         tree.Remove(array[random]);
+
+        graph = generator.Generate("search_tree");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        Console.ReadLine();
+    }
+
+    public static void RunAVLTreeExample()
+    {
+        //int random = new Random().Next(0, 15);
+        int random = 2;
+        //var array = ArrayHelper.GetUnsortedArray(15, 1, 50);
+
+        //var array = new List<int>() { 7, 30, 32, 24, 14, 39, 7, 23, 31, 9 };
+        var array = new List<int>() { 4, 22, 7, 42, 49, 35, 32, 28, 14, 49, 25, 15, 44, 23, 37};
+
+        //var array = new List<int>() { 4, 22, 7, 42, 37, 7, 37, 22, 14, 7, 25, 4, 44, 23, 37 };
+
+        var tree = new AVLTree<int, int>();
+
+        var generator = new GraphAVLTreeGenerator<int, int>(tree);
+        var graph = generator.Generate("search_tree");
+
+        int number = 0;
+        foreach (var key in array)
+        {
+            number++;
+            tree.Insert(key, key);
+
+            graph = generator.Generate($"search_tree_{number}");
+            DOTVisualizer.VisualizeGraph(graph);
+        }
+
+        graph = generator.Generate("search_tree");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        tree.TraverseInOrder(node => Console.WriteLine(node.Key.ToString()));
+
+        Console.WriteLine($"Remove with key: {array[random]}");
+        
+        var toRemove = new List<int>() { 4, 23, 25, 28, 32, 22, 7};
+        foreach (var key in toRemove)
+        {
+            tree.Remove(key);
+
+            graph = generator.Generate($"search_tree");
+            DOTVisualizer.VisualizeGraph(graph);
+        }
 
         graph = generator.Generate("search_tree");
         DOTVisualizer.VisualizeGraph(graph);

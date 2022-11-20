@@ -1,6 +1,4 @@
 ﻿using System.Numerics;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DataStructures.SearchTrees;
 
@@ -19,87 +17,46 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         return SearchRecursively(_root, key);
     }
 
-    public void Insert(TKey key, TValue? value = default)
+    #region Modification
+
+    public virtual void Insert(TKey key, TValue? value = default)
     {
-        if (_root is null)
+        var newNode = CreateNode(key, value);
+
+        if (Root is null)
         {
-            _root = new() { Key = key, Value = value };
+            SetRoot(newNode);
             return;
         }
 
-        InsertRecursively(_root, key, value);
+        InsertRecursively(Root, newNode);
     }
 
-    public void Remove(TKey key)
+    public virtual void Remove(TKey key)
     {
         var node = SearchRecursively(_root, key);
-        if (node is null) 
-            return;     
-
-        // node is leaf
-        if(IsLeaf(node))
-        {
-            Detach(node);
-
-            if (node == Root)
-                _root = null;
-
+        if (node is null)
             return;
-        }
 
-        // node has one child (right)
-        if(node.LeftChild is null)
-        {
-            var next = node.RightChild;
-            var parent = node.Parent;
+        DeleteNode(node);    
+    }
 
-            Detach(node);
-            if(parent is not null)
-                AttacRight(next, parent);
+    protected virtual TreeNode<TKey, TValue> CreateNode(TKey key, TValue? value)
+    {
+        return new() { 
+            Key = key, 
+            Value = value
+        };
+    }
 
-            if (node == Root)
-                _root = next;
-            
-            return;
-        }
+    public void Clean()
+    {
+        _root = null;
+    }
 
-        // node has one child (left)
-        if (node.RightChild is null)
-        {
-            var next = node.LeftChild;
-            var parent = node.Parent;
-            
-            Detach(node);         
-            if(parent is not null)
-                AttachLeft(next, parent);
+    #endregion
 
-            if (node == Root)
-                _root = next;
-
-            return;
-        }
-
-        // node has two children
-        var maxLeftChild = SearchMaximum(node.LeftChild);
-        Swap(node, maxLeftChild);
-
-        if (IsLeaf(node))
-        {
-            Detach(node);
-        }
-        else
-        {
-            var next = node.LeftChild;
-            var parent = node.Parent;
-            bool isLeft = IsLeftChild(node);
-
-            Detach(node);
-            if (isLeft)
-                AttachLeft(next, parent);
-            else
-                AttacRight(next, parent);
-        }
-    }   
+    #region Traversing
 
     public TreeNode<TKey, TValue>? GetPredecessor(TKey key)
     {
@@ -136,35 +93,9 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         TraverseInOrderRec(Root, action);
     }
 
-    #region Service methods
+    #endregion
 
-    public void InsertRecursively(TreeNode<TKey, TValue>? node, TKey key, TValue? value = default)
-    {
-        if (key <= node.Key)
-        {
-            if (node.LeftChild is null)
-            {
-                node.LeftChild = new() { Key = key, Value = value, Parent = node };
-                return;
-            }
-            else
-            {
-                InsertRecursively(node.LeftChild, key, value);
-            }
-        }
-        else
-        {
-            if (node.RightChild is null)
-            {
-                node.RightChild = new() { Key = key, Value = value, Parent = node };
-                return;
-            }
-            else
-            {
-                InsertRecursively(node.RightChild, key, value);
-            }
-        }
-    }
+    #region Service methods
 
     #region Searching
 
@@ -224,9 +155,30 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         TraverseInOrderRec(node.RightChild, action);
     }
 
-    private bool IsLeaf(TreeNode<TKey, TValue> node)
+    #region Modification
+
+    private void InsertRecursively(TreeNode<TKey, TValue>? parent, TreeNode<TKey, TValue> child)
     {
-        return node.LeftChild is null && node.RightChild is null;
+        if (child.Key <= parent.Key)
+        {
+            if (!HasLeftChild(parent))
+                AttachLeft(child, parent);
+            else
+                InsertRecursively(parent.LeftChild, child);
+        }
+        else
+        {
+            if (!HasRightChild(parent))
+                AttachRight(child, parent);
+            else
+                InsertRecursively(parent.RightChild, child);
+        }
+    }
+
+    protected void SetRoot(TreeNode<TKey, TValue> node)
+    {
+        node.Parent = null;
+        _root = node;
     }
 
     private void Swap(TreeNode<TKey, TValue> source, TreeNode<TKey, TValue> target)
@@ -235,11 +187,11 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         var targetLeftChild = target.LeftChild;
         var targetRightChild = target.RightChild;
 
-        if (source.Parent is null)
-            _root = target;
+        if (!HasParent(source))
+            SetRoot(target);
 
         target.Parent = source.Parent;
-        if(target.Parent is not null)
+        if (HasParent(target))
         {
             if (target.Parent.LeftChild == source)
                 target.Parent.LeftChild = target;
@@ -248,7 +200,7 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         }
 
         source.Parent = targetParent;
-        if (source.Parent is not null)
+        if (HasParent(source))
         {
             if (source.Parent.LeftChild == target)
                 source.Parent.LeftChild = source;
@@ -257,23 +209,23 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         }
 
         target.LeftChild = source.LeftChild;
-        if(target.LeftChild is not null)
+        if (HasLeftChild(target))
             target.LeftChild.Parent = target;
-        
+
         target.RightChild = source.RightChild;
-        if(target.RightChild is not null)
+        if (HasRightChild(target))
             target.RightChild.Parent = target;
 
         source.LeftChild = targetLeftChild;
-        if (source.LeftChild is not null)
+        if (HasLeftChild(source))
             source.LeftChild.Parent = source;
 
         source.RightChild = targetRightChild;
-        if (source.RightChild is not null)
+        if (HasRightChild(source))
             source.RightChild.Parent = source;
     }
 
-    private void Detach(TreeNode<TKey, TValue> node)
+    protected void Detach(TreeNode<TKey, TValue> node)
     {
         if (node.Parent is null)
             return;
@@ -286,24 +238,133 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         node.Parent = null;
     }
 
-    private void AttachLeft(TreeNode<TKey, TValue> sourse, TreeNode<TKey, TValue> destination)
+    protected void AttachLeft(TreeNode<TKey, TValue> child, TreeNode<TKey, TValue> parent)
     {
-        sourse.Parent = destination;
-        destination.LeftChild = sourse;
+        child.Parent = parent;
+        parent.LeftChild = child;
     }
 
-    private void AttacRight(TreeNode<TKey, TValue> sourse, TreeNode<TKey, TValue> destination)
+    protected void AttachRight(TreeNode<TKey, TValue> child, TreeNode<TKey, TValue> parent)
     {
-        sourse.Parent = destination;
-        destination.RightChild = sourse;
+        child.Parent = parent;
+        parent.RightChild = child;
     }
 
-    private bool IsLeftChild(TreeNode<TKey, TValue> node)
+    protected void DeleteNode(TreeNode<TKey, TValue> node)
+    {
+        // node is leaf
+        if (IsLeaf(node))
+        {
+            Detach(node);
+
+            if (node == Root)
+                Clean();
+
+            return;
+        }
+
+        // node has one child (right)
+        if (!HasLeftChild(node))
+        {
+            var next = node.RightChild;
+            var parent = node.Parent;
+            bool isLeft = IsLeftChild(node);
+
+            Detach(node);
+            //if (parent is not null)
+            //    AttachRight(next, parent);
+
+            if (isLeft)
+                AttachLeft(next, parent);
+            else
+                AttachRight(next, parent);
+
+            if (node == Root)
+                SetRoot(next);
+
+            return;
+        }
+
+        // node has one child (left)
+        if (!HasRightChild(node))
+        {
+            var next = node.LeftChild;
+            var parent = node.Parent;
+            bool isLeft = IsLeftChild(node);
+
+            Detach(node);
+            //if (parent is not null)
+            //    AttachLeft(next, parent);
+
+            if (isLeft)
+                AttachLeft(next, parent);
+            else
+                AttachRight(next, parent);
+
+            if (node == Root)
+                SetRoot(next);
+
+            return;
+        }
+
+        // node has two children
+        var maxLeftChild = SearchMaximum(node.LeftChild);
+        Swap(node, maxLeftChild);
+
+        if (IsLeaf(node))
+        {
+            Detach(node);
+        }
+        else
+        {
+            var next = node.LeftChild;
+            var parent = node.Parent;
+            bool isLeft = IsLeftChild(node);
+
+            Detach(node);
+            if (isLeft)
+                AttachLeft(next, parent);
+            else
+                AttachRight(next, parent);
+        }
+    }
+
+    #endregion
+
+    protected bool IsLeaf(TreeNode<TKey, TValue> node)
+    {
+        return node.LeftChild is null && node.RightChild is null;
+    }
+
+    protected bool IsLeftChild(TreeNode<TKey, TValue> node)
     {
         if (node.Parent is null)
             throw new Exception("This node hasn't parent");
 
         return node.Parent.LeftChild == node;
+    }
+
+    protected bool IsRightChild(TreeNode<TKey, TValue> node)
+    {
+        if (node.Parent is null)
+            throw new Exception("This node hasn't parent");
+
+        return node.Parent.RightChild == node;
+    }
+
+    protected bool HasLeftChild(TreeNode<TKey, TValue> node)
+    {
+        return node.LeftChild is not null;
+    }
+
+    protected bool HasRightChild(TreeNode<TKey, TValue> node)
+    {
+        return node.RightChild is not null;
+    }
+
+    protected bool HasParent(TreeNode<TKey, TValue> node)
+    {
+        return node.Parent is not null;
     }
 
     #endregion

@@ -1,5 +1,6 @@
 ﻿using DataStructures.Heaps;
 using DataStructures.SearchTrees;
+using DataStructures.HashTables;
 using Graphs;
 using Graphs.Generators;
 using Helpers;
@@ -112,6 +113,33 @@ public static class DataStructuresExample
         graph = generator.Generate("search_tree");
         DOTVisualizer.VisualizeGraph(graph);
 
+        var hashSet = new HashSet<int>();
+        hashSet.Add(1);
+
         Console.ReadLine();
+    }
+
+    public static void RunHashSetExample()
+    {
+        var set = new SimpleHashSet<string>();
+        set.Add("test");
+        set.Add("test2");
+        set.Add("test");
+        set.Add("test3");
+        set.Add("1");
+        set.Add("2");
+        set.Add("3");
+        set.Add("4");
+        set.Add("5");
+        set.Add("6");
+        set.Add("7");
+        set.Add("8");
+
+        Console.WriteLine(set.Contains("test3"));
+
+        set.Remove("test2");
+        set.Remove("test");
+
+        Console.WriteLine(set.Contains("test2"));
     }
 }

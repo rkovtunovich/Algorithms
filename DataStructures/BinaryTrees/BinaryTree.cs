@@ -1,21 +1,12 @@
 ﻿using System.Numerics;
 
-namespace DataStructures.SearchTrees;
+namespace DataStructures.BinaryTrees;
 
-public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
+public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 {
     private TreeNode<TKey, TValue>? _root;
 
     public TreeNode<TKey, TValue>? Root => _root;
-
-    public TreeNode<TKey, TValue>? Mimimum => SearchMinimum(Root);
-
-    public TreeNode<TKey, TValue>? Maximum => SearchMaximum(Root);
-
-    public TreeNode<TKey, TValue>? Search(TKey key)
-    {
-        return SearchRecursively(_root, key);
-    }
 
     #region Modification
 
@@ -38,13 +29,26 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         if (node is null)
             return;
 
-        DeleteNode(node);    
+        DeleteNode(node);
+    }
+
+    public void AttachLeft(TreeNode<TKey, TValue> child, TreeNode<TKey, TValue> parent)
+    {
+        child.Parent = parent;
+        parent.LeftChild = child;
+    }
+
+    public void AttachRight(TreeNode<TKey, TValue> child, TreeNode<TKey, TValue> parent)
+    {
+        child.Parent = parent;
+        parent.RightChild = child;
     }
 
     protected virtual TreeNode<TKey, TValue> CreateNode(TKey key, TValue? value)
     {
-        return new() { 
-            Key = key, 
+        return new()
+        {
+            Key = key,
             Value = value
         };
     }
@@ -56,104 +60,7 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
 
     #endregion
 
-    #region Traversing
-
-    public TreeNode<TKey, TValue>? GetPredecessor(TKey key)
-    {
-        var node = SearchRecursively(_root, key);
-        if (node is null)
-            return null;
-
-        if (node.LeftChild is not null)
-            return SearchMaximum(node.LeftChild);
-
-        if (node.Parent?.RightChild == node)
-            return node.Parent;
-        else
-            return node.Parent?.Parent;
-    }
-
-    public TreeNode<TKey, TValue>? GetSuccessor(TKey key)
-    {
-        var node = SearchRecursively(_root, key);
-        if (node is null)
-            return null;
-
-        if (node.RightChild is not null)
-            return SearchMinimum(node.RightChild);
-
-        if (node.Parent?.LeftChild == node)
-            return node.Parent;
-        else
-            return node.Parent?.Parent;
-    }
-
-    public void TraverseInOrder(Action<TreeNode<TKey, TValue>> action)
-    {
-        TraverseInOrderRec(Root, action);
-    }
-
-    #endregion
-
     #region Service methods
-
-    #region Searching
-
-    private TreeNode<TKey, TValue>? SearchRecursively(TreeNode<TKey, TValue>? node, TKey key)
-    {
-        if (node is null)
-            return default;
-
-        if (node.Key == key)
-            return node;
-
-        if (key <= node.Key)
-            return SearchRecursively(node.LeftChild, key);
-        else
-            return SearchRecursively(node.RightChild, key);
-    }
-
-    private TreeNode<TKey, TValue>? SearchMinimum(TreeNode<TKey, TValue>? node)
-    {
-        if (node is null)
-            return null;
-
-        var min = node;
-
-        if (min.LeftChild is null)
-            return min;
-        else
-            return SearchMinimum(node.LeftChild);
-
-    }
-
-    private TreeNode<TKey, TValue>? SearchMaximum(TreeNode<TKey, TValue>? node)
-    {
-        if (node is null)
-            return null;
-
-        var min = node;
-
-        if (min.RightChild is null)
-            return min;
-        else
-            return SearchMaximum(node.RightChild);
-
-    }
-
-    #endregion
-
-    private void TraverseInOrderRec(TreeNode<TKey, TValue>? node, Action<TreeNode<TKey, TValue>> action)
-    {
-        if (node is null)
-            return;
-
-        TraverseInOrderRec(node.LeftChild, action);
-        
-        action(node);
-        
-        TraverseInOrderRec(node.RightChild, action);
-    }
 
     #region Modification
 
@@ -238,18 +145,6 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
         node.Parent = null;
     }
 
-    protected void AttachLeft(TreeNode<TKey, TValue> child, TreeNode<TKey, TValue> parent)
-    {
-        child.Parent = parent;
-        parent.LeftChild = child;
-    }
-
-    protected void AttachRight(TreeNode<TKey, TValue> child, TreeNode<TKey, TValue> parent)
-    {
-        child.Parent = parent;
-        parent.RightChild = child;
-    }
-
     protected void DeleteNode(TreeNode<TKey, TValue> node)
     {
         // node is leaf
@@ -271,8 +166,6 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
             bool isLeft = IsLeftChild(node);
 
             Detach(node);
-            //if (parent is not null)
-            //    AttachRight(next, parent);
 
             if (isLeft)
                 AttachLeft(next, parent);
@@ -293,8 +186,6 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
             bool isLeft = IsLeftChild(node);
 
             Detach(node);
-            //if (parent is not null)
-            //    AttachLeft(next, parent);
 
             if (isLeft)
                 AttachLeft(next, parent);
@@ -331,6 +222,54 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
 
     #endregion
 
+    #region Searching
+
+    protected TreeNode<TKey, TValue>? SearchRecursively(TreeNode<TKey, TValue>? node, TKey key)
+    {
+        if (node is null)
+            return default;
+
+        if (node.Key == key)
+            return node;
+
+        if (key <= node.Key)
+            return SearchRecursively(node.LeftChild, key);
+        else
+            return SearchRecursively(node.RightChild, key);
+    }
+
+    protected TreeNode<TKey, TValue>? SearchMinimum(TreeNode<TKey, TValue>? node)
+    {
+        if (node is null)
+            return null;
+
+        var min = node;
+
+        if (min.LeftChild is null)
+            return min;
+        else
+            return SearchMinimum(node.LeftChild);
+
+    }
+
+    protected TreeNode<TKey, TValue>? SearchMaximum(TreeNode<TKey, TValue>? node)
+    {
+        if (node is null)
+            return null;
+
+        var min = node;
+
+        if (min.RightChild is null)
+            return min;
+        else
+            return SearchMaximum(node.RightChild);
+
+    }
+
+    #endregion
+
+    #region Cheks
+
     protected bool IsLeaf(TreeNode<TKey, TValue> node)
     {
         return node.LeftChild is null && node.RightChild is null;
@@ -366,6 +305,8 @@ public class SearchTree<TKey, TValue> where TKey : INumber<TKey>
     {
         return node.Parent is not null;
     }
+
+    #endregion
 
     #endregion
 }

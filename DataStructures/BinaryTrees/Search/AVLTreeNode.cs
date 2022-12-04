@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace DataStructures.SearchTrees;
+namespace DataStructures.BinaryTrees.Search;
 
 public class AVLTreeNode<TKey, TValue> : TreeNode<TKey, TValue> where TKey : INumber<TKey>
 {

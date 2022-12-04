@@ -1,14 +1,14 @@
 ﻿using System.Numerics;
 
-namespace DataStructures.SearchTrees;
+namespace DataStructures.BinaryTrees;
 
-public class TreeNode<TKey, TValue> where TKey: INumber<TKey>  
+public class TreeNode<TKey, TValue> where TKey : INumber<TKey>
 {
     public TreeNode<TKey, TValue>? Parent { get; set; }
 
     public TreeNode<TKey, TValue>? LeftChild { get; set; }
 
-    public TreeNode<TKey, TValue>? RightChild { get; set;}
+    public TreeNode<TKey, TValue>? RightChild { get; set; }
 
     public required TKey Key { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace DataStructures.SearchTrees;
+namespace DataStructures.BinaryTrees.Search;
 
 public class AVLTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : INumber<TKey>
 {
@@ -27,7 +27,7 @@ public class AVLTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : INumb
         ActualizeHeight(Root);
         if (HasLeftChild(Root))
             ActualizeHeight(Root.LeftChild);
-        if(HasRightChild(Root))
+        if (HasRightChild(Root))
             ActualizeHeight(Root.RightChild);
 
         var nonBalancedChild = GetNonBalancedNode(Root as AVLTreeNode<TKey, TValue>);
@@ -206,7 +206,8 @@ public class AVLTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : INumb
             RemoveRecursively(node.RightChild as AVLTreeNode<TKey, TValue>, key);
             ActualizeHeight(node);
 
-            if (HasRightChild(node)){
+            if (HasRightChild(node))
+            {
                 ActualizeHeight(node.RightChild as AVLTreeNode<TKey, TValue>);
                 Balance(node, node.RightChild as AVLTreeNode<TKey, TValue>);
             }

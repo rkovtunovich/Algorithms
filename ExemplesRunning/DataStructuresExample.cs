@@ -1,6 +1,6 @@
-﻿using DataStructures.Heaps;
-using DataStructures.SearchTrees;
+﻿using DataStructures.BinaryTrees.Search;
 using DataStructures.HashTables;
+using DataStructures.Heaps;
 using Graphs;
 using Graphs.Generators;
 using Helpers;

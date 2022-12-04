@@ -1,15 +1,17 @@
-﻿using DataStructures.SearchTrees;
+﻿using DataStructures.BinaryTrees;
 using Graphs.Abstraction;
 using Graphs.GraphImplementation;
 using System.Numerics;
+using System.Reflection.Emit;
+using System.Xml.Linq;
 
 namespace Graphs.Generators;
 
 public class GraphSearchTreeGenerator<TKey, TValue> : GraphGenerator where TKey : INumber<TKey>
 {
-    private readonly SearchTree<TKey, TValue> _tree; 
+    private readonly BinaryTree<TKey, TValue> _tree; 
 
-    public GraphSearchTreeGenerator(SearchTree<TKey, TValue> tree)
+    public GraphSearchTreeGenerator(BinaryTree<TKey, TValue> tree)
     {
         _tree = tree;
     }
@@ -20,7 +22,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : GraphGenerator where TKey 
 
         var vertice = new Vertice(1)
         {
-            Label = $"[{_tree.Root.Key}]"
+            Label = CreateLabel(_tree.Root)
         };
         graph.AddVertice(vertice);
         
@@ -36,7 +38,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : GraphGenerator where TKey 
 
             var leftChild = new Vertice(graph.Count() + 1)
             {
-                Label = $"[{leftNode.Key}]"
+                Label = CreateLabel(leftNode)
             };
 
             graph.AddVertice(leftChild);
@@ -51,7 +53,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : GraphGenerator where TKey 
         {
             var rightChild = new Vertice(graph.Count() + 1)
             {
-                Label = $"[{rightNode.Key}]"
+                Label = CreateLabel(rightNode)
             };
 
             graph.AddVertice(rightChild);
@@ -61,4 +63,15 @@ public class GraphSearchTreeGenerator<TKey, TValue> : GraphGenerator where TKey 
             AddChilds(rightChild, graph, rightNode);
         }
     }
+
+    private string CreateLabel(TreeNode<TKey, TValue> node)
+    {
+        var label = $"[{node.Key}]";
+
+        if (node.Value is not null)
+            label = $"{label}:{node.Value}";
+
+        return label;
+    }
+
 }

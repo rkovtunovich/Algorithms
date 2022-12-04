@@ -1,4 +1,5 @@
-﻿using DataStructures.SearchTrees;
+﻿using DataStructures.BinaryTrees;
+using DataStructures.BinaryTrees.Search;
 using Graphs.Abstraction;
 using Graphs.GraphImplementation;
 using System.Numerics;

@@ -14,10 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataStructures\DataStructures.csproj" />
     <ProjectReference Include="..\Distance\Distance.csproj" />
     <ProjectReference Include="..\Finding\Finding.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\Huffman\Huffman.csproj" />
     <ProjectReference Include="..\MathAlgo\MathAlgo.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.csproj" />
     <ProjectReference Include="..\TowersOfHanoi\TowersOfHanoi.csproj" />

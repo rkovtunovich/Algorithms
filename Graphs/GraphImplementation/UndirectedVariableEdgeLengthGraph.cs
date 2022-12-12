@@ -14,6 +14,11 @@ public class UndirectedVariableEdgeLengthGraph : UndirectedGraph
         return 0;
     }
 
+    public Dictionary<(Vertice, Vertice), double> GetEdgesLength()
+    {
+        return _edgesLengths;
+    }
+
     public override bool IsVariableEdgeLength()
     {
         return true;

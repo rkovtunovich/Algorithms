@@ -67,6 +67,16 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
         RemoveRecurselevely(entry, value);
     }
 
+    public int Length { get => _length; }
+
+    public void Load(LinkedList<T> list)
+    {
+        foreach (var item in list)
+        {
+            Add(item);
+        }
+    }
+
     #region Service methods
 
     private int GetIndex(T value)

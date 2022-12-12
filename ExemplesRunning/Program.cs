@@ -13,6 +13,7 @@ using ExemplesRunning.Graphs;
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
+GraphExample.RunMST();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();
@@ -21,6 +22,6 @@ using ExemplesRunning.Graphs;
 
 //MathAlgoExample.RunMedianExample();
 
-HuffmanExample.Run();
+//HuffmanExample.Run();
 
 Console.ReadLine();

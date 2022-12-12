@@ -43,6 +43,11 @@ public abstract class Heap<TKey, TValue> where TKey : INumber<TKey>
 
     public int Length { get => _length; }
 
+    public bool Empty()
+    {
+        return Length == 0;
+    }
+
     public HeapNode<TKey, TValue> Extremum { get => this[1]; }
 
     public void Insert(TKey key, TValue value = default)

@@ -8,7 +8,9 @@ public abstract class Graph : IEnumerable<Vertice>
 
     protected readonly Dictionary<(Vertice, Vertice), double> _edgesLengths = new();
 
-    public string? Name { get; set; } 
+    public string? Name { get; set; }
+
+    public int Count { get => _nodes.Count; }
 
     public abstract bool IsOriented();
 
@@ -51,7 +53,7 @@ public abstract class Graph : IEnumerable<Vertice>
 
     #region Vertices
 
-    public bool hasVertice(Vertice vertice)
+    public bool HasVertice(Vertice vertice)
     {
         return _nodes.ContainsKey(vertice);
     }
@@ -136,8 +138,11 @@ public abstract class Graph : IEnumerable<Vertice>
 
     public void AddConnection(Vertice begin, Vertice end)
     {
-        if (!hasVertice(begin))
+        if (!HasVertice(begin))
             AddVertice(begin);
+
+        if (!HasVertice(end))
+            AddVertice(end);
 
         _nodes[begin].AddLast(end);
     }

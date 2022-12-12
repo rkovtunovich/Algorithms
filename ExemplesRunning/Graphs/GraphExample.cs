@@ -1,5 +1,7 @@
 ﻿using Graphs;
 using Graphs.Generators;
+using Graphs.GraphImplementation;
+using Graphs.MinimumSpanningTree;
 using Graphs.Search;
 using View;
 
@@ -94,4 +96,23 @@ internal class GraphExample
         DOTVisualizer.VisualizeGraph(graphMaxFlow);
         BFS.AugmentingPathSearch(graphMaxFlow, graphMaxFlow.First(), graphMaxFlow.Last());       
     }
+
+    internal static void RunMST()
+    {
+        var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1));     
+        var graph = generator.Generate("MST_graph_original");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var result = DJP.GetMST(graph);     
+        DOTVisualizer.VisualizeGraph(result.tree);
+        Console.WriteLine($"DJP total lenth: {result.length:0.00}");
+
+        //graph = generator.Generate("Kraskal_graph_original");
+        //DOTVisualizer.VisualizeGraph(graph);
+
+        result = Kruskal.GetMST(graph as UndirectedVariableEdgeLengthGraph);
+        DOTVisualizer.VisualizeGraph(result.tree);
+        Console.WriteLine($"Kraskal total lenth: {result.length:0.00}");
+    }
 }
+

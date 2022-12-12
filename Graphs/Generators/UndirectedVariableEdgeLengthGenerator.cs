@@ -29,7 +29,7 @@ public class UndirectedVariableEdgeLengthGenerator : GraphGenerator
 
         foreach (var vertice in graph)
         {
-            GenerateMutualConnections(graph, vertice, 0, graph.Count() / 2);
+            GenerateMutualConnections(graph, vertice, 0, (int)(graph.Count() / 1.7));
         }
 
         foreach (var vertice in graph)

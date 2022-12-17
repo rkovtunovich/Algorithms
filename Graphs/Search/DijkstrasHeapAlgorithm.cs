@@ -1,5 +1,6 @@
 ﻿using DataStructures.Heaps;
 using Graphs.Abstraction;
+using Graphs.Model;
 
 namespace Graphs.Search;
 

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\ExemplesRunning\Graphs\GraphExample.cs" Link="GraphExample.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.csproj" />
   </ItemGroup>

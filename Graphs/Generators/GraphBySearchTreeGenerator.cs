@@ -1,13 +1,12 @@
 ﻿using DataStructures.BinaryTrees;
 using Graphs.Abstraction;
 using Graphs.GraphImplementation;
+using Graphs.Model;
 using System.Numerics;
-using System.Reflection.Emit;
-using System.Xml.Linq;
 
 namespace Graphs.Generators;
 
-public class GraphSearchTreeGenerator<TKey, TValue> : GraphGenerator where TKey : INumber<TKey>
+public class GraphSearchTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : INumber<TKey>
 {
     private readonly BinaryTree<TKey, TValue> _tree; 
 
@@ -16,7 +15,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : GraphGenerator where TKey 
         _tree = tree;
     }
 
-    public override Graph Generate(string name)
+    public Graph Generate(string name)
     {
         var graph = new UndirectedGraph(name);
 

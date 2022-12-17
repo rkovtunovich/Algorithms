@@ -1,6 +1,6 @@
 ﻿namespace DataStructures.HashTables;
 
-public interface IHashTable<T> where T: notnull
+public interface IHashTable<T> : IEnumerable<T> where T: notnull
 {
     public void Add(T value);
 

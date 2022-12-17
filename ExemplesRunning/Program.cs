@@ -13,7 +13,8 @@ using ExemplesRunning.Graphs;
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
-GraphExample.RunMST();
+//GraphExample.RunMST();
+GraphExample.RunMWIS();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();

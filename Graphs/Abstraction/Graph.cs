@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Graphs.Model;
+using System.Collections;
 
 namespace Graphs.Abstraction;
 

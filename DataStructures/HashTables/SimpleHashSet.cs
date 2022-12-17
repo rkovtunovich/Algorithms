@@ -1,4 +1,6 @@
-﻿namespace DataStructures.HashTables;
+﻿using System.Collections;
+
+namespace DataStructures.HashTables;
 
 public class SimpleHashSet<T> : IHashTable<T> where T : notnull
 {
@@ -76,6 +78,20 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
             Add(item);
         }
     }
+
+    #region IEnumerable
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
 
     #region Service methods
 

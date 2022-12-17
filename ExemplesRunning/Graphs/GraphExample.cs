@@ -2,6 +2,7 @@
 using Graphs.Generators;
 using Graphs.GraphImplementation;
 using Graphs.MinimumSpanningTree;
+using Graphs.MWIS;
 using Graphs.Search;
 using View;
 
@@ -113,6 +114,17 @@ internal class GraphExample
         result = Kruskal.GetMST(graph as UndirectedVariableEdgeLengthGraph);
         DOTVisualizer.VisualizeGraph(result.tree);
         Console.WriteLine($"Kraskal total lenth: {result.length:0.00}");
+    }
+
+    internal static void RunMWIS() 
+    {
+        var generator = new PathGraphGenerator(5, 4);
+        var graph = generator.Generate("Path_graph");
+
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var MaxWeight = PathGraphMWISSearch.Find(graph);  
+      
     }
 }
 

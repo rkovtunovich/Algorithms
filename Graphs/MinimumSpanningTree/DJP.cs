@@ -2,6 +2,7 @@
 using DataStructures.Heaps;
 using Graphs.Abstraction;
 using Graphs.GraphImplementation;
+using Graphs.Model;
 
 namespace Graphs.MinimumSpanningTree;
 

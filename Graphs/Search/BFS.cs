@@ -1,5 +1,6 @@
 ﻿using Graphs.Abstraction;
 using Graphs.GraphImplementation;
+using Graphs.Model;
 
 namespace Graphs.Search;
 public static class BFS

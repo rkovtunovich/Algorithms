@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-namespace DataStructures;
+﻿namespace DataStructures;
 
 // aslo cold non-related set
 public class UnionFind<T>

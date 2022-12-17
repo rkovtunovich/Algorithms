@@ -2,11 +2,12 @@
 using DataStructures.BinaryTrees.Search;
 using Graphs.Abstraction;
 using Graphs.GraphImplementation;
+using Graphs.Model;
 using System.Numerics;
 
 namespace Graphs.Generators;
 
-public class GraphAVLTreeGenerator<TKey, TValue> : GraphGenerator where TKey : INumber<TKey>
+public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : INumber<TKey>
 {
     private readonly SearchTree<TKey, TValue> _tree; 
 
@@ -15,7 +16,7 @@ public class GraphAVLTreeGenerator<TKey, TValue> : GraphGenerator where TKey : I
         _tree = tree;
     }
 
-    public override Graph Generate(string name)
+    public Graph Generate(string name)
     {
         var graph = new UndirectedGraph(name);
 

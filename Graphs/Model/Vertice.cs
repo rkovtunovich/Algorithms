@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Graphs;
+namespace Graphs.Model;
 
-public class Vertice: IEquatable<Vertice>
+public class Vertice : IEquatable<Vertice>
 {
     public Vertice(int index)
     {
@@ -69,7 +69,7 @@ public class Vertice: IEquatable<Vertice>
     {
         var name = $"\"{Index}";
 
-        if(Mark)
+        if (Mark)
             name += $"\n\u2605";
 
         if (Label is not null)

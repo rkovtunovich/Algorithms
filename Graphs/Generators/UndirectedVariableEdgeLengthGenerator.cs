@@ -1,9 +1,10 @@
 ﻿using Graphs.Abstraction;
 using Graphs.GraphImplementation;
+using Graphs.Model;
 
 namespace Graphs.Generators;
 
-public class UndirectedVariableEdgeLengthGenerator : GraphGenerator
+public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
 {
     private readonly Random _random = new();
     private readonly int _countVertices;
@@ -15,7 +16,7 @@ public class UndirectedVariableEdgeLengthGenerator : GraphGenerator
         _prototype = prototype;
     }
 
-    public override Graph Generate(string name = "undirected_var_length")
+    public Graph Generate(string name = "undirected_var_length")
     {
         var graph = new UndirectedVariableEdgeLengthGraph(name);
 

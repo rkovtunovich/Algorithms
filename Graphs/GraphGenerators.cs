@@ -1,4 +1,5 @@
 ﻿using Graphs.GraphImplementation;
+using Graphs.Model;
 
 namespace Graphs;
 

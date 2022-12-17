@@ -1,4 +1,5 @@
 ﻿using Graphs.Abstraction;
+using Graphs.Model;
 using System.Drawing;
 using System.Text;
 

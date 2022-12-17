@@ -1,11 +1,12 @@
 ﻿using DataStructures.Heaps;
 using Graphs.Abstraction;
 using Graphs.GraphImplementation;
+using Graphs.Model;
 using System.Numerics;
 
 namespace Graphs.Generators;
 
-public class GraphByHeapGenerator<TKey, TValue> : GraphGenerator where TKey : INumber<TKey>
+public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : INumber<TKey>
 {
     private readonly Heap<TKey, TValue> _heap; 
 
@@ -14,7 +15,7 @@ public class GraphByHeapGenerator<TKey, TValue> : GraphGenerator where TKey : IN
         _heap = heap;
     }
 
-    public override Graph Generate(string name = nameof(_heap))
+    public Graph Generate(string name = nameof(_heap))
     {
         var graph = new UndirectedGraph(name);
 

@@ -3,7 +3,7 @@ using Helpers;
 using Sorting;
 using View;
 
-namespace ExemplesRunning;
+namespace ExamplesRunning;
 
 internal static class FindingExemple
 {
@@ -38,7 +38,7 @@ internal static class FindingExemple
         int[][] matrix = MatrixHelper.CreateQuadratische<int>(5);
         MatrixHelper.FillRandomly(ref matrix, 0, 25);
 
-        MatrixHelper.Show<int>(matrix);
+        MatrixHelper.Show(matrix);
 
         var mins = LocalMatrixMinimum.Find(matrix);
 
@@ -56,7 +56,7 @@ internal static class FindingExemple
 
         Viewer.ShowArray(array);
 
-        int stat = RSelect.Find(array,4);
+        int stat = RSelect.Find(array, 4);
 
         QuickSort.Sort(ref array);
         Viewer.ShowArray(array);

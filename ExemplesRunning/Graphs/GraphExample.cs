@@ -4,6 +4,7 @@ using Graphs.GraphImplementation;
 using Graphs.MinimumSpanningTree;
 using Graphs.MWIS;
 using Graphs.Search;
+using Helpers;
 using View;
 
 namespace ExemplesRunning.Graphs;
@@ -125,6 +126,28 @@ internal class GraphExample
 
         var MaxWeight = PathGraphMWISSearch.Find(graph);  
       
+    }
+
+    internal static void RunBellmanFord()
+    {
+        var generator = new OrientedVariableEdgeLengthGenerator(7, 1);
+        var graph = generator.Generate("orientet_bellman_ford");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var result = BelmanFordAlgo.Search(graph as OrientedGraph, graph.First());
+
+        MatrixHelper.Show(result);
+    }
+
+    internal static void RunFloydWarshall()
+    {
+        var generator = new OrientedVariableEdgeLengthGenerator(7, 1);
+        var graph = generator.Generate("orientet_floyd_warshall");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        FloydWarshallAlgo.Search(graph as OrientedGraph);
+
+        //MatrixHelper.Show(result);
     }
 }
 

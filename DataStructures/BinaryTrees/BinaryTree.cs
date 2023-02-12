@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace DataStructures.BinaryTrees;
+﻿namespace DataStructures.BinaryTrees;
 
 public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 {

@@ -4,8 +4,9 @@ using DataStructures.Heaps;
 using Graphs;
 using Graphs.Generators;
 using Helpers;
+using View;
 
-namespace ExemplesRunning;
+namespace ExamplesRunning;
 
 public static class DataStructuresExample
 {
@@ -75,7 +76,7 @@ public static class DataStructuresExample
         //var array = ArrayHelper.GetUnsortedArray(15, 1, 50);
 
         //var array = new List<int>() { 7, 30, 32, 24, 14, 39, 7, 23, 31, 9 };
-        var array = new List<int>() { 4, 22, 7, 42, 49, 35, 32, 28, 14, 49, 25, 15, 44, 23, 37};
+        var array = new List<int>() { 4, 22, 7, 42, 49, 35, 32, 28, 14, 49, 25, 15, 44, 23, 37 };
 
         //var array = new List<int>() { 4, 22, 7, 42, 37, 7, 37, 22, 14, 7, 25, 4, 44, 23, 37 };
 
@@ -100,8 +101,8 @@ public static class DataStructuresExample
         tree.TraverseInOrder(node => Console.WriteLine(node.Key.ToString()));
 
         Console.WriteLine($"Remove with key: {array[random]}");
-        
-        var toRemove = new List<int>() { 4, 23, 25, 28, 32, 22, 7};
+
+        var toRemove = new List<int>() { 4, 23, 25, 28, 32, 22, 7 };
         foreach (var key in toRemove)
         {
             tree.Remove(key);
@@ -141,5 +142,15 @@ public static class DataStructuresExample
         set.Remove("test");
 
         Console.WriteLine(set.Contains("test2"));
+    }
+
+    public static void RunOBSTExample()
+    {
+        var keys = new int[] { 1, 2, 3, 4, 5 };
+        var frequency = new double[] { 2, 4, 1, 5, 1 };
+
+        var obst = new OptimalBinarySearchTree<int, int>(keys, keys, frequency);
+
+        MatrixHelper.Show(obst.Span);
     }
 }

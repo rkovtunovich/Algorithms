@@ -1,7 +1,7 @@
 ﻿using TowersOfHanoi;
 using View;
 
-namespace ExemplesRunning;
+namespace ExamplesRunning;
 
 internal static class HanoiTowersExample
 {
@@ -10,7 +10,7 @@ internal static class HanoiTowersExample
         Towers towers = new(3);
         towers.Move();
 
-        Viewer.ShowArray(towers.Third.Items); 
+        Viewer.ShowArray(towers.Third.Items);
     }
 }
 

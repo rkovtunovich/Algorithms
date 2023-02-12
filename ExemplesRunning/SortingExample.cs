@@ -4,7 +4,7 @@ using Sorting;
 using System.Diagnostics;
 using View;
 
-namespace ExemplesRunning;
+namespace ExamplesRunning;
 
 internal class SortingExample
 {

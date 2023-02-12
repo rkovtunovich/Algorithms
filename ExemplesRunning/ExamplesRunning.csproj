@@ -18,7 +18,11 @@
     <ProjectReference Include="..\Finding\Finding.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\Huffman\Huffman.csproj" />
+    <ProjectReference Include="..\KnapsackProblem\KnapsackProblem.csproj" />
     <ProjectReference Include="..\MathAlgo\MathAlgo.csproj" />
+    <ProjectReference Include="..\MaximumCoverage\MaximumCoverage.csproj" />
+    <ProjectReference Include="..\MinimizationProductionDuration\MinimizationProductionDuration.csproj" />
+    <ProjectReference Include="..\NeedlemanWunsch\NeedlemanWunsch.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.csproj" />
     <ProjectReference Include="..\TowersOfHanoi\TowersOfHanoi.csproj" />
     <ProjectReference Include="..\View\View.csproj" />

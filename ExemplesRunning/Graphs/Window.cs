@@ -2,7 +2,7 @@
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
-namespace ExemplesRunning.Graphs;
+namespace ExamplesRunning.Graphs;
 
 class Window : GameWindow
 {

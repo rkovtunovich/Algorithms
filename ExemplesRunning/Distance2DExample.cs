@@ -1,7 +1,7 @@
 ﻿using Helpers.Space;
 using Distance;
 
-namespace ExemplesRunning;
+namespace ExamplesRunning;
 
 public static class Distance2DExample
 {

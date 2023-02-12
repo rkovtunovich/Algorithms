@@ -1,4 +1,4 @@
-﻿using ExemplesRunning;
+﻿using ExamplesRunning;
 using ExemplesRunning.Graphs;
 
 //FindingExemple.RunFindingMaxUnimodalArray();
@@ -14,15 +14,26 @@ using ExemplesRunning.Graphs;
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
 //GraphExample.RunMST();
-GraphExample.RunMWIS();
+//GraphExample.RunMWIS();
+//GraphExample.RunBellmanFord();
+//GraphExample.RunFloydWarshall();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();
 //DataStructuresExample.RunAVLTreeExample();
 //DataStructuresExample.RunHashSetExample();
+//DataStructuresExample.RunOBSTExample();
 
 //MathAlgoExample.RunMedianExample();
 
 //HuffmanExample.Run();
+
+//KnapsackExample.Run();
+
+//NeedlemanWunschExample.Run();
+
+//MinimizationProductionDurationExample.RunLongestProcessingTimeFirst();
+
+MaximumCoverageExample.Run();
 
 Console.ReadLine();

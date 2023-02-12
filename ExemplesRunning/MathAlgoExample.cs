@@ -1,6 +1,6 @@
 ﻿using MathAlgo;
 
-namespace ExemplesRunning;
+namespace ExamplesRunning;
 internal static class MathAlgoExample
 {
     internal static void RunMedianExample()
@@ -11,7 +11,8 @@ internal static class MathAlgoExample
 
         var median = new Median<int, int>();
 
-        foreach (var key in keys) { 
+        foreach (var key in keys)
+        {
             median.Add(key);
         }
 

@@ -2,7 +2,7 @@
 using Graphs;
 using Huffman;
 
-namespace ExemplesRunning;
+namespace ExamplesRunning;
 public static class HuffmanExample
 {
     public static void Run()

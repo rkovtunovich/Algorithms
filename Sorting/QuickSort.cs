@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace Sorting;
@@ -10,6 +12,15 @@ public class QuickSort
     public static void Sort<T>(ref T[] array) where T : INumber<T>
     {
         SortRec(array, 0, array.Length - 1);
+    }
+
+    public static void Sort<T>(ref List<T> list) where T : INumber<T>
+    {
+        var array = list.ToArray();
+
+        SortRec(array, 0, array.Length - 1);
+
+        list = array.ToList();
     }
 
     private static void SortRec<T>(T[] array, int leftIndex, int rightIndex) where T : INumber<T>

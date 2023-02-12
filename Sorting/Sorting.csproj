@@ -4,7 +4,7 @@
     <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
-	<EnablePreviewFeatures>true</EnablePreviewFeatures>
+	<!--<EnablePreviewFeatures>true</EnablePreviewFeatures>-->
   </PropertyGroup>
 
   <ItemGroup>

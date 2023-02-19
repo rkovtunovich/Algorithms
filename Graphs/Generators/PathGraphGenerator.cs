@@ -20,11 +20,11 @@ public class PathGraphGenerator : IGraphGenerator
         var random = new Random();
         var graph = new UndirectedGraph(name);
 
-        Vertice? prevVertice = null;
+        Vertex? prevVertice = null;
 
         for (int i = 0; i < _verticeCount; i++)
         {
-            var vertice = new Vertice(i)
+            var vertice = new Vertex(i)
             {
                 Weight = Math.Round(random.NextDouble() * _maxWeigth, 2)
             };

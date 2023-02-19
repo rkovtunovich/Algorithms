@@ -6,7 +6,7 @@ namespace Graphs.Search;
 
 public static class DijkstrasHeapAlgorithm
 {
-    public static void Search(Graph graph, Vertice origin)
+    public static void Search(Graph graph, Vertex origin)
     {
         int marcked = 0;
 
@@ -14,7 +14,7 @@ public static class DijkstrasHeapAlgorithm
         origin.Mark = true;
         origin.Label = marcked.ToString();
 
-        var heap = new HeapMin<double, Vertice>();
+        var heap = new HeapMin<double, Vertex>();
         foreach (var vertice in graph)
         {
             heap.Insert(vertice.Distance ?? throw new ArgumentNullException($"Distanse isn't initialized for vertice {vertice.Index}"), vertice);
@@ -22,7 +22,7 @@ public static class DijkstrasHeapAlgorithm
 
         while (heap.Length > 0)
         {
-            Vertice closest = heap.ExtractValue();
+            Vertex closest = heap.ExtractValue();
 
             if (closest.Distance is int.MaxValue)
                 continue;
@@ -35,7 +35,7 @@ public static class DijkstrasHeapAlgorithm
         }
     }
 
-    private static void MarckClosestNeighbors(Graph graph, Vertice vertice, HeapMin<double, Vertice> heap)
+    private static void MarckClosestNeighbors(Graph graph, Vertex vertice, HeapMin<double, Vertex> heap)
     {
         var edgesClosestVertice = graph.GetEdges(vertice);
 

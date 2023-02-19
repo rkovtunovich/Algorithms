@@ -1,10 +1,10 @@
 ﻿using ExamplesRunning;
-using ExemplesRunning.Graphs;
+using ExamplesRunning.Graphs;
 
-//FindingExemple.RunFindingMaxUnimodalArray();
-//FindingExemple.RunFindingMatchArrayIndexToValue();
-//FindingExemple.RunFindinfLocalMatrixMimimum();
-//FindingExemple.RunFindingOederStatistics();
+//FindingExample.RunFindingMaxUnimodalArray();
+//FindingExample.RunFindingMatchArrayIndexToValue();
+//FindingExample.RunFindingLocalMatrixMinimum();
+//FindingExample.RunFindingOrderStatistics();
 
 //HanoiTowersExample.Run();
 
@@ -34,6 +34,7 @@ using ExemplesRunning.Graphs;
 
 //MinimizationProductionDurationExample.RunLongestProcessingTimeFirst();
 
-MaximumCoverageExample.Run();
+//MaximumCoverageExample.RunGreedyCoverage();
+MaximumCoverageExample.RunGreedyInfluence();
 
 Console.ReadLine();

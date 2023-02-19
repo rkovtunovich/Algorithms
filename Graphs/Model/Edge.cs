@@ -2,7 +2,7 @@
 
 public class Edge
 {
-    public Vertice? Vertice { get; set; }
+    public Vertex? Vertice { get; set; }
 
     public double Weight { get; set; }
 }

@@ -1,4 +1,7 @@
-﻿using Helpers;
+﻿using Graphs;
+using Graphs.Generators;
+using Graphs.GraphImplementation;
+using Helpers;
 using MaximumCoverage;
 using View;
 
@@ -6,7 +9,7 @@ namespace ExamplesRunning;
 
 internal class MaximumCoverageExample
 {
-    internal static void Run()
+    internal static void RunGreedyCoverage()
     {
         var budget = 5;
         var sets = new List<List<int>>();
@@ -31,6 +34,25 @@ internal class MaximumCoverageExample
         foreach (var setIndex in result)
         {
             Console.WriteLine($"{setIndex + 1}");
+        }
+    }
+
+    internal static void RunGreedyInfluence()
+    {
+        var participantsCount = 10;
+        var influencerCount = 3;
+        var influenceDegree = 0.5;
+        var generator = new OrientedGraphGenerator(participantsCount, 0.35);
+
+        var graph = generator.Generate("oriented_influence") as OrientedGraph;
+        
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var result = GreedyInfluence.FindInfluencers(graph, influencerCount, influenceDegree);
+
+        foreach (var index in result)
+        {
+            Console.WriteLine($"{index}");
         }
     }
 }

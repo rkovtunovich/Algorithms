@@ -10,14 +10,14 @@ public class OrientedGraph : Graph
         Name = name;
     }
 
-    private Dictionary<Vertice, List<Vertice>> _belowNeighbors = new();
+    private Dictionary<Vertex, List<Vertex>> _belowNeighbors = new();
 
-    public override void AddEdge(Vertice sourse, Vertice destination)
+    public override void AddEdge(Vertex source, Vertex destination)
     {
-        if (!_nodes.ContainsKey(sourse) || !_nodes.ContainsKey(destination))
-            throw new Exception("this vertices isn't included in the garph!");
+        if (!_nodes.ContainsKey(source) || !_nodes.ContainsKey(destination))
+            throw new Exception("this vertices isn't included in the graph!");
 
-        var sourceEdges = _nodes[sourse];
+        var sourceEdges = _nodes[source];
         AddConnection(sourceEdges, destination);
     }
 
@@ -26,18 +26,18 @@ public class OrientedGraph : Graph
         return true;
     }
 
-    public void AddBelowNeighbor(Vertice owner, Vertice neigbor)
+    public void AddBelowNeighbor(Vertex owner, Vertex neighbor)
     {
         if(!_belowNeighbors.ContainsKey(owner))
-            _belowNeighbors.Add(owner, new List<Vertice> { neigbor });
+            _belowNeighbors.Add(owner, new List<Vertex> { neighbor });
         else
         {
-            if(!_belowNeighbors[owner].Contains(neigbor))
-                _belowNeighbors[owner].Add(neigbor);
+            if(!_belowNeighbors[owner].Contains(neighbor))
+                _belowNeighbors[owner].Add(neighbor);
         }         
     }
 
-    public List<Vertice> GetBelowNeighbors(Vertice owner)
+    public List<Vertex> GetBelowNeighbors(Vertex owner)
     {
         return _belowNeighbors[owner];
     }
@@ -47,13 +47,13 @@ public class OrientedGraph : Graph
         OrientedGraph transposed = new("Transposed");
         CopyVerticesTo(transposed);
 
-        foreach (var vertice in this)
+        foreach (var vertex in this)
         {
-            var edges = GetEdges(vertice);
+            var edges = GetEdges(vertex);
 
             foreach (var edge in edges)
             {
-                transposed.AddConnection(edge, vertice); 
+                transposed.AddConnection(edge, vertex); 
             }
         }
 
@@ -62,7 +62,7 @@ public class OrientedGraph : Graph
 
     #region Edges
 
-    public override double GetEdgeLength(Vertice begin, Vertice end)
+    public override double GetEdgeLength(Vertex begin, Vertex end)
     {
         if (_edgesLengths.TryGetValue((begin, end), out double length))
             return length;
@@ -70,7 +70,7 @@ public class OrientedGraph : Graph
         return 0;
     }
 
-    public override void RemoveEdge(Vertice sourse, Vertice destination)
+    public override void RemoveEdge(Vertex sourse, Vertex destination)
     {
         RemoveConnection(_nodes[sourse], destination);
     }

@@ -8,7 +8,7 @@ public class UndirectedVariableEdgeLengthGraph : UndirectedGraph
     {
     }
 
-    public override double GetEdgeLength(Vertice begin, Vertice end)
+    public override double GetEdgeLength(Vertex begin, Vertex end)
     {
         if (_edgesLengths.TryGetValue((begin, end), out double length))
             return length;
@@ -16,7 +16,7 @@ public class UndirectedVariableEdgeLengthGraph : UndirectedGraph
         return 0;
     }
 
-    public Dictionary<(Vertice, Vertice), double> GetEdgesLength()
+    public Dictionary<(Vertex, Vertex), double> GetEdgesLength()
     {
         return _edgesLengths;
     }

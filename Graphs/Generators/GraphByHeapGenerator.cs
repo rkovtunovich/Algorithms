@@ -19,7 +19,7 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
     {
         var graph = new UndirectedGraph(name);
 
-        var vertice = new Vertice(1)
+        var vertice = new Vertex(1)
         {
             Label = $"[{_heap.Extremum.Key}]"
         };
@@ -30,12 +30,12 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
         return graph;
     }
 
-    private void AddChilds(Vertice parent, Graph graph)
+    private void AddChilds(Vertex parent, Graph graph)
     {
         int leftPos = _heap.GetLeftChildPosition(parent.Index);
         if (leftPos is not -1) {
 
-            var leftChild = new Vertice(leftPos)
+            var leftChild = new Vertex(leftPos)
             {
                 Label = $"[{_heap[leftPos].Key}]"
             };
@@ -50,7 +50,7 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
         int rightPos = _heap.GetRightChildPosition(parent.Index);
         if (rightPos is not -1)
         {
-            var rightChild = new Vertice(rightPos)
+            var rightChild = new Vertex(rightPos)
             {
                 Label = $"[{_heap[rightPos].Key}]"
             };

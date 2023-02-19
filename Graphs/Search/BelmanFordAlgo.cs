@@ -7,11 +7,11 @@ public static class BelmanFordAlgo
 {
     private const int MaxPosibleLength = 1000;
 
-    public static double?[][] Search(OrientedGraph graph, Vertice start)
+    public static double?[][] Search(OrientedGraph graph, Vertex start)
     {
         var span = new double?[graph.Count + 1][];
 
-        var incomingEdges = new Dictionary<Vertice, List<Vertice>>();
+        var incomingEdges = new Dictionary<Vertex, List<Vertex>>();
 
         for (int i = 0; i <= graph.Count; i++)
         {
@@ -63,7 +63,7 @@ public static class BelmanFordAlgo
         return span;
     }
 
-    private static double GetMinimum(Dictionary<Vertice, List<Vertice>> incomingEdges, OrientedGraph graph, Vertice vertice, double?[][] span, int i)
+    private static double GetMinimum(Dictionary<Vertex, List<Vertex>> incomingEdges, OrientedGraph graph, Vertex vertice, double?[][] span, int i)
     {
         var edges = incomingEdges[vertice];
 

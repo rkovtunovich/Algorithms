@@ -8,9 +8,9 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
 {
     private readonly Random _random = new();
     private readonly int _countVertices;
-    private readonly Vertice? _prototype;
+    private readonly Vertex? _prototype;
 
-    public UndirectedVariableEdgeLengthGenerator(int countVertices, Vertice? prototype = null)
+    public UndirectedVariableEdgeLengthGenerator(int countVertices, Vertex? prototype = null)
     {
         _countVertices = countVertices;
         _prototype = prototype;
@@ -22,7 +22,7 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
 
         for (int i = 1; i <= _countVertices; i++)
         {
-            var vertice = new Vertice(i);
+            var vertice = new Vertex(i);
             vertice.CopyFrom(_prototype);
 
             graph.AddVertice(vertice);
@@ -50,7 +50,7 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
 
     #region Service methods
 
-    private void GenerateMutualConnections(UndirectedGraph graph, Vertice owner, int minConnections, int maxConnections)
+    private void GenerateMutualConnections(UndirectedGraph graph, Vertex owner, int minConnections, int maxConnections)
     {
         int numberConnections = _random.Next(minConnections, maxConnections);
 
@@ -58,7 +58,7 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
         if (minConnections == 0)
             numberConnections -= graph.GetDegree(owner);
 
-        var alreadyAdded = new HashSet<Vertice>();
+        var alreadyAdded = new HashSet<Vertex>();
 
         while (numberConnections > 0)
         {
@@ -69,7 +69,7 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
 
             var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
 
-            if (alreadyAdded.Contains<Vertice>(newConnection))
+            if (alreadyAdded.Contains<Vertex>(newConnection))
                 continue;
 
             if (graph.IsConnected(newConnection, owner))

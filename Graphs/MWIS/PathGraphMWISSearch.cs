@@ -8,9 +8,9 @@ public static class PathGraphMWISSearch
 {
     private static int _counterRecCall = 0;
 
-    public static SimpleHashSet<Vertice> Find(Graph pathGraph)
+    public static SimpleHashSet<Vertex> Find(Graph pathGraph)
     {
-        var set = new SimpleHashSet<Vertice>();
+        var set = new SimpleHashSet<Vertex>();
         var vertices = pathGraph.ToList();
       
         var MWISRec = FindRec(vertices, vertices.Count - 1);
@@ -22,7 +22,7 @@ public static class PathGraphMWISSearch
         return set;
     } 
     
-    private static double FindRec(List<Vertice> vertices, int position)
+    private static double FindRec(List<Vertex> vertices, int position)
     {
         _counterRecCall++;
 
@@ -37,7 +37,7 @@ public static class PathGraphMWISSearch
         return Math.Max(s1, s2 + vertices[position].Weight ?? 0);
     }
 
-    private static double[] FindIter(List<Vertice> vertices)
+    private static double[] FindIter(List<Vertex> vertices)
     {
         var calculations = new double[vertices.Count + 1];
         calculations[0] = 0;
@@ -51,7 +51,7 @@ public static class PathGraphMWISSearch
         return calculations;
     }
 
-    private static void ReconstuctionSet(List<Vertice> vertices, double[] calculations, SimpleHashSet<Vertice> set)
+    private static void ReconstuctionSet(List<Vertex> vertices, double[] calculations, SimpleHashSet<Vertex> set)
     {
         int i = calculations.Length - 1;
 

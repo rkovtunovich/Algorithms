@@ -5,14 +5,14 @@ using Graphs.Model;
 namespace Graphs.Search;
 public static class BFS
 {
-    public static HashSet<Vertice> SearchConnected(Graph graph, Vertice originVertice)
+    public static HashSet<Vertex> SearchConnected(Graph graph, Vertex originVertice)
     {
-        var visited = new HashSet<Vertice>
+        var visited = new HashSet<Vertex>
         {
             originVertice
         };
 
-        var queue = new Queue<Vertice>();
+        var queue = new Queue<Vertex>();
         queue.Enqueue(originVertice);
 
         while (queue.Count > 0)
@@ -34,18 +34,18 @@ public static class BFS
         return visited;
     }
 
-    public static HashSet<Vertice> MarkPaths(UndirectedGraph graph, Vertice originVertice)
+    public static HashSet<Vertex> MarkPaths(UndirectedGraph graph, Vertex originVertice)
     {
         int level = 0;
 
         originVertice.Distance = level;
 
-        var visited = new HashSet<Vertice>
+        var visited = new HashSet<Vertex>
         {
             originVertice
         };
 
-        var queue = new Queue<Vertice>();
+        var queue = new Queue<Vertex>();
         queue.Enqueue(originVertice);
 
         while (queue.Count > 0)
@@ -88,9 +88,9 @@ public static class BFS
     public static void FindStronglyConnectedComponents(UndirectedGraph graph)
     {
         int component = 0;
-        var visited = new HashSet<Vertice>();
+        var visited = new HashSet<Vertex>();
 
-        var queue = new Queue<Vertice>();
+        var queue = new Queue<Vertex>();
 
         foreach (var vertive in graph)
         {
@@ -122,22 +122,22 @@ public static class BFS
         }
     }
 
-    public static OrientedGraph GetSimpleShortestPathTree(UndirectedGraph graph, Vertice originVertice, out HashSet<Vertice> leaves)
+    public static OrientedGraph GetSimpleShortestPathTree(UndirectedGraph graph, Vertex originVertice, out HashSet<Vertex> leaves)
     {
         var tree = new OrientedGraph($"simple_tree_{originVertice.Index}");
         graph.CopyVerticesTo(tree);
 
-        leaves = new HashSet<Vertice>();
+        leaves = new HashSet<Vertex>();
         leaves.UnionWith(tree);
 
-        var visited = new List<Vertice>
+        var visited = new List<Vertex>
         {
             originVertice
         };
 
         originVertice.Distance = 0;
 
-        var queue = new Queue<Vertice>();
+        var queue = new Queue<Vertex>();
         queue.Enqueue(originVertice);
 
         while (queue.Count > 0)
@@ -169,15 +169,15 @@ public static class BFS
         return tree;
     }
 
-    public static OrientedGraph GetFullShortestPathTree(UndirectedGraph graph, Vertice originVertice, out HashSet<Vertice> leaves)
+    public static OrientedGraph GetFullShortestPathTree(UndirectedGraph graph, Vertex originVertice, out HashSet<Vertex> leaves)
     {
         var tree = new OrientedGraph($"full_tree_{originVertice.Index}");
         graph.CopyVerticesTo(tree);
 
-        leaves = new HashSet<Vertice>();
+        leaves = new HashSet<Vertex>();
         leaves.UnionWith(tree);
 
-        var visited = new List<Vertice>
+        var visited = new List<Vertex>
         {
             originVertice
         };
@@ -185,7 +185,7 @@ public static class BFS
         originVertice.Distance = 0;
         originVertice.Weight = 1;
 
-        var queue = new Queue<Vertice>();
+        var queue = new Queue<Vertex>();
         queue.Enqueue(originVertice);
 
         while (queue.Count > 0)
@@ -229,7 +229,7 @@ public static class BFS
     #region Maximum Flow
 
     // Ford and Fullkerson algorithm
-    public static double AugmentingPathSearch(Graph graph, Vertice source, Vertice target)
+    public static double AugmentingPathSearch(Graph graph, Vertex source, Vertex target)
     {
         double maxFlow = 0;
 
@@ -281,16 +281,16 @@ public static class BFS
         return maxFlow;
     }
 
-    public static (bool isExist, Vertice[] path) SearchPath(Graph graph, Vertice source, Vertice target)
+    public static (bool isExist, Vertex[] path) SearchPath(Graph graph, Vertex source, Vertex target)
     {
-        var parents = new Vertice[graph.Count()];
+        var parents = new Vertex[graph.Count()];
 
-        var visited = new HashSet<Vertice>
+        var visited = new HashSet<Vertex>
         {
             source
         };
 
-        var queue = new Queue<Vertice>();
+        var queue = new Queue<Vertex>();
         queue.Enqueue(source);
 
         while (queue.Count > 0)
@@ -325,7 +325,7 @@ public static class BFS
     {
         foreach (var vertice in graph)
         {
-            var tree = GetFullShortestPathTree(graph, vertice, out HashSet<Vertice> leaves);
+            var tree = GetFullShortestPathTree(graph, vertice, out HashSet<Vertex> leaves);
 
             foreach (var leaf in leaves)
             {
@@ -337,7 +337,7 @@ public static class BFS
         }
     }
 
-    private static void TraceNextTreeNode(OrientedGraph tree, Vertice vertice)
+    private static void TraceNextTreeNode(OrientedGraph tree, Vertex vertice)
     {
         var edges = tree.GetEdges(vertice);
 
@@ -356,7 +356,7 @@ public static class BFS
         }     
     }
 
-    private static void TraceNextTreeNodeForSimpleTree(OrientedGraph tree, Vertice vertice)
+    private static void TraceNextTreeNodeForSimpleTree(OrientedGraph tree, Vertex vertice)
     {
         vertice.Betweeness ??= 0;
         vertice.Betweeness++;
@@ -373,7 +373,7 @@ public static class BFS
     {
         foreach (var vertice in graph)
         {
-            var tree = GetSimpleShortestPathTree(graph, vertice, out HashSet<Vertice> leaves);
+            var tree = GetSimpleShortestPathTree(graph, vertice, out HashSet<Vertex> leaves);
 
             foreach (var leaf in leaves)
             {

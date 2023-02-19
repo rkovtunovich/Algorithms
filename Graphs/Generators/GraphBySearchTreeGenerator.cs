@@ -19,7 +19,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : IGraphGenerator where TKey
     {
         var graph = new UndirectedGraph(name);
 
-        var vertice = new Vertice(1)
+        var vertice = new Vertex(1)
         {
             Label = CreateLabel(_tree.Root)
         };
@@ -30,12 +30,12 @@ public class GraphSearchTreeGenerator<TKey, TValue> : IGraphGenerator where TKey
         return graph;
     }
 
-    private void AddChilds(Vertice parent, Graph graph, TreeNode<TKey, TValue> currNode)
+    private void AddChilds(Vertex parent, Graph graph, TreeNode<TKey, TValue> currNode)
     {
         var leftNode = currNode.LeftChild;
         if (leftNode is not null) {
 
-            var leftChild = new Vertice(graph.Count() + 1)
+            var leftChild = new Vertex(graph.Count() + 1)
             {
                 Label = CreateLabel(leftNode)
             };
@@ -50,7 +50,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : IGraphGenerator where TKey
         var rightNode = currNode.RightChild;
         if (rightNode is not null)
         {
-            var rightChild = new Vertice(graph.Count() + 1)
+            var rightChild = new Vertex(graph.Count() + 1)
             {
                 Label = CreateLabel(rightNode)
             };

@@ -5,11 +5,11 @@ namespace Graphs.Search;
 
 public static class DFS
 {
-    public static HashSet<Vertice> SearchConnected(Graph graph, Vertice originVertice)
+    public static HashSet<Vertex> SearchConnected(Graph graph, Vertex originVertice)
     {
-        var visited = new HashSet<Vertice>();
+        var visited = new HashSet<Vertex>();
 
-        var stack = new Stack<Vertice>();
+        var stack = new Stack<Vertex>();
         stack.Push(originVertice);
 
         while (stack.Count > 0)
@@ -32,16 +32,16 @@ public static class DFS
         return visited;
     }
 
-    public static HashSet<Vertice> SearchConnectedRec(Graph graph, Vertice originVertice)
+    public static HashSet<Vertex> SearchConnectedRec(Graph graph, Vertex originVertice)
     {
-        var visited = new HashSet<Vertice>();
+        var visited = new HashSet<Vertex>();
 
         Search(graph, originVertice, visited);
 
         return visited;
     }
 
-    private static void Search(Graph graph, Vertice current, HashSet<Vertice> visited)
+    private static void Search(Graph graph, Vertex current, HashSet<Vertex> visited)
     {
         if (visited.Contains(current))
             return;
@@ -56,13 +56,13 @@ public static class DFS
         }
     }
 
-    public static Vertice[] SortTopologicaly(Graph graph)
+    public static Vertex[] SortTopologicaly(Graph graph)
     {
         int curLabel = graph.Count();
 
-        var vertices = new Vertice[curLabel]; 
+        var vertices = new Vertex[curLabel]; 
 
-        var visited = new HashSet<Vertice>();
+        var visited = new HashSet<Vertex>();
 
         foreach (var item in graph)
         {
@@ -75,7 +75,7 @@ public static class DFS
         return vertices;
     }
 
-    private static void TopoSort(Graph graph, Vertice current, HashSet<Vertice> visited, ref int curLabel, Vertice[] vertices)
+    private static void TopoSort(Graph graph, Vertex current, HashSet<Vertex> visited, ref int curLabel, Vertex[] vertices)
     {
         visited.Add(current);
 
@@ -98,7 +98,7 @@ public static class DFS
         var transposed = graph.Transpose();       
         var vertices = SortTopologicaly(transposed);
 
-        var visited = new HashSet<Vertice>();
+        var visited = new HashSet<Vertex>();
         int numSCC = 0;
 
         foreach (var vertice in vertices)
@@ -112,7 +112,7 @@ public static class DFS
         }
     }
 
-    private static void SearchSCC(Graph graph, Vertice current, HashSet<Vertice> visited, ref int numSCC)
+    private static void SearchSCC(Graph graph, Vertex current, HashSet<Vertex> visited, ref int numSCC)
     {
         if (visited.Contains(current))
             return;

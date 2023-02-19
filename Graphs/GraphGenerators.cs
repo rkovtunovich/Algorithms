@@ -18,9 +18,9 @@ public static class GraphGenerators
             graph.AddVertice(new(i));
         }
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            GenerateMutualConnections(graph, vertice, 0, graph.Count() / 2);
+            GenerateMutualConnections(graph, vertex, 0, graph.Count() / 2);
         }
 
         return graph;
@@ -35,9 +35,9 @@ public static class GraphGenerators
             graph.AddVertice(new(i));
         }
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            GenerateMutualConnections(graph, vertice, 1, graph.Count() / 2);
+            GenerateMutualConnections(graph, vertex, 1, graph.Count() / 2);
         }
 
         return graph;
@@ -45,15 +45,15 @@ public static class GraphGenerators
 
     #region Service methods
 
-    private static void GenerateMutualConnections(UndirectedGraph graph, Vertice owner, int minConnections, int maxConnections)
+    private static void GenerateMutualConnections(UndirectedGraph graph, Vertex owner, int minConnections, int maxConnections)
     {
         int numberConnections = _random.Next(minConnections, maxConnections);
 
-        // for potential non one compomen graphs 
+        // for potential non one component graphs 
         if (minConnections == 0)
             numberConnections -= graph.GetDegree(owner);
 
-        var alreadyAdded = new HashSet<Vertice>();
+        var alreadyAdded = new HashSet<Vertex>();
 
         while (numberConnections > 0)
         {
@@ -62,9 +62,9 @@ public static class GraphGenerators
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
+            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
-            if (alreadyAdded.Contains<Vertice>(newConnection))
+            if (alreadyAdded.Contains<Vertex>(newConnection))
                 continue;
 
             if (graph.IsConnected(newConnection, owner))
@@ -84,23 +84,6 @@ public static class GraphGenerators
 
     #region Oriented
 
-    public static OrientedGraph GenerateOriented(string name, int countVertices)
-    {
-        var graph = new OrientedGraph(name);
-
-        for (int i = 1; i <= countVertices; i++)
-        {
-            graph.AddVertice(new(i));
-        }
-
-        foreach (var vertice in graph)
-        {
-            GenerateDirecredConnections(graph, countVertices, vertice);
-        }
-
-        return graph;
-    }
-
     public static OrientedGraph GenerateOrientedAcyclic(string name, int countVertices)
     {
         var graph = new OrientedGraph(name);
@@ -110,11 +93,11 @@ public static class GraphGenerators
             graph.AddVertice(new(i));
         }
 
-        var haveOutgoins = new HashSet<Vertice>();
+        var haveOutgoings = new HashSet<Vertex>();
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            GenerateDirecredAcyclicConnections(graph, countVertices, vertice, haveOutgoins);
+            GenerateDirectedAcyclicConnections(graph, countVertices, vertex, haveOutgoings);
         }
 
         return graph;
@@ -131,7 +114,7 @@ public static class GraphGenerators
 
         foreach (var vertice in graph)
         {
-            GenerateDirecredConnections(graph, countVertices, vertice);
+            GenerateDirectedConnections(graph, countVertices, vertice);
         }
 
         var random = new Random();
@@ -150,11 +133,11 @@ public static class GraphGenerators
         return graph;
     }
 
-    private static void GenerateDirecredConnections(OrientedGraph graph, int countVertices, Vertice owner)
+    private static void GenerateDirectedConnections(OrientedGraph graph, int countVertices, Vertex owner)
     {
         int numberConnections = _random.Next(0, countVertices  / 2);
 
-        var alreadyAdded = new HashSet<Vertice>();
+        var alreadyAdded = new HashSet<Vertex>();
 
         while (numberConnections > 0)
         {
@@ -163,9 +146,9 @@ public static class GraphGenerators
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
+            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
-            if (alreadyAdded.Contains<Vertice>(newConnection))
+            if (alreadyAdded.Contains<Vertex>(newConnection))
                 continue;
 
             numberConnections--;
@@ -179,11 +162,11 @@ public static class GraphGenerators
         }
     }
 
-    private static void GenerateDirecredAcyclicConnections(OrientedGraph graph, int countVertices, Vertice owner, HashSet<Vertice> haveOutgoins)
+    private static void GenerateDirectedAcyclicConnections(OrientedGraph graph, int countVertices, Vertex owner, HashSet<Vertex> haveOutgoins)
     {
         int numberConnections = _random.Next(1, (countVertices - 1) / 2);
 
-        var alreadyAdded = new HashSet<Vertice>();
+        var alreadyAdded = new HashSet<Vertex>();
 
         while (numberConnections > 0)
         {
@@ -194,10 +177,10 @@ public static class GraphGenerators
 
             var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
 
-            if (haveOutgoins.Contains<Vertice>(newConnection))
+            if (haveOutgoins.Contains<Vertex>(newConnection))
                 continue;
 
-            if (alreadyAdded.Contains<Vertice>(newConnection))
+            if (alreadyAdded.Contains<Vertex>(newConnection))
                 continue;
 
             numberConnections--;

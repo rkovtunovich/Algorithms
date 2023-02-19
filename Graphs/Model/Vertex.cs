@@ -2,9 +2,9 @@
 
 namespace Graphs.Model;
 
-public class Vertice : IEquatable<Vertice>
+public class Vertex : IEquatable<Vertex>
 {
-    public Vertice(int index)
+    public Vertex(int index)
     {
         Index = index;
         Distance = null;
@@ -35,10 +35,10 @@ public class Vertice : IEquatable<Vertice>
         if (obj is null)
             return false;
 
-        return Equals((Vertice)obj);
+        return Equals((Vertex)obj);
     }
 
-    public bool Equals(Vertice? other)
+    public bool Equals(Vertex? other)
     {
         return other is not null && Index == other.Index;
     }
@@ -48,12 +48,12 @@ public class Vertice : IEquatable<Vertice>
         return Index;
     }
 
-    public static bool operator ==(Vertice left, Vertice right)
+    public static bool operator ==(Vertex left, Vertex right)
     {
         return left.Equals(right);
     }
 
-    public static bool operator !=(Vertice left, Vertice right)
+    public static bool operator !=(Vertex left, Vertex right)
     {
         return !(left == right);
     }
@@ -95,12 +95,12 @@ public class Vertice : IEquatable<Vertice>
         return name;
     }
 
-    public void CopyFrom(Vertice? sourse)
+    public void CopyFrom(Vertex? sourse)
     {
         if (sourse is null)
             return;
 
-        var type = typeof(Vertice);
+        var type = typeof(Vertex);
         foreach (var sourceProperty in type.GetProperties())
         {
             if (sourceProperty.Name is nameof(Index))

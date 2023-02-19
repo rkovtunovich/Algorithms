@@ -12,7 +12,7 @@ public class UndirectedGraph : Graph
         Name = name;
     }
 
-    public override void AddEdge(Vertice sourse, Vertice destination)
+    public override void AddEdge(Vertex sourse, Vertex destination)
     {
         if (!_nodes.ContainsKey(sourse) || !_nodes.ContainsKey(destination))
             throw new Exception("this vertices isn't included in the garph!");
@@ -91,7 +91,7 @@ public class UndirectedGraph : Graph
     {
         double S1 = 0, S2 = 0, S3 = 0, Sl = 0;
 
-        var added = new HashSet<(Vertice, Vertice)>();
+        var added = new HashSet<(Vertex, Vertex)>();
 
         foreach (var item in _nodes)
         {
@@ -174,12 +174,12 @@ public class UndirectedGraph : Graph
         return coeff;
     }
 
-    public override double GetEdgeLength(Vertice begin, Vertice end)
+    public override double GetEdgeLength(Vertex begin, Vertex end)
     {
         return 1;
     }
 
-    public override void RemoveEdge(Vertice sourse, Vertice destination)
+    public override void RemoveEdge(Vertex sourse, Vertex destination)
     {
         RemoveConnection(_nodes[sourse], destination);
         RemoveConnection(_nodes[destination], sourse);

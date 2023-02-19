@@ -5,7 +5,7 @@ namespace Graphs.Search;
 
 public static class DijkstrasAlgorithm
 {
-    public static void Search(Graph graph, Vertice origin)
+    public static void Search(Graph graph, Vertex origin)
     {
         int marcked = 0;
         marcked++;
@@ -17,7 +17,7 @@ public static class DijkstrasAlgorithm
 
         while (marcked < graph.Count())
         {
-            Vertice? closest = GetNextClosestVertice(graph);
+            Vertex? closest = GetNextClosestVertice(graph);
 
             if (closest is null)
             {
@@ -33,9 +33,9 @@ public static class DijkstrasAlgorithm
         }
     }
 
-    private static Vertice? GetNextClosestVertice(Graph graph)
+    private static Vertex? GetNextClosestVertice(Graph graph)
     {
-        Vertice? closest = null;
+        Vertex? closest = null;
 
         foreach (var vertice in graph)
         {
@@ -59,7 +59,7 @@ public static class DijkstrasAlgorithm
         return closest;
     }
 
-    private static void MarckClosestNeighbors(Graph graph, Vertice vertice)
+    private static void MarckClosestNeighbors(Graph graph, Vertex vertice)
     {
         var edgesClosestVertice = graph.GetEdges(vertice);
 

@@ -3,11 +3,11 @@ using System.Collections;
 
 namespace Graphs.Abstraction;
 
-public abstract class Graph : IEnumerable<Vertice>
+public abstract class Graph : IEnumerable<Vertex>
 {
-    protected readonly Dictionary<Vertice, LinkedList<Vertice>> _nodes = new();
+    protected readonly Dictionary<Vertex, LinkedList<Vertex>> _nodes = new();
 
-    protected readonly Dictionary<(Vertice, Vertice), double> _edgesLengths = new();
+    protected readonly Dictionary<(Vertex, Vertex), double> _edgesLengths = new();
 
     public string? Name { get; set; }
 
@@ -27,7 +27,7 @@ public abstract class Graph : IEnumerable<Vertice>
         _nodes.Clear();
     }
 
-    public virtual int GetDegree(Vertice vertice)
+    public virtual int GetDegree(Vertex vertice)
     {
         return _nodes[vertice].Count;
     }
@@ -54,12 +54,12 @@ public abstract class Graph : IEnumerable<Vertice>
 
     #region Vertices
 
-    public bool HasVertice(Vertice vertice)
+    public bool HasVertice(Vertex vertice)
     {
         return _nodes.ContainsKey(vertice);
     }
 
-    public virtual Vertice? GetVerticeByIndex(int index)
+    public virtual Vertex? GetVerticeByIndex(int index)
     {
         foreach (var node in _nodes)
         {
@@ -70,12 +70,12 @@ public abstract class Graph : IEnumerable<Vertice>
         return null;
     }
 
-    public virtual void AddVertice(Vertice vertice)
+    public virtual void AddVertice(Vertex vertice)
     {
         if (_nodes.ContainsKey(vertice))
             return;
 
-        _nodes.TryAdd(vertice, new LinkedList<Vertice>());
+        _nodes.TryAdd(vertice, new LinkedList<Vertex>());
     }
 
     public virtual void CopyVerticesTo(Graph graph)
@@ -92,23 +92,23 @@ public abstract class Graph : IEnumerable<Vertice>
 
     #region Edges
 
-    public abstract void AddEdge(Vertice sourse, Vertice destination);
+    public abstract void AddEdge(Vertex sourse, Vertex destination);
 
-    public abstract void RemoveEdge(Vertice sourse, Vertice destination);
+    public abstract void RemoveEdge(Vertex sourse, Vertex destination);
 
-    public abstract double GetEdgeLength(Vertice begin, Vertice end);
+    public abstract double GetEdgeLength(Vertex begin, Vertex end);
 
-    public virtual LinkedList<Vertice> GetEdges(Vertice vertice)
+    public virtual LinkedList<Vertex> GetEdges(Vertex vertice)
     {
         return _nodes[vertice];
     }
 
-    public virtual void SetEdgeLength(Vertice begin, Vertice end, double length)
+    public virtual void SetEdgeLength(Vertex begin, Vertex end, double length)
     {
         _edgesLengths.TryAdd((begin, end), length);
     }
 
-    public virtual void ChangeEdgeLength(Vertice begin, Vertice end, double length)
+    public virtual void ChangeEdgeLength(Vertex begin, Vertex end, double length)
     {
         if (!_edgesLengths.TryGetValue((begin, end), out double currLength))
         {
@@ -131,13 +131,13 @@ public abstract class Graph : IEnumerable<Vertice>
 
     #region Connections
 
-    public virtual bool IsConnected(Vertice firstVertice, Vertice secondVertice)
+    public virtual bool IsConnected(Vertex firstVertice, Vertex secondVertice)
     {
         var edges = GetEdges(firstVertice);
         return edges.Contains(secondVertice);
     }
 
-    public void AddConnection(Vertice begin, Vertice end)
+    public void AddConnection(Vertex begin, Vertex end)
     {
         if (!HasVertice(begin))
             AddVertice(begin);
@@ -148,7 +148,7 @@ public abstract class Graph : IEnumerable<Vertice>
         _nodes[begin].AddLast(end);
     }
 
-    protected static void AddConnection(LinkedList<Vertice> edges, Vertice vertice)
+    protected static void AddConnection(LinkedList<Vertex> edges, Vertex vertice)
     {
         if (edges.Count == 0)
         {
@@ -162,7 +162,7 @@ public abstract class Graph : IEnumerable<Vertice>
         edges.AddLast(vertice);
     }
 
-    protected static void RemoveConnection(LinkedList<Vertice> edges, Vertice vertice)
+    protected static void RemoveConnection(LinkedList<Vertex> edges, Vertex vertice)
     {
         if (edges.Count == 0)
             return;
@@ -174,7 +174,7 @@ public abstract class Graph : IEnumerable<Vertice>
 
     #region Enumerable
 
-    public IEnumerator<Vertice> GetEnumerator()
+    public IEnumerator<Vertex> GetEnumerator()
     {
         foreach (var item in _nodes)
         {

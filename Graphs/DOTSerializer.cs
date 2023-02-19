@@ -8,9 +8,9 @@ public class DOTSerializer : ISerializer
 {
     private readonly Graph _graph;
 
-    private readonly HashSet<Vertice> _importantVetices = new();
+    private readonly HashSet<Vertex> _importantVetices = new();
 
-    private readonly HashSet<Vertice> _importantEdges = new();
+    private readonly HashSet<Vertex> _importantEdges = new();
 
     public Color ImportantVericeColor { get; set; } = Color.Green;
 
@@ -21,19 +21,19 @@ public class DOTSerializer : ISerializer
         _graph = graph;
     }
 
-    public void AddImportantVertice(Vertice verice)
+    public void AddImportantVertice(Vertex verice)
     {
         _importantVetices.Add(verice);
     }
 
-    public void AddImportantEdges(Vertice verice)
+    public void AddImportantEdges(Vertex verice)
     {
         _importantEdges.Add(verice);
     }
 
-    public void AddImportantEdges(HashSet<Vertice> verices)
+    public void AddImportantEdges(HashSet<Vertex> verices)
     {
-        foreach (Vertice verice in verices)
+        foreach (Vertex verice in verices)
             _importantEdges.Add(verice);
     }
 
@@ -104,7 +104,7 @@ public class DOTSerializer : ISerializer
         return format;
     }
 
-    private string AddImportantEdgesFormat(Vertice vertice)
+    private string AddImportantEdgesFormat(Vertex vertice)
     {
         if (_importantEdges.Count == 0)
             return "";

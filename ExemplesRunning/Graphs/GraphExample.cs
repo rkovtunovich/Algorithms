@@ -7,7 +7,7 @@ using Graphs.Search;
 using Helpers;
 using View;
 
-namespace ExemplesRunning.Graphs;
+namespace ExamplesRunning.Graphs;
 
 internal class GraphExample
 {
@@ -22,14 +22,14 @@ internal class GraphExample
         var connected = DFS.SearchConnectedRec(graph, origin);
         //BFS.FindStronglyConnectedComponents(graph);
         //var connected = BFS.MarkPaths(graph, origin);
-        var siplePathTree = BFS.GetSimpleShortestPathTree(graph, origin, out _);
+        var simplePathTree = BFS.GetSimpleShortestPathTree(graph, origin, out _);
         var fullPathTree = BFS.GetFullShortestPathTree(graph, origin, out _);
 
-        var deegreDistributionsCount = graph.GetDedreeDistributionsCount();
-        Viewer.ShowArray(deegreDistributionsCount);
+        var degreeDistributionsCount = graph.GetDedreeDistributionsCount();
+        Viewer.ShowArray(degreeDistributionsCount);
 
-        var deegreDistributionsFraction = graph.GetDedreeDistributionsFraction();
-        Viewer.ShowArray(deegreDistributionsFraction);
+        var degreeDistributionsFraction = graph.GetDedreeDistributionsFraction();
+        Viewer.ShowArray(degreeDistributionsFraction);
 
         var deegreDistributionsCumulative = graph.GetDegreeDistributionsCumulative();
         Viewer.ShowArray(deegreDistributionsCumulative);
@@ -38,8 +38,8 @@ internal class GraphExample
         Console.WriteLine($"correlation coefficient: {correlationCoefficient}");
 
         graph.CalculateLocalClusteringCoefficient();
-        var clustCoeff = graph.CalculateOverallClusteringCoefficient();
-        Console.WriteLine($"clustering coefficient: {clustCoeff}");
+        var clusterCoeff = graph.CalculateOverallClusteringCoefficient();
+        Console.WriteLine($"clustering coefficient: {clusterCoeff}");
 
         BFS.CalculateBetweeness(graph);
 
@@ -53,7 +53,7 @@ internal class GraphExample
 
         DOTVisualizer.VisualizeDotString(dotFileName, "output_undirected.svg");
 
-        DOTVisualizer.VisualizeGraph(siplePathTree);
+        DOTVisualizer.VisualizeGraph(simplePathTree);
         DOTVisualizer.VisualizeGraph(fullPathTree);
 
         var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1)
@@ -68,7 +68,7 @@ internal class GraphExample
 
     internal static void RunOrientedExample()
     {
-        var graph = GraphGenerators.GenerateOrientedAcyclic( "oriended_acyclic", 6);
+        var graph = GraphGenerators.GenerateOrientedAcyclic( "oriented_acyclic", 6);
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
@@ -89,7 +89,8 @@ internal class GraphExample
 
         DOTVisualizer.VisualizeDotString(dotFileName, "output_oriented.svg");
 
-        var graph2 = GraphGenerators.GenerateOriented("Kasaraju",8);
+        var orientedGenerator = new OrientedGraphGenerator(8, 0.5);
+        var graph2 = orientedGenerator.Generate("Kasaraju");
         DOTVisualizer.VisualizeGraph(graph2);
         DFS.KosarajuSharirSearch(graph2);
         DOTVisualizer.VisualizeGraph(graph2);
@@ -114,7 +115,7 @@ internal class GraphExample
 
         result = Kruskal.GetMST(graph as UndirectedVariableEdgeLengthGraph);
         DOTVisualizer.VisualizeGraph(result.tree);
-        Console.WriteLine($"Kraskal total lenth: {result.length:0.00}");
+        Console.WriteLine($"Kraskal total length: {result.length:0.00}");
     }
 
     internal static void RunMWIS() 
@@ -131,7 +132,7 @@ internal class GraphExample
     internal static void RunBellmanFord()
     {
         var generator = new OrientedVariableEdgeLengthGenerator(7, 1);
-        var graph = generator.Generate("orientet_bellman_ford");
+        var graph = generator.Generate("oriented_bellman_ford");
         DOTVisualizer.VisualizeGraph(graph);
 
         var result = BelmanFordAlgo.Search(graph as OrientedGraph, graph.First());
@@ -142,7 +143,7 @@ internal class GraphExample
     internal static void RunFloydWarshall()
     {
         var generator = new OrientedVariableEdgeLengthGenerator(7, 1);
-        var graph = generator.Generate("orientet_floyd_warshall");
+        var graph = generator.Generate("oriented_floyd_warshall");
         DOTVisualizer.VisualizeGraph(graph);
 
         FloydWarshallAlgo.Search(graph as OrientedGraph);

@@ -5,7 +5,7 @@ using View;
 
 namespace ExamplesRunning;
 
-internal static class FindingExemple
+internal static class FindingExample
 {
     public static void RunFindingMaxUnimodalArray()
     {
@@ -33,7 +33,7 @@ internal static class FindingExemple
         Console.Read();
     }
 
-    internal static void RunFindinfLocalMatrixMimimum()
+    internal static void RunFindingLocalMatrixMinimum()
     {
         int[][] matrix = MatrixHelper.CreateQuadratische<int>(5);
         MatrixHelper.FillRandomly(ref matrix, 0, 25);
@@ -50,7 +50,7 @@ internal static class FindingExemple
         Console.Read();
     }
 
-    internal static void RunFindingOederStatistics()
+    internal static void RunFindingOrderStatistics()
     {
         var array = ArrayHelper.GetUnsortedArray(10, 0, 10);
 

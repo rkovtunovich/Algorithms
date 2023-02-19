@@ -4,18 +4,19 @@ using Graphs.Model;
 
 namespace Graphs.Generators;
 
-public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
+public class OrientedGraphGenerator : IGraphGenerator
 {
     private static readonly Random _random = new();
     private readonly int _countVertices;
+    private readonly double _saturation;
 
-    // if it needs vertice without incoming edges
+    // if it needs vertex without incoming edges
     private readonly int? _originIndex;
 
-    public OrientedVariableEdgeLengthGenerator(int countVertices, int? originIndex = null)
+    public OrientedGraphGenerator(int countVertices, double saturation)
     {
         _countVertices = countVertices;
-        _originIndex = originIndex;
+        _saturation = saturation;
     }
 
     public Graph Generate(string name)
@@ -27,31 +28,18 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
             graph.AddVertice(new(i));
         }
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            GenerateDirecredConnections(graph, _countVertices, vertice);
-        }
-
-        var random = new Random();
-
-        foreach (var vertice in graph)
-        {
-            var edges = graph.GetEdges(vertice);
-
-            foreach (var edge in edges)
-            {
-                int leangth = random.Next(1, 10);
-                graph.SetEdgeLength(vertice, edge, leangth);
-            }
+            GenerateDirectedConnections(graph, _countVertices, vertex);
         }
 
         return graph;
     }
 
 
-    private void GenerateDirecredConnections(OrientedGraph graph, int countVertices, Vertex owner)
+    private void GenerateDirectedConnections(OrientedGraph graph, int countVertices, Vertex owner)
     {
-        int numberConnections = _random.Next(0, countVertices / 2);
+        int numberConnections = _random.Next(0, (int)(countVertices * _saturation));
 
         var alreadyAdded = new HashSet<Vertex>();
 
@@ -65,7 +53,7 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
             if (_originIndex == newIndex)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
+            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
             numberConnections--;
 

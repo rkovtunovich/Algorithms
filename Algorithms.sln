@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeedlemanWunsch", "Needlema
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinimizationProductionDuration", "MinimizationProductionDuration\MinimizationProductionDuration.csproj", "{E5E1735B-FFAB-4893-8E3A-2512AF83784F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaximumCoverage", "MaximumCoverage\MaximumCoverage.csproj", "{D1B3A290-5CC7-4721-8DD7-F11153EE84E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaximumCoverage", "MaximumCoverage\MaximumCoverage.csproj", "{D1B3A290-5CC7-4721-8DD7-F11153EE84E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesmanProblem", "SalesmanProblem\SalesmanProblem.csproj", "{8A915FCB-72BB-4171-AD45-CA8757256801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +107,10 @@ Global
 		{D1B3A290-5CC7-4721-8DD7-F11153EE84E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1B3A290-5CC7-4721-8DD7-F11153EE84E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1B3A290-5CC7-4721-8DD7-F11153EE84E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A915FCB-72BB-4171-AD45-CA8757256801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A915FCB-72BB-4171-AD45-CA8757256801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A915FCB-72BB-4171-AD45-CA8757256801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A915FCB-72BB-4171-AD45-CA8757256801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

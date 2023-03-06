@@ -25,7 +25,7 @@ public static class BelmanFordAlgo
             if (i is 0)
                 continue;
 
-            var vertice = graph.GetVerticeByIndex(i);
+            var vertice = graph.GetVertexByIndex(i);
             var edges = graph.GetEdges(vertice);
             if (!incomingEdges.ContainsKey(vertice))
                 incomingEdges.Add(vertice, new());

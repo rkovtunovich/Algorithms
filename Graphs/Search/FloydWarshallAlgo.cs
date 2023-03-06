@@ -4,7 +4,7 @@ namespace Graphs.Search;
 
 public static class FloydWarshallAlgo
 {
-    private const int MaxPossibleLenght = 100;
+    private const int MaxPossibleLength = 100;
 
     public static void Search(OrientedGraph graph)
     {
@@ -18,15 +18,15 @@ public static class FloydWarshallAlgo
             {
                 span[v][w] = new int[graph.Count];
 
-                var vertice_V = graph.GetVerticeByIndex(v + 1);
-                var vertice_W = graph.GetVerticeByIndex(w + 1);
+                var vertex_V = graph.GetVertexByIndex(v + 1);
+                var vertex_W = graph.GetVertexByIndex(w + 1);
 
                 if (v == w)
                     span[0][v][w] = 0;
-                else if (graph.IsConnected(vertice_V, vertice_W))
-                    span[0][v][w] = (int)graph.GetEdgeLength(vertice_V, vertice_W);
+                else if (graph.IsConnected(vertex_V, vertex_W))
+                    span[0][v][w] = (int)graph.GetEdgeLength(vertex_V, vertex_W);
                 else
-                    span[0][v][w] = MaxPossibleLenght;
+                    span[0][v][w] = MaxPossibleLength;
             }
         }
 

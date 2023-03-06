@@ -22,26 +22,26 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
 
         for (int i = 1; i <= _countVertices; i++)
         {
-            var vertice = new Vertex(i);
-            vertice.CopyFrom(_prototype);
+            var vertex = new Vertex(i);
+            vertex.CopyFrom(_prototype);
 
-            graph.AddVertice(vertice);
+            graph.AddVertex(vertex);
         }
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            GenerateMutualConnections(graph, vertice, 0, (int)(graph.Count() / 1.7));
+            GenerateMutualConnections(graph, vertex, 0, (int)(graph.Count() / 1.7));
         }
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            var edges = graph.GetEdges(vertice);
+            var edges = graph.GetEdges(vertex);
 
             foreach (var edge in edges)
             {
-                double leangth = Math.Round(_random.NextDouble() * 10, 2);
-                graph.SetEdgeLength(vertice, edge, leangth);
-                graph.SetEdgeLength(edge, vertice, leangth);
+                double length = Math.Round(_random.NextDouble() * 10, 2);
+                graph.SetEdgeLength(vertex, edge, length);
+                graph.SetEdgeLength(edge, vertex, length);
             }
         }
 
@@ -54,7 +54,7 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
     {
         int numberConnections = _random.Next(minConnections, maxConnections);
 
-        // for potential non one compomen graphs 
+        // for potential non one component graphs 
         if (minConnections == 0)
             numberConnections -= graph.GetDegree(owner);
 
@@ -67,7 +67,7 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
+            var newConnection = graph.GetVertexByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
             if (alreadyAdded.Contains<Vertex>(newConnection))
                 continue;

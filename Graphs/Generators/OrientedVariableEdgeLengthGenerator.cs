@@ -24,24 +24,24 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
 
         for (int i = 1; i <= _countVertices; i++)
         {
-            graph.AddVertice(new(i));
+            graph.AddVertex(new(i));
         }
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            GenerateDirecredConnections(graph, _countVertices, vertice);
+            GenerateDirectedConnections(graph, _countVertices, vertex);
         }
 
         var random = new Random();
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            var edges = graph.GetEdges(vertice);
+            var edges = graph.GetEdges(vertex);
 
             foreach (var edge in edges)
             {
-                int leangth = random.Next(1, 10);
-                graph.SetEdgeLength(vertice, edge, leangth);
+                int length = random.Next(1, 10);
+                graph.SetEdgeLength(vertex, edge, length);
             }
         }
 
@@ -49,7 +49,7 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
     }
 
 
-    private void GenerateDirecredConnections(OrientedGraph graph, int countVertices, Vertex owner)
+    private void GenerateDirectedConnections(OrientedGraph graph, int countVertices, Vertex owner)
     {
         int numberConnections = _random.Next(0, countVertices / 2);
 
@@ -65,7 +65,7 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
             if (_originIndex == newIndex)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
+            var newConnection = graph.GetVertexByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
             numberConnections--;
 

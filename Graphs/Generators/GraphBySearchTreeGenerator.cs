@@ -23,7 +23,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : IGraphGenerator where TKey
         {
             Label = CreateLabel(_tree.Root)
         };
-        graph.AddVertice(vertice);
+        graph.AddVertex(vertice);
         
         AddChilds(vertice, graph, _tree.Root);
 
@@ -40,7 +40,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : IGraphGenerator where TKey
                 Label = CreateLabel(leftNode)
             };
 
-            graph.AddVertice(leftChild);
+            graph.AddVertex(leftChild);
             graph.AddEdge(parent, leftChild);
             graph.AddEdge(leftChild, parent);
 
@@ -55,7 +55,7 @@ public class GraphSearchTreeGenerator<TKey, TValue> : IGraphGenerator where TKey
                 Label = CreateLabel(rightNode)
             };
 
-            graph.AddVertice(rightChild);
+            graph.AddVertex(rightChild);
             graph.AddEdge(parent, rightChild);
             graph.AddEdge(rightChild, parent);
 

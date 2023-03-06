@@ -19,7 +19,7 @@ public static class DJP
 
         var start = graph.First();
 
-        tree.AddVertice(start);
+        tree.AddVertex(start);
         complited.Add(start);
 
         var edges = new SimpleHashSet<Vertex>();
@@ -78,46 +78,5 @@ public static class DJP
         }
 
         return (tree, totalLength);
-    }
-
-    //public static Graph GetMST(Graph graph)
-    //{
-    //    var complited = new SimpleHashSet<Vertice>();
-    //    var minHeap = new HeapMin<double, (Vertice begin, Vertice end)>();
-    //    var tree = new UndirectedVariableEdgeLengthGraph("MST");
-
-    //    var start = graph.First();
-
-    //    tree.AddVertice(start);
-    //    complited.Add(start);
-
-    //    AddEdgesToHeap(minHeap, graph, start, complited);
-
-    //    while (!minHeap.Empty())
-    //    {
-    //        var cheapestEdge = minHeap.ExtractNode();
-    //        if (complited.Contains(cheapestEdge.Value.end))
-    //            continue;
-
-    //        tree.AddConnection(cheapestEdge.Value.begin, cheapestEdge.Value.end);
-    //        tree.SetEdgeLength(cheapestEdge.Value.begin, cheapestEdge.Value.end, cheapestEdge.Key);
-    //        tree.SetEdgeLength(cheapestEdge.Value.end, cheapestEdge.Value.begin, cheapestEdge.Key);
-    //        complited.Add(cheapestEdge.Value.end);
-
-    //        AddEdgesToHeap(minHeap, graph, cheapestEdge.Value.end, complited);
-    //    }
-
-    //    return tree;
-    //}
-
-    private static void AddEdgesToHeap(HeapMin<double, (Vertex, Vertex)> heapMin, Graph graph, Vertex vertice, SimpleHashSet<Vertex> complited)
-    {
-        foreach (var edge in graph.GetEdges(vertice))
-        {
-            if (complited.Contains(edge))
-                continue;
-
-            heapMin.Insert(graph.GetEdgeLength(vertice, edge), (vertice, edge));
-        }
     }
 }

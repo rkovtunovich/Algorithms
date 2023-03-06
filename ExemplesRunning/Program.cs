@@ -35,6 +35,8 @@ using ExamplesRunning.Graphs;
 //MinimizationProductionDurationExample.RunLongestProcessingTimeFirst();
 
 //MaximumCoverageExample.RunGreedyCoverage();
-MaximumCoverageExample.RunGreedyInfluence();
+//MaximumCoverageExample.RunGreedyInfluence();
+
+SalesmanProblemExample.Run();
 
 Console.ReadLine();

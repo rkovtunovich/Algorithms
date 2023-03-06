@@ -27,7 +27,7 @@ public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : 
         {
             Label = GetLabel(_tree.Root as AVLTreeNode<TKey, TValue>, "O")
         };
-        graph.AddVertice(vertice);
+        graph.AddVertex(vertice);
         
         AddChilds(vertice, graph, _tree.Root);
 
@@ -44,7 +44,7 @@ public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : 
                 Label =  GetLabel(leftNode as AVLTreeNode<TKey, TValue>, "L")
             };
 
-            graph.AddVertice(leftChild);
+            graph.AddVertex(leftChild);
             graph.AddEdge(parent, leftChild);
             graph.AddEdge(leftChild, parent);
 
@@ -59,7 +59,7 @@ public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : 
                 Label = GetLabel(rightNode as AVLTreeNode<TKey, TValue>, "R")
             };
 
-            graph.AddVertice(rightChild);
+            graph.AddVertex(rightChild);
             graph.AddEdge(parent, rightChild);
             graph.AddEdge(rightChild, parent);
 

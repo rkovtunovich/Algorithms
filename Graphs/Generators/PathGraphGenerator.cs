@@ -6,13 +6,13 @@ namespace Graphs.Generators;
 
 public class PathGraphGenerator : IGraphGenerator
 {
-    private readonly int _verticeCount;
-    private readonly int _maxWeigth;
+    private readonly int _vertexCount;
+    private readonly int _maxWeight;
 
-    public PathGraphGenerator(int verticeCount, int maxWeigth)
+    public PathGraphGenerator(int vertexCount, int maxWeight)
     {
-        _verticeCount = verticeCount;
-        _maxWeigth = maxWeigth;
+        _vertexCount = vertexCount;
+        _maxWeight = maxWeight;
     }
 
     public Graph Generate(string name)
@@ -20,24 +20,24 @@ public class PathGraphGenerator : IGraphGenerator
         var random = new Random();
         var graph = new UndirectedGraph(name);
 
-        Vertex? prevVertice = null;
+        Vertex? prevVertex = null;
 
-        for (int i = 0; i < _verticeCount; i++)
+        for (int i = 0; i < _vertexCount; i++)
         {
-            var vertice = new Vertex(i)
+            var vertex = new Vertex(i)
             {
-                Weight = Math.Round(random.NextDouble() * _maxWeigth, 2)
+                Weight = Math.Round(random.NextDouble() * _maxWeight, 2)
             };
 
-            graph.AddVertice(vertice);
+            graph.AddVertex(vertex);
 
-            if(prevVertice is not null)
+            if(prevVertex is not null)
             {
-                graph.AddConnection(prevVertice, vertice);
-                graph.AddConnection(vertice, prevVertice);
+                graph.AddConnection(prevVertex, vertex);
+                graph.AddConnection(vertex, prevVertex);
             }
 
-            prevVertice = vertice;
+            prevVertex = vertex;
         }
 
         return graph;

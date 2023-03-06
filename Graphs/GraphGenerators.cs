@@ -15,7 +15,7 @@ public static class GraphGenerators
 
         for (int i = 1; i <= countVertices; i++)
         {
-            graph.AddVertice(new(i));
+            graph.AddVertex(new(i));
         }
 
         foreach (var vertex in graph)
@@ -32,7 +32,7 @@ public static class GraphGenerators
 
         for (int i = 1; i <= countVertices; i++)
         {
-            graph.AddVertice(new(i));
+            graph.AddVertex(new(i));
         }
 
         foreach (var vertex in graph)
@@ -62,7 +62,7 @@ public static class GraphGenerators
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
+            var newConnection = graph.GetVertexByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
             if (alreadyAdded.Contains<Vertex>(newConnection))
                 continue;
@@ -90,7 +90,7 @@ public static class GraphGenerators
 
         for (int i = 1; i <= countVertices; i++)
         {
-            graph.AddVertice(new(i));
+            graph.AddVertex(new(i));
         }
 
         var haveOutgoings = new HashSet<Vertex>();
@@ -109,7 +109,7 @@ public static class GraphGenerators
 
         for (int i = 1; i <= countVertices; i++)
         {
-            graph.AddVertice(new(i));
+            graph.AddVertex(new(i));
         }
 
         foreach (var vertice in graph)
@@ -146,7 +146,7 @@ public static class GraphGenerators
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
+            var newConnection = graph.GetVertexByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
             if (alreadyAdded.Contains<Vertex>(newConnection))
                 continue;
@@ -175,7 +175,7 @@ public static class GraphGenerators
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
+            var newConnection = graph.GetVertexByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
 
             if (haveOutgoins.Contains<Vertex>(newConnection))
                 continue;

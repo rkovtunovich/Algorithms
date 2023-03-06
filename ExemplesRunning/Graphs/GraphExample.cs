@@ -44,9 +44,9 @@ internal class GraphExample
         BFS.CalculateBetweeness(graph);
 
         var dotSerializer = new DOTSerializer(graph);
-        dotSerializer.AddImportantVertice(origin);
+        dotSerializer.AddImportantVertex(origin);
         dotSerializer.AddImportantEdges(connected);
-        var dotString = dotSerializer.Seralize();
+        var dotString = dotSerializer.Serialize();
 
         var dotFileName = $"{_workingDirectory}\\dot_undirected.txt";
         dotSerializer.SaveToFile(dotFileName, dotString);
@@ -80,9 +80,9 @@ internal class GraphExample
         //DOTVisualizer.VisualizeGraph(graph);
 
         var dotSerializer = new DOTSerializer(graph);
-        dotSerializer.AddImportantVertice(origin);
+        dotSerializer.AddImportantVertex(origin);
         dotSerializer.AddImportantEdges(connected);
-        var dotString = dotSerializer.Seralize();
+        var dotString = dotSerializer.Serialize();
 
         var dotFileName = $"{_workingDirectory}\\dot_oriented.txt";
         dotSerializer.SaveToFile(dotFileName, dotString);

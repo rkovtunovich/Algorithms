@@ -8,11 +8,11 @@ public class DOTSerializer : ISerializer
 {
     private readonly Graph _graph;
 
-    private readonly HashSet<Vertex> _importantVetices = new();
+    private readonly HashSet<Vertex> _importantVertices = new();
 
     private readonly HashSet<Vertex> _importantEdges = new();
 
-    public Color ImportantVericeColor { get; set; } = Color.Green;
+    public Color ImportantVertexColor { get; set; } = Color.Green;
 
     public Color ImportantEdgeColor { get; set; } = Color.Green;
 
@@ -21,66 +21,66 @@ public class DOTSerializer : ISerializer
         _graph = graph;
     }
 
-    public void AddImportantVertice(Vertex verice)
+    public void AddImportantVertex(Vertex vertex)
     {
-        _importantVetices.Add(verice);
+        _importantVertices.Add(vertex);
     }
 
-    public void AddImportantEdges(Vertex verice)
+    public void AddImportantEdges(Vertex vertex)
     {
-        _importantEdges.Add(verice);
+        _importantEdges.Add(vertex);
     }
 
-    public void AddImportantEdges(HashSet<Vertex> verices)
+    public void AddImportantEdges(HashSet<Vertex> vertices)
     {
-        foreach (Vertex verice in verices)
-            _importantEdges.Add(verice);
+        foreach (Vertex vertex in vertices)
+            _importantEdges.Add(vertex);
     }
 
     #region Serialization
 
-    public string Seralize()
+    public string Serialize()
     {
         var builder = new StringBuilder();
 
-        foreach (var verice in _graph)
+        foreach (var vertex in _graph)
         {
             if(_graph.IsVariableEdgeLength())
             {
-                var edges = _graph.GetEdges(verice);
+                var edges = _graph.GetEdges(vertex);
 
                 foreach (var edge in edges)
                 {
-                    builder.Append($"\t{verice} {GetEdgeLine(_graph)} ");
+                    builder.Append($"\t{vertex} {GetEdgeLine(_graph)} ");
                     string line = $"\t\t{edge}";
 
                     if (_graph.IsVariableEdgeLength())
-                        line += $" [label = \"{_graph.GetEdgeLength(verice, edge):0.00}\"];";
+                        line += $" [label = \"{_graph.GetEdgeLength(vertex, edge):0.00}\"];";
 
                     builder.Append(line);
                 }
 
                 if(edges.Count == 0)
-                    builder.Append($"\t{verice} ");
+                    builder.Append($"\t{vertex} ");
 
-                builder.Append($"\t {AddImportantEdgesFormat(verice)}");
+                builder.Append($"\t {AddImportantEdgesFormat(vertex)}");
                 builder.Append("\n");
             }
             else
             {
-                builder.AppendLine($"\t{verice} {GetEdgeLine(_graph)} {{");
+                builder.AppendLine($"\t{vertex} {GetEdgeLine(_graph)} {{");
 
-                foreach (var edge in _graph.GetEdges(verice))
+                foreach (var edge in _graph.GetEdges(vertex))
                 {
                     string line = $"\t\t{edge}";
 
                     if (_graph.IsVariableEdgeLength())
-                        line += $" [label = \"{_graph.GetEdgeLength(verice, edge)}\"];";
+                        line += $" [label = \"{_graph.GetEdgeLength(vertex, edge)}\"];";
 
                     builder.AppendLine(line);
                 }
 
-                builder.AppendLine($"\t}} {AddImportantEdgesFormat(verice)}");
+                builder.AppendLine($"\t}} {AddImportantEdgesFormat(vertex)}");
             }
         }
 
@@ -88,28 +88,28 @@ public class DOTSerializer : ISerializer
 
         var dot = $"{GetTypeOfGraph(_graph)} {_graph.Name} {{ \n" +
             $"{vertices}" +
-            $"{AddImportantVetricesFormatting()}" +
+            $"{AddImportantVerticesFormatting()}" +
             $"}}";
 
         return dot;
     }
 
-    private string AddImportantVetricesFormatting()
+    private string AddImportantVerticesFormatting()
     {
-        if (_importantVetices.Count == 0)
+        if (_importantVertices.Count == 0)
             return "";
 
-        string format = $"{string.Join(',', _importantVetices)} [color = {ImportantVericeColor.Name}, style = bold]";
+        string format = $"{string.Join(',', _importantVertices)} [color = {ImportantVertexColor.Name}, style = bold]";
 
         return format;
     }
 
-    private string AddImportantEdgesFormat(Vertex vertice)
+    private string AddImportantEdgesFormat(Vertex vertex)
     {
         if (_importantEdges.Count == 0)
             return "";
 
-        if (_importantEdges.Contains(vertice))
+        if (_importantEdges.Contains(vertex))
             return $"[color = {ImportantEdgeColor.Name}, style = bold]";
         else
             return "";

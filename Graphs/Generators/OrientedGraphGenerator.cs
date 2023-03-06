@@ -25,7 +25,7 @@ public class OrientedGraphGenerator : IGraphGenerator
 
         for (int i = 1; i <= _countVertices; i++)
         {
-            graph.AddVertice(new(i));
+            graph.AddVertex(new(i));
         }
 
         foreach (var vertex in graph)
@@ -53,7 +53,7 @@ public class OrientedGraphGenerator : IGraphGenerator
             if (_originIndex == newIndex)
                 continue;
 
-            var newConnection = graph.GetVerticeByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
+            var newConnection = graph.GetVertexByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
             numberConnections--;
 

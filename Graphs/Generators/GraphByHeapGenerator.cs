@@ -23,7 +23,7 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
         {
             Label = $"[{_heap.Extremum.Key}]"
         };
-        graph.AddVertice(vertice);
+        graph.AddVertex(vertice);
         
         AddChilds(vertice, graph);
 
@@ -40,7 +40,7 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
                 Label = $"[{_heap[leftPos].Key}]"
             };
 
-            graph.AddVertice(leftChild);
+            graph.AddVertex(leftChild);
             graph.AddEdge(parent, leftChild);
             graph.AddEdge(leftChild, parent);
 
@@ -55,7 +55,7 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
                 Label = $"[{_heap[rightPos].Key}]"
             };
 
-            graph.AddVertice(rightChild);
+            graph.AddVertex(rightChild);
             graph.AddEdge(parent, rightChild);
             graph.AddEdge(rightChild, parent);
 

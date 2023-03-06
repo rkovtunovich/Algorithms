@@ -1,4 +1,6 @@
-﻿namespace DataStructures.BinaryTrees;
+﻿using DataStructures.Lists;
+
+namespace DataStructures.BinaryTrees;
 
 public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 {

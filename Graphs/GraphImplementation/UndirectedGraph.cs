@@ -5,23 +5,23 @@ namespace Graphs.GraphImplementation;
 
 public class UndirectedGraph : Graph
 {
-    private int[]? _degreeDistribuition = null;
+    private int[]? _degreeDistribution = null;
 
     public UndirectedGraph(string name)
     {
         Name = name;
     }
 
-    public override void AddEdge(Vertex sourse, Vertex destination)
+    public override void AddEdge(Vertex source, Vertex destination)
     {
-        if (!_nodes.ContainsKey(sourse) || !_nodes.ContainsKey(destination))
-            throw new Exception("this vertices isn't included in the garph!");
+        if (!_nodes.ContainsKey(source) || !_nodes.ContainsKey(destination))
+            throw new Exception("some of these vertices aren't included in the graph!");
 
-        var sourceEdges = _nodes[sourse];
+        var sourceEdges = _nodes[source];
         var destinationEdges = _nodes[destination];
 
         AddConnection(sourceEdges, destination);
-        AddConnection(destinationEdges, sourse);
+        AddConnection(destinationEdges, source);
     }
 
     public override bool IsOriented()
@@ -38,20 +38,20 @@ public class UndirectedGraph : Graph
 
     public int[] GetDedreeDistributionsCount()
     {
-        if (_degreeDistribuition is not null)
-            return _degreeDistribuition;
+        if (_degreeDistribution is not null)
+            return _degreeDistribution;
 
         if (_nodes.Count == 0)
             return Array.Empty<int>();
 
-        _degreeDistribuition = new int[_nodes.Count];
+        _degreeDistribution = new int[_nodes.Count];
 
         foreach (var node in _nodes)
         {
-            _degreeDistribuition[GetDegree(node.Key)]++;
+            _degreeDistribution[GetDegree(node.Key)]++;
         }
 
-        return _degreeDistribuition;
+        return _degreeDistribution;
     }
 
     public double[] GetDedreeDistributionsFraction()
@@ -59,14 +59,14 @@ public class UndirectedGraph : Graph
         if (_nodes.Count == 0)
             return Array.Empty<double>();
 
-        if (_degreeDistribuition is null)
-            _degreeDistribuition = GetDedreeDistributionsCount();
+        if (_degreeDistribution is null)
+            _degreeDistribution = GetDedreeDistributionsCount();
 
         var digreeDistribuition = new double[_nodes.Count];
 
-        for (int i = 0; i < _degreeDistribuition.Length; i++)
+        for (int i = 0; i < _degreeDistribution.Length; i++)
         {
-            digreeDistribuition[i] = (double)_degreeDistribuition[i] / _nodes.Count;
+            digreeDistribuition[i] = (double)_degreeDistribution[i] / _nodes.Count;
         }
 
         return digreeDistribuition;
@@ -176,7 +176,14 @@ public class UndirectedGraph : Graph
 
     public override double GetEdgeLength(Vertex begin, Vertex end)
     {
-        return 1;
+
+        if (_edgesLengths.Count is 0)
+            return 1;
+
+        if (_edgesLengths.TryGetValue((begin, end), out double length))
+            return length;
+
+        return 0;
     }
 
     public override void RemoveEdge(Vertex sourse, Vertex destination)

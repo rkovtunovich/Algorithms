@@ -6,7 +6,7 @@ using Graphs.Model;
 
 namespace Graphs.MinimumSpanningTree;
 
-// так же можно использвать немного измененную версию для восходящей кластеризации
+// так же можно использовать немного измененную версию для восходящей кластеризации
 public static class Kruskal
 {
     public static (Graph tree, double length) GetMST(UndirectedVariableEdgeLengthGraph graph)

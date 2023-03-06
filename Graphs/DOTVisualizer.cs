@@ -24,7 +24,7 @@ public static class DOTVisualizer
     public static void VisualizeGraph(Graph graph) {
 
         var dotSerializer = new DOTSerializer(graph);
-        var dotString = dotSerializer.Seralize();
+        var dotString = dotSerializer.Serialize();
 
         var dotFileName = $"{_workingDirectory}\\{graph.Name}.txt";
         dotSerializer.SaveToFile(dotFileName, dotString);

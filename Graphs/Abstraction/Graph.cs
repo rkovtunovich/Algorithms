@@ -9,6 +9,8 @@ public abstract class Graph : IEnumerable<Vertex>
 
     protected readonly Dictionary<(Vertex, Vertex), double> _edgesLengths = new();
 
+    protected bool _isVariableLength = false;
+
     public string? Name { get; set; }
 
     public int Count { get => _nodes.Count; }
@@ -17,7 +19,7 @@ public abstract class Graph : IEnumerable<Vertex>
 
     public virtual bool IsVariableEdgeLength()
     {
-        return false;
+        return _isVariableLength;
     }
 
     public abstract Graph Transpose();
@@ -27,9 +29,9 @@ public abstract class Graph : IEnumerable<Vertex>
         _nodes.Clear();
     }
 
-    public virtual int GetDegree(Vertex vertice)
+    public virtual int GetDegree(Vertex vertex)
     {
-        return _nodes[vertice].Count;
+        return _nodes[vertex].Count;
     }
 
     public virtual Graph Clone()
@@ -54,12 +56,12 @@ public abstract class Graph : IEnumerable<Vertex>
 
     #region Vertices
 
-    public bool HasVertice(Vertex vertice)
+    public bool HasVertex(Vertex vertex)
     {
-        return _nodes.ContainsKey(vertice);
+        return _nodes.ContainsKey(vertex);
     }
 
-    public virtual Vertex? GetVerticeByIndex(int index)
+    public virtual Vertex? GetVertexByIndex(int index)
     {
         foreach (var node in _nodes)
         {
@@ -70,12 +72,12 @@ public abstract class Graph : IEnumerable<Vertex>
         return null;
     }
 
-    public virtual void AddVertice(Vertex vertice)
+    public virtual void AddVertex(Vertex vertex)
     {
-        if (_nodes.ContainsKey(vertice))
+        if (_nodes.ContainsKey(vertex))
             return;
 
-        _nodes.TryAdd(vertice, new LinkedList<Vertex>());
+        _nodes.TryAdd(vertex, new LinkedList<Vertex>());
     }
 
     public virtual void CopyVerticesTo(Graph graph)
@@ -84,7 +86,7 @@ public abstract class Graph : IEnumerable<Vertex>
 
         foreach (var item in _nodes)
         {
-            graph.AddVertice(item.Key);
+            graph.AddVertex(item.Key);
         }
     }
 
@@ -92,82 +94,105 @@ public abstract class Graph : IEnumerable<Vertex>
 
     #region Edges
 
-    public abstract void AddEdge(Vertex sourse, Vertex destination);
+    public abstract void AddEdge(Vertex source, Vertex destination);
 
-    public abstract void RemoveEdge(Vertex sourse, Vertex destination);
+    public abstract void RemoveEdge(Vertex source, Vertex destination);
 
     public abstract double GetEdgeLength(Vertex begin, Vertex end);
 
-    public virtual LinkedList<Vertex> GetEdges(Vertex vertice)
+    public virtual LinkedList<Vertex> GetEdges(Vertex vertex)
     {
-        return _nodes[vertice];
+        return _nodes[vertex];
     }
 
     public virtual void SetEdgeLength(Vertex begin, Vertex end, double length)
     {
+        if(length > 0)
+            _isVariableLength = true;
+
         _edgesLengths.TryAdd((begin, end), length);
     }
 
     public virtual void ChangeEdgeLength(Vertex begin, Vertex end, double length)
     {
-        if (!_edgesLengths.TryGetValue((begin, end), out double currLength))
+        if (!_edgesLengths.TryGetValue((begin, end), out double currentLength))
         {
             AddEdge(begin, end);
             SetEdgeLength(begin, end, length);
             return;
         }
         
-        double newLength = currLength + length;
+        double newLength = currentLength + length;
         if(newLength == 0)
         {
             RemoveEdge(begin, end);
             _edgesLengths.Remove((begin, end));
-        }
-        
-
+        }       
     }
-
+    
     #endregion
 
     #region Connections
 
-    public virtual bool IsConnected(Vertex firstVertice, Vertex secondVertice)
+    public virtual bool IsConnected(Vertex firstVertex, Vertex secondVertex)
     {
-        var edges = GetEdges(firstVertice);
-        return edges.Contains(secondVertice);
+        var edges = GetEdges(firstVertex);
+        return edges.Contains(secondVertex);
     }
 
     public void AddConnection(Vertex begin, Vertex end)
     {
-        if (!HasVertice(begin))
-            AddVertice(begin);
+        if (!HasVertex(begin))
+            AddVertex(begin);
 
-        if (!HasVertice(end))
-            AddVertice(end);
+        if (!HasVertex(end))
+            AddVertex(end);
 
         _nodes[begin].AddLast(end);
     }
 
-    protected static void AddConnection(LinkedList<Vertex> edges, Vertex vertice)
+    protected static void AddConnection(LinkedList<Vertex> edges, Vertex vertex)
     {
         if (edges.Count == 0)
         {
-            edges.AddFirst(vertice);
+            edges.AddFirst(vertex);
             return;
         }
 
-        if (edges.Contains(vertice))
+        if (edges.Contains(vertex))
             return;
         
-        edges.AddLast(vertice);
+        edges.AddLast(vertex);
     }
 
-    protected static void RemoveConnection(LinkedList<Vertex> edges, Vertex vertice)
+    protected static void RemoveConnection(LinkedList<Vertex> edges, Vertex vertex)
     {
         if (edges.Count == 0)
             return;
 
-        edges.Remove(vertice);
+        edges.Remove(vertex);
+    }
+
+    public virtual Vertex? GetClosestNeighbor(Vertex vertex)
+    {
+        Vertex? closest = null;
+
+        var edges = GetEdges(vertex);
+
+        double bestLength = double.MaxValue;
+
+        foreach (var edge in edges)
+        {
+            var length = GetEdgeLength(vertex, edge);
+
+            if (length < bestLength)
+            {
+                bestLength = length;
+                closest = edge;
+            }
+        }
+
+        return closest;
     }
 
     #endregion

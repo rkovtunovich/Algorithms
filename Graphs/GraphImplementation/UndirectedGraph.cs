@@ -16,7 +16,7 @@ public class UndirectedGraph : Graph
     {
         if (!_nodes.ContainsKey(source) || !_nodes.ContainsKey(destination))
             throw new Exception("some of these vertices aren't included in the graph!");
-
+          
         var sourceEdges = _nodes[source];
         var destinationEdges = _nodes[destination];
 

@@ -23,6 +23,7 @@
     <ProjectReference Include="..\MaximumCoverage\MaximumCoverage.csproj" />
     <ProjectReference Include="..\MinimizationProductionDuration\MinimizationProductionDuration.csproj" />
     <ProjectReference Include="..\NeedlemanWunsch\NeedlemanWunsch.csproj" />
+    <ProjectReference Include="..\PatternMatching\PatternMatching.csproj" />
     <ProjectReference Include="..\SalesmanProblem\SalesmanProblem.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.csproj" />
     <ProjectReference Include="..\TowersOfHanoi\TowersOfHanoi.csproj" />

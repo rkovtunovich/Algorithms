@@ -4,6 +4,13 @@ using DataStructures.Heaps;
 
 namespace Huffman;
 
+// Huffman tree is also called the optimal binary tree. It is a binary tree with the smallest weighted path length(WPL)
+// 1.According to the weights of the given n leaf nodes, we can view them as n binary trees with only one root node.Suppose F is the set composed of these n binary trees.
+// 2. Select two trees with the smallest root node values as the left, right subtrees,
+//    and construct a new binary tree.Set the weight of the root of the new binary tree as the sum of the weight values of the roots of left and right subtrees.
+//3. Remove these two trees from F, and add the new constructed tree into F.
+//4. Repeat 2 and 3, until there is only one tree left in F.
+
 public class HuffmanCodeGenerator
 {
     public BinaryTree<double, string> Generate(Dictionary<string, double> alphabet ) { 
@@ -38,5 +45,4 @@ public class HuffmanCodeGenerator
 
         return result;
     } 
-
 }

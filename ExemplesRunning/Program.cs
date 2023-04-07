@@ -1,6 +1,4 @@
-﻿using ExamplesRunning;
-using ExamplesRunning.Graphs;
-
+﻿
 //FindingExample.RunFindingMaxUnimodalArray();
 //FindingExample.RunFindingMatchArrayIndexToValue();
 //FindingExample.RunFindingLocalMatrixMinimum();
@@ -37,6 +35,9 @@ using ExamplesRunning.Graphs;
 //MaximumCoverageExample.RunGreedyCoverage();
 //MaximumCoverageExample.RunGreedyInfluence();
 
-SalesmanProblemExample.Run();
+//SalesmanProblemExample.Run2Opt();
+SalesmanProblemExample.RunBellmanHeldKarp();
+
+//PatternMatchingExample.RunKnuthMorrisPratt();
 
 Console.ReadLine();

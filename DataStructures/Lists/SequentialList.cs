@@ -108,9 +108,9 @@ public class SequentialList<T> : IList<T>
 
     public void CopyTo(T[] array, int arrayIndex)
     {     
-        foreach(var item in _items)
+        for(int i = 0; i < Count; i++)
         {
-           array[arrayIndex++] = item;
+           array[arrayIndex++] = _items[i];
         }
     }
 

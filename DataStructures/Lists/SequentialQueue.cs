@@ -2,49 +2,46 @@
 
 public class SequentialQueue<T>
 {
-    private T[] array;
-    private int head;
-    private int tail;
+    private T[] _array;
+    private int _head;
+    private int _tail;
 
     public SequentialQueue(int capacity)
     {
-        array = new T[capacity];
-        head = 0;
-        tail = 0;
+        _array = new T[capacity];
+        _head = 0;
+        _tail = 0;
     }
 
     public void Enqueue(T item)
     {
-        if (tail == array.Length)
-        {
+        if (_tail == _array.Length)
             throw new InvalidOperationException("Queue is full.");
-        }
-        array[tail] = item;
-        tail++;
+        
+        _array[_tail] = item;
+        _tail++;
     }
 
     public T Dequeue()
     {
-        if (head == tail)
-        {
+        if (_head == _tail)
             throw new InvalidOperationException("Queue is empty.");
-        }
-        T item = array[head];
-        head++;
+        
+        T item = _array[_head];
+        _head++;
         return item;
     }
 
     public T Peek()
     {
-        if (head == tail)
-        {
+        if (_head == _tail)
             throw new InvalidOperationException("Queue is empty.");
-        }
-        return array[head];
+        
+        return _array[_head];
     }
 
     public int Count
     {
-        get { return tail - head; }
+        get { return _tail - _head; }
     }
 }

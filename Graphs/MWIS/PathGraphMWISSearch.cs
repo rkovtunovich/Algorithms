@@ -17,7 +17,7 @@ public static class PathGraphMWISSearch
 
         var calculations = FindIter(vertices);
         var MWISIter = calculations[vertices.Count];
-        ReconstuctionSet(vertices, calculations, set);
+        ReconstructionSet(vertices, calculations, set);
 
         return set;
     } 
@@ -51,7 +51,7 @@ public static class PathGraphMWISSearch
         return calculations;
     }
 
-    private static void ReconstuctionSet(List<Vertex> vertices, double[] calculations, SimpleHashSet<Vertex> set)
+    private static void ReconstructionSet(List<Vertex> vertices, double[] calculations, SimpleHashSet<Vertex> set)
     {
         int i = calculations.Length - 1;
 

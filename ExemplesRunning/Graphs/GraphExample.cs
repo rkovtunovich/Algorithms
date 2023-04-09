@@ -1,4 +1,5 @@
 ﻿using Graphs;
+using Graphs.Coloring;
 using Graphs.Generators;
 using Graphs.GraphImplementation;
 using Graphs.MinimumSpanningTree;
@@ -31,8 +32,8 @@ internal class GraphExample
         var degreeDistributionsFraction = graph.GetDedreeDistributionsFraction();
         Viewer.ShowArray(degreeDistributionsFraction);
 
-        var deegreDistributionsCumulative = graph.GetDegreeDistributionsCumulative();
-        Viewer.ShowArray(deegreDistributionsCumulative);
+        var degreeDistributionsCumulative = graph.GetDegreeDistributionsCumulative();
+        Viewer.ShowArray(degreeDistributionsCumulative);
 
         var correlationCoefficient = graph.GetCorrelationCoefficient();
         Console.WriteLine($"correlation coefficient: {correlationCoefficient}");
@@ -149,6 +150,15 @@ internal class GraphExample
         FloydWarshallAlgo.Search(graph as OrientedGraph);
 
         //MatrixHelper.Show(result);
+    }
+
+    internal static void RunWelshPowell()
+    {
+        var graph = GraphGenerators.GenerateNonOriented(10);
+
+        WelshPowell.Colorize(graph);
+
+        DOTVisualizer.VisualizeGraph(graph);
     }
 }
 

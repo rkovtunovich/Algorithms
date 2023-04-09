@@ -15,6 +15,7 @@
 //GraphExample.RunMWIS();
 //GraphExample.RunBellmanFord();
 //GraphExample.RunFloydWarshall();
+GraphExample.RunWelshPowell();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();
@@ -36,7 +37,7 @@
 //MaximumCoverageExample.RunGreedyInfluence();
 
 //SalesmanProblemExample.Run2Opt();
-SalesmanProblemExample.RunBellmanHeldKarp();
+//SalesmanProblemExample.RunBellmanHeldKarp();
 
 //PatternMatchingExample.RunKnuthMorrisPratt();
 

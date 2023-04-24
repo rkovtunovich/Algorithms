@@ -1,0 +1,61 @@
+﻿namespace Graphs.Search;
+
+// Topological ordering, or topological sorting,
+// is an algorithm used to linearly order the vertices of a directed acyclic graph (DAG) in such a way that for every directed edge (u, v) from vertex u to vertex v,
+// vertex u comes before vertex v in the ordering.
+// A topological ordering is only possible for DAGs, as the presence of a cycle would make a linear order impossible.
+// 
+// Topological ordering has various applications, such as scheduling tasks with dependencies,
+// determining the compilation order of a set of modules with dependencies,
+// and finding a valid sequence of courses to take in a curriculum with prerequisites.
+// 
+// There are several algorithms to perform topological sorting,
+// but one of the most common and straightforward methods is based on depth-first search (DFS).
+// Here's a step-by-step description of the DFS-based topological sorting algorithm:
+// 
+// 1. Create an empty stack to store the sorted vertices.
+// 2. Initialize a set or a list of visited nodes.
+// 3. For each unvisited node in the graph, perform a modified DFS:
+//      a. Visit the node and mark it as visited.
+//      b. Recursively visit all neighbors of the node that haven't been visited yet.
+//      c. Once all neighbors of the node have been visited, push the node onto the stack.
+// 4. After visiting all nodes in the graph, the stack contains the topological order of the vertices.
+//    Pop the vertices from the stack one by one to obtain the topological ordering.
+
+public static class TopologicalOrdering
+{    
+    public static Vertex[] SortTopologically(Graph graph)
+    {
+        int curLabel = graph.Count();
+
+        var vertices = new Vertex[curLabel];
+
+        var visited = new HashSet<Vertex>();
+
+        foreach (var item in graph)
+        {
+            if (visited.Contains(item))
+                continue;
+
+            TopoSort(graph, item, visited, ref curLabel, vertices);
+        }
+
+        return vertices;
+    }
+
+    private static void TopoSort(Graph graph, Vertex current, HashSet<Vertex> visited, ref int curLabel, Vertex[] vertices)
+    {
+        visited.Add(current);
+
+        var edges = graph.GetEdges(current);
+
+        foreach (var edge in edges)
+        {
+            if (!visited.Contains(edge))
+                TopoSort(graph, edge, visited, ref curLabel, vertices);
+        }
+
+        current.Distance = curLabel--;
+        vertices[curLabel] = current;
+    }
+}

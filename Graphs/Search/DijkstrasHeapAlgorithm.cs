@@ -1,23 +1,21 @@
 ﻿using DataStructures.Heaps;
-using Graphs.Abstraction;
-using Graphs.Model;
 
 namespace Graphs.Search;
 
-public static class DijkstrasHeapAlgorithm
+public static class DijkstraHeapAlgorithm
 {
     public static void Search(Graph graph, Vertex origin)
     {
-        int marcked = 0;
+        int marked = 0;
 
         origin.Distance = 0;
         origin.Mark = true;
-        origin.Label = marcked.ToString();
+        origin.Label = marked.ToString();
 
         var heap = new HeapMin<double, Vertex>();
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            heap.Insert(vertice.Distance ?? throw new ArgumentNullException($"Distanse isn't initialized for vertice {vertice.Index}"), vertice);
+            heap.Insert(vertex.Distance ?? throw new ArgumentNullException($"Distance isn't initialized for vertex {vertex.Index}"), vertex);
         }
 
         while (heap.Length > 0)
@@ -27,24 +25,24 @@ public static class DijkstrasHeapAlgorithm
             if (closest.Distance is int.MaxValue)
                 continue;
 
-            marcked++;
+            marked++;
             closest.Mark = true;
-            closest.Label = $"-={marcked}=-";
+            closest.Label = $"-={marked}=-";
 
-            MarckClosestNeighbors(graph, closest, heap);
+            MarkClosestNeighbors(graph, closest, heap);
         }
     }
 
-    private static void MarckClosestNeighbors(Graph graph, Vertex vertice, HeapMin<double, Vertex> heap)
+    private static void MarkClosestNeighbors(Graph graph, Vertex vertex, HeapMin<double, Vertex> heap)
     {
-        var edgesClosestVertice = graph.GetEdges(vertice);
+        var edgesClosestVertex = graph.GetEdges(vertex);
 
-        foreach (var edge in edgesClosestVertice)
+        foreach (var edge in edgesClosestVertex)
         {
             if (edge.Mark)
                 continue;
 
-            double dist = (vertice.Distance ?? 0) + graph.GetEdgeLength(vertice, edge);
+            double dist = (vertex.Distance ?? 0) + graph.GetEdgeLength(vertex, edge);
 
             if (edge.Distance is null || edge.Distance > dist)
             {

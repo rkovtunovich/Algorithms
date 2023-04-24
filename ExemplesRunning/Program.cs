@@ -15,7 +15,8 @@
 //GraphExample.RunMWIS();
 //GraphExample.RunBellmanFord();
 //GraphExample.RunFloydWarshall();
-GraphExample.RunWelshPowell();
+//GraphExample.RunWelshPowell();
+GraphExample.RunColorCoding();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();

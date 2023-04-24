@@ -1,7 +1,4 @@
-﻿using Graphs.Model;
-using System.Collections;
-
-namespace Graphs.Abstraction;
+﻿namespace Graphs.Abstraction;
 
 public abstract class Graph : IEnumerable<Vertex>
 {

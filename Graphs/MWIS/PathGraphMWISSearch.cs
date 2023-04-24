@@ -1,6 +1,4 @@
 ﻿using DataStructures.HashTables;
-using Graphs.Abstraction;
-using Graphs.Model;
 
 namespace Graphs.MWIS;
 

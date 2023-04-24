@@ -1,7 +1,4 @@
-﻿using Graphs.Abstraction;
-using Graphs.Model;
-
-namespace Graphs.GraphImplementation;
+﻿namespace Graphs.GraphImplementation;
 
 public class OrientedGraph : Graph
 {

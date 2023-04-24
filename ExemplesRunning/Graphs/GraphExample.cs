@@ -62,8 +62,8 @@ internal class GraphExample
             Distance = int.MaxValue,
         });
         var graphVarLength = generator.Generate();
-        //DijkstrasAlgorithm.Search(graphVarLength, graphVarLength.First());
-        DijkstrasHeapAlgorithm.Search(graphVarLength, graphVarLength.First());
+        //DijkstraAlgorithm.Search(graphVarLength, graphVarLength.First());
+        DijkstraHeapAlgorithm.Search(graphVarLength, graphVarLength.First());
         DOTVisualizer.VisualizeGraph(graphVarLength);
     }
 
@@ -74,10 +74,7 @@ internal class GraphExample
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
         var connected = DFS.SearchConnectedRec(graph, origin);
-        //BFS.FindingConnectedComponents(graph);
-        //var connected = BFS.MarkPaths(graph, origin);
-
-        DFS.SortTopologicaly(graph);
+        TopologicalOrdering.SortTopologically(graph);
         //DOTVisualizer.VisualizeGraph(graph);
 
         var dotSerializer = new DOTSerializer(graph);
@@ -109,14 +106,14 @@ internal class GraphExample
 
         var result = DJP.GetMST(graph);     
         DOTVisualizer.VisualizeGraph(result.tree);
-        Console.WriteLine($"DJP total lenth: {result.length:0.00}");
+        Console.WriteLine($"DJP total length: {result.length:0.00}");
 
-        //graph = generator.Generate("Kraskal_graph_original");
+        //graph = generator.Generate("Kruskal_graph_original");
         //DOTVisualizer.VisualizeGraph(graph);
 
         result = Kruskal.GetMST(graph as UndirectedVariableEdgeLengthGraph);
         DOTVisualizer.VisualizeGraph(result.tree);
-        Console.WriteLine($"Kraskal total length: {result.length:0.00}");
+        Console.WriteLine($"Kruskal total length: {result.length:0.00}");
     }
 
     internal static void RunMWIS() 
@@ -157,6 +154,16 @@ internal class GraphExample
         var graph = GraphGenerators.GenerateNonOriented(10);
 
         WelshPowell.Colorize(graph);
+
+        DOTVisualizer.VisualizeGraph(graph);
+    }
+
+    internal static void RunColorCoding()
+    {
+        var generator = new UndirectedVariableEdgeLengthGenerator(6, new(1));
+        var graph = generator.Generate("undirected_color_coding");
+
+        var result = ColorCoding.FindMinimumLengthColorfulPath(graph, 3, 0.1);
 
         DOTVisualizer.VisualizeGraph(graph);
     }

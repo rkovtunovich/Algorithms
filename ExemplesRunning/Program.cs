@@ -8,6 +8,8 @@
 
 //SortingExample.RunQuickSort();
 //SortingExample.RunHeapSort();
+//SortingExample.RunMergeSort();
+SortingExample.RunDirectInsertionSort();
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
@@ -16,7 +18,7 @@
 //GraphExample.RunBellmanFord();
 //GraphExample.RunFloydWarshall();
 //GraphExample.RunWelshPowell();
-GraphExample.RunColorCoding();
+//GraphExample.RunColorCoding();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();

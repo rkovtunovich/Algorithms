@@ -9,7 +9,8 @@
 //SortingExample.RunQuickSort();
 //SortingExample.RunHeapSort();
 //SortingExample.RunMergeSort();
-SortingExample.RunDirectInsertionSort();
+//SortingExample.RunDirectInsertionSort();
+SortingExample.RunShellSort();
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();

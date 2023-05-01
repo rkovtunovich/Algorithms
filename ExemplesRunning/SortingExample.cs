@@ -118,5 +118,17 @@ internal class SortingExample
         Viewer.ShowArray(array);
         Console.ReadKey();
     }
+
+    static public void RunShellSort()
+    {
+        int[] numbers = new int[] { 5, 2, 8, 1, 9, 3, 7, 6, 4 };
+        ShellSort.Sort(numbers);
+
+        foreach (int number in numbers)
+        {
+            Console.Write(number + " ");
+        }
+        // Output: 1 2 3 4 5 6 7 8 9
+    }
 }
 

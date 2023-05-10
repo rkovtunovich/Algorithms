@@ -10,7 +10,7 @@
 //SortingExample.RunHeapSort();
 //SortingExample.RunMergeSort();
 //SortingExample.RunDirectInsertionSort();
-SortingExample.RunShellSort();
+//SortingExample.RunShellSort();
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
@@ -44,5 +44,7 @@ SortingExample.RunShellSort();
 //SalesmanProblemExample.RunBellmanHeldKarp();
 
 //PatternMatchingExample.RunKnuthMorrisPratt();
+
+DeferredAcceptanceExample.Run();
 
 Console.ReadLine();

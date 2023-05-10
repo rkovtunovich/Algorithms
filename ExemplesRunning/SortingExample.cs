@@ -38,15 +38,15 @@ internal class SortingExample
 
     static public void RunQuickSort()
     {
-        var array = ArrayHelper.GetUnsortedArray(30000000, 0, 100000000);
+        //var array = ArrayHelper.GetUnsortedArray(30000000, 0, 100000000);
         //int[] array = new[] { 7, 13, 4, 3, 4, 7 };
-        //var array = ArrayHelper.GetUnsortedArray(6, 0, 20);
-        //Viewer.ShowArray(array);
+        var array = ArrayHelper.GetUnsortedArray(6, 0, 20);
+        Viewer.ShowArray(array);
 
         var stopWatch = new Stopwatch();
 
         stopWatch.Start();
-        QuickSort.Sort(ref array);
+        QuickSort.Sort(array);
         stopWatch.Stop();
 
         Console.WriteLine($"-------------------");
@@ -84,7 +84,7 @@ internal class SortingExample
         //}
 
         //stopWatch.Start();
-        HeapSort<int, int>.Sort(ref array, new HeapMin<int, int>());
+        HeapSort<int, int>.Sort(array, new HeapMin<int, int>());
         //stopWatch.Stop();
 
         //Console.WriteLine($"-------------------");
@@ -92,7 +92,7 @@ internal class SortingExample
 
         Viewer.ShowArray(array);
 
-        HeapSort<int, int>.Sort(ref array, new HeapMax<int, int>());
+        HeapSort<int, int>.Sort(array, new HeapMax<int, int>());
         //stopWatch.Stop();
 
         //Console.WriteLine($"-------------------");

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DeferredAcceptance\DeferredAcceptance.csproj" />
     <ProjectReference Include="..\Distance\Distance.csproj" />
     <ProjectReference Include="..\Finding\Finding.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />

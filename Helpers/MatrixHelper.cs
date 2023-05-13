@@ -2,7 +2,7 @@
 {
     public class MatrixHelper
     {
-        public static T[][] CreateQuadratische<T>(int size)
+        public static T[][] CreateQuadratic<T>(int size)
         {
             T[][] matrix = new T[size][];
             for (int i = 0; i < size; i++)
@@ -44,19 +44,6 @@
             for (int i = 0; i < matrix.Length; i++)
                 for (int j = 0; j < matrix[i].Length; j++)
                     matrix[i][j] = rand.Next(min, max) + rand.NextDouble();
-        }
-
-        public static void Show<T>(T[][] matrix)
-        {
-            for (int i = 0; i < matrix.Length; i++)
-            {
-                for (int j = 0; j < matrix[i].Length; j++)
-                   Console.Write($"\t {matrix[i][j]}");
-
-                Console.WriteLine();
-            }
-            
-            Console.WriteLine();
         }
         
         public static int[][] SubMatrix(int[][] source, int startX, int startY, int size)

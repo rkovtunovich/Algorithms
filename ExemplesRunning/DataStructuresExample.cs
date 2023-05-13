@@ -4,7 +4,6 @@ using DataStructures.Heaps;
 using Graphs;
 using Graphs.Generators;
 using Helpers;
-using View;
 
 namespace ExamplesRunning;
 
@@ -151,6 +150,6 @@ public static class DataStructuresExample
 
         var obst = new OptimalBinarySearchTree<int, int>(keys, keys, frequency);
 
-        MatrixHelper.Show(obst.Span);
+        Viewer.ShowMatrix(obst.Span);
     }
 }

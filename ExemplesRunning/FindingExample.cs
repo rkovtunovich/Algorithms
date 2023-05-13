@@ -1,7 +1,6 @@
 ﻿using Finding;
 using Helpers;
 using Sorting;
-using View;
 
 namespace ExamplesRunning;
 
@@ -35,10 +34,10 @@ internal static class FindingExample
 
     internal static void RunFindingLocalMatrixMinimum()
     {
-        int[][] matrix = MatrixHelper.CreateQuadratische<int>(5);
+        int[][] matrix = MatrixHelper.CreateQuadratic<int>(5);
         MatrixHelper.FillRandomly(ref matrix, 0, 25);
 
-        MatrixHelper.Show(matrix);
+        Viewer.ShowMatrix(matrix);
 
         var mins = LocalMatrixMinimum.Find(matrix);
 

@@ -4,7 +4,7 @@ namespace ExamplesRunning;
 
 internal class DeferredAcceptanceExample
 {
-    internal static void Run()
+    internal static void RunGaleShapley()
     {
         // Define preferences for men and women
         int[][] menPreferences = new int[][] {
@@ -29,5 +29,24 @@ internal class DeferredAcceptanceExample
         {
             Console.WriteLine("Woman {0} is matched with man {1}", i, partners[i]);
         }
+    }
+
+    internal static void RunShipMaintenance()
+    {
+        var schedule = new int[,]
+        {
+            { 0, 1, 2, 0, 3 },
+            { 1, 2, 0, 3, 0 },
+            { 2, 0, 3, 0, 1 }
+        };
+
+        Viewer.ShowMatrix(schedule);
+
+        var truncation = ShipsMaintenanceSchedulingProblem.FindTruncation(schedule);
+
+        foreach (var item in truncation)
+        {
+            Console.WriteLine($"Port {item.Key} maintenances ship {item.Value.ship + 1} from {item.Value.day + 1} day");
+        }    
     }
 }

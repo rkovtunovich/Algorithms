@@ -5,7 +5,6 @@ using Graphs.GraphImplementation;
 using Graphs.MinimumSpanningTree;
 using Graphs.MWIS;
 using Graphs.Search;
-using Helpers;
 using View;
 
 namespace ExamplesRunning.Graphs;
@@ -135,7 +134,7 @@ internal class GraphExample
 
         var result = BelmanFordAlgo.Search(graph as OrientedGraph, graph.First());
 
-        MatrixHelper.Show(result);
+        Viewer.ShowMatrix(result);
     }
 
     internal static void RunFloydWarshall()

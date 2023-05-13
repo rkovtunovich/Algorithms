@@ -45,6 +45,7 @@
 
 //PatternMatchingExample.RunKnuthMorrisPratt();
 
-DeferredAcceptanceExample.Run();
+//DeferredAcceptanceExample.RunGaleShapley();
+DeferredAcceptanceExample.RunShipMaintenance();
 
 Console.ReadLine();

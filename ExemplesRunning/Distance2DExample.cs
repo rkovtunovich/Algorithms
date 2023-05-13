@@ -5,7 +5,6 @@ namespace ExamplesRunning;
 
 public static class Distance2DExample
 {
-
     public static void Run()
     {
         var points = SpaceHelper.GetSetOf2DPoints(10, 20, 20);
@@ -16,5 +15,4 @@ public static class Distance2DExample
 
         Console.Read();
     }
-
 }

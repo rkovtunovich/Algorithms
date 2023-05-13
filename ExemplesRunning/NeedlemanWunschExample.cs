@@ -1,6 +1,4 @@
-﻿using Helpers;
-using NeedlemanWunsch;
-using View;
+﻿using NeedlemanWunsch;
 
 namespace ExamplesRunning;
 
@@ -21,6 +19,6 @@ internal class NeedlemanWunschExample
 
         var result = ProteinSequenceAligning<string>.Align(sequence1, sequence2, 2, 1);
 
-        MatrixHelper.Show(result);
+        Viewer.ShowMatrix(result);
     }
 }

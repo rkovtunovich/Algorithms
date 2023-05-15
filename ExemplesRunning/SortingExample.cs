@@ -130,5 +130,21 @@ internal class SortingExample
         }
         // Output: 1 2 3 4 5 6 7 8 9
     }
+
+    static public void RunBucketSort()
+    {
+        var array = ArrayHelper.GetUnsortedArray(50, 0, 100);
+        //int[] array = new[] { 9, 5, 4, 3, 9, 1, 6 };
+        //var array = ArrayHelper.GetUnsortedArray(6, 0, 20);
+        Viewer.ShowArray(array);
+        var stopWatch = new Stopwatch();
+        stopWatch.Start();
+        BucketSort.Sort(array);
+        stopWatch.Stop();
+        Console.WriteLine($"-------------------");
+        Console.WriteLine($"Run time {stopWatch.Elapsed}");
+        Viewer.ShowArray(array);
+        Console.ReadKey();
+    }
 }
 

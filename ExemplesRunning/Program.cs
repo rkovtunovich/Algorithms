@@ -11,6 +11,7 @@
 //SortingExample.RunMergeSort();
 //SortingExample.RunDirectInsertionSort();
 //SortingExample.RunShellSort();
+SortingExample.RunBucketSort();
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
@@ -46,6 +47,6 @@
 //PatternMatchingExample.RunKnuthMorrisPratt();
 
 //DeferredAcceptanceExample.RunGaleShapley();
-DeferredAcceptanceExample.RunShipMaintenance();
+//DeferredAcceptanceExample.RunShipMaintenance();
 
 Console.ReadLine();

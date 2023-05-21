@@ -20,7 +20,7 @@ public class Vertex : IEquatable<Vertex>
 
     public double? LocalClusteringCoefficient { get; set; } = null;
 
-    public double? Betweeness { get; set; } = null;
+    public double? Betweenness { get; set; } = null;
 
     public string? Label { get; set; }
 
@@ -84,8 +84,8 @@ public class Vertex : IEquatable<Vertex>
         if (LocalClusteringCoefficient is not null)
             name += $"\nlcc:{LocalClusteringCoefficient:0.00}";
 
-        if (Betweeness is not null)
-            name += $"\nbetweeness:{Betweeness:0.00}";
+        if (Betweenness is not null)
+            name += $"\nbetweenness:{Betweenness:0.00}";
 
         if (Weight is not null)
             name += $"\nweight:{Weight:0.00}";
@@ -95,9 +95,9 @@ public class Vertex : IEquatable<Vertex>
         return name;
     }
 
-    public void CopyFrom(Vertex? sourse)
+    public void CopyFrom(Vertex? source)
     {
-        if (sourse is null)
+        if (source is null)
             return;
 
         var type = typeof(Vertex);
@@ -107,7 +107,7 @@ public class Vertex : IEquatable<Vertex>
                 continue;
 
             var targetProperty = type.GetProperty(sourceProperty.Name);
-            targetProperty?.SetValue(this, sourceProperty.GetValue(sourse, null), null);
+            targetProperty?.SetValue(this, sourceProperty.GetValue(source, null), null);
         }
     }
 }

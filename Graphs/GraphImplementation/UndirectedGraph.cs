@@ -1,7 +1,4 @@
-﻿using Graphs.Abstraction;
-using Graphs.Model;
-
-namespace Graphs.GraphImplementation;
+﻿namespace Graphs.GraphImplementation;
 
 public class UndirectedGraph : Graph
 {
@@ -186,9 +183,9 @@ public class UndirectedGraph : Graph
         return 0;
     }
 
-    public override void RemoveEdge(Vertex sourse, Vertex destination)
+    public override void RemoveEdge(Vertex source, Vertex destination)
     {
-        RemoveConnection(_nodes[sourse], destination);
-        RemoveConnection(_nodes[destination], sourse);
+        RemoveConnection(_nodes[source], destination);
+        RemoveConnection(_nodes[destination], source);
     }
 }

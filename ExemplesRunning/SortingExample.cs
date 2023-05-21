@@ -2,7 +2,6 @@
 using Helpers;
 using Sorting;
 using System.Diagnostics;
-using View;
 
 namespace ExamplesRunning;
 
@@ -140,6 +139,22 @@ internal class SortingExample
         var stopWatch = new Stopwatch();
         stopWatch.Start();
         BucketSort.Sort(array);
+        stopWatch.Stop();
+        Console.WriteLine($"-------------------");
+        Console.WriteLine($"Run time {stopWatch.Elapsed}");
+        Viewer.ShowArray(array);
+        Console.ReadKey();
+    }
+
+    static public void RunRadixSort()
+    {
+        var array = ArrayHelper.GetUnsortedArray(10, 0, 100);
+        //int[] array = new[] { 9, 5, 4, 3, 9, 1, 6 };
+        //var array = ArrayHelper.GetUnsortedArray(6, 0, 20);
+        Viewer.ShowArray(array);
+        var stopWatch = new Stopwatch();
+        stopWatch.Start();
+        RadixSort.Sort(array);
         stopWatch.Stop();
         Console.WriteLine($"-------------------");
         Console.WriteLine($"Run time {stopWatch.Elapsed}");

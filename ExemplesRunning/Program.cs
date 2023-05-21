@@ -11,7 +11,8 @@
 //SortingExample.RunMergeSort();
 //SortingExample.RunDirectInsertionSort();
 //SortingExample.RunShellSort();
-SortingExample.RunBucketSort();
+//SortingExample.RunBucketSort();
+SortingExample.RunRadixSort();
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();

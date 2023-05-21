@@ -330,7 +330,7 @@ public static class BFS
             foreach (var leaf in leaves)
             {
                 leaf.Weight ??= 1;
-                leaf.Betweeness ??= 1;
+                leaf.Betweenness ??= 1;
 
                 TraceNextTreeNode(tree, leaf);
             }
@@ -347,10 +347,10 @@ public static class BFS
             var belowNeigbors = tree.GetBelowNeighbors(edge);
             foreach (var neighbor in belowNeigbors)
             {
-                currValue += neighbor.Betweeness * edge.Weight / neighbor.Weight;
+                currValue += neighbor.Betweenness * edge.Weight / neighbor.Weight;
             }
 
-            edge.Betweeness = currValue;
+            edge.Betweenness = currValue;
 
             TraceNextTreeNode(tree, edge);
         }     
@@ -358,8 +358,8 @@ public static class BFS
 
     private static void TraceNextTreeNodeForSimpleTree(OrientedGraph tree, Vertex vertice)
     {
-        vertice.Betweeness ??= 0;
-        vertice.Betweeness++;
+        vertice.Betweenness ??= 0;
+        vertice.Betweenness++;
 
         var edges = tree.GetEdges(vertice);
 

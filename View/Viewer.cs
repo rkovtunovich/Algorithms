@@ -2,8 +2,10 @@
 
 public static class Viewer
 {
-    public static void ShowArray<T>(T[] array)
+    public static void ShowArray<T>(T[] array, string? description = null)
     {
+        Console.WriteLine($"{description}{new string('_', Console.WindowWidth - description?.Length ?? 0)}");
+
         for (int i = 0; i < array.Length && array.Length < 100; i++)
         {
             if (typeof(T) == typeof(double))
@@ -13,7 +15,7 @@ public static class Viewer
         }
 
         Console.Write("\n");
-        Console.WriteLine($"-------------------");
+        Console.WriteLine(new string('_', Console.WindowWidth));
     }
 
     public static void ShowMatrix<T>(T[][] matrix)

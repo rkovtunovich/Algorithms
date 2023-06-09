@@ -7,6 +7,8 @@
 // This algorithm is not adaptive, meaning that it does not take advantage of existing order in the input array.
 // This algorithm is not in-place, meaning that it requires O(n) auxiliary memory space.
 // This algorithm is not online, meaning that it cannot sort an array as it receives it.
+// Merge sort first views each individual record as an ordered sequence, and then obtains new sequences via two-way merges.
+// In this way, it sorts all the records. Merge sort is faster than heap sort, though normally it is not as fast as quick sort.
 
 public static class MergeSort
 {

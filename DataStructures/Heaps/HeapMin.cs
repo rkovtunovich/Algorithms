@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace DataStructures.Heaps;
+﻿namespace DataStructures.Heaps;
 
 public class HeapMin<TKey, TValue> : Heap<TKey, TValue> where TKey : INumber<TKey>
 {

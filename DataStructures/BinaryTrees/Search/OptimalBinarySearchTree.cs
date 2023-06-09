@@ -4,9 +4,9 @@ public class OptimalBinarySearchTree<TKey, TValue> : BinaryTree<TKey, TValue> wh
 {
     public double[][] Span { get; set; }
 
-    public OptimalBinarySearchTree(TKey[] keys, TValue[] values, double[] qrequencies)
+    public OptimalBinarySearchTree(TKey[] keys, TValue[] values, double[] frequencies)
     {
-        Build(keys, values, qrequencies);
+        Build(keys, values, frequencies);
     }
 
     private void Build(TKey[] keys, TValue[] values, double[] frequencies)
@@ -22,7 +22,7 @@ public class OptimalBinarySearchTree<TKey, TValue> : BinaryTree<TKey, TValue> wh
         {
             for (int i = 1; i <= keys.Length - size; i++)
             {
-                Span[i][i + size] = GetCurrentFrequency(frequencies, size, i) + GetCurrentMiminum(Span, size, i);
+                Span[i][i + size] = GetCurrentFrequency(frequencies, size, i) + GetCurrentMinimum(Span, size, i);
             }
         }
     }
@@ -39,7 +39,7 @@ public class OptimalBinarySearchTree<TKey, TValue> : BinaryTree<TKey, TValue> wh
         return frequency;
     }
 
-    private double GetCurrentMiminum(double[][] span, int size, int i)
+    private double GetCurrentMinimum(double[][] span, int size, int i)
     {
         double minimum = 0;
 
@@ -48,7 +48,7 @@ public class OptimalBinarySearchTree<TKey, TValue> : BinaryTree<TKey, TValue> wh
             var curr = span[i][j - 1] + span[j + 1][i + size];
 
             if(minimum is 0 || curr < minimum)
-                curr = minimum;
+                minimum = curr;
         }
 
         return minimum;

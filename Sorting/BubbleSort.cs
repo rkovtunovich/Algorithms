@@ -1,5 +1,9 @@
 ﻿namespace Sorting;
 
+// Bubble sort is the slowest sorting algorithm.
+// Since it needs to compare each record in the sequence again and again, the number of comparisons is huge.
+// It is the most ineffective algorithm, with a complexity of O(n2)
+
 public static class BubbleSort
 {
     public static void Sort<T>(T[] array) where T : IComparable<T>

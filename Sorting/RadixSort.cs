@@ -17,7 +17,10 @@ namespace Sorting;
 // In the end, the numbers will be sorted.
 // Because you distribute items into buckets and combine them back again, the process is often done twice:
 // once for the least significant digit, and again for the most significant digit.
-
+// Radix sort does not follow the same route as the normal sorting algorithms.
+// It is a relatively new algorithm. Radix sort is best used against integers.
+// If we are to apply it to the sorting of floating point numbers,
+// we must be able to map the floating point number into comparisons of multiple keywords, which is really inconvenient.
 
 public static class RadixSort
 {

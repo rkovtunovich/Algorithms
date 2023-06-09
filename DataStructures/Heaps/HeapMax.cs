@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace DataStructures.Heaps;
+﻿namespace DataStructures.Heaps;
 
 public class HeapMax<TKey, TValue> : Heap<TKey, TValue> where TKey : INumber<TKey>
 {

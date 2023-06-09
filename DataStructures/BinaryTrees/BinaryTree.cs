@@ -1,6 +1,33 @@
-﻿using DataStructures.Lists;
+﻿namespace DataStructures.BinaryTrees;
 
-namespace DataStructures.BinaryTrees;
+// A binary tree is a tree-like model of data where each node can have at most two children, referred to as the left child and the right child. 
+// 1. **Structure**: Each node in a binary tree contains a data element, and two pointers to other nodes.
+//      The left pointer points to the left child and the right pointer points to the right child.
+//      If a child does not exist, the pointer is null.
+// 
+// 2. **Uses**: Binary trees are used in many areas of computer science including:
+//    - **Binary Search Trees (BST)**: A special kind of binary tree where each node has a value greater than all the values in its left subtree and less than all the values in its right subtree.
+//        BSTs are used for creating databases and file systems due to their efficient search capability.
+//    - **Heap**: A special tree structure in which each parent node is less than or equal to its child node.
+//        It is used in Heap Sort and Priority Queue.
+//    - **Syntax Trees**: Used in compilers to represent syntax of programming languages.
+//    - **Huffman Coding Trees**: Used in compression algorithms.
+// 
+// 3. **Efficiency**: The efficiency of operations on a binary tree depends on the type of binary tree and its balance.
+//      For a binary search tree, if the tree is balanced (i.e., the left and right subtrees of every node differ in height by at most one),
+//      then operations like insertion, deletion, and lookup can be performed in O(log n) time, where n is the number of nodes in the tree.
+//      However, in the worst case (when the tree is completely unbalanced), these operations can take O(n) time.
+// 
+// 4. **Traversal**: Binary trees can be traversed in different ways - in-order, pre-order, and post-order.
+//      In-order traversal first visits the left subtree, then the root, and finally the right subtree.
+//      Pre-order traversal first visits the root, then the left subtree, and finally the right subtree.
+//      Post-order traversal first visits the left subtree, then the right subtree, and finally the root.
+// 
+// 5. **Types**: There are several types of binary trees, including full (every node has 0 or 2 children),
+//      complete (all levels are fully filled except possibly for the last level, which is filled from left to right), and perfect (all levels are fully filled).
+// 
+// 6. **Space Complexity**: The space complexity of a binary tree is O(n), where n is the number of nodes in the tree.
+//      This is because we need to store each node in the tree.
 
 public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 {
@@ -88,7 +115,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
         _root = node;
     }
 
-    private void Swap(TreeNode<TKey, TValue> source, TreeNode<TKey, TValue> target)
+    protected void Swap(TreeNode<TKey, TValue> source, TreeNode<TKey, TValue> target)
     {
         var targetParent = target.Parent;
         var targetLeftChild = target.LeftChild;
@@ -264,6 +291,28 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
         else
             return SearchMaximum(node.RightChild);
 
+    }
+
+    protected TreeNode<TKey, TValue>? GetBrother(TreeNode<TKey, TValue> node)
+    {
+        if (node.IsRoot)
+            return null;
+
+        if (node.IsLeftChild)
+            return node?.Parent?.RightChild;
+        else
+            return node?.Parent?.LeftChild;
+    }
+
+    protected TreeNode<TKey, TValue>? GetUncle(TreeNode<TKey, TValue> node)
+    {
+        if (!node.HasParent)
+            return null;
+
+        if (node.Parent.IsLeftChild)
+            return node?.Parent?.Parent?.RightChild;
+        else
+            return node?.Parent?.Parent?.LeftChild;
     }
 
     #endregion

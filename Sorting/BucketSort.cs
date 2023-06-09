@@ -4,6 +4,11 @@
 // Each bucket is then sorted individually, either using a different sorting algorithm, or by recursively applying the bucket sorting algorithm.
 // It is a distribution sort, and is a cousin of radix sort in the most to least significant digit flavor.
 // This version of the Bucket Sort algorithm works specifically with positive integers, and it sorts the buckets using QuickSort.
+// Bucket sort is a sorting strategy that trades space for time.
+// Theoretically, if we use the same number of buckets as the number of records in the sequence, we can achieve linear time complexity.
+// However, when the number of records is huge, it might cause huge space usage, and might even make the sorting impossible.
+// Bucket sort is in practice slower than high-efficiency sorting algorithms such as quick sort.
+// However, it is faster than traditional sorting methods.
 
 public static class BucketSort
 {

@@ -2,6 +2,9 @@
 
 // The Selection Sort algorithm works by dividing the input array into a sorted and unsorted region.
 // In each iteration, the algorithm finds the smallest (or largest) element in the unsorted region and moves it to the end of the sorted region. 
+// This sorting method is a sorting algorithm with swapping, with a complexity of O(n2).
+// In actual application it is basically at the same place as bubble sort.
+// They are just the initial stages in the development of sorting algorithm and are rarely used in actual applications.
 
 public static class SelectionSort
 {
@@ -22,10 +25,8 @@ public static class SelectionSort
             {
                 // If the current element is smaller than the assumed minimum,
                 // update the minimum index
-                if (array[j].CompareTo(array[minIndex]) < 0)
-                {
+                if (array[j].CompareTo(array[minIndex]) < 0)            
                     minIndex = j;
-                }
             }
 
             // Swap the element with the minimum value found in the unsorted region

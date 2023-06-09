@@ -16,19 +16,19 @@ public static class MaxUnimodalArray
         else if (endIndex - startIndex == 2)
             return Math.Max(array[startIndex], array[endIndex]);
 
-        int midlle = (endIndex + startIndex) / 2;
+        int middle = (endIndex + startIndex) / 2;
 
-        currMax = Math.Max(array[midlle], currMax);
+        currMax = Math.Max(array[middle], currMax);
 
-        int maxLeft = array[midlle - 1];
+        int maxLeft = array[middle - 1];
         if (maxLeft > currMax)
-            maxLeft = FindRec(array, startIndex, midlle, maxLeft);
+            maxLeft = FindRec(array, startIndex, middle, maxLeft);
 
         currMax = Math.Max(maxLeft, currMax);
 
-        int maxRight = array[midlle + 1];
+        int maxRight = array[middle + 1];
         if (maxRight > currMax)
-            maxRight = FindRec(array, midlle + 1, endIndex, maxRight);
+            maxRight = FindRec(array, middle + 1, endIndex, maxRight);
 
         currMax = Math.Max(currMax, maxRight);
 

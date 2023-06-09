@@ -9,7 +9,7 @@ public class RSelect
         return FindRec(array, 0, array.Length - 1, orderStatistics);
     }
 
-    private static int FindRec(int[] array, int startIndex, int endIndex, int orderStaticsics)
+    private static int FindRec(int[] array, int startIndex, int endIndex, int orderStatistics)
     {
         if(startIndex >= endIndex)
             return array[endIndex];
@@ -32,12 +32,12 @@ public class RSelect
 
         (array[pivotIndex], array[innerBorder]) = (array[innerBorder], array[pivotIndex]);
 
-        if (innerBorder == orderStaticsics)
+        if (innerBorder == orderStatistics)
             return array[innerBorder];
-        else if (innerBorder > orderStaticsics)
-            return FindRec(array, startIndex, innerBorder - 1, orderStaticsics);
+        else if (innerBorder > orderStatistics)
+            return FindRec(array, startIndex, innerBorder - 1, orderStatistics);
         else
-            return FindRec(array, innerBorder + 1, endIndex, orderStaticsics);
+            return FindRec(array, innerBorder + 1, endIndex, orderStatistics);
     }
 
     private static int GetBaseIndexRandom(int min, int max)

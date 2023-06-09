@@ -1,7 +1,33 @@
-﻿using DataStructures.Lists;
-using System.Numerics;
+﻿namespace DataStructures.BinaryTrees.Search.AVL;
 
-namespace DataStructures.BinaryTrees.Search;
+// An AVL tree (named after inventors Adelson-Velsky and Landis) is a self-balancing binary search tree.
+// In an AVL tree, the heights of the two child subtrees of any node differ by at most one.
+// If at any time they differ by more than one, rebalancing is done to restore this property.
+// This is done through a series of tree rotations.
+// 
+// Key characteristics and uses of AVL trees:
+// 
+// 1. **Balanced Tree**: The main advantage of AVL trees over other data structures is that they are always balanced.
+//      This means that operations like insertion, deletion, and lookup can be performed very quickly, in O(log n) time,
+//      where n is the number of nodes in the tree.
+// 
+// 2. **Efficiency**: AVL trees are more rigidly balanced than Red-Black trees, leading to slower insertions and removals but faster retrievals.
+//      So, if your use case involves many more lookups than insertions/deletions, an AVL tree could be more efficient.
+// 
+// 3. **Usage**: AVL trees are used in places where fast lookup times are important and the data set is large.
+//      They are used in databases to find data quickly, in router tables to route internet data efficiently, and in file systems.
+// 
+// 4. **Memory**: AVL trees store balance factors (or heights) with each node.
+//      This requires extra storage compared to a typical binary search tree.
+// 
+// 5. **Rotations**: AVL tree uses four types of rotations to balance itself: left-left, right-right, left-right, and right-left.
+//      The rotation type is decided based on the balance factor of the unbalanced node.
+// 
+// 6. **Insertion and Deletion**: Whenever an insertion or deletion operation is performed, the balance factor of each node is updated.
+//      If any node is found to be unbalanced, then balancing is done to maintain the AVL tree property.
+// 
+// In summary, AVL trees are an excellent choice when you need to perform many lookups in a large dataset,
+// and you want to ensure that these operations are always fast, regardless of the exact sequence of insertions and deletions.
 
 public class AVLTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : INumber<TKey>
 {

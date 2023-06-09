@@ -1,4 +1,6 @@
 ﻿using DataStructures.BinaryTrees.Search;
+using DataStructures.BinaryTrees.Search.AVL;
+using DataStructures.BinaryTrees.Search.RedBlack;
 using DataStructures.HashTables;
 using DataStructures.Heaps;
 using Graphs;
@@ -52,7 +54,7 @@ public static class DataStructuresExample
         var graph = generator.Generate("search_tree");
         DOTVisualizer.VisualizeGraph(graph);
 
-        Console.WriteLine($"Mimimum: {tree.Mimimum?.Value}");
+        Console.WriteLine($"Mimimum: {tree.Minimum?.Value}");
         Console.WriteLine($"Maximum: {tree.Maximum?.Value}");
         Console.WriteLine($"Predecessor: {tree.GetPredecessor(5)?.Value}");
         Console.WriteLine($"Successor: {tree.GetSuccessor(4)?.Value}");
@@ -113,8 +115,55 @@ public static class DataStructuresExample
         graph = generator.Generate("search_tree");
         DOTVisualizer.VisualizeGraph(graph);
 
-        var hashSet = new HashSet<int>();
-        hashSet.Add(1);
+        Console.ReadLine();
+    }
+
+    public static void RunRedBlackTreeExample()
+    {
+        //int random = new Random().Next(0, 15);
+        int random = 2;
+        //var array = ArrayHelper.GetUnsortedArray(15, 1, 50);
+
+        //var array = new List<int>() { 7, 30, 32, 24, 14, 39, 7, 23, 31, 9 };
+        var array = new List<int>() { 4, 22, 7, 42, 49, 35, 32, 28, 14, 49, 25, 15, 44, 23, 37 };
+
+        //var array = new List<int>() { 4, 22, 7, 42, 37, 7, 37, 22, 14, 7, 25, 4, 44, 23, 37 };
+
+        var tree = new RedBlackTree<int, int>();
+
+        var generator = new GraphRedBlackTreeGenerator<int, int>(tree);
+        var graph = generator.Generate("red_black_tree");
+
+        int number = 0;
+        foreach (var key in array)
+        {
+            number++;
+            tree.Insert(key, key);
+
+            graph = generator.Generate($"red_black_tree_{number}");
+            DOTVisualizer.VisualizeGraph(graph);
+        }
+
+        graph = generator.Generate("red_black_tree");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        tree.TraverseInOrder(node => Console.WriteLine(node.Key.ToString()));
+
+        tree.Remove(array[3]);
+
+        //Console.WriteLine($"Remove with key: {array[random]}");
+
+        //var toRemove = new List<int>() { 4, 23, 25, 28, 32, 22, 7 };
+        //foreach (var key in toRemove)
+        //{
+        //    tree.Remove(key);
+
+        //    graph = generator.Generate($"red_black_tree");
+        //    DOTVisualizer.VisualizeGraph(graph);
+        //}
+
+        graph = generator.Generate("red_black_tree");
+        DOTVisualizer.VisualizeGraph(graph);
 
         Console.ReadLine();
     }

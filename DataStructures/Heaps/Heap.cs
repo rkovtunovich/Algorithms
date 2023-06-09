@@ -1,7 +1,36 @@
-﻿using System.Numerics;
+﻿namespace DataStructures.Heaps;
 
-namespace DataStructures.Heaps
-    ;
+// A heap is a specialized tree-based data structure that satisfies the heap property.
+// It is a complete binary tree, meaning all levels of the tree are fully filled except for possibly the last level, which is filled from left to right. 
+// 
+// There are two types of heaps: 
+// 1. **Max-Heap**: In a max heap, for any given node I, the value of I is greater than or equal to the values of its children.
+//    This property must be recursively true for all nodes in the binary tree.
+//    The largest element in a max heap is stored at the root, and the subtree of any node also includes this property.
+// 
+// 2. **Min-Heap**: In a min heap, for any given node I, the value of I is less than or equal to the values of its children.
+//    This property must be recursively true for all nodes in the binary tree.
+//    The smallest element in a min heap is stored at the root, and the subtree of any node also includes this property.
+// 
+// Heaps are used in many algorithms, including sorting algorithms like heapsort and in constructing priority queues.
+// Priority queues are commonly used in Dijkstra's algorithm for finding the shortest path in a graph, in load balancing and interrupt handling in an operating system, and in data compression algorithms.
+// 
+// Heaps are efficient for the following reasons: 
+// 1. **Insertion**: Insertion of a new element takes O(log n) time.
+//    The new element is initially appended to the end of the heap (as the last element of the array).
+//    The heap property is restored by comparing the added element with its parent and moving the added element up a level (swapping positions with the parent).
+//    The comparison is repeated until the heap property is restored (the added element is smaller than its parent). 
+// 2. **Deletion**: Deletion of the root element also takes O(log n) time.
+//    The root element is removed and the last element of the heap is moved to the root position.
+//    The heap property is restored by comparing the new root with its children and moving it down a level (swapping positions with the larger child for a max heap or the smaller child for a min heap).
+//    The comparison is repeated until the heap property is restored (the root is larger than its children in a max heap or smaller in a min heap). 
+// 3. **Extremum (Max or Min) Fetch**: Fetching the maximum element in a max heap or the minimum element in a min heap takes O(1) time, as these elements are always at the root of the heap.
+// 4. **Memory**: A heap can be stored efficiently in memory as an array.
+//    Each element in the array represents a node in the tree, and the parent-child relationship can be calculated using indices.
+// 
+// In conclusion, heaps are a versatile data structure that are particularly useful when you need to repeatedly remove the object with the highest (or lowest) priority.
+// They provide a good compromise of both operation efficiency and memory usage.
+
 
 public abstract class Heap<TKey, TValue> where TKey : INumber<TKey>
 {
@@ -11,6 +40,7 @@ public abstract class Heap<TKey, TValue> where TKey : INumber<TKey>
 
     private HeapNode<TKey, TValue>[] _nodes;
 
+    // Dictionary to keep track of the positions of the values in the heap
     private Dictionary<TValue, int> _positions = new();
 
     #region Constructors
@@ -81,14 +111,14 @@ public abstract class Heap<TKey, TValue> where TKey : INumber<TKey>
 
     public HeapNode<TKey, TValue> ExtractNode()
     {
-        var mimimum = this[1];
+        var minimum = this[1];
 
         Swap(1, _length);
         _length--;
 
         SiftDown(1);
 
-        return mimimum;
+        return minimum;
     }
 
     public TKey ExtractKey()

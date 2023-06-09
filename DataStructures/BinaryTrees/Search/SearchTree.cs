@@ -1,11 +1,8 @@
-﻿using DataStructures.Lists;
-using System.Numerics;
-
-namespace DataStructures.BinaryTrees.Search;
+﻿namespace DataStructures.BinaryTrees.Search;
 
 public class SearchTree<TKey, TValue> : BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 {
-    public TreeNode<TKey, TValue>? Mimimum => SearchMinimum(Root);
+    public TreeNode<TKey, TValue>? Minimum => SearchMinimum(Root);
 
     public TreeNode<TKey, TValue>? Maximum => SearchMaximum(Root);
 

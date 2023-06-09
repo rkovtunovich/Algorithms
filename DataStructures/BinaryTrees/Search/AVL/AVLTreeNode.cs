@@ -1,7 +1,4 @@
-﻿using DataStructures.Lists;
-using System.Numerics;
-
-namespace DataStructures.BinaryTrees.Search;
+﻿namespace DataStructures.BinaryTrees.Search.AVL;
 
 public class AVLTreeNode<TKey, TValue> : TreeNode<TKey, TValue> where TKey : INumber<TKey>
 {

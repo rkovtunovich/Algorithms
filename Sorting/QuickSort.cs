@@ -4,7 +4,12 @@ namespace Sorting;
 
 // Quick sort is an improvement on bubble sort.
 // The QuickSort algorithm is a divide-and-conquer sorting algorithm that works by selecting a 'pivot' element from the array and partitioning the other elements into two groups,
-// according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively. 
+// according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+// Quick sort essentially is a recursive algorithm using divide-and-conquer idea.
+// Under normal circumstances, quick sort is faster than most sorting algorithms, and is currently the publicly acknowledged fastest sorting method.
+// However, when the sequence is basically ordered, it will deteriorate into bubble sort, which affects the performance of the sort.
+// In addition, quick sort is based on recursion and involves a huge amount of stack operations in the memory.
+// For machines with very limited memory, it would not be a good choice.
 
 public class QuickSort
 {

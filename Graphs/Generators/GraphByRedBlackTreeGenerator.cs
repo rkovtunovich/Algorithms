@@ -1,15 +1,15 @@
 ﻿using DataStructures.BinaryTrees;
 using DataStructures.BinaryTrees.Search;
-using DataStructures.BinaryTrees.Search.AVL;
+using DataStructures.BinaryTrees.Search.RedBlack;
 using Graphs.GraphImplementation;
 
 namespace Graphs.Generators;
 
-public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : INumber<TKey>
+public class GraphRedBlackTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : INumber<TKey>
 {
     private readonly SearchTree<TKey, TValue> _tree; 
 
-    public GraphAVLTreeGenerator(SearchTree<TKey, TValue> tree)
+    public GraphRedBlackTreeGenerator(SearchTree<TKey, TValue> tree)
     {
         _tree = tree;
     }
@@ -23,7 +23,7 @@ public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : 
 
         var vertex = new Vertex(1)
         {
-            Label = GetLabel(_tree.Root as AVLTreeNode<TKey, TValue>, "O")
+            Label = GetLabel(_tree.Root as RedBlackTreeNode<TKey, TValue>, "O")
         };
         graph.AddVertex(vertex);
         
@@ -39,7 +39,7 @@ public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : 
 
             var leftChild = new Vertex(graph.Count() + 1)
             {
-                Label =  GetLabel(leftNode as AVLTreeNode<TKey, TValue>, "L")
+                Label =  GetLabel(leftNode as RedBlackTreeNode<TKey, TValue>, "L")
             };
 
             graph.AddVertex(leftChild);
@@ -54,7 +54,7 @@ public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : 
         {
             var rightChild = new Vertex(graph.Count() + 1)
             {
-                Label = GetLabel(rightNode as AVLTreeNode<TKey, TValue>, "R")
+                Label = GetLabel(rightNode as RedBlackTreeNode<TKey, TValue>, "R")
             };
 
             graph.AddVertex(rightChild);
@@ -65,8 +65,8 @@ public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : 
         }
     }
 
-    private string GetLabel(AVLTreeNode<TKey, TValue>? node, string side)
+    private string GetLabel(RedBlackTreeNode<TKey, TValue>? node, string side)
     {
-        return $"{node?.Hight}:[{node.Key}] {side}";
+        return $"{node?.Color}:[{node.Key}] {side}";
     }
 }

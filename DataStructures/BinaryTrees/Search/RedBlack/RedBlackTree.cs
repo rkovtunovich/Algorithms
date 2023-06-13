@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-using System;
-using System.Xml.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DataStructures.BinaryTrees.Search.RedBlack;
 
@@ -76,16 +74,16 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
                 AttachLeft(child, parent);
             }
             else
-                InsertRecursively(parent.LeftChild as RedBlackTreeNode<TKey, TValue>, child);
+                InsertRecursively(parent.LeftChild, child);
         }
         else
         {
             if (!parent.HasRightChild)
             {
                 AttachRight(child, parent);
-            }            
+            }
             else
-                InsertRecursively(parent.RightChild as RedBlackTreeNode<TKey, TValue>, child);
+                InsertRecursively(parent.RightChild, child);
         }
 
         Balance(child);
@@ -93,7 +91,7 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
 
     private void RemoveRecursively(RedBlackTreeNode<TKey, TValue> node)
     {
-        if(node.HasBothChildren)
+        if (node.HasBothChildren)
         {
             var successor = SearchMaximum(node.LeftChild) as RedBlackTreeNode<TKey, TValue> ?? throw new NullReferenceException(nameof(node.LeftChild));
 
@@ -102,7 +100,10 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
 
             DeleteRedBlackNode(successor);
         }
-
+        else
+        {
+            DeleteRedBlackNode(node);
+        }
     }
 
     private void Balance(RedBlackTreeNode<TKey, TValue> child)
@@ -116,7 +117,7 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
             child.Color = Color.Black;
             return;
         }
-           
+
         // case 2:
         // The parent P of the current node is black, i.e.
         // Property 4 (Both children of every red node are black) is not violated.
@@ -124,7 +125,7 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
         // Property 5 (All paths from any given node to leaf nodes contain the same number of black nodes) is not violated because the current node N has two black leaf children,
         // but since N is red, the path to each of these children contains the same number of black nodes, which is the path to the black leaf that was replaced by the current node,
         // so the property remains true.
-        var parent = child.Parent as RedBlackTreeNode<TKey, TValue> ?? throw new NullReferenceException($"The parent of {child} must be not null");
+        var parent = child.Parent ?? throw new NullReferenceException($"The parent of {child} must be not null");
         if (parent.Color is Color.Black)
             return;
 
@@ -137,13 +138,13 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
         // (property 4 can be violated because G's parent can be red).
         // To fix this, the whole procedure is performed recursively on G from Case 1.
         var uncle = GetUncle(child) as RedBlackTreeNode<TKey, TValue>;
-        var grandParent = parent.GetParent();
+        var grandParent = parent.Parent;
         if (child.IsRed && (uncle?.IsRed ?? false))
         {
             parent.Color = Color.Black;
             uncle.Color = Color.Black;
             grandParent.Color = Color.Red;
-            
+
             Balance(grandParent);
         }
 
@@ -184,13 +185,13 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
         {
             parent.Color = Color.Black;
             grandParent.Color = Color.Red;
-            RotateRight(parent.GetParent(), parent);
+            RotateRight(parent.Parent, parent);
         }
-        if(child.IsRightChild && child.IsRed && parent.IsRightChild && parent.IsRed && (uncle?.IsBlack ?? true))
+        if (child.IsRightChild && child.IsRed && parent.IsRightChild && parent.IsRed && (uncle?.IsBlack ?? true))
         {
             parent.Color = Color.Black;
             grandParent.Color = Color.Red;
-            RotateLeft(parent.GetParent(), parent);
+            RotateLeft(parent.Parent, parent);
         }
     }
 
@@ -210,9 +211,14 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
             else if (node.IsBlack)
             {
                 if (child.IsRed)
+                {
                     child.Color = Color.Black;
+                    DeleteNode(node);
+                }
                 else
+                {
                     DeleteCase1(child);
+                }               
             }
         }
         else if (parent.IsRoot)
@@ -224,10 +230,7 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
             if (node.IsBlack)
                 DeleteCase1(node);
 
-            if (node.IsLeftChild)
-                parent.LeftChild = null;
-            else
-                parent.RightChild = null;
+            DeleteNode(node);
         }
     }
 
@@ -239,20 +242,17 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
 
     private void DeleteCase2(RedBlackTreeNode<TKey, TValue> node)
     {
-        var sibling = GetBrother(node) as RedBlackTreeNode<TKey, TValue>;
+        var sibling = node.AnyBrother;
 
-        if (sibling.IsRed)
+        if ((sibling?.IsRed ?? false) && sibling.HasAnyChild)
         {
-            node.GetParent().Color = Color.Red;
+            node.Parent.Color = Color.Red;
             sibling.Color = Color.Black;
-            if (node == node.Parent.LeftChild)
-            {
-                RotateLeft(node.Parent as RedBlackTreeNode<TKey, TValue>, sibling);
-            }
+
+            if (node.IsLeftChild)
+                RotateLeft(node.Parent, sibling);
             else
-            {
-                RotateRight(node.Parent as RedBlackTreeNode<TKey, TValue>, sibling);
-            }
+                RotateRight(node.Parent, sibling);
         }
 
         DeleteCase3(node);
@@ -260,13 +260,19 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
 
     private void DeleteCase3(RedBlackTreeNode<TKey, TValue> node)
     {
-        var sibling = GetBrother(node) as RedBlackTreeNode<TKey, TValue>;
+        var sibling = node.AnyBrother;
+        var parentSibling = node.Parent.AnyBrother;
 
-        if (node.GetParent().IsBlack && sibling.IsBlack && (sibling.LeftChild as RedBlackTreeNode<TKey, TValue>).IsBlack &&
-            (sibling.RightChild as RedBlackTreeNode<TKey, TValue>).IsBlack)
+        if (node.Parent.IsBlack && (sibling?.IsBlack ?? false) && (sibling.LeftChild?.IsBlack ?? false) && (sibling.RightChild?.IsBlack ?? false))
         {
             sibling.Color = Color.Red;
-            DeleteCase1(node.GetParent());
+            DeleteCase1(node.Parent);
+        }
+        else if (node.Parent.IsBlack && (parentSibling?.IsBlack ?? false) && (parentSibling?.LeftChild.IsBlack ?? false) && (parentSibling?.LeftChild.IsBlack ?? false))
+        {
+            sibling.Color = Color.Red;
+            parentSibling.Color = Color.Red;
+            DeleteNode(node);    
         }
         else
         {
@@ -276,13 +282,12 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
 
     private void DeleteCase4(RedBlackTreeNode<TKey, TValue> node)
     {
-        var sibling = GetBrother(node) as RedBlackTreeNode<TKey, TValue>;
+        var sibling = node.AnyBrother;
 
-        if (node.GetParent().IsRed && sibling.IsBlack && (sibling.LeftChild as RedBlackTreeNode<TKey, TValue>).IsBlack &&
-            (sibling.RightChild as RedBlackTreeNode<TKey, TValue>).IsBlack)
+        if (node.Parent.IsRed && (sibling?.IsBlack ?? false) && (sibling.LeftChild?.IsBlack ?? false)  && (sibling.RightChild?.IsBlack ?? false))
         {
             sibling.Color = Color.Red;
-            node.GetParent().Color = Color.Black;
+            node.Parent.Color = Color.Black;
         }
         else
         {
@@ -292,44 +297,53 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
 
     private void DeleteCase5(RedBlackTreeNode<TKey, TValue> node)
     {
-        var sibling = GetBrother(node) as RedBlackTreeNode<TKey, TValue>;
+        var sibling = node.AnyBrother;
 
-        if (sibling.Color == Color.Black)
+        if ((sibling?.IsBlack ?? false))
         {
-            if (node == node.Parent.LeftChild && (sibling.RightChild as RedBlackTreeNode<TKey, TValue>).IsBlack &&
-                (sibling.LeftChild as RedBlackTreeNode<TKey, TValue>).IsRed)
+            if (node == node.Parent.LeftChild && sibling.RightChild.IsBlack &&
+                sibling.LeftChild.IsRed)
             {
                 sibling.Color = Color.Red;
-                (sibling.LeftChild as RedBlackTreeNode<TKey, TValue>).Color = Color.Black;
-                RotateRight(sibling, sibling.LeftChild as RedBlackTreeNode<TKey, TValue>);
+                sibling.LeftChild.Color = Color.Black;
+                RotateRight(sibling, sibling.LeftChild);
             }
-            else if (node == node.Parent.RightChild && (sibling.LeftChild as RedBlackTreeNode<TKey, TValue>).IsBlack && (sibling.RightChild as RedBlackTreeNode<TKey, TValue>).IsRed)
+            else if (node == node.Parent.RightChild && (sibling.LeftChild?.IsBlack ?? false) && (sibling.RightChild?.IsRed ?? false))
             {
                 sibling.Color = Color.Red;
-                (sibling.RightChild as RedBlackTreeNode<TKey, TValue>).Color = Color.Black;
-                RotateLeft(sibling, sibling.RightChild as RedBlackTreeNode<TKey, TValue>);
+                sibling.RightChild.Color = Color.Black;
+                RotateLeft(sibling, sibling.RightChild);
             }
         }
+
         DeleteCase6(node);
     }
 
     private void DeleteCase6(RedBlackTreeNode<TKey, TValue> node)
     {
-        var sibling = GetBrother(node) as RedBlackTreeNode<TKey, TValue>;
+        var sibling = node.AnyBrother;
 
-        sibling.Color = node.GetParent().Color;
-        node.GetParent().Color = Color.Black;
+        sibling.Color = node.Parent.Color;
+        node.Parent.Color = Color.Black;
 
-        if (node == node.Parent.LeftChild)
+        if (node.IsLeftChild)
         {
-            (sibling.RightChild as RedBlackTreeNode<TKey, TValue>).Color = Color.Black;
-            RotateLeft(node.GetParent(), sibling);
+            if (sibling.HasRightChild)
+            {
+                sibling.RightChild.Color = Color.Black;
+                RotateLeft(node.Parent, sibling);
+            }
         }
-        else
+        else if(node.IsRightChild)
         {
-            (sibling.LeftChild as RedBlackTreeNode<TKey, TValue>).Color = Color.Black;
-            RotateRight(node.GetParent(), sibling);
+            if (sibling.HasLeftChild)
+            {
+                sibling.LeftChild.Color = Color.Black;
+                RotateRight(node.Parent, sibling);
+            }
         }
+
+        DeleteNode(node);
     }
 
     #endregion
@@ -351,7 +365,7 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
             AttachRight(child, parent.Parent);
 
         AttachLeft(parent, child);
-     }
+    }
 
     private void RotateRight(RedBlackTreeNode<TKey, TValue> parent, RedBlackTreeNode<TKey, TValue> child)
     {

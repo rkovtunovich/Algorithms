@@ -149,18 +149,18 @@ public static class DataStructuresExample
 
         tree.TraverseInOrder(node => Console.WriteLine(node.Key.ToString()));
 
-        tree.Remove(array[3]);
+        //tree.Remove(array[3]);
 
         //Console.WriteLine($"Remove with key: {array[random]}");
 
-        //var toRemove = new List<int>() { 4, 23, 25, 28, 32, 22, 7 };
-        //foreach (var key in toRemove)
-        //{
-        //    tree.Remove(key);
+        var toRemove = new List<int>() { 4, 23, 25, 28, 32, 22, 7 };
+        foreach (var key in toRemove)
+        {
+            tree.Remove(key);
 
-        //    graph = generator.Generate($"red_black_tree");
-        //    DOTVisualizer.VisualizeGraph(graph);
-        //}
+            graph = generator.Generate($"red_black_tree");
+            DOTVisualizer.VisualizeGraph(graph);
+        }
 
         graph = generator.Generate("red_black_tree");
         DOTVisualizer.VisualizeGraph(graph);

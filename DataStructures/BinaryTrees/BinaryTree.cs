@@ -251,7 +251,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 
     #region Searching
 
-    protected TreeNode<TKey, TValue>? SearchRecursively(TreeNode<TKey, TValue>? node, TKey key)
+    protected virtual TreeNode<TKey, TValue>? SearchRecursively(TreeNode<TKey, TValue>? node, TKey key)
     {
         if (node is null)
             return default;
@@ -265,7 +265,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
             return SearchRecursively(node.RightChild, key);
     }
 
-    protected TreeNode<TKey, TValue>? SearchMinimum(TreeNode<TKey, TValue>? node)
+    protected virtual TreeNode<TKey, TValue>? SearchMinimum(TreeNode<TKey, TValue>? node)
     {
         if (node is null)
             return null;
@@ -279,7 +279,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 
     }
 
-    protected TreeNode<TKey, TValue>? SearchMaximum(TreeNode<TKey, TValue>? node)
+    protected virtual TreeNode<TKey, TValue>? SearchMaximum(TreeNode<TKey, TValue>? node)
     {
         if (node is null)
             return null;
@@ -293,7 +293,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 
     }
 
-    protected TreeNode<TKey, TValue>? GetBrother(TreeNode<TKey, TValue> node)
+    protected virtual TreeNode<TKey, TValue>? GetBrother(TreeNode<TKey, TValue> node)
     {
         if (node.IsRoot)
             return null;
@@ -304,7 +304,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
             return node?.Parent?.LeftChild;
     }
 
-    protected TreeNode<TKey, TValue>? GetUncle(TreeNode<TKey, TValue> node)
+    protected virtual TreeNode<TKey, TValue>? GetUncle(TreeNode<TKey, TValue> node)
     {
         if (!node.HasParent)
             return null;

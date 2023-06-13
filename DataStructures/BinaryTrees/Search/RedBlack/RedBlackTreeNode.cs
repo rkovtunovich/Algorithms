@@ -2,12 +2,17 @@
 
 public class RedBlackTreeNode<TKey, TValue> : TreeNode<TKey, TValue> where TKey : INumber<TKey>
 {
+    public override RedBlackTreeNode<TKey, TValue>? Parent { get => base.Parent as RedBlackTreeNode<TKey, TValue>; }
+
+    public override RedBlackTreeNode<TKey, TValue>? LeftChild { get => base.LeftChild as RedBlackTreeNode<TKey, TValue>; }
+
+    public override RedBlackTreeNode<TKey, TValue>? RightChild { get => base.RightChild as RedBlackTreeNode<TKey, TValue>; }
+
     public Color Color { get; set; }
 
     public bool IsRed => Color == Color.Red;
 
     public bool IsBlack => Color == Color.Black;
 
-    public RedBlackTreeNode<TKey, TValue> GetParent() => Parent as RedBlackTreeNode<TKey, TValue>
-                                                         ?? throw new Exception("It isn't reb-black tree");
+    public override RedBlackTreeNode<TKey, TValue>? AnyBrother => base.AnyBrother as RedBlackTreeNode<TKey, TValue>;
 }

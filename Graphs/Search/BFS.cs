@@ -1,52 +1,60 @@
-﻿using Graphs.Abstraction;
-using Graphs.GraphImplementation;
-using Graphs.Model;
+﻿using Graphs.GraphImplementation;
 
 namespace Graphs.Search;
 public static class BFS
 {
-    public static HashSet<Vertex> SearchConnected(Graph graph, Vertex originVertice)
+    // The SearchConnected function takes a Graph and a Vertex as input.
+    public static HashSet<Vertex> SearchConnected(Graph graph, Vertex originVertex)
     {
+        // Initialize a HashSet with the origin vertex to keep track of visited vertices.
         var visited = new HashSet<Vertex>
         {
-            originVertice
+            originVertex
         };
 
+        // Initialize a queue with the origin vertex for breadth-first search.
         var queue = new Queue<Vertex>();
-        queue.Enqueue(originVertice);
+        queue.Enqueue(originVertex);
 
+        // Continue the search as long as there are vertices in the queue.
         while (queue.Count > 0)
         {
+            // Dequeue a vertex for consideration.
             var current = queue.Dequeue();
 
+            // Get a list of all vertices directly reachable from the current vertex.
             var edges = graph.GetEdges(current);
 
+            // Iterate over each vertex in the list of reachable vertices.
             foreach (var edge in edges)
             {
+                // If the vertex has been visited before, skip this iteration.
                 if (visited.Contains(edge))
                     continue;
 
+                // If the vertex hasn't been visited before, mark it as visited and enqueue it for future consideration.
                 visited.Add(edge);
                 queue.Enqueue(edge);
             }
         }
 
+        // Once all connected vertices have been visited, return the set of visited vertices.
         return visited;
     }
 
-    public static HashSet<Vertex> MarkPaths(UndirectedGraph graph, Vertex originVertice)
+    public static HashSet<Vertex> MarkPaths(UndirectedGraph graph, Vertex originVertex)
     {
         int level = 0;
 
-        originVertice.Distance = level;
+        originVertex.Distance = level;
 
         var visited = new HashSet<Vertex>
         {
-            originVertice
+            originVertex
         };
 
         var queue = new Queue<Vertex>();
-        queue.Enqueue(originVertice);
+        queue.Enqueue(originVertex);
 
         while (queue.Count > 0)
         {
@@ -92,15 +100,15 @@ public static class BFS
 
         var queue = new Queue<Vertex>();
 
-        foreach (var vertive in graph)
+        foreach (var vertex in graph)
         {
-            if (visited.Contains(vertive))
+            if (visited.Contains(vertex))
                 continue;
 
             component++;
 
-            vertive.Component = component;
-            queue.Enqueue(vertive);
+            vertex.Component = component;
+            queue.Enqueue(vertex);
 
             while (queue.Count > 0)
             {
@@ -122,9 +130,59 @@ public static class BFS
         }
     }
 
-    public static OrientedGraph GetSimpleShortestPathTree(UndirectedGraph graph, Vertex originVertice, out HashSet<Vertex> leaves)
+    // This code is a method that computes a shortest path tree (SPT) from a given origin vertex in a graph.
+    // The resulting tree is an oriented graph where each edge points from a node to its parent node in the SPT.
+    // It also keeps track of the leaf nodes (i.e., nodes with no children) in the SPT.
+    // The method uses a breadth-first search (BFS) approach to traverse the graph.
+    // 
+    // Here's an in-depth explanation of the function:
+    // 
+    // 1. The function `GetSimpleShortestPathTree` takes three parameters:
+    //      `graph` (the undirected graph to compute the SPT from),
+    //      `originVertex` (the vertex to start the SPT from),
+    //      `leaves` (an output parameter that will contain the leaf nodes in the SPT).
+    // 
+    // 2. `tree` is an instance of `OrientedGraph` that will contain the SPT.
+    //      It is initialized with all vertices from `graph`.
+    // 
+    // 3. `leaves` is a HashSet that is initially filled with all vertices of `tree`.
+    //      As the algorithm progresses, vertices will be removed from `leaves` as they are found to have child nodes.
+    // 
+    // 4. `visited` is a list that keeps track of all the vertices that have been visited so far.
+    //      This is initialized with `originVertex`.
+    // 
+    // 5. The distance from `originVertex` to itself is set to 0.
+    // 
+    // 6. `queue` is a Queue that is used to manage the order of vertices to be visited.
+    //      The algorithm starts by enqueuing the `originVertex`.
+    // 
+    // 7. The `while` loop continues as long as there are still vertices in the queue to be visited.
+    // 
+    // 8. Inside the loop, it dequeues a vertex `current` from the queue.
+    //      This vertex is the current vertex being considered. 
+    // 
+    // 9. The `level` variable is calculated as the current distance of the vertex incremented by one.
+    //      This represents the distance of the vertices directly connected to `current`.
+    // 
+    // 10. `edges` is a list of all vertices directly reachable from the `current` vertex, obtained by calling `graph.GetEdges(current)`.
+    // 
+    // 11. Then, it iterates over each vertex `edge` in `edges`.
+    //      If the distance of `edge` equals `level`, it means `edge` is a child of `current` in the SPT.
+    //      An edge from `edge` to `current` is added to `tree`, and `current` is removed from `leaves` as it is not a leaf node.
+    // 
+    // 12. If `edge` has been visited before, it skips the rest of this iteration.
+    // 
+    // 13. Otherwise, it marks `edge` as visited, enqueues `edge` for future consideration, adds an edge from `edge` to `current` in `tree`, and sets the distance of `edge` to `level`.
+    // 
+    // 14. Once the queue is empty, it means that all reachable vertices from `originVertex` have been visited, and the function returns the SPT as `tree`.
+    // 
+    // This method essentially creates a tree of shortest paths from the `originVertex` to all other vertices in the graph.
+    // The `leaves` set collects all nodes that don't have any child nodes in this tree (i.e., the end points of all paths).
+    // The BFS approach ensures that the shortest paths are found first.
+    // The `Distance` property of each vertex in the tree gives the shortest distance from the `originVertex` to that vertex.
+    public static OrientedGraph GetSimpleShortestPathTree(UndirectedGraph graph, Vertex originVertex, out HashSet<Vertex> leaves)
     {
-        var tree = new OrientedGraph($"simple_tree_{originVertice.Index}");
+        var tree = new OrientedGraph($"simple_tree_{originVertex.Index}");
         graph.CopyVerticesTo(tree);
 
         leaves = new HashSet<Vertex>();
@@ -132,13 +190,13 @@ public static class BFS
 
         var visited = new List<Vertex>
         {
-            originVertice
+            originVertex
         };
 
-        originVertice.Distance = 0;
+        originVertex.Distance = 0;
 
         var queue = new Queue<Vertex>();
-        queue.Enqueue(originVertice);
+        queue.Enqueue(originVertex);
 
         while (queue.Count > 0)
         {
@@ -150,10 +208,7 @@ public static class BFS
             foreach (var edge in edges)
             {
                 if (edge.Distance == level)
-                {
-                    tree.AddEdge(edge, current);
                     leaves.Remove(current);
-                }
 
                 if (visited.Contains(edge))
                     continue;
@@ -169,9 +224,9 @@ public static class BFS
         return tree;
     }
 
-    public static OrientedGraph GetFullShortestPathTree(UndirectedGraph graph, Vertex originVertice, out HashSet<Vertex> leaves)
+    public static OrientedGraph GetFullShortestPathTree(UndirectedGraph graph, Vertex originVertex, out HashSet<Vertex> leaves)
     {
-        var tree = new OrientedGraph($"full_tree_{originVertice.Index}");
+        var tree = new OrientedGraph($"full_tree_{originVertex.Index}");
         graph.CopyVerticesTo(tree);
 
         leaves = new HashSet<Vertex>();
@@ -179,14 +234,14 @@ public static class BFS
 
         var visited = new List<Vertex>
         {
-            originVertice
+            originVertex
         };
 
-        originVertice.Distance = 0;
-        originVertice.Weight = 1;
+        originVertex.Distance = 0;
+        originVertex.Weight = 1;
 
         var queue = new Queue<Vertex>();
-        queue.Enqueue(originVertice);
+        queue.Enqueue(originVertex);
 
         while (queue.Count > 0)
         {
@@ -212,7 +267,7 @@ public static class BFS
                 visited.Add(edge);
                 queue.Enqueue(edge);
 
-                if (edge.Equals(originVertice))
+                if (edge.Equals(originVertex))
                     continue;
 
                 tree.AddEdge(edge, current);
@@ -250,13 +305,13 @@ public static class BFS
                 var parent = path[current.ArrayIndex()];
 
                 var currLength = residualGraph.GetEdgeLength(parent, current);
-                if(curFlow == 0)
+                if (curFlow == 0)
                     curFlow = currLength;
                 else
                     curFlow = Math.Min(curFlow, currLength);
 
                 current = parent;
-                if(current == source)
+                if (current == source)
                     break;
             }
 
@@ -321,11 +376,11 @@ public static class BFS
 
     #region Betweeness
 
-    public static void CalculateBetweeness(UndirectedGraph graph)
+    public static void CalculateBetweenness(UndirectedGraph graph)
     {
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            var tree = GetFullShortestPathTree(graph, vertice, out HashSet<Vertex> leaves);
+            var tree = GetFullShortestPathTree(graph, vertex, out HashSet<Vertex> leaves);
 
             foreach (var leaf in leaves)
             {
@@ -337,15 +392,15 @@ public static class BFS
         }
     }
 
-    private static void TraceNextTreeNode(OrientedGraph tree, Vertex vertice)
+    private static void TraceNextTreeNode(OrientedGraph tree, Vertex vertex)
     {
-        var edges = tree.GetEdges(vertice);
+        var edges = tree.GetEdges(vertex);
 
         foreach (var edge in edges)
         {
             double? currValue = 1;
-            var belowNeigbors = tree.GetBelowNeighbors(edge);
-            foreach (var neighbor in belowNeigbors)
+            var belowNeighbors = tree.GetBelowNeighbors(edge);
+            foreach (var neighbor in belowNeighbors)
             {
                 currValue += neighbor.Betweenness * edge.Weight / neighbor.Weight;
             }
@@ -353,15 +408,15 @@ public static class BFS
             edge.Betweenness = currValue;
 
             TraceNextTreeNode(tree, edge);
-        }     
+        }
     }
 
-    private static void TraceNextTreeNodeForSimpleTree(OrientedGraph tree, Vertex vertice)
+    private static void TraceNextTreeNodeForSimpleTree(OrientedGraph tree, Vertex vertex)
     {
-        vertice.Betweenness ??= 0;
-        vertice.Betweenness++;
+        vertex.Betweenness ??= 0;
+        vertex.Betweenness++;
 
-        var edges = tree.GetEdges(vertice);
+        var edges = tree.GetEdges(vertex);
 
         if (edges.Count == 0)
             return;
@@ -369,11 +424,11 @@ public static class BFS
         TraceNextTreeNodeForSimpleTree(tree, edges.First());
     }
 
-    public static void CalculateBetweenessSimple(UndirectedGraph graph)
+    public static void CalculateBetweennessSimple(UndirectedGraph graph)
     {
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            var tree = GetSimpleShortestPathTree(graph, vertice, out HashSet<Vertex> leaves);
+            var tree = GetSimpleShortestPathTree(graph, vertex, out HashSet<Vertex> leaves);
 
             foreach (var leaf in leaves)
             {

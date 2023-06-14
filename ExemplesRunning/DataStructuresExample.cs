@@ -54,7 +54,7 @@ public static class DataStructuresExample
         var graph = generator.Generate("search_tree");
         DOTVisualizer.VisualizeGraph(graph);
 
-        Console.WriteLine($"Mimimum: {tree.Minimum?.Value}");
+        Console.WriteLine($"Minimum: {tree.Minimum?.Value}");
         Console.WriteLine($"Maximum: {tree.Maximum?.Value}");
         Console.WriteLine($"Predecessor: {tree.GetPredecessor(5)?.Value}");
         Console.WriteLine($"Successor: {tree.GetSuccessor(4)?.Value}");

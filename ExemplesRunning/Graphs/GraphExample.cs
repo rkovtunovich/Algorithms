@@ -3,6 +3,7 @@ using Graphs.Coloring;
 using Graphs.Generators;
 using Graphs.GraphImplementation;
 using Graphs.MinimumSpanningTree;
+using Graphs.Model;
 using Graphs.MWIS;
 using Graphs.Search;
 using View;
@@ -16,6 +17,8 @@ internal class GraphExample
     internal static void RunUndirectedExample()
     {
         var graph = GraphGenerators.GenerateNonOriented(10);
+        //var graph = CreateTestUndirectedGraph();
+        DOTVisualizer.VisualizeGraph(graph);
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
@@ -23,6 +26,7 @@ internal class GraphExample
         //BFS.FindStronglyConnectedComponents(graph);
         //var connected = BFS.MarkPaths(graph, origin);
         var simplePathTree = BFS.GetSimpleShortestPathTree(graph, origin, out _);
+        DOTVisualizer.VisualizeGraph(simplePathTree);
         var fullPathTree = BFS.GetFullShortestPathTree(graph, origin, out _);
 
         var degreeDistributionsCount = graph.GetDedreeDistributionsCount();
@@ -41,7 +45,7 @@ internal class GraphExample
         var clusterCoeff = graph.CalculateOverallClusteringCoefficient();
         Console.WriteLine($"clustering coefficient: {clusterCoeff}");
 
-        BFS.CalculateBetweeness(graph);
+        BFS.CalculateBetweenness(graph);
 
         var dotSerializer = new DOTSerializer(graph);
         dotSerializer.AddImportantVertex(origin);
@@ -166,5 +170,47 @@ internal class GraphExample
 
         DOTVisualizer.VisualizeGraph(graph);
     }
+
+    private static UndirectedGraph CreateTestUndirectedGraph()
+    {
+        var graph = new UndirectedGraph("test_undirected");
+
+        var v1 = new Vertex(1);
+        var v2 = new Vertex(2);
+        var v3 = new Vertex(3);
+        var v4 = new Vertex(4);
+        var v5 = new Vertex(5);
+        var v6 = new Vertex(6);
+        var v7 = new Vertex(7);
+        var v8 = new Vertex(8);
+        var v9 = new Vertex(9);
+        var v10 = new Vertex(10);
+
+        graph.AddVertex(v1);
+        graph.AddVertex(v2);
+        graph.AddVertex(v3);
+        graph.AddVertex(v4);
+        graph.AddVertex(v5);
+        graph.AddVertex(v6);
+        graph.AddVertex(v7);
+        graph.AddVertex(v8);
+        graph.AddVertex(v9);
+        graph.AddVertex(v10);
+
+        graph.AddEdge(v1, v2);
+        graph.AddEdge(v1, v5);
+        graph.AddEdge(v2, v6);
+        graph.AddEdge(v2, v10);
+        graph.AddEdge(v2, v8);
+        graph.AddEdge(v3, v10);
+        graph.AddEdge(v3, v6);
+        graph.AddEdge(v5, v8);
+        graph.AddEdge(v7, v8);
+        graph.AddEdge(v7, v6);
+        graph.AddEdge(v8, v9);
+
+        return graph;
+    }
+
 }
 

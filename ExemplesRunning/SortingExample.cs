@@ -1,6 +1,7 @@
 ﻿using DataStructures.Heaps;
 using Helpers;
-using Sorting;
+using Sorting.Common;
+using Sorting.Insertion;
 using System.Diagnostics;
 
 namespace ExamplesRunning;
@@ -110,7 +111,7 @@ internal class SortingExample
         Viewer.ShowArray(array);
         var stopWatch = new Stopwatch();
         stopWatch.Start();
-        DirectInsertionSort.Sort(array);
+        InsertionSort.Sort(array);
         stopWatch.Stop();
         Console.WriteLine($"-------------------");
         Console.WriteLine($"Run time {stopWatch.Elapsed}");

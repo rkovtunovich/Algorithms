@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Graphs\Graphs.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
-    <ProjectReference Include="..\Sorting\Sorting.csproj" />
   </ItemGroup>
 
 </Project>

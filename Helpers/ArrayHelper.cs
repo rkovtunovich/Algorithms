@@ -1,4 +1,4 @@
-﻿using Sorting;
+﻿using Sorting.Common;
 
 namespace Helpers;
 

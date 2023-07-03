@@ -14,7 +14,7 @@
 //SortingExample.RunBucketSort();
 //SortingExample.RunRadixSort();
 
-GraphExample.RunUndirectedExample();
+//GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
 //GraphExample.RunMST();
 //GraphExample.RunMWIS();
@@ -29,6 +29,7 @@ GraphExample.RunUndirectedExample();
 //DataStructuresExample.RunRedBlackTreeExample();
 //DataStructuresExample.RunHashSetExample();
 //DataStructuresExample.RunOBSTExample();
+DataStructuresExample.RunTwoTheeTreeExample();
 
 //MathAlgoExample.RunMedianExample();
 

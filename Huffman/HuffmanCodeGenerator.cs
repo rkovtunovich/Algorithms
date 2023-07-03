@@ -1,5 +1,5 @@
-﻿using DataStructures.BinaryTrees;
-using DataStructures.BinaryTrees.Search;
+﻿using DataStructures.Common.BinaryTrees.Search;
+using DataStructures.Common.BinaryTrees;
 using DataStructures.Heaps;
 
 namespace Huffman;

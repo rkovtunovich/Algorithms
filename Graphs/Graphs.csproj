@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sorting\Sorting.csproj" />
+    <ProjectReference Include="..\DataStructures\DataStructure.Heaps\DataStructures.Heaps.csproj" />
+    <ProjectReference Include="..\DataStructures\DataStructures.BTrees\DataStructures.BTrees.csproj" />
+    <ProjectReference Include="..\DataStructures\DataStructures.Common\DataStructures.Common.csproj" />
+    <ProjectReference Include="..\DataStructures\DataStructures.HashTables\DataStructures.HashTables.csproj" />
+    <ProjectReference Include="..\Sorting\Sorting.Common\Sorting.Common.csproj" />
   </ItemGroup>
 
 </Project>

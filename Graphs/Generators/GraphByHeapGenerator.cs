@@ -1,8 +1,5 @@
 ﻿using DataStructures.Heaps;
-using Graphs.Abstraction;
 using Graphs.GraphImplementation;
-using Graphs.Model;
-using System.Numerics;
 
 namespace Graphs.Generators;
 
@@ -19,13 +16,13 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
     {
         var graph = new UndirectedGraph(name);
 
-        var vertice = new Vertex(1)
+        var vertex = new Vertex(1)
         {
             Label = $"[{_heap.Extremum.Key}]"
         };
-        graph.AddVertex(vertice);
+        graph.AddVertex(vertex);
         
-        AddChilds(vertice, graph);
+        AddChilds(vertex, graph);
 
         return graph;
     }

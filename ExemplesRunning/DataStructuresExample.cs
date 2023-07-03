@@ -1,11 +1,14 @@
-﻿using DataStructures.BinaryTrees.Search;
-using DataStructures.BinaryTrees.Search.AVL;
-using DataStructures.BinaryTrees.Search.RedBlack;
+﻿using DataStructures.Common.BinaryTrees.Search;
+using DataStructures.Common.BinaryTrees.Search.AVL;
+using DataStructures.Common.BinaryTrees.Search.RedBlack;
+using DataStructures.BTrees;
 using DataStructures.HashTables;
 using DataStructures.Heaps;
 using Graphs;
+using Graphs.Abstraction;
 using Graphs.Generators;
 using Helpers;
+using System.Reflection.Emit;
 
 namespace ExamplesRunning;
 
@@ -200,5 +203,40 @@ public static class DataStructuresExample
         var obst = new OptimalBinarySearchTree<int, int>(keys, keys, frequency);
 
         Viewer.ShowMatrix(obst.Span);
+    }
+
+    public static void RunTwoTheeTreeExample()
+    {
+        //var keys = new int[] { 50, 30, 10, 70, 60};
+        //var keys = new int[] { 2, 5, 6, 9, 4, 10, 1 };
+        //var keys = new int[] { 54, 36, 69, 90, 18, 27, 45, 63, 72, 81, 99 };
+        var keys = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 5, 15, 25, 8 };
+
+        var tree = new TwoThreeTree<int>();
+
+        var generator = new GraphByTwoTheeTreeGenerator<int>(tree);
+        var graph = generator.Generate("two_three_tree");
+
+        for (int i = 0; i < keys.Length; i++)
+        {
+            tree.Insert(keys[i]);
+
+            graph = generator.Generate($"two_three_tree_{i + 1}");
+            DOTVisualizer.VisualizeGraph(graph);
+        }
+
+        graph = generator.Generate("two_three_tree");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var keysForDeleting = new int[] { 5, 8, 10, 30, 15 };
+
+
+        for (int i = 0; i < keysForDeleting.Length; i++)
+        {
+            tree.Remove(keysForDeleting[i]);
+
+            graph = generator.Generate($"two_three_tree");
+            DOTVisualizer.VisualizeGraph(graph);
+        }
     }
 }

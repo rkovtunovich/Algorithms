@@ -1,5 +1,5 @@
 ﻿using DataStructures.Heaps;
-using Sorting;
+using Sorting.Common;
 
 namespace MinimizationProductionDuration;
 

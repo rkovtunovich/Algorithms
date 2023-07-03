@@ -1,4 +1,4 @@
-﻿using DataStructures;
+﻿using DataStructures.Common;
 using DataStructures.Heaps;
 using Graphs.GraphImplementation;
 

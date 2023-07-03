@@ -1,6 +1,6 @@
 ﻿using Finding;
 using Helpers;
-using Sorting;
+using Sorting.Common;
 
 namespace ExamplesRunning;
 

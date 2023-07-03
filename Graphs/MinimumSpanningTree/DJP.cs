@@ -25,7 +25,7 @@ public static class DJP
 {
     public static (Graph tree, double length) GetMST(Graph graph)
     {
-        var complited = new SimpleHashSet<Vertex>();
+        var completed = new SimpleHashSet<Vertex>();
         var minHeap = new HeapMin<double, Vertex>();
         var tree = new UndirectedVariableEdgeLengthGraph("MST");
         var treeEdges = new Dictionary<Vertex, (Vertex vertice, double length)>();
@@ -34,31 +34,31 @@ public static class DJP
         var start = graph.First();
 
         tree.AddVertex(start);
-        complited.Add(start);
+        completed.Add(start);
 
         var edges = new SimpleHashSet<Vertex>();
         edges.Load(graph.GetEdges(start));
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            if (vertice.Equals(start))
+            if (vertex.Equals(start))
                 continue;
 
-            if (edges.Contains(vertice))
+            if (edges.Contains(vertex))
             {
-                var length = graph.GetEdgeLength(start, vertice);
-                minHeap.Insert(length, vertice);
-                treeEdges.Add(vertice, (start, length));
+                var length = graph.GetEdgeLength(start, vertex);
+                minHeap.Insert(length, vertex);
+                treeEdges.Add(vertex, (start, length));
             }
             else
             {
-                minHeap.Insert(int.MaxValue, vertice);
+                minHeap.Insert(int.MaxValue, vertex);
             }
         }
 
         while (!minHeap.Empty())
         {
             var closest = minHeap.ExtractNode();
-            complited.Add(closest.Value);
+            completed.Add(closest.Value);
 
             if (closest.Key is int.MaxValue)
                 break;
@@ -70,7 +70,7 @@ public static class DJP
 
             foreach (var vertice in graph.GetEdges(closest.Value))
             {
-                if (complited.Contains(vertice))
+                if (completed.Contains(vertice))
                     continue;
 
                 var length = graph.GetEdgeLength(closest.Value, vertice);

@@ -1,8 +1,5 @@
-﻿using DataStructures.BinaryTrees;
-using Graphs.Abstraction;
+﻿using DataStructures.Common.BinaryTrees;
 using Graphs.GraphImplementation;
-using Graphs.Model;
-using System.Numerics;
 
 namespace Graphs.Generators;
 
@@ -19,13 +16,13 @@ public class GraphSearchTreeGenerator<TKey, TValue> : IGraphGenerator where TKey
     {
         var graph = new UndirectedGraph(name);
 
-        var vertice = new Vertex(1)
+        var vertex = new Vertex(1)
         {
             Label = CreateLabel(_tree.Root)
         };
-        graph.AddVertex(vertice);
+        graph.AddVertex(vertex);
         
-        AddChilds(vertice, graph, _tree.Root);
+        AddChilds(vertex, graph, _tree.Root);
 
         return graph;
     }

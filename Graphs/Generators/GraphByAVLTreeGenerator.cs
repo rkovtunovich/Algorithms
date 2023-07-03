@@ -1,6 +1,6 @@
-﻿using DataStructures.BinaryTrees;
-using DataStructures.BinaryTrees.Search;
-using DataStructures.BinaryTrees.Search.AVL;
+﻿using DataStructures.Common.BinaryTrees;
+using DataStructures.Common.BinaryTrees.Search;
+using DataStructures.Common.BinaryTrees.Search.AVL;
 using Graphs.GraphImplementation;
 
 namespace Graphs.Generators;

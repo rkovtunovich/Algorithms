@@ -1,6 +1,6 @@
 ﻿using Helpers.Space;
 using Models.Space;
-using Sorting;
+using Sorting.Common;
 
 namespace Distance;
 

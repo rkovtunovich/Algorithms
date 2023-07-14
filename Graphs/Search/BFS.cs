@@ -93,38 +93,64 @@ public static class BFS
         return visited;
     }
 
+    // A modified breadth-first search (BFS) algorithm to find strongly connected components in an undirected graph.
+    // The components are identified by assigning a unique component number to each vertex and edge.
+    // 
+    // The algorithm works as follows: 
+    // 1. It initializes a component counter to 0, and a HashSet to store visited vertices.
+    // 2. It uses a queue to manage the order of vertices to be visited.
+    // 3. The function iterates over each vertex in the graph.
+    // 4. If the vertex has been visited before, it skips the current iteration.
+    // 5. The component counter is incremented, and the current vertex is assigned the component number.
+    // 6. The current vertex is enqueued for processing.
+    // 7. The algorithm enters a while loop that continues as long as there are vertices in the queue.
+    // 8. Inside the loop, a vertex is dequeued for consideration.
+    // 9. The algorithm retrieves the edges connected to the current vertex.
+    // 10. It iterates over each edge.
+    // 11. If the edge has been visited before, it skips the current iteration.
+    // 12. The component number is assigned to the current edge.
+    // 13. The edge is marked as visited and enqueued for further processing.
+    // 14. Once all vertices have been visited, the function completes.
+    // 
+    // The result is that each vertex and edge in the graph is assigned a component number, indicating the strongly connected component it belongs to.
+    // This algorithm helps identify and label the components in the graph.
     public static void FindStronglyConnectedComponents(UndirectedGraph graph)
     {
-        int component = 0;
-        var visited = new HashSet<Vertex>();
+        int component = 0; // Counter to keep track of the component number.
+        var visited = new HashSet<Vertex>(); // HashSet to store visited vertices.
 
-        var queue = new Queue<Vertex>();
+        var queue = new Queue<Vertex>(); // Queue to manage the order of vertices to be visited.
 
+        // Iterate over each vertex in the graph.
         foreach (var vertex in graph)
         {
+            // If the vertex has been visited before, skip this iteration.
             if (visited.Contains(vertex))
                 continue;
 
-            component++;
+            component++; // Increment the component counter.
 
-            vertex.Component = component;
-            queue.Enqueue(vertex);
+            vertex.Component = component; // Assign the component number to the current vertex.
+            queue.Enqueue(vertex); // Enqueue the vertex for processing.
 
+            // Continue the process as long as there are vertices in the queue.
             while (queue.Count > 0)
             {
-                var current = queue.Dequeue();
+                var current = queue.Dequeue(); // Dequeue a vertex for consideration.
 
-                var edges = graph.GetEdges(current);
+                var edges = graph.GetEdges(current); // Get the list of edges connected to the current vertex.
 
+                // Iterate over each edge connected to the current vertex.
                 foreach (var edge in edges)
                 {
+                    // If the edge has been visited before, skip this iteration.
                     if (visited.Contains(edge))
                         continue;
 
-                    edge.Component = component;
+                    edge.Component = component; // Assign the component number to the current edge.
 
-                    visited.Add(edge);
-                    queue.Enqueue(edge);
+                    visited.Add(edge); // Mark the edge as visited.
+                    queue.Enqueue(edge); // Enqueue the edge for further processing.
                 }
             }
         }

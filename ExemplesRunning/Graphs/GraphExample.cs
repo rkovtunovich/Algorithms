@@ -136,7 +136,7 @@ internal class GraphExample
         var graph = generator.Generate("oriented_bellman_ford");
         DOTVisualizer.VisualizeGraph(graph);
 
-        var result = BelmanFordAlgo.Search(graph as OrientedGraph, graph.First());
+        var result = BellmanFordAlgo.Search(graph as OrientedGraph, graph.First());
 
         Viewer.ShowMatrix(result);
     }
@@ -169,6 +169,19 @@ internal class GraphExample
         var result = ColorCoding.FindMinimumLengthColorfulPath(graph, 3, 0.1);
 
         DOTVisualizer.VisualizeGraph(graph);
+    }
+
+    internal static void RunCycleSearching()
+    {
+        var graph = GraphGenerators.GenerateNonOriented(10);
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var result = DFS.SearchCycle(graph);
+
+        foreach (var vertex in result)
+        {
+            Console.WriteLine(vertex);
+        }
     }
 
     private static UndirectedGraph CreateTestUndirectedGraph()

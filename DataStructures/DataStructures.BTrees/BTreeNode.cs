@@ -19,7 +19,7 @@ public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber
 
     #region Properties
 
-    public BTreeNode<TKey>? Parent { get; set; }
+    public virtual BTreeNode<TKey>? Parent { get; set; }
 
     public SequentialList<TKey> Keys { get; set; } = new();
 
@@ -46,6 +46,30 @@ public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber
         return Keys[index];
     }
 
+    public virtual BTreeNode<TKey>? GetLeftSibling()
+    {
+        if(Parent is null)
+            return null;
+
+        var index = Parent.Children.IndexOf(this);
+        if (index == 0)
+            return null;
+
+        return Parent.Children[index - 1];
+    }
+
+    public virtual BTreeNode<TKey>? GetRightSibling()
+    {
+        if (Parent is null)
+            return null;
+
+        var index = Parent.Children.IndexOf(this);
+        if (index == Parent.Children.Count - 1)
+            return null;
+
+        return Parent.Children[index + 1];
+    }
+
     #endregion
 
     #region Checks
@@ -57,6 +81,8 @@ public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber
     public bool HasChildren => Children is not null && Children.Count is not 0;
 
     public bool IsEmpty => Keys.Count is 0 && (Children?.Count ?? 0) is 0;
+
+    public bool IsLeaf => !HasChildren;
 
     public bool IsFirstChild(BTreeNode<TKey> node) => Children?[0] == node;
 
@@ -95,7 +121,16 @@ public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber
         return key;
     }
 
-    public void DeleteKey(TKey key)
+    public TKey ExtractKey(TKey key)
+    {
+        var index = Keys.IndexOf(key);
+        if (index is -1)
+            throw new KeyNotFoundException($"Current node doesn't contain key {key}");
+
+        return ExtractKeyByIndex(index);
+    }
+
+    public virtual void RemoveKey(TKey key)
     {
         Keys.Remove(key);
     }
@@ -109,9 +144,33 @@ public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber
         node.Parent = this;
     }
 
+    public void AttachRange(IList<BTreeNode<TKey>> nodes)
+    {
+        if (nodes is null)
+            return;
+
+        Children ??= new();
+        Children.AddRange<TKey>(nodes);
+        Children.Sort();
+
+        foreach (var node in nodes)
+            node.Parent = this;
+    }
+
     public void Detach(BTreeNode<TKey> node)
     {
         Children?.Remove(node);
+    }
+
+    public BTreeNode<TKey> ExtractLastChild()
+    {
+        if (Children is null)
+            throw new InvalidOperationException("Children is null");
+
+        var child = Children[^1];
+        Children.Remove(child);
+
+        return child;
     }
 
     public void ReplaceKey(TKey originKey, TKey newKey)
@@ -126,6 +185,15 @@ public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber
     public void AddKey(TKey key)
     {
         Keys.Add(key);
+        Keys.Sort();
+    }
+
+    public void AddKeyRange(IList<TKey> keys)
+    {
+        if (keys is null)
+            return;
+
+        Keys.AddRange<TKey>(keys);
         Keys.Sort();
     }
 

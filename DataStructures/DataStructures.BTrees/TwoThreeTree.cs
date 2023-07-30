@@ -39,7 +39,7 @@ public class TwoThreeTree<TKey> : BTree<TKey> where TKey : INumber<TKey>
 
         if (node.IsRoot && !node.HasChildren)
         {
-            node.DeleteKey(key);
+            node.RemoveKey(key);
             if (node.IsEmpty)
                 Root = null;
 
@@ -57,7 +57,6 @@ public class TwoThreeTree<TKey> : BTree<TKey> where TKey : INumber<TKey>
         }
         else
         {
-            //node.DeleteKey(key);
             Case1(node, key);
         }
     }
@@ -71,15 +70,10 @@ public class TwoThreeTree<TKey> : BTree<TKey> where TKey : INumber<TKey>
     // In this case properties of the tree isn't violated. 
     private void Case1(BTreeNode<TKey> node, TKey key)
     {
-        node.DeleteKey(key);
+        node.RemoveKey(key);
 
-        //if (!node.IsEmpty)
-        //    return;
         if (node.Keys.Count is 1)
-        {
-            //node.DeleteKey(key);
             return;
-        }
 
         Case2(node, key);
     }
@@ -92,7 +86,7 @@ public class TwoThreeTree<TKey> : BTree<TKey> where TKey : INumber<TKey>
             Case3(node, key);
             return;
         }
-           
+
         var brothers = node.Parent.Children;
 
         BTreeNode<TKey>? brotherWithTwoKeys = null;
@@ -110,9 +104,7 @@ public class TwoThreeTree<TKey> : BTree<TKey> where TKey : INumber<TKey>
 
         if (brotherWithTwoKeys is not null)
         {
-            //var isLeftShifting = node < brotherWithTwoKeys;
             var isLeftShifting = key < brotherWithTwoKeys.FirstKey;
-            //node.DeleteKey(key);
 
             if (isLeftShifting)
                 ShiftKeysLeft(node, brotherWithTwoKeys);
@@ -131,7 +123,7 @@ public class TwoThreeTree<TKey> : BTree<TKey> where TKey : INumber<TKey>
         {
             Root = node.FirstChild;
             return;
-        }        
+        }
 
         var parent = node.Parent;
         if (parent.Keys.Count is 1)

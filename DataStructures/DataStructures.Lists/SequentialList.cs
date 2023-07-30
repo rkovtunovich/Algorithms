@@ -51,6 +51,21 @@ public class SequentialList<T> : IList<T>
         _count++;
     }
 
+    public void AddRange<TKey>(IList<T> items) 
+    {
+        if (items is null)
+            throw new ArgumentNullException(nameof(items));
+        
+        if (_count + items.Count > _items.Length)       
+            Array.Resize(ref _items, (_count + items.Count) * 2);
+        
+        foreach (var item in items)
+        {
+            _items[_count] = item;
+            _count++;
+        }
+    }
+
     public void Insert(int index, T item)
     {
         if (index < 0 || index > _count)    
@@ -126,6 +141,25 @@ public class SequentialList<T> : IList<T>
         return true;
     }
 
+    public void RemoveRange(int startIndex, int count)
+    {
+        if (startIndex < 0 || startIndex >= _count)
+            throw new IndexOutOfRangeException(nameof(startIndex));
+        if (count < 0 || startIndex + count > _count)
+            throw new ArgumentException(nameof(count));
+
+        for (int i = startIndex + count; i < _count; i++)
+        {
+            _items[i - count] = _items[i];
+            _items[i] = default;
+        }
+
+        _count -= count;
+        if (_count <= _items.Length / 2)       
+            Array.Resize(ref _items, _items.Length / 2);
+        
+    }
+
     public void Sort()
     {
         Array.Sort(_items, 0, _count);
@@ -146,6 +180,4 @@ public class SequentialList<T> : IList<T>
             yield return _items[i];
         }
     }
-
-
 }

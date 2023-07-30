@@ -4,6 +4,9 @@ public abstract class BTree<TKey> where TKey : INumber<TKey>
 {
     protected BTree(int order)
     {
+        if (order < 2)
+            throw new ArgumentException("Order must be greater than 1", nameof(order));
+
         Order = order;
     }
 

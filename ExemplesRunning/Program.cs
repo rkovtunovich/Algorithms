@@ -22,7 +22,7 @@
 //GraphExample.RunFloydWarshall();
 //GraphExample.RunWelshPowell();
 //GraphExample.RunColorCoding();
-GraphExample.RunCycleSearching();
+//GraphExample.RunCycleSearching();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();
@@ -31,6 +31,7 @@ GraphExample.RunCycleSearching();
 //DataStructuresExample.RunHashSetExample();
 //DataStructuresExample.RunOBSTExample();
 //DataStructuresExample.RunTwoTheeTreeExample();
+DataStructuresExample.RunBPlusTheeTreeExample();
 
 //MathAlgoExample.RunMedianExample();
 

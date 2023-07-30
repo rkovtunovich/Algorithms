@@ -239,4 +239,38 @@ public static class DataStructuresExample
             DOTVisualizer.VisualizeGraph(graph);
         }
     }
+
+    public static void RunBPlusTheeTreeExample()
+    {
+        //var keys = new int[] { 50, 30, 10, 70, 60};
+        //var keys = new int[] { 2, 5, 6, 9, 4, 10, 1 };
+        //var keys = new int[] { 54, 36, 69, 90, 18, 27, 45, 63, 72, 81, 99 };
+        var keys = new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 5, 15, 25, 8 };
+
+        var tree = new BPlusTree<int, int>(3);
+
+        var generator = new GraphByBPLusTheeTreeGenerator<int, int>(tree);
+        var graph = generator.Generate("B_Plus_three_tree");
+
+        for (int i = 0; i < keys.Length; i++)
+        {
+            tree.Insert(keys[i]);
+
+            graph = generator.Generate($"B_Plus_three_tree_{i + 1}");
+            DOTVisualizer.VisualizeGraph(graph);
+        }
+
+        graph = generator.Generate("B_Plus_three_tree");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var keysForDeleting = new int[] { 5, 8, 10, 30, 15 };
+
+        for (int i = 0; i < keysForDeleting.Length; i++)
+        {
+            tree.Remove(keysForDeleting[i]);
+
+            graph = generator.Generate($"B_Plus_three_tree");
+            DOTVisualizer.VisualizeGraph(graph);
+        }
+    }
 }

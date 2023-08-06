@@ -112,21 +112,21 @@ public static class GraphGenerators
             graph.AddVertex(new(i));
         }
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            GenerateDirectedConnections(graph, countVertices, vertice);
+            GenerateDirectedConnections(graph, countVertices, vertex);
         }
 
         var random = new Random();
 
-        foreach (var vertice in graph)
+        foreach (var vertex in graph)
         {
-            var edges = graph.GetEdges(vertice);
+            var edges = graph.GetEdges(vertex);
 
             foreach (var edge in edges)
             {
-                int leangth = random.Next(1, 10);
-                graph.SetEdgeLength(vertice, edge, leangth);
+                int length = random.Next(1, 10);
+                graph.SetEdgeLength(vertex, edge, length);
             }
         }
 
@@ -175,7 +175,7 @@ public static class GraphGenerators
             if (newIndex == owner.Index)
                 continue;
 
-            var newConnection = graph.GetVertexByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertive with index {newIndex}");
+            var newConnection = graph.GetVertexByIndex(newIndex) ?? throw new Exception($"graph doesn't contain vertex with index {newIndex}");
 
             if (haveOutgoins.Contains<Vertex>(newConnection))
                 continue;

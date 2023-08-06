@@ -77,7 +77,6 @@ internal class GraphExample
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
         var connected = DFS.SearchConnectedRec(graph, origin);
-        TopologicalOrdering.SortTopologically(graph);
         //DOTVisualizer.VisualizeGraph(graph);
 
         var dotSerializer = new DOTSerializer(graph);
@@ -184,6 +183,38 @@ internal class GraphExample
         }
     }
 
+    internal static void RunTopologicalOrdering()
+    {
+        var graph = GraphGenerators.GenerateOrientedAcyclic("oriented_acyclic", 6);
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var result = TopologicalOrdering.SortTopologically(graph);
+
+        foreach (var vertex in result)
+        {
+            Console.WriteLine(vertex);
+        }
+    }
+
+    internal static void RunTopologicalOrderingOrCycleSearching()
+    {
+        var orientedGenerator = new OrientedGraphGenerator(8, saturation: 0.55);
+        var graph = orientedGenerator.Generate("oriented");
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var (isCycle, vertices) = TopologicalOrdering.TrySortTopologicallyOrGetCycle(graph);
+
+        if(isCycle)
+            Console.WriteLine("The graph contains a cycle:");
+        else
+            Console.WriteLine("The graph is acyclic and sorted topologically:");
+
+        foreach (var vertex in vertices)
+        {
+            Console.WriteLine(vertex);
+        }
+    }
+
     private static UndirectedGraph CreateTestUndirectedGraph()
     {
         var graph = new UndirectedGraph("test_undirected");
@@ -224,6 +255,5 @@ internal class GraphExample
 
         return graph;
     }
-
 }
 

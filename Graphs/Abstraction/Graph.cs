@@ -77,6 +77,19 @@ public abstract class Graph : IEnumerable<Vertex>
         _nodes.TryAdd(vertex, new LinkedList<Vertex>());
     }
 
+    public virtual void RemoveVertex(Vertex vertex)
+    {
+        if (!_nodes.ContainsKey(vertex))
+            return;
+
+        _nodes.Remove(vertex);
+
+        foreach (var item in _nodes)
+        {
+            RemoveConnection(item.Value, vertex);
+        }
+    }
+
     public virtual void CopyVerticesTo(Graph graph)
     {
         graph.Clear();
@@ -213,4 +226,12 @@ public abstract class Graph : IEnumerable<Vertex>
     }
 
     #endregion
+
+    public Vertex this[int index]
+    {
+        get
+        {
+            return GetVertexByIndex(index) ?? throw new IndexOutOfRangeException();        
+        }
+    }
 }

@@ -250,14 +250,27 @@ public static class BFS
         return tree;
     }
 
+
+    /// <summary>
+    /// This function builds a shortest path tree (SPT) from a given undirected graph, starting from a specific vertex. 
+    /// An SPT is a subgraph of the original graph where all vertices are connected by the shortest path from the origin vertex. 
+    /// This algorithm uses breadth-first search (BFS) to traverse the graph. The function also identifies the leaf nodes of the tree (i.e., nodes with no children).
+    /// </summary>
+    /// <param name="graph">The UndirectedGraph to create shortest path tree for.</param>
+    /// <param name="originVertex">Start position of tree.</param>
+    /// <param name="leaves">The HashSet of leaves, containing all terminating Vertices, to be returned.</param>
+    /// <returns>The generated OrientedGraph shortest path tree.</returns>
     public static OrientedGraph GetFullShortestPathTree(UndirectedGraph graph, Vertex originVertex, out HashSet<Vertex> leaves)
     {
         var tree = new OrientedGraph($"full_tree_{originVertex.Index}");
         graph.CopyVerticesTo(tree);
 
+        // A HashSet is initialized to store the leaf nodes. Initially, it is assumed that all nodes are leaf nodes (since no edges have been added yet).
         leaves = new HashSet<Vertex>();
         leaves.UnionWith(tree);
 
+        // A List is used to keep track of visited vertices.
+        // The starting vertex is marked as visited.
         var visited = new List<Vertex>
         {
             originVertex
@@ -266,16 +279,23 @@ public static class BFS
         originVertex.Distance = 0;
         originVertex.Weight = 1;
 
+        // A Queue is used to hold the vertices yet to be visited, following the BFS approach.
+        // The origin vertex is the first to be enqueued.
         var queue = new Queue<Vertex>();
         queue.Enqueue(originVertex);
 
+        // The main BFS loop starts.
+        // It continues until all vertices have been visited.
         while (queue.Count > 0)
         {
             var current = queue.Dequeue();
 
+            // The current distance level is calculated and the edges connected to the current vertex are retrieved.
             int level = (int)(current.Distance ?? 0) + 1;
             var edges = graph.GetEdges(current);
 
+            // If the distance of the edge equals the current level, the edge is added to the tree, connecting it to the current node.
+            // The weight of the edge is updated and the current node is removed from the set of leaf nodes.
             foreach (var edge in edges)
             {
                 if (edge.Distance == level)
@@ -288,14 +308,17 @@ public static class BFS
                 }
 
                 if (visited.Contains(edge))
-                    continue;
+                    continue; // If the edge has been visited before, the loop continues to the next edge.
 
+                // The edge is marked as visited and enqueued for future processing.
                 visited.Add(edge);
                 queue.Enqueue(edge);
 
                 if (edge.Equals(originVertex))
                     continue;
 
+                // The edge is added to the tree, and its distance and weight are updated.
+                // The edge is also added as a neighbor below the current node.
                 tree.AddEdge(edge, current);
                 edge.Distance = level;
                 edge.Weight = current.Weight;

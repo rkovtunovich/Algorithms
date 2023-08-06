@@ -23,6 +23,8 @@
 //GraphExample.RunWelshPowell();
 //GraphExample.RunColorCoding();
 //GraphExample.RunCycleSearching();
+//GraphExample.RunTopologicalOrdering();
+GraphExample.RunTopologicalOrderingOrCycleSearching();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();
@@ -31,7 +33,7 @@
 //DataStructuresExample.RunHashSetExample();
 //DataStructuresExample.RunOBSTExample();
 //DataStructuresExample.RunTwoTheeTreeExample();
-DataStructuresExample.RunBPlusTheeTreeExample();
+//DataStructuresExample.RunBPlusTheeTreeExample();
 
 //MathAlgoExample.RunMedianExample();
 

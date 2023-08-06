@@ -1,4 +1,6 @@
-﻿namespace Graphs.Search;
+﻿using DataStructures.Lists;
+
+namespace Graphs.Search;
 
 // Topological ordering, or topological sorting,
 // is an algorithm used to linearly order the vertices of a directed acyclic graph (DAG) in such a way that for every directed edge (u, v) from vertex u to vertex v,
@@ -23,7 +25,8 @@
 //    Pop the vertices from the stack one by one to obtain the topological ordering.
 
 public static class TopologicalOrdering
-{    
+{
+    // This method returns a topological ordering of the vertices in a directed acyclic graph (DAG).
     public static Vertex[] SortTopologically(Graph graph)
     {
         int curLabel = graph.Count();
@@ -57,5 +60,85 @@ public static class TopologicalOrdering
 
         current.Distance = curLabel--;
         vertices[curLabel] = current;
+    }
+
+    public static (bool isCycle, SequentialList<Vertex> vertices) TrySortTopologicallyOrGetCycle(Graph graph)
+    {
+        int curLabel = graph.Count();
+
+        var vertices = new Vertex[curLabel];
+
+        var visited = new HashSet<Vertex>();
+        var cycle = new HashSet<Vertex>();
+        var cycleFound = false;
+
+        foreach (var item in graph)
+        {
+            if (visited.Contains(item))
+                continue;
+
+            TopoSortOrCycle(graph, item, visited, ref curLabel, vertices, cycle, ref cycleFound);
+
+            if (cycleFound)
+                break;
+        }
+
+        if (cycleFound)
+            return (true, cycle.ToSequentialList());
+
+        return (false, vertices.ToSequentialList());
+    }
+
+    private static Vertex? GetVertexWithoutIncomingEdges(Graph graph)
+    {
+        var hasIncomingEdges = new bool[graph.Count];
+
+        foreach (var vertex in graph)
+        {
+            var edges = graph.GetEdges(vertex);
+
+            foreach (var edge in edges)
+            {
+                hasIncomingEdges[edge.Index - 1] = true;
+            }
+        }
+
+        for (int i = 1; i <= hasIncomingEdges.Length; i++)
+        {
+            if (!hasIncomingEdges[i - 1])
+                return graph[i];
+        }
+
+        return null;
+    }
+
+    private static void TopoSortOrCycle(Graph graph, Vertex current, HashSet<Vertex> visited, ref int curLabel, Vertex[] vertices, HashSet<Vertex> cycle, ref bool cycleFound)
+    {
+        visited.Add(current);
+        cycle.Add(current);
+
+        var edges = graph.GetEdges(current);
+
+        foreach (var edge in edges)
+        {
+            // TO DO : better way is to find the index in the cycle, because the cycle may not close on the first element
+            // and return the cycle from that index to the end
+            if (cycle.Contains(edge))
+            {
+                cycleFound = true;
+                return;
+            }
+
+            if (!visited.Contains(edge))
+                TopoSortOrCycle(graph, edge, visited, ref curLabel, vertices, cycle, ref cycleFound); 
+            
+            if (cycleFound)
+                return;
+        }
+
+        current.Distance = curLabel--;
+        vertices[curLabel] = current;
+
+        cycle.Remove(current);
     }
 }

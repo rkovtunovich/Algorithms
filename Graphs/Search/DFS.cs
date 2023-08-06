@@ -1,4 +1,6 @@
-﻿namespace Graphs.Search;
+﻿using DataStructures.Lists;
+
+namespace Graphs.Search;
 
 public static class DFS
 {
@@ -60,7 +62,7 @@ public static class DFS
     /// </summary>
     /// <param name="graph">Graph to search the cycle in.</param>
     /// <returns>A hash set of vertices that form a cycle starting from the origin vertex.</returns>
-    public static List<Vertex> SearchCycle(Graph graph)
+    public static SequentialList<Vertex> SearchCycle(Graph graph)
     {
         // we got to key vertex from value vertex
         var path = new Dictionary<Vertex, Vertex>();
@@ -103,9 +105,9 @@ public static class DFS
         return new();
     }
 
-    private static List<Vertex> BackTrackPath(Graph graph, Vertex current, Dictionary<Vertex, Vertex> path)
+    private static SequentialList<Vertex> BackTrackPath(Graph graph, Vertex current, Dictionary<Vertex, Vertex> path)
     {
-        var cycle = new List<Vertex>
+        var cycle = new SequentialList<Vertex>
         {
             current
         };

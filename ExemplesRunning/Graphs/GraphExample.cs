@@ -1,4 +1,5 @@
-﻿using Graphs;
+﻿using DataStructures.Lists;
+using Graphs;
 using Graphs.Coloring;
 using Graphs.Generators;
 using Graphs.GraphImplementation;
@@ -215,6 +216,28 @@ internal class GraphExample
         }
     }
 
+    internal static void RunStatementsConsistency()
+    {
+        var terms = new SequentialList<int>
+        {
+            1, 2, 3, 4, 5
+        };
+
+        var statements = new Dictionary<(int, int), string>
+        {
+            {(1, 2), "same"},
+            {(1, 3), "same"},
+            {(2, 3), "same"},
+            {(2, 5), "different"},
+            {(4, 5), "same"},
+            //{(5, 1), "same" }
+            {(5, 1), "different" }
+        };
+
+        var result = StatementsConsistency.IsConsistent(statements, terms.Count);
+
+        Console.WriteLine(result);
+    }
     private static UndirectedGraph CreateTestUndirectedGraph()
     {
         var graph = new UndirectedGraph("test_undirected");

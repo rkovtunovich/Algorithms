@@ -24,7 +24,8 @@
 //GraphExample.RunColorCoding();
 //GraphExample.RunCycleSearching();
 //GraphExample.RunTopologicalOrdering();
-GraphExample.RunTopologicalOrderingOrCycleSearching();
+//GraphExample.RunTopologicalOrderingOrCycleSearching();
+GraphExample.RunStatementsConsistency();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();

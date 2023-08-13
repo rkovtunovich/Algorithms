@@ -23,7 +23,6 @@ namespace Graphs.Search;
 //      c. Once all neighbors of the node have been visited, push the node onto the stack.
 // 4. After visiting all nodes in the graph, the stack contains the topological order of the vertices.
 //    Pop the vertices from the stack one by one to obtain the topological ordering.
-
 public static class TopologicalOrdering
 {
     // This method returns a topological ordering of the vertices in a directed acyclic graph (DAG).

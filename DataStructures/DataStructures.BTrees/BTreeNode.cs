@@ -90,6 +90,7 @@ public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber
 
     public bool ContainsKey(TKey key)
     {
+        // TODO: Use binary search
         return Keys.Contains(key);
     }
 

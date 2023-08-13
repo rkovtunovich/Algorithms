@@ -114,7 +114,7 @@ public static class BFS
     // 
     // The result is that each vertex and edge in the graph is assigned a component number, indicating the strongly connected component it belongs to.
     // This algorithm helps identify and label the components in the graph.
-    public static void FindStronglyConnectedComponents(UndirectedGraph graph)
+    public static int FindStronglyConnectedComponents(UndirectedGraph graph)
     {
         int component = 0; // Counter to keep track of the component number.
         var visited = new HashSet<Vertex>(); // HashSet to store visited vertices.
@@ -154,6 +154,9 @@ public static class BFS
                 }
             }
         }
+
+        // Return the total number of components in the graph.
+        return component;
     }
 
     // This code is a method that computes a shortest path tree (SPT) from a given origin vertex in a graph.

@@ -23,12 +23,14 @@ internal class GraphExample
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
-        var connected = DFS.SearchConnectedRec(graph, origin);
+        //var connected = DFS.SearchConnectedRec(graph, origin);
         //BFS.FindStronglyConnectedComponents(graph);
-        //var connected = BFS.MarkPaths(graph, origin);
+        var connected = BFS.MarkPaths(graph, origin);
+        DOTVisualizer.VisualizeGraph(graph);
         var simplePathTree = BFS.GetSimpleShortestPathTree(graph, origin, out _);
         DOTVisualizer.VisualizeGraph(simplePathTree);
         var fullPathTree = BFS.GetFullShortestPathTree(graph, origin, out _);
+        DOTVisualizer.VisualizeGraph(fullPathTree);
 
         var degreeDistributionsCount = graph.GetDedreeDistributionsCount();
         Viewer.ShowArray(degreeDistributionsCount);
@@ -96,9 +98,9 @@ internal class GraphExample
         DFS.KosarajuSharirSearch(graph2);
         DOTVisualizer.VisualizeGraph(graph2);
 
-        var graphMaxFlow = GraphGenerators.GenerateOrientedFlow("Oriented_flow", 8);
-        DOTVisualizer.VisualizeGraph(graphMaxFlow);
-        BFS.AugmentingPathSearch(graphMaxFlow, graphMaxFlow.First(), graphMaxFlow.Last());       
+        //var graphMaxFlow = GraphGenerators.GenerateOrientedFlow("Oriented_flow", 8);
+        //DOTVisualizer.VisualizeGraph(graphMaxFlow);
+        //var patLength = BFS.AugmentingPathSearch(graphMaxFlow, graphMaxFlow.First(), graphMaxFlow.Last());       
     }
 
     internal static void RunMST()
@@ -238,6 +240,17 @@ internal class GraphExample
 
         Console.WriteLine(result);
     }
+    
+    internal static void RunFordFulkerson()
+    {
+        var graph = GraphGenerators.GenerateOrientedFlow("oriented_flow", 8);
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var result = FordFulkersonMaxFlow.AugmentingPathSearch(graph, graph.First(), graph.Last());
+
+        Console.WriteLine(result);
+    }
+
     private static UndirectedGraph CreateTestUndirectedGraph()
     {
         var graph = new UndirectedGraph("test_undirected");

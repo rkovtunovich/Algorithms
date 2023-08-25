@@ -253,7 +253,6 @@ public static class BFS
         return tree;
     }
 
-
     /// <summary>
     /// This function builds a shortest path tree (SPT) from a given undirected graph, starting from a specific vertex. 
     /// An SPT is a subgraph of the original graph where all vertices are connected by the shortest path from the origin vertex. 
@@ -333,98 +332,12 @@ public static class BFS
         return tree;
     }
 
-    #region Maximum Flow
+    public static int GetNumberOfShortestPaths(UndirectedGraph graph, Vertex start, Vertex end)
+    {     
+        var tree = GetFullShortestPathTree(graph, start, out HashSet<Vertex> leaves);
 
-    // Ford and Fullkerson algorithm
-    public static double AugmentingPathSearch(Graph graph, Vertex source, Vertex target)
-    {
-        double maxFlow = 0;
-
-        var residualGraph = graph.Clone();
-
-        while (true)
-        {
-            var (isExist, path) = SearchPath(residualGraph, source, target);
-
-            if (!isExist)
-                break;
-
-            double curFlow = 0;
-            var current = target;
-
-            while (true)
-            {
-                var parent = path[current.ArrayIndex()];
-
-                var currLength = residualGraph.GetEdgeLength(parent, current);
-                if (curFlow == 0)
-                    curFlow = currLength;
-                else
-                    curFlow = Math.Min(curFlow, currLength);
-
-                current = parent;
-                if (current == source)
-                    break;
-            }
-
-            current = target;
-            while (true)
-            {
-                var parent = path[current.ArrayIndex()];
-
-                residualGraph.ChangeEdgeLength(parent, current, -curFlow);
-                residualGraph.ChangeEdgeLength(current, parent, curFlow);
-
-                current = parent;
-                if (current == source)
-                    break;
-            }
-
-            maxFlow += curFlow;
-
-            DOTVisualizer.VisualizeGraph(residualGraph);
-        }
-
-        return maxFlow;
+        return (int)(end.Weight ?? 0);
     }
-
-    public static (bool isExist, Vertex[] path) SearchPath(Graph graph, Vertex source, Vertex target)
-    {
-        var parents = new Vertex[graph.Count()];
-
-        var visited = new HashSet<Vertex>
-        {
-            source
-        };
-
-        var queue = new Queue<Vertex>();
-        queue.Enqueue(source);
-
-        while (queue.Count > 0)
-        {
-            var current = queue.Dequeue();
-
-            var edges = graph.GetEdges(current);
-
-            foreach (var edge in edges)
-            {
-                if (visited.Contains(edge))
-                    continue;
-
-                parents[edge.ArrayIndex()] = current;
-
-                if (edge == target)
-                    return (true, parents); // path founded
-
-                visited.Add(edge);
-                queue.Enqueue(edge);
-            }
-        }
-
-        return (false, parents);
-    }
-
-    #endregion
 
     #region Betweeness
 

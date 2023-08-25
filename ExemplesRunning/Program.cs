@@ -14,7 +14,7 @@
 //SortingExample.RunBucketSort();
 //SortingExample.RunRadixSort();
 
-//GraphExample.RunUndirectedExample();
+GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
 //GraphExample.RunMST();
 //GraphExample.RunMWIS();
@@ -25,7 +25,8 @@
 //GraphExample.RunCycleSearching();
 //GraphExample.RunTopologicalOrdering();
 //GraphExample.RunTopologicalOrderingOrCycleSearching();
-GraphExample.RunStatementsConsistency();
+//GraphExample.RunStatementsConsistency();
+//GraphExample.RunFordFulkerson();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();

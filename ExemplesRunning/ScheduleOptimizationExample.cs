@@ -1,8 +1,8 @@
-﻿using MinimizationProductionDuration;
+﻿using ScheduleOptimization;
 
 namespace ExamplesRunning;
 
-internal static class MinimizationProductionDurationExample
+internal static class ScheduleOptimizationExample
 {
     internal static void RunLongestProcessingTimeFirst()
     {

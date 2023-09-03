@@ -23,10 +23,10 @@
     <ProjectReference Include="..\KnapsackProblem\KnapsackProblem.csproj" />
     <ProjectReference Include="..\MathAlgo\MathAlgo.csproj" />
     <ProjectReference Include="..\MaximumCoverage\MaximumCoverage.csproj" />
-    <ProjectReference Include="..\MinimizationProductionDuration\MinimizationProductionDuration.csproj" />
     <ProjectReference Include="..\NeedlemanWunsch\NeedlemanWunsch.csproj" />
     <ProjectReference Include="..\PatternMatching\PatternMatching.csproj" />
     <ProjectReference Include="..\SalesmanProblem\SalesmanProblem.csproj" />
+    <ProjectReference Include="..\ScheduleOptimization\ScheduleOptimization.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Common\Sorting.Common.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Insertion\Sorting.Insertion.csproj" />
     <ProjectReference Include="..\TowersOfHanoi\TowersOfHanoi.csproj" />

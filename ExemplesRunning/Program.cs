@@ -14,7 +14,7 @@
 //SortingExample.RunBucketSort();
 //SortingExample.RunRadixSort();
 
-GraphExample.RunUndirectedExample();
+//GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
 //GraphExample.RunMST();
 //GraphExample.RunMWIS();

@@ -1,4 +1,6 @@
-﻿namespace ScheduleOptimization;
+﻿using ScheduleOptimization.Models;
+
+namespace ScheduleOptimization;
 
 public static class ResourceNumberMinimizationProblem
 {

@@ -1,4 +1,4 @@
-﻿namespace ScheduleOptimization;
+﻿namespace ScheduleOptimization.Models;
 
 public record Interval
 {

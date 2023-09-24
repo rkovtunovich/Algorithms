@@ -31,13 +31,13 @@ namespace Graphs.MinimumSpanningTree;
 // as long as they don't create cycles. The algorithm has a time complexity of O(E log E) or O(E log V), depending on the graph's structure.
 // Kruskal’s algorithm is suitable for sparse graph
 //
-// так же можно использовать немного измененную версию для восходящей кластеризации
+//Also it is possible using raising clustering 
 
 public static class Kruskal
 {
     public static (Graph tree, double length) GetMST(UndirectedVariableEdgeLengthGraph graph)
     {
-        var tree = new UndirectedVariableEdgeLengthGraph("MST_Kraskal");
+        var tree = new UndirectedVariableEdgeLengthGraph("MST_Kruskal");
         var unionFind = new UnionFind<Vertex>(graph.ToArray());
         var heapMin = new HeapMin<double, (Vertex, Vertex)>();
         double length = 0;

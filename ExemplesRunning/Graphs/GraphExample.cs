@@ -251,6 +251,26 @@ internal class GraphExample
         Console.WriteLine(result);
     }
 
+    internal static void RunDijkstra()
+    {
+        var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1));
+        var graph = generator.Generate("Dijkstra_graph");
+
+        DijkstraAlgorithm.Search(graph, graph.First());
+
+        DOTVisualizer.VisualizeGraph(graph);
+    }
+
+    internal static void RunDijkstraHeap()
+    {
+        var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1));
+        var graph = generator.Generate("Dijkstra_heap_graph");
+
+        DijkstraHeapAlgorithm.Search(graph, graph.First());
+
+        DOTVisualizer.VisualizeGraph(graph);
+    }
+
     private static UndirectedGraph CreateTestUndirectedGraph()
     {
         var graph = new UndirectedGraph("test_undirected");

@@ -106,12 +106,13 @@ internal class SortingExample
     static public void RunDirectInsertionSort()
     {
         var array = ArrayHelper.GetUnsortedArray(10, 0, 15);
+
         //int[] array = new[] { 9, 5, 4, 3, 9, 1, 6 };
         //var array = ArrayHelper.GetUnsortedArray(6, 0, 20);
         Viewer.ShowArray(array);
         var stopWatch = new Stopwatch();
         stopWatch.Start();
-        InsertionSort.Sort(array);
+        InsertionSort.Sort(array, true);
         stopWatch.Stop();
         Console.WriteLine($"-------------------");
         Console.WriteLine($"Run time {stopWatch.Elapsed}");

@@ -68,25 +68,25 @@ public static class DJP
             tree.SetEdgeLength(closest.Value, treeEdges[closest.Value].vertice, closest.Key);
             totalLength += closest.Key;
 
-            foreach (var vertice in graph.GetEdges(closest.Value))
+            foreach (var vertex in graph.GetEdges(closest.Value))
             {
-                if (completed.Contains(vertice))
+                if (completed.Contains(vertex))
                     continue;
 
-                var length = graph.GetEdgeLength(closest.Value, vertice);
+                var length = graph.GetEdgeLength(closest.Value, vertex);
 
-                if (treeEdges.TryGetValue(vertice, out var edge))
+                if (treeEdges.TryGetValue(vertex, out var edge))
                 {
                     if(edge.length > length)
                     {
-                        treeEdges[vertice] = (closest.Value, length);
-                        minHeap.ReplaceKeyByValue(vertice, length);
+                        treeEdges[vertex] = (closest.Value, length);
+                        minHeap.ReplaceKeyByValue(vertex, length);
                     }
                 }
                 else
                 {               
-                    treeEdges.Add(vertice, (closest.Value, length));
-                    minHeap.ReplaceKeyByValue(vertice, length);
+                    treeEdges.Add(vertex, (closest.Value, length));
+                    minHeap.ReplaceKeyByValue(vertex, length);
                 }           
             }
         }

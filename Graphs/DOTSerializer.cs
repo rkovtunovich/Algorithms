@@ -1,4 +1,4 @@
-﻿using Graphs.Abstraction;
+﻿using Graphs.GraphImplementation;
 using Graphs.Model;
 using System.Drawing;
 using System.Text;
@@ -6,8 +6,6 @@ using System.Text;
 namespace Graphs;
 public class DOTSerializer : ISerializer
 {
-    private readonly Graph _graph;
-
     private readonly HashSet<Vertex> _importantVertices = new();
 
     private readonly HashSet<Vertex> _importantEdges = new();
@@ -16,51 +14,45 @@ public class DOTSerializer : ISerializer
 
     public Color ImportantEdgeColor { get; set; } = Color.Green;
 
-    public DOTSerializer(Graph graph)
+    public void AddImportantVertex(Vertex? vertex)
     {
-        _graph = graph;
+        if (vertex is not null)
+            _importantVertices.Add(vertex);
     }
 
-    public void AddImportantVertex(Vertex vertex)
+    public void AddImportantEdges(HashSet<Vertex>? vertices)
     {
-        _importantVertices.Add(vertex);
-    }
+        if (vertices is null)
+            return;
 
-    public void AddImportantEdges(Vertex vertex)
-    {
-        _importantEdges.Add(vertex);
-    }
-
-    public void AddImportantEdges(HashSet<Vertex> vertices)
-    {
         foreach (Vertex vertex in vertices)
             _importantEdges.Add(vertex);
     }
 
     #region Serialization
 
-    public string Serialize()
+    public string Serialize(Graph graph)
     {
         var builder = new StringBuilder();
 
-        foreach (var vertex in _graph)
+        foreach (var vertex in graph)
         {
-            if(_graph.IsVariableEdgeLength())
+            if (graph.IsVariableEdgeLength())
             {
-                var edges = _graph.GetEdges(vertex);
+                var edges = graph.GetEdges(vertex);
 
                 foreach (var edge in edges)
                 {
-                    builder.Append($"\t{vertex} {GetEdgeLine(_graph)} ");
+                    builder.Append($"\t{vertex} {GetEdgeLine(graph)} ");
                     string line = $"\t\t{edge}";
 
-                    if (_graph.IsVariableEdgeLength())
-                        line += $" [label = \"{_graph.GetEdgeLength(vertex, edge):0.00}\"];";
+                    if (graph.IsVariableEdgeLength())
+                        line += $" [label = \"{graph.GetEdgeLength(vertex, edge):0.00}\"];";
 
                     builder.Append(line);
                 }
 
-                if(edges.Count == 0)
+                if (edges.Count == 0)
                     builder.Append($"\t{vertex} ");
 
                 builder.Append($"\t {AddImportantEdgesFormat(vertex)}");
@@ -68,14 +60,14 @@ public class DOTSerializer : ISerializer
             }
             else
             {
-                builder.AppendLine($"\t{vertex} {GetEdgeLine(_graph)} {{");
+                builder.AppendLine($"\t{vertex} {GetEdgeLine(graph)} {{");
 
-                foreach (var edge in _graph.GetEdges(vertex))
+                foreach (var edge in graph.GetEdges(vertex))
                 {
                     string line = $"\t\t{edge}";
 
-                    if (_graph.IsVariableEdgeLength())
-                        line += $" [label = \"{_graph.GetEdgeLength(vertex, edge)}\"];";
+                    if (graph.IsVariableEdgeLength())
+                        line += $" [label = \"{graph.GetEdgeLength(vertex, edge)}\"];";
 
                     builder.AppendLine(line);
                 }
@@ -86,7 +78,7 @@ public class DOTSerializer : ISerializer
 
         var vertices = builder.ToString();
 
-        var dot = $"{GetTypeOfGraph(_graph)} {_graph.Name} {{ \n" +
+        var dot = $"{GetTypeOfGraph(graph)} {graph.Name} {{ \n" +
             $"{vertices}" +
             $"{AddImportantVerticesFormatting()}" +
             $"}}";
@@ -127,10 +119,143 @@ public class DOTSerializer : ISerializer
 
     #endregion
 
-    public void SaveToFile(string fileName, string dotString)
+    #region Deserialization
+
+    public Graph Deserialize(string serializedGraph)
     {
-        using var streamWriter = new StreamWriter(fileName);
-        streamWriter.Write(dotString);
-        streamWriter.Close();
+        if (IsOriented(serializedGraph))
+            return DeserializeOriented(serializedGraph);
+        else
+            return DeserializeNonOriented(serializedGraph);
     }
+
+    private bool IsOriented(string serializedGraph)
+    {
+        return serializedGraph.StartsWith("digraph");
+    }
+
+    private Graph DeserializeOriented(string serializedGraph)
+    {
+        string[] lines = serializedGraph.Split('\n');
+        string graphName = lines[0].Split(' ')[1];
+        var graph = new OrientedGraph(graphName.Trim() + "_new");
+
+        HashSet<Vertex> uniqueVertices = new();
+        Dictionary<Vertex, List<string>> nonParsedEdges = new();
+
+        // First pass to add vertices
+        for (int i = 1; i < lines.Length - 1; i++)
+        {
+            string line = lines[i].Trim().Replace("\"", string.Empty);
+
+            string[] parts = line.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 0)
+                continue;
+
+            var firstPart = parts[0];
+            Vertex vertex = GetVertex(firstPart);
+
+            uniqueVertices.Add(vertex);
+            graph.AddVertex(vertex);
+
+            var edges = new List<string>();
+
+            foreach (var part in parts)
+            {
+                var edge = part.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
+
+                // there are no edges
+                if (edge.Length == 1)
+                    continue;
+
+                edges.Add(edge[1].Trim());
+            }
+
+            nonParsedEdges.Add(vertex, edges);
+        }
+
+        // Second pass to add edges
+        foreach (var edge in nonParsedEdges)
+        {
+            var vertex = edge.Key;
+            var edgeParts = edge.Value;
+
+            for (var i = 0; i < edgeParts.Count; i++)
+            {
+                var edgeDescription = edgeParts[i].Trim(']').Split('[');
+
+                var edgeVertex = GetVertex(edgeDescription[0].Trim());
+                graph.AddEdge(vertex, edgeVertex);
+
+                if (edgeDescription.Length == 1)
+                    continue;
+
+                var edgeLength = edgeDescription[1].Trim().Split('=')[1].Trim();
+                graph.SetEdgeLength(vertex, edgeVertex, double.Parse(edgeLength));
+
+            }
+        }
+
+        return graph;
+    }
+
+    private static Vertex GetVertex(string firstPart)
+    {
+        Vertex vertex;
+
+        if (!firstPart.Contains("->"))
+        {
+            var vertexIndex = int.Parse(firstPart);
+            vertex = new Vertex(vertexIndex);
+        }
+        else
+        {
+            string[] edgeParts = firstPart.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
+            var vertexIndex = int.Parse(edgeParts[0].Trim());
+            vertex = new Vertex(vertexIndex);
+        }
+
+        return vertex;
+    }
+
+    private Graph DeserializeNonOriented(string serializedGraph)
+    {
+        var graph = new UndirectedGraph(GetGraphName(serializedGraph));
+
+        var lines = serializedGraph.Split('\n');
+
+        foreach (var line in lines)
+        {
+            if (line.Contains("--"))
+            {
+                var vertices = line.Split("--");
+
+                var vertex1 = vertices[0].Trim();
+                var vertex2 = vertices[1].Trim();
+
+                // TO DO
+            }
+        }
+
+        return graph;
+    }
+
+    private string GetGraphName(string serializedGraph)
+    {
+        var lines = serializedGraph.Split('\n');
+
+        foreach (var line in lines)
+        {
+            if (line.Contains("graph"))
+            {
+                var graphName = line.Split(' ')[1].Trim();
+
+                return graphName;
+            }
+        }
+
+        return "";
+    }
+
+    #endregion
 }

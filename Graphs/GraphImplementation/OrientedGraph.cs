@@ -57,6 +57,37 @@ public class OrientedGraph : Graph
         return transposed;
     }
 
+    public Vertex FindRoot()
+    {
+        // Initialize variables to keep track of minimum in-degree and corresponding vertex
+        int minInDegree = int.MaxValue;
+        Vertex? root = null;
+
+        // Loop through all vertices in the graph
+        foreach (var vertex in this)
+        {
+            // Calculate in-degree for each vertex
+            int inDegree = 0;
+            foreach (var otherVertex in this)
+            {
+                if (IsConnected(otherVertex, vertex))               
+                    inDegree++;                
+            }
+
+            // Update minimum in-degree and root vertex
+            if (inDegree < minInDegree)
+            {
+                minInDegree = inDegree;
+                root = vertex;
+            }
+        }
+
+        if (root is null)       
+            throw new InvalidOperationException("Could not determine root of the graph.");
+        
+        return root;
+    }
+
     #region Edges
 
     public override double GetEdgeLength(Vertex begin, Vertex end)

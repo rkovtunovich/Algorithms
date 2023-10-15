@@ -21,14 +21,35 @@ public static class DOTVisualizer
         p.WaitForExit();
     }
 
-    public static void VisualizeGraph(Graph graph) {
+    public static void VisualizeGraph(Graph graph, Vertex? importantVertex = null, HashSet<Vertex>? importantEdges = null) {
 
-        var dotSerializer = new DOTSerializer(graph);
-        var dotString = dotSerializer.Serialize();
+        var dotSerializer = new DOTSerializer();
+        dotSerializer.AddImportantEdges(importantEdges);
+        dotSerializer.AddImportantVertex(importantVertex);
+        var dotString = dotSerializer.Serialize(graph);
 
-        var dotFileName = $"{_workingDirectory}\\{graph.Name}.txt";
-        dotSerializer.SaveToFile(dotFileName, dotString);
+        var dotFileName = $"{_workingDirectory}\\serializations\\{graph.Name}.txt";
+        SaveToFile(dotFileName, dotString);
 
-        VisualizeDotString(dotFileName, $"{graph.Name}.svg");
+        var svgFileName = $"{_workingDirectory}\\visualizations\\{graph.Name}.svg";
+        VisualizeDotString(dotFileName, svgFileName);
+    }
+
+    public static void SaveToFile(string fileName, string dotString)
+    {
+        using var streamWriter = new StreamWriter(fileName);
+        streamWriter.Write(dotString);
+        streamWriter.Close();
+    }
+
+    public static string ReadFromFile(string fileName)
+    {
+        var dotFileName = $"{_workingDirectory}\\serializations\\{fileName}.txt";
+
+        using var streamReader = new StreamReader(dotFileName);
+        var dotString = streamReader.ReadToEnd();
+        streamReader.Close();
+
+        return dotString;
     }
 }

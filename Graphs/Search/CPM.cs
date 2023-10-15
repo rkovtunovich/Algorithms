@@ -2,7 +2,7 @@
 
 namespace Graphs.Search;
 
-// Here's a brief overview of the steps in the CPM algorithm based on the provided pseudocode:
+// Here's a brief overview of the steps in the CPM algorithm:
 // 
 // 1. Topologically order the graph. If it fails, then exit.
 //    This step ensures that the graph is a directed acyclic graph (DAG) and produces a linear ordering of the vertices

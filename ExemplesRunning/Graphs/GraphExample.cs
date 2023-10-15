@@ -3,6 +3,7 @@ using Graphs;
 using Graphs.Coloring;
 using Graphs.Generators;
 using Graphs.GraphImplementation;
+using Graphs.MinimumArborescencesTree;
 using Graphs.MinimumSpanningTree;
 using Graphs.Model;
 using Graphs.MWIS;
@@ -49,19 +50,7 @@ internal class GraphExample
         Console.WriteLine($"clustering coefficient: {clusterCoeff}");
 
         BFS.CalculateBetweenness(graph);
-
-        var dotSerializer = new DOTSerializer(graph);
-        dotSerializer.AddImportantVertex(origin);
-        dotSerializer.AddImportantEdges(connected);
-        var dotString = dotSerializer.Serialize();
-
-        var dotFileName = $"{_workingDirectory}\\dot_undirected.txt";
-        dotSerializer.SaveToFile(dotFileName, dotString);
-
-        DOTVisualizer.VisualizeDotString(dotFileName, "output_undirected.svg");
-
-        DOTVisualizer.VisualizeGraph(simplePathTree);
-        DOTVisualizer.VisualizeGraph(fullPathTree);
+        DOTVisualizer.VisualizeGraph(graph, origin, connected);
 
         var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1)
         {
@@ -75,22 +64,12 @@ internal class GraphExample
 
     internal static void RunOrientedExample()
     {
-        var graph = GraphGenerators.GenerateOrientedAcyclic( "oriented_acyclic", 6);
+        var graph = GraphGenerators.GenerateOrientedAcyclic("oriented_acyclic", 6);
 
         var origin = graph.First();
         //var connected = BFS.SearchConnected(graph, origin);
         var connected = DFS.SearchConnectedRec(graph, origin);
-        //DOTVisualizer.VisualizeGraph(graph);
-
-        var dotSerializer = new DOTSerializer(graph);
-        dotSerializer.AddImportantVertex(origin);
-        dotSerializer.AddImportantEdges(connected);
-        var dotString = dotSerializer.Serialize();
-
-        var dotFileName = $"{_workingDirectory}\\dot_oriented.txt";
-        dotSerializer.SaveToFile(dotFileName, dotString);
-
-        DOTVisualizer.VisualizeDotString(dotFileName, "output_oriented.svg");
+        DOTVisualizer.VisualizeGraph(graph, origin, connected);
 
         var orientedGenerator = new OrientedGraphGenerator(8, 0.5);
         var graph2 = orientedGenerator.Generate("Kasaraju");
@@ -105,11 +84,11 @@ internal class GraphExample
 
     internal static void RunMST()
     {
-        var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1));     
+        var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1));
         var graph = generator.Generate("MST_graph_original");
         DOTVisualizer.VisualizeGraph(graph);
 
-        var result = DJP.GetMST(graph);     
+        var result = DJP.GetMST(graph);
         DOTVisualizer.VisualizeGraph(result.tree);
         Console.WriteLine($"DJP total length: {result.length:0.00}");
 
@@ -121,20 +100,20 @@ internal class GraphExample
         Console.WriteLine($"Kruskal total length: {result.length:0.00}");
     }
 
-    internal static void RunMWIS() 
+    internal static void RunMWIS()
     {
         var generator = new PathGraphGenerator(5, 4);
         var graph = generator.Generate("Path_graph");
 
         DOTVisualizer.VisualizeGraph(graph);
 
-        var MaxWeight = PathGraphMWISSearch.Find(graph);  
-      
+        var MaxWeight = PathGraphMWISSearch.Find(graph);
+
     }
 
     internal static void RunBellmanFord()
     {
-        var generator = new OrientedVariableEdgeLengthGenerator(7, 1);
+        var generator = new OrientedVariableEdgeLengthGenerator(7, 0.5, 1);
         var graph = generator.Generate("oriented_bellman_ford");
         DOTVisualizer.VisualizeGraph(graph);
 
@@ -145,13 +124,11 @@ internal class GraphExample
 
     internal static void RunFloydWarshall()
     {
-        var generator = new OrientedVariableEdgeLengthGenerator(7, 1);
+        var generator = new OrientedVariableEdgeLengthGenerator(7, 0.5, 1);
         var graph = generator.Generate("oriented_floyd_warshall");
         DOTVisualizer.VisualizeGraph(graph);
 
         FloydWarshallAlgo.Search(graph as OrientedGraph);
-
-        //MatrixHelper.Show(result);
     }
 
     internal static void RunWelshPowell()
@@ -207,7 +184,7 @@ internal class GraphExample
 
         var (isCycle, vertices) = TopologicalOrdering.TrySortTopologicallyOrGetCycle(graph);
 
-        if(isCycle)
+        if (isCycle)
             Console.WriteLine("The graph contains a cycle:");
         else
             Console.WriteLine("The graph is acyclic and sorted topologically:");
@@ -240,7 +217,7 @@ internal class GraphExample
 
         Console.WriteLine(result);
     }
-    
+
     internal static void RunFordFulkerson()
     {
         var graph = GraphGenerators.GenerateOrientedFlow("oriented_flow", 8);
@@ -269,6 +246,24 @@ internal class GraphExample
         DijkstraHeapAlgorithm.Search(graph, graph.First());
 
         DOTVisualizer.VisualizeGraph(graph);
+    }
+
+    internal static void RunEdmondsAlgorithm()
+    {
+        var serializedGraph = DOTVisualizer.ReadFromFile("Edmonds_algorithm_oriented");
+        var serializer = new DOTSerializer();
+        var graph = serializer.Deserialize(serializedGraph) as OrientedGraph;
+
+        //var orientedGenerator = new OrientedVariableEdgeLengthGenerator(8, 0.575);
+        //var graph = orientedGenerator.Generate("Edmonds_algorithm_oriented") as OrientedGraph;
+
+        //DOTVisualizer.VisualizeGraph(graph);
+
+        (var tree, var cost) = EdmondsAlgorithm.FindArborescencesTree(graph);
+
+        DOTVisualizer.VisualizeGraph(tree);
+
+        Console.WriteLine($"Minimum cost: {cost}");
     }
 
     private static UndirectedGraph CreateTestUndirectedGraph()

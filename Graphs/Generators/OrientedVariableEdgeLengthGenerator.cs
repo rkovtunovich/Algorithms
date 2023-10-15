@@ -1,6 +1,4 @@
-﻿using Graphs.Abstraction;
-using Graphs.GraphImplementation;
-using Graphs.Model;
+﻿using Graphs.GraphImplementation;
 
 namespace Graphs.Generators;
 
@@ -8,14 +6,16 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
 {
     private static readonly Random _random = new();
     private readonly int _countVertices;
+    private readonly double _saturation;
 
-    // if it needs vertice without incoming edges
+    // if it needs vertex without incoming edges
     private readonly int? _originIndex;
 
-    public OrientedVariableEdgeLengthGenerator(int countVertices, int? originIndex = null)
+    public OrientedVariableEdgeLengthGenerator(int countVertices, double saturation, int? originIndex = null)
     {
         _countVertices = countVertices;
         _originIndex = originIndex;
+        _saturation = saturation;
     }
 
     public Graph Generate(string name)
@@ -51,7 +51,7 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
 
     private void GenerateDirectedConnections(OrientedGraph graph, int countVertices, Vertex owner)
     {
-        int numberConnections = _random.Next(0, countVertices / 2);
+        int numberConnections = _random.Next(0, (int)(countVertices * _saturation));
 
         var alreadyAdded = new HashSet<Vertex>();
 

@@ -9,7 +9,7 @@
 //SortingExample.RunQuickSort();
 //SortingExample.RunHeapSort();
 //SortingExample.RunMergeSort();
-SortingExample.RunDirectInsertionSort();
+//SortingExample.RunDirectInsertionSort();
 //SortingExample.RunShellSort();
 //SortingExample.RunBucketSort();
 //SortingExample.RunRadixSort();
@@ -27,6 +27,7 @@ SortingExample.RunDirectInsertionSort();
 //GraphExample.RunTopologicalOrderingOrCycleSearching();
 //GraphExample.RunStatementsConsistency();
 //GraphExample.RunFordFulkerson();
+GraphExample.RunEdmondsAlgorithm();
 
 //GraphExample.RunDijkstra();
 //GraphExample.RunDijkstraHeap();

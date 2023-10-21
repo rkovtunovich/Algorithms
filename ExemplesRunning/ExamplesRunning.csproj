@@ -18,6 +18,7 @@
     <ProjectReference Include="..\DeferredAcceptance\DeferredAcceptance.csproj" />
     <ProjectReference Include="..\Distance\Distance.csproj" />
     <ProjectReference Include="..\Finding\Finding.csproj" />
+    <ProjectReference Include="..\Graphs\Graphs.Core\Graphs.Core.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\Huffman\Huffman.csproj" />
     <ProjectReference Include="..\KnapsackProblem\KnapsackProblem.csproj" />

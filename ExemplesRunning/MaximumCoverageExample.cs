@@ -1,6 +1,6 @@
-﻿using Graphs;
-using Graphs.Generators;
-using Graphs.GraphImplementation;
+﻿using Graphs.Core;
+using Graphs.Core.GraphImplementation;
+using Graphs.Core.Generators;
 using Helpers;
 using MaximumCoverage;
 using View;

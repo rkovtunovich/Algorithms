@@ -1,8 +1,7 @@
-﻿using Graphs;
-using Graphs.Abstraction;
-using Graphs.Generators;
-using Graphs.GraphImplementation;
-using Graphs.Model;
+﻿using Graphs.Core;
+using Graphs.Core.Generators;
+using Graphs.Core.GraphImplementation;
+using Graphs.Core.Model;
 using SalesmanProblem;
 
 namespace ExamplesRunning;

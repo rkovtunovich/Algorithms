@@ -1,7 +1,6 @@
-﻿using Finding;
-using Sorting.Common;
+﻿using Sorting.Common;
 
-namespace MathAlgo;
+namespace Finding;
 
 public class FindingPairWithSum
 {

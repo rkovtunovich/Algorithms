@@ -1,5 +1,5 @@
-﻿using Graphs.GraphImplementation;
-using Graphs.Model;
+﻿using Graphs.Core.GraphImplementation;
+using Graphs.Core.Model;
 
 namespace MaximumCoverage;
 

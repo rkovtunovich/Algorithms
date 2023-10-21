@@ -1,6 +1,6 @@
 ﻿using DataStructures.Lists;
-using Graphs.Abstraction;
-using Graphs.Model;
+using Graphs.Core.Abstraction;
+using Graphs.Core.Model;
 
 namespace SalesmanProblem;
 

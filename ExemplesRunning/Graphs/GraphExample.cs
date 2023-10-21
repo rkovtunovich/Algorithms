@@ -1,13 +1,13 @@
 ﻿using DataStructures.Lists;
-using Graphs;
-using Graphs.Coloring;
-using Graphs.Generators;
-using Graphs.GraphImplementation;
-using Graphs.MinimumArborescencesTree;
-using Graphs.MinimumSpanningTree;
-using Graphs.Model;
-using Graphs.MWIS;
-using Graphs.Search;
+using Graphs.Core;
+using Graphs.Core.Coloring;
+using Graphs.Core.GraphImplementation;
+using Graphs.Core.MinimumArborescencesTree;
+using Graphs.Core.MinimumSpanningTree;
+using Graphs.Core.MWIS;
+using Graphs.Core.Search;
+using Graphs.Core.Generators;
+using Graphs.Core.Model;
 using View;
 
 namespace ExamplesRunning.Graphs;
@@ -250,61 +250,23 @@ internal class GraphExample
 
     internal static void RunEdmondsAlgorithm()
     {
-        var serializedGraph = DOTVisualizer.ReadFromFile("Edmonds_algorithm_oriented");
-        var serializer = new DOTSerializer();
-        var graph = serializer.Deserialize(serializedGraph) as OrientedGraph;
+        //var path = $"{DOTVisualizer.WorkingDirectory}\\serializations\\Edmonds_algorithm_oriented.txt";
+        //var serializedGraph = GraphFileManager.ReadFromFile(path);
+        //var serializer = new DOTSerializer();
+        //var graph = serializer.Deserialize(serializedGraph) as OrientedGraph;
+        //graph?.FillIncomeEdges(true);
 
-        //var orientedGenerator = new OrientedVariableEdgeLengthGenerator(8, 0.575);
-        //var graph = orientedGenerator.Generate("Edmonds_algorithm_oriented") as OrientedGraph;
+        var orientedGenerator = new OrientedVariableEdgeLengthGenerator(8, 0.575);
+        var graph = orientedGenerator.Generate("Edmonds_algorithm_oriented") as OrientedGraph;
+        graph?.FillIncomeEdges(true);
 
-        //DOTVisualizer.VisualizeGraph(graph);
+        DOTVisualizer.VisualizeGraph(graph);
 
         (var tree, var cost) = EdmondsAlgorithm.FindArborescencesTree(graph);
 
         DOTVisualizer.VisualizeGraph(tree);
 
         Console.WriteLine($"Minimum cost: {cost}");
-    }
-
-    private static UndirectedGraph CreateTestUndirectedGraph()
-    {
-        var graph = new UndirectedGraph("test_undirected");
-
-        var v1 = new Vertex(1);
-        var v2 = new Vertex(2);
-        var v3 = new Vertex(3);
-        var v4 = new Vertex(4);
-        var v5 = new Vertex(5);
-        var v6 = new Vertex(6);
-        var v7 = new Vertex(7);
-        var v8 = new Vertex(8);
-        var v9 = new Vertex(9);
-        var v10 = new Vertex(10);
-
-        graph.AddVertex(v1);
-        graph.AddVertex(v2);
-        graph.AddVertex(v3);
-        graph.AddVertex(v4);
-        graph.AddVertex(v5);
-        graph.AddVertex(v6);
-        graph.AddVertex(v7);
-        graph.AddVertex(v8);
-        graph.AddVertex(v9);
-        graph.AddVertex(v10);
-
-        graph.AddEdge(v1, v2);
-        graph.AddEdge(v1, v5);
-        graph.AddEdge(v2, v6);
-        graph.AddEdge(v2, v10);
-        graph.AddEdge(v2, v8);
-        graph.AddEdge(v3, v10);
-        graph.AddEdge(v3, v6);
-        graph.AddEdge(v5, v8);
-        graph.AddEdge(v7, v8);
-        graph.AddEdge(v7, v6);
-        graph.AddEdge(v8, v9);
-
-        return graph;
     }
 }
 

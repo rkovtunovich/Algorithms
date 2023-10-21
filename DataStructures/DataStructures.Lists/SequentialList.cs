@@ -124,6 +124,23 @@ public class SequentialList<T> : IList<T>
         }
     }
 
+    public SequentialList<T> GetRange(int startIndex, int length)
+    {
+        if (startIndex < 0 || startIndex >= _count)
+            throw new IndexOutOfRangeException(nameof(startIndex));
+        if (length < 0 || startIndex + length > _count)
+            throw new ArgumentException(nameof(length));
+
+        var result = new SequentialList<T>(length);
+
+        for (int i = startIndex; i < startIndex + length; i++)
+        {
+            result.Add(_items[i]);
+        }
+
+        return result;
+    }
+
     public bool Remove(T item)
     {
         var index = IndexOf(item);

@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TowersOfHanoi", "TowersOfHanoi\TowersOfHanoi.csproj", "{0A0ECB55-F595-4295-9C20-5AAC39907B58}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graphs", "Graphs\Graphs.csproj", "{966A4F51-95F6-44E8-A163-A4C7F823A467}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Huffman", "Huffman\Huffman.csproj", "{F86494E1-6267-4A34-BBF1-79E40D45D978}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnapsackProblem", "KnapsackProblem\KnapsackProblem.csproj", "{D2A867CF-DFC4-4A87-8193-0F3D5D8CE57C}"
@@ -54,6 +52,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures.BTrees", "DataStructures\DataStructures.BTrees\DataStructures.BTrees.csproj", "{C2F56377-CB7C-467C-987C-2D44C29EECE4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleOptimization", "ScheduleOptimization\ScheduleOptimization.csproj", "{541EF2D5-E61F-4E7A-96E8-92330FA8D047}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Graphs", "Graphs", "{E098A3BD-2234-4163-B9D1-A7E125100F4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graphs.Core", "Graphs\Graphs.Core\Graphs.Core.csproj", "{30E715CA-4D13-4635-BA06-0B6425B284B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphs.Tests", "Graphs\Graphs.Tests\Graphs.Tests.csproj", "{B8D78CB8-54EF-4767-890B-0D54FB6001AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +97,6 @@ Global
 		{0A0ECB55-F595-4295-9C20-5AAC39907B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A0ECB55-F595-4295-9C20-5AAC39907B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A0ECB55-F595-4295-9C20-5AAC39907B58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{966A4F51-95F6-44E8-A163-A4C7F823A467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{966A4F51-95F6-44E8-A163-A4C7F823A467}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{966A4F51-95F6-44E8-A163-A4C7F823A467}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{966A4F51-95F6-44E8-A163-A4C7F823A467}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F86494E1-6267-4A34-BBF1-79E40D45D978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F86494E1-6267-4A34-BBF1-79E40D45D978}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F86494E1-6267-4A34-BBF1-79E40D45D978}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -157,6 +157,14 @@ Global
 		{541EF2D5-E61F-4E7A-96E8-92330FA8D047}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{541EF2D5-E61F-4E7A-96E8-92330FA8D047}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{541EF2D5-E61F-4E7A-96E8-92330FA8D047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30E715CA-4D13-4635-BA06-0B6425B284B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30E715CA-4D13-4635-BA06-0B6425B284B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30E715CA-4D13-4635-BA06-0B6425B284B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30E715CA-4D13-4635-BA06-0B6425B284B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8D78CB8-54EF-4767-890B-0D54FB6001AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8D78CB8-54EF-4767-890B-0D54FB6001AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8D78CB8-54EF-4767-890B-0D54FB6001AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8D78CB8-54EF-4767-890B-0D54FB6001AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +177,8 @@ Global
 		{E29C6C5A-398A-453B-BA90-9D442222F222} = {56222960-B7DF-4980-99E5-FE788CF6B8C1}
 		{D2260E51-3C0D-4036-B32B-5187E6F958A4} = {AF302D01-5984-44AD-B32D-1A45DE827538}
 		{C2F56377-CB7C-467C-987C-2D44C29EECE4} = {56222960-B7DF-4980-99E5-FE788CF6B8C1}
+		{30E715CA-4D13-4635-BA06-0B6425B284B6} = {E098A3BD-2234-4163-B9D1-A7E125100F4A}
+		{B8D78CB8-54EF-4767-890B-0D54FB6001AF} = {E098A3BD-2234-4163-B9D1-A7E125100F4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23418149-2DE4-472F-98B3-E66C0DA394D2}

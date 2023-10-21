@@ -1,8 +1,9 @@
-﻿using Graphs.Generators;
-using Graphs;
+﻿using Graphs.Core.Generators;
 using Huffman;
+using Graphs.Core;
 
 namespace ExamplesRunning;
+
 public static class HuffmanExample
 {
     public static void Run()

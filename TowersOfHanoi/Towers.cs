@@ -6,7 +6,7 @@ public class Towers
 {
     public Towers(int hight)
     {
-        First = new Tower(ArrayHelper.GetMomotonicArray(hight, 1, true), hight);
+        First = new Tower(ArrayHelper.GetMonotonicArray(hight, 1, true), hight);
         Second = new Tower(new int[hight], 0);
         Third = new Tower(new int[hight], 0);
     }

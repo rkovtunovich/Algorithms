@@ -1,6 +1,6 @@
 ﻿namespace DataStructures.Heaps;
 
-public struct HeapNode<TKey, TValue> where TKey : INumber<TKey>
+public struct HeapNode<TKey, TValue> where TKey : IComparable<TKey>
 {
     public TKey Key { get; internal set; }
 

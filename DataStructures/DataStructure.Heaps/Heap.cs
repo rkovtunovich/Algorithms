@@ -32,7 +32,7 @@
 // They provide a good compromise of both operation efficiency and memory usage.
 
 
-public abstract class Heap<TKey, TValue> where TKey : INumber<TKey>
+public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 {
     private const int InitialSize = 8;
 
@@ -41,6 +41,7 @@ public abstract class Heap<TKey, TValue> where TKey : INumber<TKey>
     private HeapNode<TKey, TValue>[] _nodes;
 
     // Dictionary to keep track of the positions of the values in the heap
+    // TODO: issue with performance in TryInsert and TryRemove methods. Replace dictionary with different data structure.
     private Dictionary<TValue, int> _positions = new();
 
     #region Constructors

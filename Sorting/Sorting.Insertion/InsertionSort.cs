@@ -49,4 +49,42 @@ public static class InsertionSort
             array[j + 1] = key;
         }
     }
+
+    public static void Sort<T>(Span<T> span, bool byDescending = false) where T : IComparable<T>
+    {
+        if (span.Length < 2)
+            return;
+
+        // Iterate through the array starting from the second element.
+        for (int i = 1; i < span.Length; i++)
+        {
+            // Store the current element as the key.
+            T key = span[i];
+            // Initialize the comparison index j as one less than the current index i.
+            int j = i - 1;
+
+            // Move elements greater than the key one position ahead in the array
+            // until a smaller(bigger) element is found or the start(end) of the array is reached.
+
+            if (byDescending)
+            {
+                while (j >= 0 && span[j].CompareTo(key) < 0)
+                {
+                    span[j + 1] = span[j];
+                    j--;
+                }
+            }
+            else
+            {
+                while (j >= 0 && span[j].CompareTo(key) > 0)
+                {
+                    span[j + 1] = span[j];
+                    j--;
+                }
+            }
+
+            // Insert the key in its correct sorted position in the array.
+            span[j + 1] = key;
+        }
+    }
 }

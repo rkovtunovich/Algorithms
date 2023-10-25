@@ -163,5 +163,21 @@ internal class SortingExample
         Viewer.ShowArray(array);
         Console.ReadKey();
     }
+
+    static public void RunMergeInsertionSort()
+    {
+        var array = ArrayHelper.GetUnsortedArray(1000_000, 0, 10000);
+        //int[] array = new[] { 9, 5, 4, 3, 9, 1, 6 };
+        //var array = ArrayHelper.GetUnsortedArray(6, 0, 20);
+        Viewer.ShowArray(array);
+        var stopWatch = new Stopwatch();
+        stopWatch.Start();
+        MergeInsertionSort.Sort(ref array);
+        stopWatch.Stop();
+        Console.WriteLine($"-------------------");
+        Console.WriteLine($"Run time {stopWatch.Elapsed}");
+        Viewer.ShowArray(array);
+        Console.ReadKey();
+    }
 }
 

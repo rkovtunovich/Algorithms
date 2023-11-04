@@ -1,6 +1,6 @@
 ﻿using Sorting.Insertion;
 
-namespace Sorting.Benchmarks;
+namespace Sorting.Benchmarks.Insertion;
 
 [MarkdownExporter]
 [MemoryDiagnoser]
@@ -29,12 +29,12 @@ public class InsertionSortBenchmark
     [Benchmark]
     public void Sort_Array()
     {
-        InsertionSort.Sort<int>(_localArray, false);
+        InsertionSort.Sort(_localArray, false);
     }
 
     [Benchmark]
     public void Sort_Span()
     {
-        InsertionSort.Sort<int>(_localArray2.AsSpan(), false);
+        InsertionSort.Sort(_localArray2.AsSpan(), false);
     }
 }

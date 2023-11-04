@@ -1,6 +1,6 @@
 ﻿using Sorting.Common;
 
-namespace Sorting.Benchmarks;
+namespace Sorting.Benchmarks.Common;
 
 [MarkdownExporter]
 [MemoryDiagnoser]

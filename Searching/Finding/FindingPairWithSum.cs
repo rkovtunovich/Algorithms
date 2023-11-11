@@ -1,6 +1,6 @@
 ﻿using Sorting.Common;
 
-namespace Finding;
+namespace Searching.Common;
 
 public class FindingPairWithSum
 {

@@ -1,4 +1,4 @@
-﻿namespace Finding;
+﻿namespace Searching.Common;
 
 public class RSelect
 {
@@ -11,7 +11,7 @@ public class RSelect
 
     private static int FindRec(int[] array, int startIndex, int endIndex, int orderStatistics)
     {
-        if(startIndex >= endIndex)
+        if (startIndex >= endIndex)
             return array[endIndex];
 
         int pivotIndex = GetBaseIndexRandom(startIndex, endIndex);

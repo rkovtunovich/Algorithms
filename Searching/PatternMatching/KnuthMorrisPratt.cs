@@ -1,5 +1,5 @@
 ﻿using DataStructures.Lists;
-namespace PatternMatching;
+namespace Searching.PatternMatching;
 
 #region Description
 

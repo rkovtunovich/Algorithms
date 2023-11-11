@@ -1,4 +1,4 @@
-﻿using Finding;
+﻿using Searching.Common;
 using Helpers;
 using Sorting.Common;
 

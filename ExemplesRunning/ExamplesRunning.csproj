@@ -17,7 +17,6 @@
     <ProjectReference Include="..\DataStructures\DataStructures.BTrees\DataStructures.BTrees.csproj" />
     <ProjectReference Include="..\DeferredAcceptance\DeferredAcceptance.csproj" />
     <ProjectReference Include="..\Distance\Distance.csproj" />
-    <ProjectReference Include="..\Finding\Finding.csproj" />
     <ProjectReference Include="..\Graphs\Graphs.Core\Graphs.Core.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\Huffman\Huffman.csproj" />
@@ -25,9 +24,10 @@
     <ProjectReference Include="..\MathAlgo\MathAlgo.csproj" />
     <ProjectReference Include="..\MaximumCoverage\MaximumCoverage.csproj" />
     <ProjectReference Include="..\NeedlemanWunsch\NeedlemanWunsch.csproj" />
-    <ProjectReference Include="..\PatternMatching\PatternMatching.csproj" />
     <ProjectReference Include="..\SalesmanProblem\SalesmanProblem.csproj" />
     <ProjectReference Include="..\ScheduleOptimization\ScheduleOptimization.csproj" />
+    <ProjectReference Include="..\Searching\Finding\Searching.Common.csproj" />
+    <ProjectReference Include="..\Searching\PatternMatching\Searching.PatternMatching.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Common\Sorting.Common.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Insertion\Sorting.Insertion.csproj" />
     <ProjectReference Include="..\TowersOfHanoi\TowersOfHanoi.csproj" />

@@ -1,4 +1,4 @@
-﻿namespace Finding
+﻿namespace Searching.Common
 {
     public static class LocalMatrixMinimum
     {
@@ -13,7 +13,7 @@
 
         private static void FindRec(int[][] matrix, int rowStart, int rowEnd, int colStart, int colEnd, List<int[]> mins)
         {
-            if(rowEnd - rowStart == 0 && colEnd - colStart == 0)
+            if (rowEnd - rowStart == 0 && colEnd - colStart == 0)
             {
                 mins.Add(new[] { rowStart, colStart, matrix[rowStart][colStart] });
                 return;
@@ -66,7 +66,7 @@
                 else if (rowEnd >= row + 1 && matrix[row + 1][col] < min)
                 {
                     quadrant = col < middleCol ? 3 : 4;
-                }         
+                }
             }
 
             // on the vertical
@@ -75,7 +75,7 @@
                 if (colStart <= col - 1 && matrix[row][col - 1] < min)
                 {
                     quadrant = row < middleRow ? 1 : 3;
-                } 
+                }
                 else if (colEnd >= col + 1 && matrix[row][col + 1] < min)
                 {
                     quadrant = row < middleRow ? 2 : 4;

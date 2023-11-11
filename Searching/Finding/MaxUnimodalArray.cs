@@ -1,4 +1,4 @@
-﻿namespace Finding;
+﻿namespace Searching.Common;
 
 public static class MaxUnimodalArray
 {

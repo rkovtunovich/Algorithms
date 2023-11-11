@@ -1,4 +1,4 @@
-﻿namespace PatternMatching;
+﻿namespace Searching.PatternMatching;
 
 public static class BruteForce
 {

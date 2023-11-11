@@ -1,4 +1,4 @@
-﻿namespace Finding;
+﻿namespace Searching.Common;
 
 public static class MatchIndexToArrayValue
 {
@@ -13,27 +13,27 @@ public static class MatchIndexToArrayValue
     {
         Console.WriteLine($"step {step++} :{startIndex} - {endIndex}");
 
-        if(endIndex - startIndex == 0)
+        if (endIndex - startIndex == 0)
         {
             return startIndex == array[startIndex] ? startIndex : -1;
         }
 
-        int middle = ( startIndex + endIndex ) / 2;
+        int middle = (startIndex + endIndex) / 2;
 
-        if(middle == array[middle])
+        if (middle == array[middle])
             return middle;
 
         int left = -1;
-        if(array[middle] < middle && array[middle] > 0)
+        if (array[middle] < middle && array[middle] > 0)
             left = Find(array, startIndex, middle);
 
-        if(left != -1)
+        if (left != -1)
             return left;
 
         int right;
         if (endIndex > middle + 1)
             right = Find(array, middle + 1, endIndex);
-        else 
+        else
             right = array[middle + 1];
 
         return right;

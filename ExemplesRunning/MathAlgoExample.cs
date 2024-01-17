@@ -1,6 +1,7 @@
-﻿using MathAlgo;
+﻿using MathAlgo.Common;
 
 namespace ExamplesRunning;
+
 internal static class MathAlgoExample
 {
     internal static void RunMedianExample()

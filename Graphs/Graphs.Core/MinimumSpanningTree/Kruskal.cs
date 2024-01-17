@@ -40,7 +40,7 @@ public static class Kruskal
     public static (Graph tree, double length) GetMST(UndirectedVariableEdgeLengthGraph graph)
     {
         var tree = new UndirectedVariableEdgeLengthGraph("MST_Kruskal");
-        var unionFind = new UnionFind<Vertex>(graph.ToArray());
+        var unionFind = new UnionFind<Vertex>([.. graph]);
         var heapMin = new HeapMin<double, (Vertex, Vertex)>();
         double length = 0;
 

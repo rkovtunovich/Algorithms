@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31606.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathAlgo", "MathAlgo\MathAlgo.csproj", "{9F95528D-0DD4-4224-A16E-DAE02AB7F82E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "Helpers\Helpers.csproj", "{9DDA8AC6-0509-408B-BB4A-8FA4ACBCC0EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distance", "Distance\Distance.csproj", "{A9C660F5-B1FE-4198-846C-B7C1A4E6D0D9}"
@@ -63,7 +61,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Searching.Common", "Searchi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Searching.PatternMatching", "Searching\PatternMatching\Searching.PatternMatching.csproj", "{EFE876EA-7217-4B9B-B312-E3E887F65191}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Searching.Tests", "Searching\Searching.Tests\Searching.Tests.csproj", "{4D6ED6B5-AE95-489F-B60B-4D925AAF218E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Searching.Tests", "Searching\Searching.Tests\Searching.Tests.csproj", "{4D6ED6B5-AE95-489F-B60B-4D925AAF218E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MathAlgo", "MathAlgo", "{119CB55E-044B-413E-A3BF-2FDBAB717601}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathAlgo.Common", "MathAlgo\MathAlgo.Common\MathAlgo.Common.csproj", "{F93A9F57-729B-44D2-884C-DDB0699F4B30}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathAlgo.Tests", "MathAlgo\MathAlgo.Tests\MathAlgo.Tests.csproj", "{F42F8FE4-8FAF-4DD6-AFB7-E3481E608DFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sorting.Tests", "Sorting\Sorting.Tests\Sorting.Tests.csproj", "{B975CF1C-5C4E-4F26-933D-7E29F484745A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +77,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9F95528D-0DD4-4224-A16E-DAE02AB7F82E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F95528D-0DD4-4224-A16E-DAE02AB7F82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F95528D-0DD4-4224-A16E-DAE02AB7F82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F95528D-0DD4-4224-A16E-DAE02AB7F82E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DDA8AC6-0509-408B-BB4A-8FA4ACBCC0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DDA8AC6-0509-408B-BB4A-8FA4ACBCC0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DDA8AC6-0509-408B-BB4A-8FA4ACBCC0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -179,6 +181,18 @@ Global
 		{4D6ED6B5-AE95-489F-B60B-4D925AAF218E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D6ED6B5-AE95-489F-B60B-4D925AAF218E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D6ED6B5-AE95-489F-B60B-4D925AAF218E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F93A9F57-729B-44D2-884C-DDB0699F4B30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F93A9F57-729B-44D2-884C-DDB0699F4B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F93A9F57-729B-44D2-884C-DDB0699F4B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F93A9F57-729B-44D2-884C-DDB0699F4B30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F42F8FE4-8FAF-4DD6-AFB7-E3481E608DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F42F8FE4-8FAF-4DD6-AFB7-E3481E608DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F42F8FE4-8FAF-4DD6-AFB7-E3481E608DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F42F8FE4-8FAF-4DD6-AFB7-E3481E608DFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B975CF1C-5C4E-4F26-933D-7E29F484745A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B975CF1C-5C4E-4F26-933D-7E29F484745A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B975CF1C-5C4E-4F26-933D-7E29F484745A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B975CF1C-5C4E-4F26-933D-7E29F484745A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +211,9 @@ Global
 		{908E7749-D727-444A-8624-68B2C00DFFBD} = {3413FFC4-9C68-48F0-850E-1FE43CA76670}
 		{EFE876EA-7217-4B9B-B312-E3E887F65191} = {3413FFC4-9C68-48F0-850E-1FE43CA76670}
 		{4D6ED6B5-AE95-489F-B60B-4D925AAF218E} = {3413FFC4-9C68-48F0-850E-1FE43CA76670}
+		{F93A9F57-729B-44D2-884C-DDB0699F4B30} = {119CB55E-044B-413E-A3BF-2FDBAB717601}
+		{F42F8FE4-8FAF-4DD6-AFB7-E3481E608DFF} = {119CB55E-044B-413E-A3BF-2FDBAB717601}
+		{B975CF1C-5C4E-4F26-933D-7E29F484745A} = {AF302D01-5984-44AD-B32D-1A45DE827538}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23418149-2DE4-472F-98B3-E66C0DA394D2}

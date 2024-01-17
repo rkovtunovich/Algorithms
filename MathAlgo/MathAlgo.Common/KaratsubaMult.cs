@@ -1,15 +1,16 @@
-﻿namespace MathAlgo
+﻿namespace MathAlgo.Common
 {
     internal static class KaratsubaMult
     {
         internal static int Mult(int x, int y)
         {
             return RecMult(x, y);
-        } 
+        }
 
         private static int RecMult(int x, int y)
         {
-            if(x < 10 && y < 10 ){
+            if (x < 10 && y < 10)
+            {
                 return x * y;
             }
 
@@ -18,7 +19,7 @@
 
             string a, b, c, d;
 
-            if(x < 10)
+            if (x < 10)
             {
                 a = "0";
                 b = xStr;
@@ -46,7 +47,7 @@
             int n = Math.Max(xStr.Length, yStr.Length);
             int m = n / 2 + n % 2;
 
-            Console.WriteLine($"x {a}.{b} : y {c}.{d} |{n}:{n/2 + n%2}");
+            Console.WriteLine($"x {a}.{b} : y {c}.{d} |{n}:{n / 2 + n % 2}");
 
             int ac = RecMult(int.Parse(a), int.Parse(c));
             int bd = RecMult(int.Parse(b), int.Parse(d));

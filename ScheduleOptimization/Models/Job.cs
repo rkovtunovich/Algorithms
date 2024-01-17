@@ -14,4 +14,6 @@ public record Job
     public int Duration { get; init; }
 
     public int Deadline { get; init; }
+
+    public int Weight { get; init; }
 }

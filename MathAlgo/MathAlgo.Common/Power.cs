@@ -1,4 +1,4 @@
-﻿namespace MathAlgo;
+﻿namespace MathAlgo.Common;
 
 public static class Power
 {

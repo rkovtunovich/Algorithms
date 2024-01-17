@@ -13,11 +13,11 @@
 //SortingExample.RunShellSort();
 //SortingExample.RunBucketSort();
 //SortingExample.RunRadixSort();
-SortingExample.RunMergeInsertionSort();
+//SortingExample.RunMergeInsertionSort();
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
-//GraphExample.RunMST();
+GraphExample.RunMST();
 //GraphExample.RunMWIS();
 //GraphExample.RunBellmanFord();
 //GraphExample.RunFloydWarshall();

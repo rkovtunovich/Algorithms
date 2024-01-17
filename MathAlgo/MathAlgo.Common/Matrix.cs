@@ -1,7 +1,7 @@
 ﻿using Helpers;
 using System.Diagnostics;
 
-namespace MathAlgo;
+namespace MathAlgo.Common;
 
 public class Matrix
 {
@@ -62,12 +62,12 @@ public class Matrix
 
         return matrix;
     }
-    
+
     public static int[][] MultRec(int[][] m1, int[][] m2)
     {
         int size = m1.Length;
-        
-        if(size == 1)
+
+        if (size == 1)
         {
             int[][] res = new int[size][];
             res[0] = new int[size];
@@ -177,7 +177,7 @@ public class Matrix
             res[i] = new int[size];
             for (int j = 0; j < size; j++)
             {
-                res[i][j] = m1[i][j] + m2[i][j];    
+                res[i][j] = m1[i][j] + m2[i][j];
             }
         }
 

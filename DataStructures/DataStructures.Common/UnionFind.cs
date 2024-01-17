@@ -36,7 +36,7 @@
 // such as in Kruskal's minimum spanning tree algorithm. With path compression and union by rank optimizations,
 // the time complexity for a sequence of union and find operations is almost constant, making it highly efficient for practical use cases.
 
-public class UnionFind<T>
+public class UnionFind<T> where T : notnull
 {
     private readonly UnionFindNode<T>[] _nodes;
     private readonly Dictionary<T, int> _indexes;

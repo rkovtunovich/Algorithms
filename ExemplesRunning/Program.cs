@@ -17,7 +17,7 @@
 
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
-GraphExample.RunMST();
+//GraphExample.RunMST();
 //GraphExample.RunMWIS();
 //GraphExample.RunBellmanFord();
 //GraphExample.RunFloydWarshall();
@@ -57,6 +57,9 @@ GraphExample.RunMST();
 
 //SalesmanProblemExample.Run2Opt();
 //SalesmanProblemExample.RunBellmanHeldKarp();
+
+//ScheduleOptimizationExample.RunLongestProcessingTimeFirst();
+ScheduleOptimizationExample.RunMinimizingIntervalCoverageProblem();
 
 //PatternMatchingExample.RunKnuthMorrisPratt();
 

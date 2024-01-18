@@ -1,4 +1,5 @@
 ﻿using ScheduleOptimization;
+using ScheduleOptimization.Helpers;
 
 namespace ExamplesRunning;
 
@@ -13,6 +14,15 @@ internal static class ScheduleOptimizationExample
         {
             Console.WriteLine($"M:{machine.Key}, length = {machine.Value.Sum()} [{string.Join(",", machine.Value.ToArray())}]");
         }
+    }
+
+    internal static void RunMinimizingIntervalCoverageProblem()
+    {
+        var intervals = IntervalGenerator.GetIntervals(10, 1, 10);
+
+        var result = MinimizingIntervalCoverageProblem.GetMinimumTimePointsSet(intervals);
+
+        Console.WriteLine($"Minimum time points set: [{string.Join(",", result.ToArray())}]");
     }
 }
 

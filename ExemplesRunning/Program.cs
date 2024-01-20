@@ -59,7 +59,8 @@
 //SalesmanProblemExample.RunBellmanHeldKarp();
 
 //ScheduleOptimizationExample.RunLongestProcessingTimeFirst();
-ScheduleOptimizationExample.RunMinimizingIntervalCoverageProblem();
+//ScheduleOptimizationExample.RunMinimizingIntervalCoverageProblem();
+ScheduleOptimizationExample.RunMinimizingIntervalIntersection();
 
 //PatternMatchingExample.RunKnuthMorrisPratt();
 

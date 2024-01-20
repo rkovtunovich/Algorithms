@@ -11,4 +11,9 @@ public record Interval
     public int Start { get; init; }
 
     public int End { get; init; }
+
+    public override string ToString()
+    {
+        return $"[{Start},{End}]";
+    }
 }

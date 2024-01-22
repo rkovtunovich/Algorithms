@@ -60,7 +60,8 @@
 
 //ScheduleOptimizationExample.RunLongestProcessingTimeFirst();
 //ScheduleOptimizationExample.RunMinimizingIntervalCoverageProblem();
-ScheduleOptimizationExample.RunMinimizingIntervalIntersection();
+//ScheduleOptimizationExample.RunMinimizingIntervalIntersection();
+ScheduleOptimizationExample.RunSequenceEventsMatchingIntervals();
 
 //PatternMatchingExample.RunKnuthMorrisPratt();
 

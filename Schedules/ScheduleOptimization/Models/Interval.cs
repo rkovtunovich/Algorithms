@@ -2,6 +2,10 @@
 
 public record Interval
 {
+    public Interval()
+    {
+    }
+
     public Interval(int start, int end)
     {
         Start = start;
@@ -16,4 +20,6 @@ public record Interval
     {
         return $"[{Start},{End}]";
     }
+
+    public virtual int Duration => End - Start;
 }

@@ -39,7 +39,7 @@ public class SequenceEventsMatchingIntervals
         QuickSort.Sort(ref events); // Sort the events in ascending order.
 
         // Sort intervals first by their length (margin of error) and then by start time.
-        var sortedIntervals = intervals.OrderBy(x => (x.End - x.Start)).ThenBy(x => x.Start).ToList<Interval?>();
+        var sortedIntervals = intervals.OrderBy(x => (x.Duration)).ThenBy(x => x.Start).ToList<Interval?>();
 
         var isMatched = true; // Flag to indicate if all events are successfully matched.
 

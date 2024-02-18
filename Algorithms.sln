@@ -69,7 +69,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathAlgo.Common", "MathAlgo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathAlgo.Tests", "MathAlgo\MathAlgo.Tests\MathAlgo.Tests.csproj", "{F42F8FE4-8FAF-4DD6-AFB7-E3481E608DFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sorting.Tests", "Sorting\Sorting.Tests\Sorting.Tests.csproj", "{B975CF1C-5C4E-4F26-933D-7E29F484745A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sorting.Tests", "Sorting\Sorting.Tests\Sorting.Tests.csproj", "{B975CF1C-5C4E-4F26-933D-7E29F484745A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schedules", "Schedules", "{D695DF62-2666-42B5-9850-9B0FEDABDE40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleOptimization", "Schedules\ScheduleOptimization\ScheduleOptimization.csproj", "{CF9A530A-5E0D-40C5-A2D1-0C104D37B4D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleOptimization.Tests", "Schedules\ScheduleOptimization.Tests\ScheduleOptimization.Tests.csproj", "{A826C483-D7D2-4F13-8752-9AB1BF9D17DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +199,14 @@ Global
 		{B975CF1C-5C4E-4F26-933D-7E29F484745A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B975CF1C-5C4E-4F26-933D-7E29F484745A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B975CF1C-5C4E-4F26-933D-7E29F484745A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF9A530A-5E0D-40C5-A2D1-0C104D37B4D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF9A530A-5E0D-40C5-A2D1-0C104D37B4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF9A530A-5E0D-40C5-A2D1-0C104D37B4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF9A530A-5E0D-40C5-A2D1-0C104D37B4D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A826C483-D7D2-4F13-8752-9AB1BF9D17DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A826C483-D7D2-4F13-8752-9AB1BF9D17DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A826C483-D7D2-4F13-8752-9AB1BF9D17DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A826C483-D7D2-4F13-8752-9AB1BF9D17DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,6 +228,8 @@ Global
 		{F93A9F57-729B-44D2-884C-DDB0699F4B30} = {119CB55E-044B-413E-A3BF-2FDBAB717601}
 		{F42F8FE4-8FAF-4DD6-AFB7-E3481E608DFF} = {119CB55E-044B-413E-A3BF-2FDBAB717601}
 		{B975CF1C-5C4E-4F26-933D-7E29F484745A} = {AF302D01-5984-44AD-B32D-1A45DE827538}
+		{CF9A530A-5E0D-40C5-A2D1-0C104D37B4D0} = {D695DF62-2666-42B5-9850-9B0FEDABDE40}
+		{A826C483-D7D2-4F13-8752-9AB1BF9D17DC} = {D695DF62-2666-42B5-9850-9B0FEDABDE40}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23418149-2DE4-472F-98B3-E66C0DA394D2}

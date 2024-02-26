@@ -1,6 +1,4 @@
-﻿using ScheduleOptimization.Models;
-
-namespace ScheduleOptimization;
+﻿namespace ScheduleOptimization;
 
 // Real world applications example:
 // The manager of a large student union on campus comes to you with the following problem. 

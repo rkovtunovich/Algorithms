@@ -1,5 +1,4 @@
-﻿using ScheduleOptimization.Models;
-using Sorting.Common;
+﻿using Sorting.Common;
 
 namespace ScheduleOptimization;
 

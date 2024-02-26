@@ -1,4 +1,4 @@
-﻿using Models.Space;
+﻿using Models.Spacing;
 
 namespace Helpers.Space;
 

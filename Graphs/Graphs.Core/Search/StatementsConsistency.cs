@@ -60,7 +60,7 @@ public static class StatementsConsistency
                 return true;
 
             visited.Add(node);
-            foreach (var neighbor in graph.GetEdges(node))
+            foreach (var neighbor in graph.GetAdjacentEdges(node))
             {
                 // Check for inconsistency
                 if (node.Index % 2 == neighbor.Index % 2 && judgments.ContainsKey((node.Index / 2, neighbor.Index / 2)) && judgments[(node.Index / 2, neighbor.Index / 2)] == "different")

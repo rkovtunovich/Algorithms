@@ -9,6 +9,7 @@ using Graphs.Core.Search;
 using Graphs.Core.Generators;
 using Graphs.Core.Model;
 using View;
+using Models.Scheduling;
 
 namespace ExamplesRunning.Graphs;
 
@@ -51,15 +52,6 @@ internal class GraphExample
 
         BFS.CalculateBetweenness(graph);
         DOTVisualizer.VisualizeGraph(graph, origin, connected);
-
-        var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1)
-        {
-            Distance = int.MaxValue,
-        });
-        var graphVarLength = generator.Generate();
-        //DijkstraAlgorithm.Search(graphVarLength, graphVarLength.First());
-        DijkstraHeapAlgorithm.Search(graphVarLength, graphVarLength.First());
-        DOTVisualizer.VisualizeGraph(graphVarLength);
     }
 
     internal static void RunOrientedExample()
@@ -240,12 +232,25 @@ internal class GraphExample
 
     internal static void RunDijkstraHeap()
     {
-        var generator = new UndirectedVariableEdgeLengthGenerator(7, new(1));
-        var graph = generator.Generate("Dijkstra_heap_graph");
+        //var generator = new UndirectedVariableEdgeLengthGenerator(7);
+        //var graph = generator.Generate("Dijkstra_heap_graph");
 
-        DijkstraHeapAlgorithm.Search(graph, graph.First());
+        var orientedGenerator = new OrientedVariableEdgeLengthGenerator(8, 0.575, trackIncomeEdges: true);
+        if (orientedGenerator.Generate("Dijkstra_heap_graph") is not OrientedGraph graph)
+            return;
 
         DOTVisualizer.VisualizeGraph(graph);
+
+        var source = graph.GetSource() ?? graph.First();
+        var sink = graph.GetSink() ?? graph.Last();
+        var path = DijkstraHeapAlgorithm.Search(graph, source, sink);
+
+        DOTVisualizer.VisualizeGraph(graph);
+
+        foreach (var vertex in path)
+        {
+            Console.WriteLine(vertex.Index);
+        }
     }
 
     internal static void RunEdmondsAlgorithm()
@@ -267,6 +272,56 @@ internal class GraphExample
         DOTVisualizer.VisualizeGraph(tree);
 
         Console.WriteLine($"Minimum cost: {cost}");
+    }
+
+    internal static void RunTimeDependentShortestPathProblem()
+    {
+        var orientedGenerator = new OrientedVariableEdgeLengthGenerator(8, 0.575);
+        var graph = orientedGenerator.Generate("Time_dependent_shortest_path_problem") as OrientedGraph;
+        graph?.FillIncomeEdges(true);
+
+        //var path = $"{DOTVisualizer.WorkingDirectory}\\serializations\\Time_dependent_shortest_path_problem.txt";
+        //var serializedGraph = GraphFileManager.ReadFromFile(path);
+        //var serializer = new DOTSerializer();
+        //var graph = serializer.Deserialize(serializedGraph) as OrientedGraph;
+        //graph?.FillIncomeEdges(true);
+
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var source = graph.GetSource() ?? graph.First();
+        var sink = graph.GetSink() ?? graph.Last();
+        var edges = graph.GetAllEdges();
+        var timeConditions = new Dictionary<(Vertex, Vertex), Dictionary<DailyInterval, int>>();
+        foreach (var edge in edges)
+        {
+            var conditionsCount = new Random().Next(0, 4);
+
+            var start = 0;
+            for (var i = 0; i < conditionsCount; i++)
+            {
+                var end = new Random().Next(start, 25);
+                var interval = new DailyInterval(start, end);
+                var weight = new Random().Next(1, 10);
+                if (!timeConditions.ContainsKey(edge))
+                    timeConditions[edge] = [];
+
+                timeConditions[edge][interval] = weight;
+
+                start = end;
+
+                if(start >= DailyInterval.HoursInDay)
+                    break;
+            }
+        }
+
+        var shortestPath = TimeDependentShortestPathProblem.Search(graph, source, sink, 0, timeConditions);
+
+        DOTVisualizer.VisualizeGraph(graph);
+
+        foreach (var vertex in shortestPath)
+        {
+            Console.WriteLine(vertex.Index);
+        }
     }
 }
 

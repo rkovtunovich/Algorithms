@@ -9,20 +9,22 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
     private static readonly Random _random = new();
     private readonly int _countVertices;
     private readonly double _saturation;
+    private readonly bool _trackIncomeEdges; // if it needs vertex without incoming edges
 
     // if it needs vertex without incoming edges
     private readonly int? _originIndex;
 
-    public OrientedVariableEdgeLengthGenerator(int countVertices, double saturation, int? originIndex = null)
+    public OrientedVariableEdgeLengthGenerator(int countVertices, double saturation, int? originIndex = null, bool trackIncomeEdges = false)
     {
         _countVertices = countVertices;
         _originIndex = originIndex;
         _saturation = saturation;
+        _trackIncomeEdges = trackIncomeEdges;
     }
 
     public Graph Generate(string name)
     {
-        var graph = new OrientedGraph(name);
+        var graph = new OrientedGraph(name, _trackIncomeEdges);
 
         for (int i = 1; i <= _countVertices; i++)
         {
@@ -38,7 +40,7 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
 
         foreach (var vertex in graph)
         {
-            var edges = graph.GetEdges(vertex);
+            var edges = graph.GetAdjacentEdges(vertex);
 
             foreach (var edge in edges)
             {

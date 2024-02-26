@@ -141,9 +141,24 @@ public abstract class Graph : IEnumerable<Vertex>
 
     public abstract double GetEdgeLength(Vertex begin, Vertex end);
 
-    public virtual LinkedList<Vertex> GetEdges(Vertex vertex)
+    public virtual LinkedList<Vertex> GetAdjacentEdges(Vertex vertex)
     {
         return _nodes[vertex];
+    }
+
+    public virtual List<(Vertex, Vertex)> GetAllEdges()
+    {
+        var edges = new List<(Vertex, Vertex)>();
+
+        foreach (var node in _nodes)
+        {
+            foreach (var edge in node.Value)
+            {
+                edges.Add((node.Key, edge));
+            }
+        }
+
+        return edges;
     }
 
     public virtual void SetEdgeLength(Vertex begin, Vertex end, double length)
@@ -178,7 +193,7 @@ public abstract class Graph : IEnumerable<Vertex>
 
     public virtual bool IsConnected(Vertex firstVertex, Vertex secondVertex)
     {
-        var edges = GetEdges(firstVertex);
+        var edges = GetAdjacentEdges(firstVertex);
         return edges.Contains(secondVertex);
     }
 
@@ -219,7 +234,7 @@ public abstract class Graph : IEnumerable<Vertex>
     {
         Vertex? closest = null;
 
-        var edges = GetEdges(vertex);
+        var edges = GetAdjacentEdges(vertex);
 
         double bestLength = double.MaxValue;
 
@@ -271,7 +286,7 @@ public abstract class Graph : IEnumerable<Vertex>
 
                 visited.Add(current);
 
-                var edges = GetEdges(current);
+                var edges = GetAdjacentEdges(current);
 
                 foreach (var edge in edges)
                 {

@@ -1,6 +1,4 @@
-﻿using ScheduleOptimization.Models;
-
-namespace ScheduleOptimization;
+﻿namespace ScheduleOptimization;
 
 // Real world applications example:
 // You're working with a group of security consultants who are helping to monitor a large computer system. 

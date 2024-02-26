@@ -105,7 +105,7 @@ public static class EdmondsAlgorithm
                 }
             }
 
-            var outcomeEdges = graph.GetEdges(vertex);
+            var outcomeEdges = graph.GetAdjacentEdges(vertex);
             foreach (var edge in outcomeEdges)
             {
                 var length = graph.GetEdgeLength(vertex, edge);

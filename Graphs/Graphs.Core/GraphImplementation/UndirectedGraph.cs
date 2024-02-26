@@ -126,7 +126,7 @@ public class UndirectedGraph : Graph
         {
             var degree = GetDegree(item.Key);
 
-            var neighbors = GetEdges(item.Key);
+            var neighbors = GetAdjacentEdges(item.Key);
 
             var pairs = from item1 in neighbors
                         from item2 in neighbors
@@ -155,7 +155,7 @@ public class UndirectedGraph : Graph
 
             connectedTriplets += degree / 2 * (degree - 1);
 
-            var neighbors = GetEdges(item.Key);
+            var neighbors = GetAdjacentEdges(item.Key);
 
             var pairs = from item1 in neighbors
                         from item2 in neighbors

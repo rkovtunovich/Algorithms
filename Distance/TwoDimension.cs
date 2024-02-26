@@ -1,5 +1,5 @@
 ﻿using Helpers.Space;
-using Models.Space;
+using Models.Spacing;
 using Sorting.Common;
 
 namespace Distance;

@@ -51,7 +51,7 @@ public static class TopologicalOrdering
     {
         visited.Add(current);
 
-        var edges = graph.GetEdges(current);
+        var edges = graph.GetAdjacentEdges(current);
 
         foreach (var edge in edges)
         {
@@ -96,7 +96,7 @@ public static class TopologicalOrdering
 
         foreach (var vertex in graph)
         {
-            var edges = graph.GetEdges(vertex);
+            var edges = graph.GetAdjacentEdges(vertex);
 
             foreach (var edge in edges)
             {
@@ -118,7 +118,7 @@ public static class TopologicalOrdering
         visited.Add(current);
         cycle.Add(current);
 
-        var edges = graph.GetEdges(current);
+        var edges = graph.GetAdjacentEdges(current);
 
         foreach (var edge in edges)
         {

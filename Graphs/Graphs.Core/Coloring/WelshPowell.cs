@@ -41,7 +41,7 @@ public static class WelshPowell
 
     private static bool IsConnectedToColorized(Graph graph, Dictionary<Vertex, int> coloredVertices, Vertex vertex, int currentColor)
     {
-        var adjacent = graph.GetEdges(vertex);
+        var adjacent = graph.GetAdjacentEdges(vertex);
 
         foreach (var edge in adjacent)
         {

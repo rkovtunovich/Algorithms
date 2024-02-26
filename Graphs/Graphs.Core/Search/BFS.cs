@@ -1,6 +1,4 @@
-﻿using Graphs.Core.Abstraction;
-using Graphs.Core.GraphImplementation;
-using Graphs.Core.Model;
+﻿using Graphs.Core.GraphImplementation;
 
 namespace Graphs.Core.Search;
 public static class BFS
@@ -25,7 +23,7 @@ public static class BFS
             var current = queue.Dequeue();
 
             // Get a list of all vertices directly reachable from the current vertex.
-            var edges = graph.GetEdges(current);
+            var edges = graph.GetAdjacentEdges(current);
 
             // Iterate over each vertex in the list of reachable vertices.
             foreach (var edge in edges)
@@ -64,7 +62,7 @@ public static class BFS
 
             level = (int)(current.Distance ?? 0) + 1;
 
-            var edges = graph.GetEdges(current);
+            var edges = graph.GetAdjacentEdges(current);
 
             if (edges.Count == 0)
                 continue;
@@ -140,7 +138,7 @@ public static class BFS
             {
                 var current = queue.Dequeue(); // Dequeue a vertex for consideration.
 
-                var edges = graph.GetEdges(current); // Get the list of edges connected to the current vertex.
+                var edges = graph.GetAdjacentEdges(current); // Get the list of edges connected to the current vertex.
 
                 // Iterate over each edge connected to the current vertex.
                 foreach (var edge in edges)
@@ -234,7 +232,7 @@ public static class BFS
             var current = queue.Dequeue();
 
             int level = (int)(current.Distance ?? 0) + 1;
-            var edges = graph.GetEdges(current);
+            var edges = graph.GetAdjacentEdges(current);
 
             foreach (var edge in edges)
             {
@@ -296,7 +294,7 @@ public static class BFS
 
             // The current distance level is calculated and the edges connected to the current vertex are retrieved.
             int level = (int)(current.Distance ?? 0) + 1;
-            var edges = graph.GetEdges(current);
+            var edges = graph.GetAdjacentEdges(current);
 
             // If the distance of the edge equals the current level, the edge is added to the tree, connecting it to the current node.
             // The weight of the edge is updated and the current node is removed from the set of leaf nodes.
@@ -361,7 +359,7 @@ public static class BFS
 
     private static void TraceNextTreeNode(OrientedGraph tree, Vertex vertex)
     {
-        var edges = tree.GetEdges(vertex);
+        var edges = tree.GetAdjacentEdges(vertex);
 
         foreach (var edge in edges)
         {
@@ -383,7 +381,7 @@ public static class BFS
         vertex.Betweenness ??= 0;
         vertex.Betweenness++;
 
-        var edges = tree.GetEdges(vertex);
+        var edges = tree.GetAdjacentEdges(vertex);
 
         if (edges.Count == 0)
             return;

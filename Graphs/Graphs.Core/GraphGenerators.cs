@@ -121,7 +121,7 @@ public static class GraphGenerators
 
         foreach (var vertex in graph)
         {
-            var edges = graph.GetEdges(vertex);
+            var edges = graph.GetAdjacentEdges(vertex);
 
             foreach (var edge in edges)
             {

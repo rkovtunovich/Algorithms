@@ -1,4 +1,4 @@
-﻿namespace ScheduleOptimization.Models;
+﻿namespace Models.Scheduling;
 
 public record Interval
 {
@@ -22,4 +22,9 @@ public record Interval
     }
 
     public virtual int Duration => End - Start;
+
+    public bool Belongs(int value)
+    {
+        return value >= Start && value <= End;
+    }
 }

@@ -22,7 +22,7 @@ public static class DFS
 
             visited.Add(current);
 
-            var edges = graph.GetEdges(current);
+            var edges = graph.GetAdjacentEdges(current);
 
             foreach (var edge in edges)
             {
@@ -49,7 +49,7 @@ public static class DFS
 
         visited.Add(current);
 
-        var edges = graph.GetEdges(current);
+        var edges = graph.GetAdjacentEdges(current);
 
         foreach (var edge in edges)
         {
@@ -88,7 +88,7 @@ public static class DFS
 
                 visited.Add(current);
 
-                var edges = graph.GetEdges(current);
+                var edges = graph.GetAdjacentEdges(current);
 
                 foreach (var edge in edges)
                 {
@@ -156,7 +156,7 @@ public static class DFS
         visited.Add(current);
         current.Component = numSCC;
 
-        var edges = graph.GetEdges(current);
+        var edges = graph.GetAdjacentEdges(current);
 
         foreach (var edge in edges)
         {

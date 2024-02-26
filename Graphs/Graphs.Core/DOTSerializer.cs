@@ -39,7 +39,7 @@ public class DOTSerializer : ISerializer
         {
             if (graph.IsVariableEdgeLength())
             {
-                var edges = graph.GetEdges(vertex);
+                var edges = graph.GetAdjacentEdges(vertex);
 
                 foreach (var edge in edges)
                 {
@@ -62,7 +62,7 @@ public class DOTSerializer : ISerializer
             {
                 builder.AppendLine($"\t{vertex} {GetEdgeLine(graph)} {{");
 
-                foreach (var edge in graph.GetEdges(vertex))
+                foreach (var edge in graph.GetAdjacentEdges(vertex))
                 {
                     string line = $"\t\t{edge}";
 

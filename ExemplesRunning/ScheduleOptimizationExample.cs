@@ -1,7 +1,6 @@
-﻿using ScheduleOptimization;
+﻿using Models.Scheduling;
+using ScheduleOptimization;
 using ScheduleOptimization.Helpers;
-using ScheduleOptimization.Models;
-using System.Collections.Specialized;
 
 namespace ExamplesRunning;
 

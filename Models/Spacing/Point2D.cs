@@ -1,6 +1,6 @@
-﻿namespace Models.Space;
+﻿namespace Models.Spacing;
 
-public readonly struct Point2D: IPoint2D
+public readonly struct Point2D : IPoint2D
 {
     public readonly int x;
     public readonly int y;

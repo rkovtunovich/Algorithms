@@ -17,24 +17,6 @@ public class OrientedGraph : Graph
         return true;
     }
 
-    public override Graph Transpose()
-    {
-        OrientedGraph transposed = new("Transposed");
-        CopyVerticesTo(transposed);
-
-        foreach (var vertex in this)
-        {
-            var edges = GetEdges(vertex);
-
-            foreach (var edge in edges)
-            {
-                transposed.AddConnection(edge, vertex);
-            }
-        }
-
-        return transposed;
-    }
-
     #region Vertices
 
     public Vertex FindRoot()
@@ -132,7 +114,7 @@ public class OrientedGraph : Graph
 
         foreach (var vertex in this)
         {
-            var edges = GetEdges(vertex);
+            var edges = GetAdjacentEdges(vertex);
 
             foreach (var edge in edges)
             {
@@ -175,7 +157,7 @@ public class OrientedGraph : Graph
 
         foreach (var vertex in this)
         {
-            var edges = GetEdges(vertex);
+            var edges = GetAdjacentEdges(vertex);
 
             foreach (var edge in edges)
             {
@@ -193,6 +175,53 @@ public class OrientedGraph : Graph
             clone.FillIncomeEdges();
 
         return clone;
+    }
+
+    #endregion
+
+    #region Utils
+
+    public override Graph Transpose()
+    {
+        OrientedGraph transposed = new("Transposed");
+        CopyVerticesTo(transposed);
+
+        foreach (var vertex in this)
+        {
+            var edges = GetAdjacentEdges(vertex);
+
+            foreach (var edge in edges)
+            {
+                transposed.AddConnection(edge, vertex);
+            }
+        }
+
+        return transposed;
+    }
+
+    public Vertex? GetSink()
+    {
+        foreach (var vertex in this)
+        {
+            if (GetDegree(vertex) is 0)
+                return vertex;
+        }
+
+        return null;
+    }
+
+    public Vertex? GetSource()
+    {
+        foreach (var vertex in this)
+        {
+            if(!IncomeEdges.TryGetValue(vertex, out List<Vertex>? edges))
+                return vertex;
+
+            if (edges.Count is 0)
+                return vertex;
+        }
+
+        return null;
     }
 
     #endregion

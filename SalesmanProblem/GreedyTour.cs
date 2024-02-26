@@ -35,7 +35,7 @@ public static class GreedyTour
     {
         Vertex? closest = null;
 
-        var edges = graph.GetEdges(vertex);
+        var edges = graph.GetAdjacentEdges(vertex);
 
         double bestLength = double.MaxValue;
 

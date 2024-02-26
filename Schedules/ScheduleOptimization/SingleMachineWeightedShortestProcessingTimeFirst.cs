@@ -1,6 +1,4 @@
-﻿using ScheduleOptimization.Models;
-
-namespace ScheduleOptimization;
+﻿namespace ScheduleOptimization;
 
 // Real world applications example:
 // A small business-say, a photocopying service with a single large machine-faces the following scheduling problem. 

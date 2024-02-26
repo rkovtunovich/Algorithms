@@ -1,5 +1,4 @@
 ﻿using Graphs.Core.GraphImplementation;
-using Graphs.Core.Model;
 
 namespace Graphs.Core.Search;
 
@@ -26,14 +25,13 @@ public static class BellmanFordAlgo
                 continue;
 
             var vertex = graph.GetVertexByIndex(i);
-            var edges = graph.GetEdges(vertex);
+            var edges = graph.GetAdjacentEdges(vertex);
             if (!incomingEdges.ContainsKey(vertex))
                 incomingEdges.Add(vertex, new());
             foreach (var edge in edges)
             {
                 incomingEdges.TryGetValue(edge, out var incoming);
-                if (incoming is null)
-                    incoming = new();
+                incoming ??= [];
 
                 incoming.Add(vertex);
                 incomingEdges[edge] = incoming;

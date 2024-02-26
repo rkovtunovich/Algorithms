@@ -29,9 +29,9 @@
 //GraphExample.RunStatementsConsistency();
 //GraphExample.RunFordFulkerson();
 //GraphExample.RunEdmondsAlgorithm();
-
 //GraphExample.RunDijkstra();
 //GraphExample.RunDijkstraHeap();
+GraphExample.RunTimeDependentShortestPathProblem();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();
@@ -62,7 +62,7 @@
 //ScheduleOptimizationExample.RunMinimizingIntervalCoverageProblem();
 //ScheduleOptimizationExample.RunMinimizingIntervalIntersection();
 //ScheduleOptimizationExample.RunSequenceEventsMatchingIntervals();
-ScheduleOptimizationExample.RunIntervalSchedulingMaximizationProblemDailyPeriods();
+//ScheduleOptimizationExample.RunIntervalSchedulingMaximizationProblemDailyPeriods();
 
 //PatternMatchingExample.RunKnuthMorrisPratt();
 

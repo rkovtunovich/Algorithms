@@ -37,7 +37,7 @@ public static class DJP
         completed.Add(start);
 
         var edges = new SimpleHashSet<Vertex>();
-        edges.Load(graph.GetEdges(start));
+        edges.Load(graph.GetAdjacentEdges(start));
         foreach (var vertex in graph)
         {
             if (vertex.Equals(start))
@@ -68,7 +68,7 @@ public static class DJP
             tree.SetEdgeLength(closest.Value, treeEdges[closest.Value].vertice, closest.Key);
             totalLength += closest.Key;
 
-            foreach (var vertex in graph.GetEdges(closest.Value))
+            foreach (var vertex in graph.GetAdjacentEdges(closest.Value))
             {
                 if (completed.Contains(vertex))
                     continue;

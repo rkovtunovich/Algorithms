@@ -1,5 +1,4 @@
 ﻿using ScheduleOptimization.Helpers;
-using ScheduleOptimization.Models;
 
 namespace ScheduleOptimization;
 

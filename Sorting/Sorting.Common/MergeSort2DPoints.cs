@@ -1,5 +1,4 @@
-﻿
-using Models.Space;
+﻿using Models.Spacing;
 
 namespace Sorting.Common
 {

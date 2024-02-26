@@ -1,6 +1,6 @@
-﻿namespace Models.Space;
+﻿namespace Models.Spacing;
 
-public readonly struct Point: IPoint
+public readonly struct Point : IPoint
 {
     public readonly int x;
 

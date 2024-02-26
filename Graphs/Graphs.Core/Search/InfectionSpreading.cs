@@ -31,7 +31,7 @@ public static class InfectionSpreading
             if (current.Equals(new(b)))
                 return true;
 
-            var neighbors = graph.GetEdges(current);
+            var neighbors = graph.GetAdjacentEdges(current);
 
             foreach (var vertex in neighbors)
             {

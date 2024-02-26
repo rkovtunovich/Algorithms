@@ -55,7 +55,7 @@ public static class GreedyInfluence
         while (queue.Count > 0)
         {
             var currentNode = queue.Dequeue();
-            foreach (var neighborNode in graph.GetEdges(currentNode))
+            foreach (var neighborNode in graph.GetAdjacentEdges(currentNode))
             {
                 if (influencedNodes.Contains(neighborNode))
                     continue;

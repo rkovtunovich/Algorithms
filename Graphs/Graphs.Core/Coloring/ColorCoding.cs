@@ -102,7 +102,7 @@ public static class ColorCoding
         }
 
         double minLength = double.MaxValue;
-        foreach (var edge in graph.GetEdges(vertex))
+        foreach (var edge in graph.GetAdjacentEdges(vertex))
         {
             double length = graph.GetEdgeLength(vertex, edge);
             // if the color of the edge is in the remaining colors

@@ -1,6 +1,4 @@
-﻿using ScheduleOptimization.Models;
-
-namespace ScheduleOptimization.Helpers;
+﻿namespace ScheduleOptimization.Helpers;
 
 public static class IntervalViewer
 {

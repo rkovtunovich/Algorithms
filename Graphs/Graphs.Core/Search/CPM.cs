@@ -1,5 +1,4 @@
 ﻿using Graphs.Core.GraphImplementation;
-using Graphs.Core.Model;
 
 namespace Graphs.Core.Search;
 
@@ -29,7 +28,7 @@ public static class CriticalPathMethod
         var earliestStartTimes = new double[graph.Count];
         foreach (var vertex in topologicalOrder)
         {
-            var edges = graph.GetEdges(vertex);
+            var edges = graph.GetAdjacentEdges(vertex);
             foreach (var edge in edges)
             {
                 double edgeLength = graph.GetEdgeLength(vertex, edge);
@@ -50,7 +49,7 @@ public static class CriticalPathMethod
         for (int i = graph.Count - 1; i >= 0; i--)
         {
             var vertex = topologicalOrder[i];
-            var edges = graph.GetEdges(vertex);
+            var edges = graph.GetAdjacentEdges(vertex);
             foreach (var edge in edges)
             {
                 double edgeLength = graph.GetEdgeLength(vertex, edge);

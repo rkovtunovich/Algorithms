@@ -1,4 +1,4 @@
-﻿namespace Models.Space;
+﻿namespace Models.Spacing;
 
 public interface IPoint
 {

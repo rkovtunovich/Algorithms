@@ -81,7 +81,7 @@ public static class FordFulkersonMaxFlow
         {
             var current = queue.Dequeue();
 
-            var edges = graph.GetEdges(current);
+            var edges = graph.GetAdjacentEdges(current);
 
             foreach (var edge in edges)
             {

@@ -105,7 +105,7 @@ public static class BellmanHeldKarp
 
         double minDistance = double.MaxValue;
 
-        var connections = graph.GetEdges(current).Where(next => (unvisited & (1 << (next.Index - 1))) != 0);
+        var connections = graph.GetAdjacentEdges(current).Where(next => (unvisited & (1 << (next.Index - 1))) != 0);
         foreach (var next in connections)
         {
             double dist = graph.GetEdgeLength(current, next) + TSP(graph, origin, next, unvisited ^ (1 << (next.Index - 1)));

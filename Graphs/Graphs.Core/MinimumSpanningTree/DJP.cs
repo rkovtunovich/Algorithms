@@ -1,5 +1,4 @@
 ﻿using DataStructures.HashTables;
-using DataStructures.Heaps;
 using Graphs.Core.GraphImplementation;
 
 namespace Graphs.Core.MinimumSpanningTree;

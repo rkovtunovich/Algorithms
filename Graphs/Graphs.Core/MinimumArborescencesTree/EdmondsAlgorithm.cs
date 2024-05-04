@@ -5,6 +5,9 @@ namespace Graphs.Core.MinimumArborescencesTree;
 
 public static class EdmondsAlgorithm
 {
+    // An arborescence is a directed graph (a directed spanning tree of minimum cost) in which,
+    // for a vertex u (called the root), there is exactly one directed path from u to any other vertex in the graph.
+    // This concept is closely related to trees in undirected graphs, but it applies to directed graphs. 
     public static (OrientedGraph tree, double minimumCost) FindArborescencesTree(OrientedGraph graph)
     {
         var modifiedGraph = graph.Clone() as OrientedGraph ?? throw new NullReferenceException();

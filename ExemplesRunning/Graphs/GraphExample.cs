@@ -1,15 +1,17 @@
-﻿using DataStructures.Lists;
+﻿using DataStructures.Common.BinaryTrees.Search.AVL;
+using DataStructures.Lists;
 using Graphs.Core;
 using Graphs.Core.Coloring;
+using Graphs.Core.Generators;
 using Graphs.Core.GraphImplementation;
 using Graphs.Core.MinimumArborescencesTree;
 using Graphs.Core.MinimumSpanningTree;
-using Graphs.Core.MWIS;
-using Graphs.Core.Search;
-using Graphs.Core.Generators;
 using Graphs.Core.Model;
-using View;
+using Graphs.Core.MWIS;
+using Graphs.Core.Optimization;
+using Graphs.Core.Search;
 using Models.Scheduling;
+using View;
 
 namespace ExamplesRunning.Graphs;
 
@@ -34,10 +36,10 @@ internal class GraphExample
         var fullPathTree = BFS.GetFullShortestPathTree(graph, origin, out _);
         DOTVisualizer.VisualizeGraph(fullPathTree);
 
-        var degreeDistributionsCount = graph.GetDedreeDistributionsCount();
+        var degreeDistributionsCount = graph.GetDegreeDistributionsCount();
         Viewer.ShowArray(degreeDistributionsCount);
 
-        var degreeDistributionsFraction = graph.GetDedreeDistributionsFraction();
+        var degreeDistributionsFraction = graph.GetDegreeDistributionsFraction();
         Viewer.ShowArray(degreeDistributionsFraction);
 
         var degreeDistributionsCumulative = graph.GetDegreeDistributionsCumulative();
@@ -80,14 +82,18 @@ internal class GraphExample
         var graph = generator.Generate("MST_graph_original");
         DOTVisualizer.VisualizeGraph(graph);
 
-        var result = DJP.GetMST(graph);
-        DOTVisualizer.VisualizeGraph(result.tree);
-        Console.WriteLine($"DJP total length: {result.length:0.00}");
+        //var result = DJP.GetMST(graph);
+        //DOTVisualizer.VisualizeGraph(result.tree);
+        //Console.WriteLine($"DJP total length: {result.length:0.00}");
 
         //graph = generator.Generate("Kruskal_graph_original");
         //DOTVisualizer.VisualizeGraph(graph);
 
-        result = Kruskal.GetMST(graph as UndirectedVariableEdgeLengthGraph);
+        //result = Kruskal.GetMinimumST(graph as UndirectedVariableEdgeLengthGraph);
+        //DOTVisualizer.VisualizeGraph(result.tree);
+        //Console.WriteLine($"Kruskal total length: {result.length:0.00}");
+
+        var result = Kruskal.GetMaximumST(graph as UndirectedVariableEdgeLengthGraph);
         DOTVisualizer.VisualizeGraph(result.tree);
         Console.WriteLine($"Kruskal total length: {result.length:0.00}");
     }
@@ -322,6 +328,54 @@ internal class GraphExample
         {
             Console.WriteLine(vertex.Index);
         }
+    }
+
+    internal static void RunZeroSkewOptimization()
+    {
+        // create balanced tree (AVL)
+        var tree = new AVLTree<int, int>();
+        tree.Insert(1, 1);
+        tree.Insert(2, 2);
+        tree.Insert(3, 3);
+        tree.Insert(4, 4);
+        tree.Insert(5, 5);
+        tree.Insert(6, 6);
+        tree.Insert(7, 7);
+        tree.Insert(8, 8);
+        tree.Insert(9, 9);
+        tree.Insert(10, 10);
+        tree.Insert(11, 11);
+        tree.Insert(12, 12);
+        tree.Insert(13, 13);
+        tree.Insert(14, 14);
+        tree.Insert(15, 15);
+
+        // generate graph by tree
+        var generator = new GraphByAVLTreeGenerator<int, int>(tree);
+        var graph = generator.Generate("zero_skew_optimization");
+
+        DOTVisualizer.VisualizeGraph(graph);
+
+        // add skew to the graph
+        var random = new Random();
+        foreach (var vertex in graph)
+        {
+            var edges = graph.GetAdjacentEdges(vertex);
+
+            foreach (var edge in edges)
+            {
+                int length = random.Next(1, 6);
+                graph.SetEdgeLength(vertex, edge, length);
+                graph.SetEdgeLength(edge, vertex, length);
+            }
+        }
+
+        DOTVisualizer.VisualizeGraph(graph);
+
+        // run zero skew optimization
+        ZeroSkewOptimization.Optimize(graph, graph.First(x => x.Index == 1));
+
+        DOTVisualizer.VisualizeGraph(graph);
     }
 }
 

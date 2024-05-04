@@ -1,7 +1,4 @@
-﻿using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
-
-namespace Graphs.Core.GraphImplementation;
+﻿namespace Graphs.Core.GraphImplementation;
 
 public class UndirectedGraph : Graph
 {
@@ -36,13 +33,13 @@ public class UndirectedGraph : Graph
 
     #region Degree
 
-    public int[] GetDedreeDistributionsCount()
+    public int[] GetDegreeDistributionsCount()
     {
         if (_degreeDistribution is not null)
             return _degreeDistribution;
 
         if (_nodes.Count == 0)
-            return Array.Empty<int>();
+            return [];
 
         _degreeDistribution = new int[_nodes.Count];
 
@@ -54,13 +51,13 @@ public class UndirectedGraph : Graph
         return _degreeDistribution;
     }
 
-    public double[] GetDedreeDistributionsFraction()
+    public double[] GetDegreeDistributionsFraction()
     {
         if (_nodes.Count == 0)
             return Array.Empty<double>();
 
         if (_degreeDistribution is null)
-            _degreeDistribution = GetDedreeDistributionsCount();
+            _degreeDistribution = GetDegreeDistributionsCount();
 
         var digreeDistribuition = new double[_nodes.Count];
 
@@ -74,14 +71,14 @@ public class UndirectedGraph : Graph
 
     public double[] GetDegreeDistributionsCumulative()
     {
-        var fracDigreeDistr = GetDedreeDistributionsFraction();
+        var fracDegreeDistr = GetDegreeDistributionsFraction();
 
         var cumulativeDegreeDistr = new double[_nodes.Count];
         cumulativeDegreeDistr[0] = 1;
 
-        for (int i = 1; i < fracDigreeDistr.Length; i++)
+        for (int i = 1; i < fracDegreeDistr.Length; i++)
         {
-            cumulativeDegreeDistr[i] = cumulativeDegreeDistr[i - 1] - fracDigreeDistr[i];
+            cumulativeDegreeDistr[i] = cumulativeDegreeDistr[i - 1] - fracDegreeDistr[i];
         }
 
         return cumulativeDegreeDistr;

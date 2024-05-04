@@ -1,17 +1,15 @@
 ﻿using DataStructures.Common.BinaryTrees;
 using DataStructures.Common.BinaryTrees.Search;
 using DataStructures.Common.BinaryTrees.Search.AVL;
-using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
 using Graphs.Core.GraphImplementation;
 
 namespace Graphs.Core.Generators;
 
-public class GraphAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : INumber<TKey>
+public class GraphByAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey : INumber<TKey>
 {
     private readonly SearchTree<TKey, TValue> _tree;
 
-    public GraphAVLTreeGenerator(SearchTree<TKey, TValue> tree)
+    public GraphByAVLTreeGenerator(SearchTree<TKey, TValue> tree)
     {
         _tree = tree;
     }

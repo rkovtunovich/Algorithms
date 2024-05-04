@@ -31,7 +31,8 @@
 //GraphExample.RunEdmondsAlgorithm();
 //GraphExample.RunDijkstra();
 //GraphExample.RunDijkstraHeap();
-GraphExample.RunTimeDependentShortestPathProblem();
+//GraphExample.RunTimeDependentShortestPathProblem();
+GraphExample.RunZeroSkewOptimization();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();

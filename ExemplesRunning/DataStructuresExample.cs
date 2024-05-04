@@ -84,7 +84,7 @@ public static class DataStructuresExample
 
         var tree = new AVLTree<int, int>();
 
-        var generator = new GraphAVLTreeGenerator<int, int>(tree);
+        var generator = new GraphByAVLTreeGenerator<int, int>(tree);
         var graph = generator.Generate("search_tree");
 
         int number = 0;

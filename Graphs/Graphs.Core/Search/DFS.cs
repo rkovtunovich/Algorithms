@@ -1,6 +1,4 @@
 ﻿using DataStructures.Lists;
-using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
 
 namespace Graphs.Core.Search;
 

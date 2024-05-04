@@ -1,7 +1,4 @@
-﻿using DataStructures.Common.BinaryTrees.Search;
-using System.ComponentModel.DataAnnotations;
-
-namespace DataStructures.Common.BinaryTrees.Search.RedBlack;
+﻿namespace DataStructures.Common.BinaryTrees.Search.RedBlack;
 
 // A Red-Black tree is a type of self-balancing binary search tree where each node has an extra bit for denoting the color of the node,
 // either red or black. A Red-Black tree satisfies the following properties:

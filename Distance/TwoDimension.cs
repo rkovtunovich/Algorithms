@@ -89,7 +89,7 @@ public class TwoDimension
 
     private static (Point2D, Point2D, double) GetClosestPointsSplit(Point2D[] pointsX, Point2D[] pointsY, double currentClosestDistance)
     {
-        int medianX = pointsX[pointsX.Length - 1].GetX(); // the x coordinate of the last point in array is median because array is sorted and half divided
+        int medianX = pointsX[^1].GetCoordinate(1); // the x coordinate of the last point in array is median because array is sorted and half divided
         double xMin = medianX - currentClosestDistance;
         double xMax = medianX + currentClosestDistance;
 
@@ -100,7 +100,7 @@ public class TwoDimension
         int currIndex = 0;
         for (int i = 0; i < pointsY.Length; i++)
         {
-            if (pointsY[i].GetX() > xMin && pointsX[i].GetX() < xMax)
+            if (pointsY[i].GetCoordinate(0) > xMin && pointsX[i].GetCoordinate(0) < xMax)
             {
                 if (currIndex != i)
                 {

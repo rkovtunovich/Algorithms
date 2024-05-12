@@ -1,8 +1,8 @@
 ﻿using DataStructures.Lists;
 
-namespace Graphs.Core.Abstraction;
+namespace Graphs.Core.Model.Graphs;
 
-public abstract class Graph : IEnumerable<Vertex>
+public abstract class GraphBase : IEnumerable<Vertex>
 {
     protected readonly Dictionary<Vertex, LinkedList<Vertex>> _nodes = [];
 
@@ -21,7 +21,7 @@ public abstract class Graph : IEnumerable<Vertex>
         return _isVariableLength;
     }
 
-    public abstract Graph Transpose();
+    public abstract GraphBase Transpose();
 
     public virtual void Clear()
     {
@@ -33,10 +33,10 @@ public abstract class Graph : IEnumerable<Vertex>
         return _nodes[vertex].Count;
     }
 
-    public virtual Graph Clone()
+    public virtual GraphBase Clone()
     {
         var type = GetType();
-        var clone = Activator.CreateInstance(type, $"{Name}_clone") as Graph ?? throw new NullReferenceException();
+        var clone = Activator.CreateInstance(type, $"{Name}_clone") as GraphBase ?? throw new NullReferenceException();
 
         CopyVerticesTo(clone);
 
@@ -100,7 +100,7 @@ public abstract class Graph : IEnumerable<Vertex>
         }
     }
 
-    public virtual void CopyVerticesTo(Graph graph)
+    public virtual void CopyVerticesTo(GraphBase graph)
     {
         graph.Clear();
 
@@ -166,7 +166,7 @@ public abstract class Graph : IEnumerable<Vertex>
         if (length > 0)
             _isVariableLength = true;
 
-        if(!_edgesLengths.TryAdd((begin, end), length))
+        if (!_edgesLengths.TryAdd((begin, end), length))
             _edgesLengths[(begin, end)] = length;
     }
 

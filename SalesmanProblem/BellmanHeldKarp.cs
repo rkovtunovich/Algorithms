@@ -1,5 +1,5 @@
-﻿using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
+﻿using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace SalesmanProblem;
 
@@ -85,7 +85,7 @@ public static class BellmanHeldKarp
     }
 
     // search on graph
-    public static double TSP(Graph graph, Vertex start)
+    public static double TSP(GraphBase graph, Vertex start)
     {
         memo.Clear();
 
@@ -93,7 +93,7 @@ public static class BellmanHeldKarp
         return TSP(graph, start, start, (1 << n) - 1);
     }
 
-    private static double TSP(Graph graph, Vertex origin, Vertex current, int unvisited)
+    private static double TSP(GraphBase graph, Vertex origin, Vertex current, int unvisited)
     {
         // in the graph vertex indexes are started from 1
         // 15 => 7 => 3 => 1

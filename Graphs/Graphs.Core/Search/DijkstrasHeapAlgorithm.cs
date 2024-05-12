@@ -1,10 +1,11 @@
 ﻿using DataStructures.Heaps;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Search;
 
 public static class DijkstraHeapAlgorithm
 {
-    public static List<Vertex> Search(Graph graph, Vertex origin, Vertex source)
+    public static List<Vertex> Search(GraphBase graph, Vertex origin, Vertex source)
     {
         int marked = 0;
 
@@ -48,7 +49,7 @@ public static class DijkstraHeapAlgorithm
         return path;
     }
 
-    private static void MarkClosestNeighbors(Graph graph, Vertex vertex, HeapMin<double, Vertex> heap, HashSet<Vertex> visited)
+    private static void MarkClosestNeighbors(GraphBase graph, Vertex vertex, HeapMin<double, Vertex> heap, HashSet<Vertex> visited)
     {
         var edgesClosestVertex = graph.GetAdjacentEdges(vertex);
 

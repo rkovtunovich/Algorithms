@@ -1,4 +1,4 @@
-﻿using Graphs.Core.GraphImplementation;
+﻿using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Search;
 

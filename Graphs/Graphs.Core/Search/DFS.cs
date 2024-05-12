@@ -1,10 +1,11 @@
 ﻿using DataStructures.Lists;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Search;
 
 public static class DFS
 {
-    public static HashSet<Vertex> SearchConnected(Graph graph, Vertex originVertex)
+    public static HashSet<Vertex> SearchConnected(GraphBase graph, Vertex originVertex)
     {
         var visited = new HashSet<Vertex>();
 
@@ -31,7 +32,7 @@ public static class DFS
         return visited;
     }
 
-    public static HashSet<Vertex> SearchConnectedRec(Graph graph, Vertex originVertex)
+    public static HashSet<Vertex> SearchConnectedRec(GraphBase graph, Vertex originVertex)
     {
         var visited = new HashSet<Vertex>();
 
@@ -40,7 +41,7 @@ public static class DFS
         return visited;
     }
 
-    private static void Search(Graph graph, Vertex current, HashSet<Vertex> visited)
+    private static void Search(GraphBase graph, Vertex current, HashSet<Vertex> visited)
     {
         if (visited.Contains(current))
             return;
@@ -62,7 +63,7 @@ public static class DFS
     /// </summary>
     /// <param name="graph">Graph to search the cycle in.</param>
     /// <returns>A hash set of vertices that form a cycle starting from the origin vertex.</returns>
-    public static SequentialList<Vertex> SearchCycle(Graph graph)
+    public static SequentialList<Vertex> SearchCycle(GraphBase graph)
     {
         // we got to key vertex from value vertex
         var path = new Dictionary<Vertex, Vertex>();
@@ -105,7 +106,7 @@ public static class DFS
         return new();
     }
 
-    private static SequentialList<Vertex> BackTrackPath(Graph graph, Vertex current, Dictionary<Vertex, Vertex> path)
+    private static SequentialList<Vertex> BackTrackPath(GraphBase graph, Vertex current, Dictionary<Vertex, Vertex> path)
     {
         var cycle = new SequentialList<Vertex>
         {
@@ -127,7 +128,7 @@ public static class DFS
 
     #region StronglyConenctedComponents
 
-    public static void KosarajuSharirSearch(Graph graph)
+    public static void KosarajuSharirSearch(GraphBase graph)
     {
         var transposed = graph.Transpose();
         var vertices = TopologicalOrdering.SortTopologically(transposed);
@@ -146,7 +147,7 @@ public static class DFS
         }
     }
 
-    private static void SearchSCC(Graph graph, Vertex current, HashSet<Vertex> visited, ref int numSCC)
+    private static void SearchSCC(GraphBase graph, Vertex current, HashSet<Vertex> visited, ref int numSCC)
     {
         if (visited.Contains(current))
             return;

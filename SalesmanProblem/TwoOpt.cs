@@ -1,12 +1,12 @@
 ﻿using DataStructures.Lists;
-using Graphs.Core.Abstraction;
 using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace SalesmanProblem;
 
 public static class TwoOpt
 {
-    public static void Optimize(SequentialList<Vertex> tour, Graph graph)
+    public static void Optimize(SequentialList<Vertex> tour, GraphBase graph)
     {
         bool isImprovement = true;
         int size = tour.Count;

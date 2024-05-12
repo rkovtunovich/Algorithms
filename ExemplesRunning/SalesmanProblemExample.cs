@@ -1,7 +1,7 @@
 ﻿using Graphs.Core;
 using Graphs.Core.Generators;
-using Graphs.Core.GraphImplementation;
 using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 using SalesmanProblem;
 
 namespace ExamplesRunning;

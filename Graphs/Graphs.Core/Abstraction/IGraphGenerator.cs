@@ -1,6 +1,8 @@
-﻿namespace Graphs.Core.Abstraction;
+﻿using Graphs.Core.Model.Graphs;
+
+namespace Graphs.Core.Abstraction;
 
 public interface IGraphGenerator
 {
-    public Graph Generate(string name);
+    public GraphBase Generate(string name);
 }

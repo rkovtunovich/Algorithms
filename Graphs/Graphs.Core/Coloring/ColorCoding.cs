@@ -1,6 +1,6 @@
 ﻿using Graphs.Core;
-using Graphs.Core.Abstraction;
 using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Coloring;
 
@@ -27,7 +27,7 @@ public static class ColorCoding
 {
     private static readonly Random _random = new();
 
-    public static double FindMinimumLengthColorfulPath(Graph graph, int size, double probabilityOfFailure)
+    public static double FindMinimumLengthColorfulPath(GraphBase graph, int size, double probabilityOfFailure)
     {
         double bestPath = double.MaxValue;
         int numberOfAttempts = (int)(Math.Pow(Math.E, size) / Math.Sqrt(2 * Math.PI * size) * Math.Log(1 / probabilityOfFailure));
@@ -46,7 +46,7 @@ public static class ColorCoding
         return bestPath is double.MaxValue ? -1 : bestPath;
     }
 
-    private static Dictionary<Vertex, int> PaintRandomly(Graph graph, int size)
+    private static Dictionary<Vertex, int> PaintRandomly(GraphBase graph, int size)
     {
         var vertexColors = new Dictionary<Vertex, int>();
 
@@ -60,7 +60,7 @@ public static class ColorCoding
         return vertexColors;
     }
 
-    private static double GetMinPanchromaticPath(Graph graph, Dictionary<Vertex, int> vertexColors, int size)
+    private static double GetMinPanchromaticPath(GraphBase graph, Dictionary<Vertex, int> vertexColors, int size)
     {
         var results = new Dictionary<int, double>[graph.Count, 1 << size];
 
@@ -83,7 +83,7 @@ public static class ColorCoding
 
     }
 
-    private static double MinPathLength(Graph graph, Dictionary<int, double>[,] results, Dictionary<Vertex, int> vertexColors, Vertex vertex, int mask)
+    private static double MinPathLength(GraphBase graph, Dictionary<int, double>[,] results, Dictionary<Vertex, int> vertexColors, Vertex vertex, int mask)
     {
         var vertexColor = vertexColors[vertex];
         var vertexResult = results[vertex.Index - 1, mask];

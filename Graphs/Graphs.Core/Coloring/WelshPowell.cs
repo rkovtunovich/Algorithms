@@ -1,5 +1,5 @@
-﻿using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
+﻿using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Coloring;
 
@@ -13,7 +13,7 @@ namespace Graphs.Core.Coloring;
 
 public static class WelshPowell
 {
-    public static void Colorize(Graph graph)
+    public static void Colorize(GraphBase graph)
     {
         var sortedVertices = graph.OrderBy(v => -graph.GetDegree(v)).ToList();
         var coloredVertices = new Dictionary<Vertex, int>();
@@ -39,7 +39,7 @@ public static class WelshPowell
         }
     }
 
-    private static bool IsConnectedToColorized(Graph graph, Dictionary<Vertex, int> coloredVertices, Vertex vertex, int currentColor)
+    private static bool IsConnectedToColorized(GraphBase graph, Dictionary<Vertex, int> coloredVertices, Vertex vertex, int currentColor)
     {
         var adjacent = graph.GetAdjacentEdges(vertex);
 

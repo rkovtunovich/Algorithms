@@ -1,4 +1,4 @@
-﻿namespace DataStructures.Common;
+﻿namespace DataStructures.Common.UnionFinds;
 
 // The union-find data structure, also known as the disjoint-set data structure, is a data structure that keeps track of a collection of disjoint sets (non-overlapping sets).
 // It supports two main operations: union and find.

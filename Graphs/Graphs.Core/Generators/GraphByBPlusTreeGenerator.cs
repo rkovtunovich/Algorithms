@@ -1,7 +1,5 @@
 ﻿using DataStructures.BTrees;
-using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
-using Graphs.Core.GraphImplementation;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;
 
@@ -14,7 +12,7 @@ public class GraphByBPLusTheeTreeGenerator<TKey, TValue> : IGraphGenerator where
         _tree = tree;
     }
 
-    public Graph Generate(string name)
+    public GraphBase Generate(string name)
     {
         var graph = new UndirectedGraph(name);
 
@@ -32,7 +30,7 @@ public class GraphByBPLusTheeTreeGenerator<TKey, TValue> : IGraphGenerator where
         return graph;
     }
 
-    private void AddChilds(Vertex parent, Graph graph, BTreeNode<TKey> currNode)
+    private void AddChilds(Vertex parent, GraphBase graph, BTreeNode<TKey> currNode)
     {
         if (!currNode.HasChildren)
             return;

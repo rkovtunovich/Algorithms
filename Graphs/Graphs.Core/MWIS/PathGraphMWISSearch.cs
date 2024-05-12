@@ -1,6 +1,6 @@
 ﻿using DataStructures.HashTables;
-using Graphs.Core.Abstraction;
 using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.MWIS;
 
@@ -8,7 +8,7 @@ public static class PathGraphMWISSearch
 {
     private static int _counterRecCall = 0;
 
-    public static SimpleHashSet<Vertex> Find(Graph pathGraph)
+    public static SimpleHashSet<Vertex> Find(GraphBase pathGraph)
     {
         var set = new SimpleHashSet<Vertex>();
         var vertices = pathGraph.ToList();

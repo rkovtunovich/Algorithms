@@ -1,6 +1,6 @@
-﻿namespace Graphs.Core.GraphImplementation;
+﻿namespace Graphs.Core.Model.Graphs;
 
-public class OrientedGraph : Graph
+public class OrientedGraph : GraphBase
 {
     public OrientedGraph(string name, bool trackIncomeEdges = false)
     {
@@ -29,7 +29,7 @@ public class OrientedGraph : Graph
         foreach (var vertex in this)
         {
             // Skip vertices with degree 0
-            if(GetDegree(vertex) == 0)
+            if (GetDegree(vertex) == 0)
                 continue;
 
             // Calculate in-degree for each vertex
@@ -134,7 +134,7 @@ public class OrientedGraph : Graph
         {
             var incomeEdges = IncomeEdges[destination];
             incomeEdges.Remove(source);
-        }          
+        }
     }
 
     public override void CleanEdges()
@@ -150,7 +150,7 @@ public class OrientedGraph : Graph
         return true;
     }
 
-    public override Graph Clone()
+    public override GraphBase Clone()
     {
         OrientedGraph clone = new(Name, TrackIncomeEdges);
         CopyVerticesTo(clone);
@@ -165,13 +165,13 @@ public class OrientedGraph : Graph
             }
         }
 
-        if(IsVariableEdgeLength())
+        if (IsVariableEdgeLength())
             foreach (var item in _edgesLengths)
             {
                 clone.SetEdgeLength(item.Key.Item1, item.Key.Item2, item.Value);
             }
 
-        if(TrackIncomeEdges)
+        if (TrackIncomeEdges)
             clone.FillIncomeEdges();
 
         return clone;
@@ -181,7 +181,7 @@ public class OrientedGraph : Graph
 
     #region Utils
 
-    public override Graph Transpose()
+    public override GraphBase Transpose()
     {
         OrientedGraph transposed = new("Transposed");
         CopyVerticesTo(transposed);
@@ -214,7 +214,7 @@ public class OrientedGraph : Graph
     {
         foreach (var vertex in this)
         {
-            if(!IncomeEdges.TryGetValue(vertex, out List<Vertex>? edges))
+            if (!IncomeEdges.TryGetValue(vertex, out List<Vertex>? edges))
                 return vertex;
 
             if (edges.Count is 0)

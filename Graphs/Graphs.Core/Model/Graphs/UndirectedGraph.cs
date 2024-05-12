@@ -1,6 +1,6 @@
-﻿namespace Graphs.Core.GraphImplementation;
+﻿namespace Graphs.Core.Model.Graphs;
 
-public class UndirectedGraph : Graph
+public class UndirectedGraph : GraphBase
 {
     private int[]? _degreeDistribution = null;
 
@@ -26,7 +26,7 @@ public class UndirectedGraph : Graph
         return false;
     }
 
-    public override Graph Transpose()
+    public override GraphBase Transpose()
     {
         return this;
     }

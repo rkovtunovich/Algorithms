@@ -2,5 +2,7 @@
 
 public interface IPoint
 {
-    public int GetX();
+    public int DimensionCount { get; }
+
+    public int GetCoordinate(int dimension);
 }

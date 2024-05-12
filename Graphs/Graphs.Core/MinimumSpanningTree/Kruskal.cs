@@ -1,5 +1,5 @@
-﻿using DataStructures.Common;
-using Graphs.Core.GraphImplementation;
+﻿using DataStructures.Common.UnionFinds;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.MinimumSpanningTree;
 
@@ -34,7 +34,7 @@ namespace Graphs.Core.MinimumSpanningTree;
 
 public static class Kruskal
 {
-    public static (Graph tree, double length) GetMinimumST(UndirectedVariableEdgeLengthGraph graph)
+    public static (GraphBase tree, double length) GetMinimumST(UndirectedVariableEdgeLengthGraph graph)
     {
         var tree = new UndirectedVariableEdgeLengthGraph("MST_Kruskal_min");
         var unionFind = new UnionFind<Vertex>([.. graph]);
@@ -68,7 +68,7 @@ public static class Kruskal
         return (tree, length);
     }
 
-    public static (Graph tree, double length) GetMaximumST(UndirectedVariableEdgeLengthGraph graph)
+    public static (GraphBase tree, double length) GetMaximumST(UndirectedVariableEdgeLengthGraph graph)
     {
         var tree = new UndirectedVariableEdgeLengthGraph("MST_Kruskal_max");
         var unionFind = new UnionFind<Vertex>([.. graph]);

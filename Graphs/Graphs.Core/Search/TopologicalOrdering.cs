@@ -1,6 +1,6 @@
 ﻿using DataStructures.Lists;
-using Graphs.Core.Abstraction;
 using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Search;
 
@@ -28,7 +28,7 @@ namespace Graphs.Core.Search;
 public static class TopologicalOrdering
 {
     // This method returns a topological ordering of the vertices in a directed acyclic graph (DAG).
-    public static Vertex[] SortTopologically(Graph graph)
+    public static Vertex[] SortTopologically(GraphBase graph)
     {
         int curLabel = graph.Count();
 
@@ -47,7 +47,7 @@ public static class TopologicalOrdering
         return vertices;
     }
 
-    private static void TopoSort(Graph graph, Vertex current, HashSet<Vertex> visited, ref int curLabel, Vertex[] vertices)
+    private static void TopoSort(GraphBase graph, Vertex current, HashSet<Vertex> visited, ref int curLabel, Vertex[] vertices)
     {
         visited.Add(current);
 
@@ -63,7 +63,7 @@ public static class TopologicalOrdering
         vertices[curLabel] = current;
     }
 
-    public static (bool isCycle, SequentialList<Vertex> vertices) TrySortTopologicallyOrGetCycle(Graph graph)
+    public static (bool isCycle, SequentialList<Vertex> vertices) TrySortTopologicallyOrGetCycle(GraphBase graph)
     {
         int curLabel = graph.Count();
 
@@ -90,7 +90,7 @@ public static class TopologicalOrdering
         return (false, vertices.ToSequentialList());
     }
 
-    private static Vertex? GetVertexWithoutIncomingEdges(Graph graph)
+    private static Vertex? GetVertexWithoutIncomingEdges(GraphBase graph)
     {
         var hasIncomingEdges = new bool[graph.Count];
 
@@ -113,7 +113,7 @@ public static class TopologicalOrdering
         return null;
     }
 
-    private static void TopoSortOrCycle(Graph graph, Vertex current, HashSet<Vertex> visited, ref int curLabel, Vertex[] vertices, HashSet<Vertex> cycle, ref bool cycleFound)
+    private static void TopoSortOrCycle(GraphBase graph, Vertex current, HashSet<Vertex> visited, ref int curLabel, Vertex[] vertices, HashSet<Vertex> cycle, ref bool cycleFound)
     {
         visited.Add(current);
         cycle.Add(current);

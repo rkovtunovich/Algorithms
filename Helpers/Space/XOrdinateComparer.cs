@@ -1,5 +1,4 @@
 ﻿using Models.Spacing;
-using System.Collections.Generic;
 
 namespace Helpers.Space;
 
@@ -7,9 +6,9 @@ public class XOrdinateComparer<T> : IComparer<T> where T : notnull, IPoint
 {
     public int Compare(T p1, T p2)
     {
-        if (p1.GetX().CompareTo(p2.GetX()) != 0)
+        if (p1.GetCoordinate(0).CompareTo(p2.GetCoordinate(0)) != 0)
         {
-            return p1.GetX().CompareTo(p2.GetX());
+            return p1.GetCoordinate(0).CompareTo(p2.GetCoordinate(0));
         }
         else
         {

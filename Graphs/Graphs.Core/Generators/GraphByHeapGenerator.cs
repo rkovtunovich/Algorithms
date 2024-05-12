@@ -1,7 +1,4 @@
-﻿using DataStructures.Heaps;
-using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
-using Graphs.Core.GraphImplementation;
+﻿using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;
 
@@ -14,7 +11,7 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
         _heap = heap;
     }
 
-    public Graph Generate(string name = nameof(_heap))
+    public GraphBase Generate(string name = nameof(_heap))
     {
         var graph = new UndirectedGraph(name);
 
@@ -29,7 +26,7 @@ public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : I
         return graph;
     }
 
-    private void AddChilds(Vertex parent, Graph graph)
+    private void AddChilds(Vertex parent, GraphBase graph)
     {
         int leftPos = _heap.GetLeftChildPosition(parent.Index);
         if (leftPos is not -1)

@@ -1,9 +1,9 @@
 ﻿using Graphs.Core;
-using Graphs.Core.GraphImplementation;
 using Graphs.Core.Generators;
 using Helpers;
 using MaximumCoverage;
 using View;
+using Graphs.Core.Model.Graphs;
 
 namespace ExamplesRunning;
 

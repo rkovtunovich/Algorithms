@@ -1,4 +1,4 @@
-﻿using Graphs.Core.GraphImplementation;
+﻿using Graphs.Core.Model.Graphs;
 using Models.Scheduling;
 
 namespace Graphs.Core.Search;

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Graphs.Core.Model.Graphs;
+using System.Diagnostics;
 
 namespace Graphs.Core;
 public static class DOTVisualizer
@@ -20,7 +21,7 @@ public static class DOTVisualizer
         p.WaitForExit();
     }
 
-    public static void VisualizeGraph(Graph graph, Vertex? importantVertex = null, HashSet<Vertex>? importantEdges = null)
+    public static void VisualizeGraph(GraphBase graph, Vertex? importantVertex = null, HashSet<Vertex>? importantEdges = null)
     {
 
         var dotSerializer = new DOTSerializer();

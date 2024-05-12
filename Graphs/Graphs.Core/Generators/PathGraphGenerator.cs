@@ -1,6 +1,4 @@
-﻿using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
-using Graphs.Core.GraphImplementation;
+﻿using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;
 
@@ -15,7 +13,7 @@ public class PathGraphGenerator : IGraphGenerator
         _maxWeight = maxWeight;
     }
 
-    public Graph Generate(string name)
+    public GraphBase Generate(string name)
     {
         var random = new Random();
         var graph = new UndirectedGraph(name);

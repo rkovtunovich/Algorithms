@@ -1,6 +1,4 @@
-﻿using Graphs.Core.Model;
-
-namespace Graphs.Core.GraphImplementation;
+﻿namespace Graphs.Core.Model.Graphs;
 
 public class UndirectedVariableEdgeLengthGraph : UndirectedGraph
 {

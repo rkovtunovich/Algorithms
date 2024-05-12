@@ -1,5 +1,5 @@
 ﻿using DataStructures.Lists;
-using Graphs.Core.GraphImplementation;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.MinimumArborescencesTree;
 

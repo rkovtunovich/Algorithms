@@ -1,4 +1,4 @@
-﻿using Graphs.Core.GraphImplementation;
+﻿using Graphs.Core.Model.Graphs;
 using System.Drawing;
 using System.Text;
 
@@ -31,7 +31,7 @@ public class DOTSerializer : ISerializer
 
     #region Serialization
 
-    public string Serialize(Graph graph)
+    public string Serialize(GraphBase graph)
     {
         var builder = new StringBuilder();
 
@@ -107,12 +107,12 @@ public class DOTSerializer : ISerializer
             return "";
     }
 
-    private static string GetTypeOfGraph(Graph _graph)
+    private static string GetTypeOfGraph(GraphBase _graph)
     {
         return _graph.IsOriented() ? "digraph" : "strict graph";
     }
 
-    private static string GetEdgeLine(Graph _graph)
+    private static string GetEdgeLine(GraphBase _graph)
     {
         return _graph.IsOriented() ? "->" : "--";
     }
@@ -121,7 +121,7 @@ public class DOTSerializer : ISerializer
 
     #region Deserialization
 
-    public Graph Deserialize(string serializedGraph)
+    public GraphBase Deserialize(string serializedGraph)
     {
         if (IsOriented(serializedGraph))
             return DeserializeOriented(serializedGraph);
@@ -134,7 +134,7 @@ public class DOTSerializer : ISerializer
         return serializedGraph.StartsWith("digraph");
     }
 
-    private Graph DeserializeOriented(string serializedGraph)
+    private GraphBase DeserializeOriented(string serializedGraph)
     {
         string[] lines = serializedGraph.Split('\n');
         string graphName = lines[0].Split(' ')[1];
@@ -218,7 +218,7 @@ public class DOTSerializer : ISerializer
         return vertex;
     }
 
-    private Graph DeserializeNonOriented(string serializedGraph)
+    private GraphBase DeserializeNonOriented(string serializedGraph)
     {
         var graph = new UndirectedGraph(GetGraphName(serializedGraph));
 

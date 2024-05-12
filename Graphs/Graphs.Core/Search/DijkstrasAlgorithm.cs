@@ -1,4 +1,6 @@
-﻿namespace Graphs.Core.Search;
+﻿using Graphs.Core.Model.Graphs;
+
+namespace Graphs.Core.Search;
 
 // Dijkstra's algorithm is a graph search algorithm used to find the shortest path between two nodes in a graph with non-negative edge weights.
 // It is a greedy algorithm that constructs the shortest path tree starting from the source node,
@@ -28,7 +30,7 @@
 
 public static class DijkstraAlgorithm
 {
-    public static void Search(Graph graph, Vertex origin)
+    public static void Search(GraphBase graph, Vertex origin)
     {
         int marked = 0;
         marked++;
@@ -56,7 +58,7 @@ public static class DijkstraAlgorithm
         }
     }
 
-    private static Vertex? GetNextClosestVertex(Graph graph)
+    private static Vertex? GetNextClosestVertex(GraphBase graph)
     {
         Vertex? closest = null;
 
@@ -82,7 +84,7 @@ public static class DijkstraAlgorithm
         return closest;
     }
 
-    private static void MarkClosestNeighbors(Graph graph, Vertex vertex)
+    private static void MarkClosestNeighbors(GraphBase graph, Vertex vertex)
     {
         var edgesClosestVertex = graph.GetAdjacentEdges(vertex);
 

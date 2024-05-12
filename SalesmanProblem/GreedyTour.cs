@@ -1,13 +1,13 @@
 ﻿using DataStructures.HashTables;
 using DataStructures.Lists;
-using Graphs.Core.Abstraction;
 using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace SalesmanProblem;
 
 public static class GreedyTour
 {
-    public static SequentialList<Vertex> Build(Graph graph)
+    public static SequentialList<Vertex> Build(GraphBase graph)
     {
         var visited = new SimpleHashSet<Vertex>();
         var tour = new SequentialList<Vertex>(graph.Count);
@@ -31,7 +31,7 @@ public static class GreedyTour
         return tour;
     }
 
-    public static Vertex? GetClosestNonVisitedNeighbor(Graph graph, Vertex vertex, SimpleHashSet<Vertex> visited)
+    public static Vertex? GetClosestNonVisitedNeighbor(GraphBase graph, Vertex vertex, SimpleHashSet<Vertex> visited)
     {
         Vertex? closest = null;
 

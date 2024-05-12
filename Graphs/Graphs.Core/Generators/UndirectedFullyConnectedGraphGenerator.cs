@@ -1,6 +1,5 @@
-﻿using Graphs.Core.Abstraction;
-using Graphs.Core.GraphImplementation;
-using Graphs.Core.Model;
+﻿using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;
 
@@ -14,7 +13,7 @@ public class UndirectedFullyConnectedGraphGenerator : IGraphGenerator
         _vertexCount = vertexCount;
     }
 
-    public Graph Generate(string name)
+    public GraphBase Generate(string name)
     {
         var graph = new UndirectedGraph(name);
 

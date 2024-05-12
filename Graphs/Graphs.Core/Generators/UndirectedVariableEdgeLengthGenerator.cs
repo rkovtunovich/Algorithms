@@ -1,4 +1,4 @@
-﻿using Graphs.Core.GraphImplementation;
+﻿using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;
 
@@ -14,7 +14,7 @@ public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
         _prototype = prototype;
     }
 
-    public Graph Generate(string name = "undirected_var_length")
+    public GraphBase Generate(string name = "undirected_var_length")
     {
         var graph = new UndirectedVariableEdgeLengthGraph(name);
 

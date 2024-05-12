@@ -1,9 +1,7 @@
 ﻿using DataStructures.Common.BinaryTrees;
 using DataStructures.Common.BinaryTrees.Search;
 using DataStructures.Common.BinaryTrees.Search.RedBlack;
-using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
-using Graphs.Core.GraphImplementation;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;
 
@@ -16,7 +14,7 @@ public class GraphRedBlackTreeGenerator<TKey, TValue> : IGraphGenerator where TK
         _tree = tree;
     }
 
-    public Graph Generate(string name)
+    public GraphBase Generate(string name)
     {
         var graph = new UndirectedGraph(name);
 
@@ -34,7 +32,7 @@ public class GraphRedBlackTreeGenerator<TKey, TValue> : IGraphGenerator where TK
         return graph;
     }
 
-    private void AddChilds(Vertex parent, Graph graph, TreeNode<TKey, TValue> currNode)
+    private void AddChilds(Vertex parent, GraphBase graph, TreeNode<TKey, TValue> currNode)
     {
         var leftNode = currNode.LeftChild;
         if (leftNode is not null)

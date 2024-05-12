@@ -1,5 +1,5 @@
 ﻿using DataStructures.HashTables;
-using Graphs.Core.GraphImplementation;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.MinimumSpanningTree;
 
@@ -22,7 +22,7 @@ namespace Graphs.Core.MinimumSpanningTree;
 
 public static class DJP
 {
-    public static (Graph tree, double length) GetMST(Graph graph)
+    public static (GraphBase tree, double length) GetMST(GraphBase graph)
     {
         var completed = new SimpleHashSet<Vertex>();
         var minHeap = new HeapMin<double, Vertex>();

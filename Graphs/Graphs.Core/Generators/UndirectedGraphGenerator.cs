@@ -1,4 +1,4 @@
-﻿using Graphs.Core.GraphImplementation;
+﻿using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;
 
@@ -14,7 +14,7 @@ public class UndirectedGraphGenerator : IGraphGenerator
         _saturation = saturation;
     }
 
-    public Graph Generate(string name)
+    public GraphBase Generate(string name)
     {
         var graph = new UndirectedGraph(name);
 

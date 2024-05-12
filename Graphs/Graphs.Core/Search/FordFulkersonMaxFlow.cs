@@ -1,5 +1,5 @@
-﻿using Graphs.Core.Abstraction;
-using Graphs.Core.Model;
+﻿using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Search;
 
@@ -8,7 +8,7 @@ public static class FordFulkersonMaxFlow
     // The Ford-Fulkerson algorithm calculates the maximum flow in a flow network.
     // It iteratively looks for augmenting paths from the source to the target in the residual graph and adds the flow along these paths to the total flow.
     // The process continues until no augmenting paths can be found.
-    public static double AugmentingPathSearch(Graph graph, Vertex source, Vertex target)
+    public static double AugmentingPathSearch(GraphBase graph, Vertex source, Vertex target)
     {
         double maxFlow = 0; // Initialize the max flow to 0.
 
@@ -64,7 +64,7 @@ public static class FordFulkersonMaxFlow
         return maxFlow; // Return the computed max flow.
     }
 
-    public static (bool isExist, Vertex[] path) SearchPath(Graph graph, Vertex source, Vertex target)
+    public static (bool isExist, Vertex[] path) SearchPath(GraphBase graph, Vertex source, Vertex target)
     {
         var parents = new Vertex[graph.Count()]; // To keep track of the parent of each vertex.
 

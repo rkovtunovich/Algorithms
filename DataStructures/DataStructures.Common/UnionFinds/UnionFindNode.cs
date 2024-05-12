@@ -1,4 +1,4 @@
-﻿namespace DataStructures.Common;
+﻿namespace DataStructures.Common.UnionFinds;
 
 public class UnionFindNode<T>
 {

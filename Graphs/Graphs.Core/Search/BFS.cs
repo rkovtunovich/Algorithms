@@ -1,10 +1,10 @@
-﻿using Graphs.Core.GraphImplementation;
+﻿using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Search;
 public static class BFS
 {
     // The SearchConnected function takes a Graph and a Vertex as input.
-    public static HashSet<Vertex> SearchConnected(Graph graph, Vertex originVertex)
+    public static HashSet<Vertex> SearchConnected(GraphBase graph, Vertex originVertex)
     {
         // Initialize a HashSet with the origin vertex to keep track of visited vertices.
         var visited = new HashSet<Vertex>

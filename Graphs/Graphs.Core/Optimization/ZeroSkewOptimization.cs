@@ -1,4 +1,5 @@
 ﻿using DataStructures.Lists;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Optimization;
 
@@ -41,7 +42,7 @@ public static class ZeroSkewOptimization
     //    Repeat the process by selecting the next longest path and incrementing as necessary until all leaf nodes have paths of equal length to the longest path.
     // 6. Final Check for Zero Skew: Once all leaves have the same path length from the root, ensure that no further increments are possible without increasing the overall length unnecessarily.
 
-    public static void Optimize(Graph graph, Vertex root, bool useDebugMode = false)
+    public static void Optimize(GraphBase graph, Vertex root, bool useDebugMode = false)
     {
         root.Label = "0: MAX";
         int maxDistance = -1;
@@ -105,7 +106,7 @@ public static class ZeroSkewOptimization
         }
     }
 
-    private static void CalculateDistances(Graph graph, Vertex root, ref Dictionary<Vertex, (Vertex parent, int distance, bool isMaxLength)> distances, out HeapMax<int, Vertex> leaves)
+    private static void CalculateDistances(GraphBase graph, Vertex root, ref Dictionary<Vertex, (Vertex parent, int distance, bool isMaxLength)> distances, out HeapMax<int, Vertex> leaves)
     {
         leaves = new();
 
@@ -141,7 +142,7 @@ public static class ZeroSkewOptimization
         }
     }
 
-    private static void IncreaseDistanceToLeaf(Graph graph, Dictionary<Vertex, (Vertex parent, int distance, bool isMaxLength)> distances, Vertex leaf, int difference)
+    private static void IncreaseDistanceToLeaf(GraphBase graph, Dictionary<Vertex, (Vertex parent, int distance, bool isMaxLength)> distances, Vertex leaf, int difference)
     {
         var firstForIncreasing = leaf;
         Vertex? parent;

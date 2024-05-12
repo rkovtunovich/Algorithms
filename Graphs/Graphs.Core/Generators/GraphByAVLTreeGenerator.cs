@@ -1,7 +1,7 @@
 ﻿using DataStructures.Common.BinaryTrees;
 using DataStructures.Common.BinaryTrees.Search;
 using DataStructures.Common.BinaryTrees.Search.AVL;
-using Graphs.Core.GraphImplementation;
+using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;
 
@@ -14,7 +14,7 @@ public class GraphByAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey 
         _tree = tree;
     }
 
-    public Graph Generate(string name)
+    public GraphBase Generate(string name)
     {
         var graph = new UndirectedGraph(name);
 
@@ -32,7 +32,7 @@ public class GraphByAVLTreeGenerator<TKey, TValue> : IGraphGenerator where TKey 
         return graph;
     }
 
-    private void AddChilds(Vertex parent, Graph graph, TreeNode<TKey, TValue> currNode)
+    private void AddChilds(Vertex parent, GraphBase graph, TreeNode<TKey, TValue> currNode)
     {
         var leftNode = currNode.LeftChild;
         if (leftNode is not null)

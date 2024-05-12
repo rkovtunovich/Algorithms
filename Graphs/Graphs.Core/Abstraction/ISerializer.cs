@@ -1,8 +1,10 @@
-﻿namespace Graphs.Core.Abstraction;
+﻿using Graphs.Core.Model.Graphs;
+
+namespace Graphs.Core.Abstraction;
 
 public interface ISerializer
 {
-    public string Serialize(Graph graph);
+    public string Serialize(GraphBase graph);
 
-    public Graph Deserialize(string serializedGraph);
+    public GraphBase Deserialize(string serializedGraph);
 }

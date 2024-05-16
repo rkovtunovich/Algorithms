@@ -63,5 +63,18 @@ internal static class FindingExample
         Console.WriteLine(stat);
 
     }
+
+    internal static void RunFindingMaxSumSubArray()
+    {
+        var array = ArrayHelper.GetUnsortedArray(10, -10, 10);
+
+        Viewer.ShowArray(array);
+
+        var result = MaxSumSubArray.Find(array);
+
+        Console.WriteLine($"Start: {result.start}, End: {result.end}, Sum: {result.sum}");
+
+        Console.Read();
+    }
 }
 

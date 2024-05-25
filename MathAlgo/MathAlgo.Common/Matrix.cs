@@ -1,5 +1,4 @@
 ﻿using Helpers;
-using System.Diagnostics;
 
 namespace MathAlgo.Common;
 
@@ -27,18 +26,9 @@ public class Matrix
 
         //int[][] multiplied = MultRec(m1, m2);
 
-        Stopwatch stopWatch = new Stopwatch();
-        stopWatch.Start();
-        int[][] multiplied = MultStassen(m1, m2);
-        stopWatch.Stop();
+        int[][] multiplied = MultStrassen(m1, m2);
 
-        Console.WriteLine(stopWatch.ElapsedMilliseconds);
-
-        stopWatch.Restart();
         int[][] mu = Mult(m1, m2);
-        stopWatch.Stop();
-
-        Console.WriteLine(stopWatch.ElapsedMilliseconds);
 
         //MatrixHelper.Show(multiplied);
     }
@@ -67,7 +57,7 @@ public class Matrix
     {
         int size = m1.Length;
 
-        if (size == 1)
+        if (size is 1)
         {
             int[][] res = new int[size][];
             res[0] = new int[size];
@@ -102,16 +92,16 @@ public class Matrix
         int[][] AFBH = Sum(AF, BH);
         int[][] CFDH = Sum(CF, DH);
 
-        int[][] combined = MatrixHelper.Combime(AEBG, AFBH, CEDG, CFDH);
+        int[][] combined = MatrixHelper.Combine(AEBG, AFBH, CEDG, CFDH);
 
         return combined;
     }
 
-    public static int[][] MultStassen(int[][] m1, int[][] m2)
+    public static int[][] MultStrassen(int[][] m1, int[][] m2)
     {
         int size = m1.Length;
 
-        if (size == 1)
+        if (size is 1)
         {
             int[][] res = new int[size][];
             res[0] = new int[size];
@@ -142,13 +132,13 @@ public class Matrix
         int[][] AmC = Sub(A, C);
         int[][] EpF = Sum(E, F);
 
-        int[][] P1 = MultStassen(A, FmH);
-        int[][] P2 = MultStassen(ApB, H);
-        int[][] P3 = MultStassen(CpD, E);
-        int[][] P4 = MultStassen(D, GmE);
-        int[][] P5 = MultStassen(ApD, EpH);
-        int[][] P6 = MultStassen(BmD, GpH);
-        int[][] P7 = MultStassen(AmC, EpF);
+        int[][] P1 = MultStrassen(A, FmH);
+        int[][] P2 = MultStrassen(ApB, H);
+        int[][] P3 = MultStrassen(CpD, E);
+        int[][] P4 = MultStrassen(D, GmE);
+        int[][] P5 = MultStrassen(ApD, EpH);
+        int[][] P6 = MultStrassen(BmD, GpH);
+        int[][] P7 = MultStrassen(AmC, EpF);
 
         int[][] quadrant11 = Sum(P5, P4);
         quadrant11 = Sub(quadrant11, P2);
@@ -162,7 +152,7 @@ public class Matrix
         quadrant22 = Sub(quadrant22, P3);
         quadrant22 = Sub(quadrant22, P7);
 
-        int[][] combined = MatrixHelper.Combime(quadrant11, quadrant12, quadrant21, quadrant22);
+        int[][] combined = MatrixHelper.Combine(quadrant11, quadrant12, quadrant21, quadrant22);
 
         return combined;
     }

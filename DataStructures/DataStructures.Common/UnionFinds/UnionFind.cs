@@ -83,6 +83,19 @@ public class UnionFind<T> where T : notnull
         }
     }
 
+    public int DistinctSetsCount()
+    {
+        int count = 0;
+
+        for (int i = 0; i < _nodes.Length; i++)
+        {
+            if (_nodes[i].ParentIndex == i)
+                count++;
+        }
+
+        return count;
+    }
+
     private UnionFindNode<T> FindRecursively(int index)
     {
         if (_nodes[index].ParentIndex == index)

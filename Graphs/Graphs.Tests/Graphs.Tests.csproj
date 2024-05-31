@@ -28,11 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Graphs.Core\Graphs.Core.csproj" />
+    <ProjectReference Include="..\Graphs.Application\Graphs.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="SerializedGraphs\SearchCycle_OrientedGraphWithSycle_CycleFound - Copy.txt">
+    <None Update="SerializedGraphs\SearchCycle_OrientedGraphWithSycle_CycleFound.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="SerializedGraphs\FindArborescencesTree_OrientedGraphWithSycle_TreeWithMinimumCost.txt">

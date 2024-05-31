@@ -1,17 +1,18 @@
 ﻿using DataStructures.Common.BinaryTrees.Search.AVL;
 using DataStructures.Lists;
 using Graphs.Core;
-using Graphs.Core.Coloring;
+using Graphs.Application.Coloring;
 using Graphs.Core.Generators;
-using Graphs.Core.MinimumArborescencesTree;
-using Graphs.Core.MinimumSpanningTree;
+using Graphs.Application.MinimumArborescencesTree;
 using Graphs.Core.Model;
 using Graphs.Core.Model.Graphs;
-using Graphs.Core.MWIS;
-using Graphs.Core.Optimization;
-using Graphs.Core.Search;
+using Graphs.Application.MWIS;
+using Graphs.Application.Optimization;
+using Graphs.Application.Search;
+using Graphs.Application.SpanningTrees;
 using Models.Scheduling;
 using View;
+using Graphs.Core.Model.Serialization;
 
 namespace ExamplesRunning.Graphs;
 
@@ -376,6 +377,41 @@ internal class GraphExample
         ZeroSkewOptimization.Optimize(graph, graph.First(x => x.Index == 1));
 
         DOTVisualizer.VisualizeGraph(graph);
+    }
+
+    internal static void RunConstrainedSpanningTree()
+    {
+        var n = 7;
+        var random = new Random();
+        var k = random.Next(1, n - 1);
+
+        var generator = new UndirectedVariableEdgeLengthGenerator(n);
+        var graph = generator.Generate("Constrained_spanning_tree") as UndirectedVariableEdgeLengthGraph;
+
+        ConstrainedSpanningTree.GenerateLabels(graph);
+
+        //var path = $"{DOTVisualizer.WorkingDirectory}\\serializations\\Constrained_spanning_tree_saved.txt";
+        //var serializedGraph = GraphFileManager.ReadFromFile(path);
+        //var serializer = new DOTSerializer();
+        //var options = new DeserializationOptions { IsVariableLength = true };
+        //var graph = serializer.Deserialize(serializedGraph, options) as UndirectedVariableEdgeLengthGraph;
+        //var n = graph.Count;
+        //var k = 3;
+
+        Console.WriteLine($"X {k} Y {n - k - 1}");
+
+        DOTVisualizer.VisualizeGraph(graph);
+
+        (bool isExist, UndirectedVariableEdgeLengthGraph? tree) = ConstrainedSpanningTree.GetConstrainedSpanningTree(graph, k);
+
+        if (isExist)
+        {
+            DOTVisualizer.VisualizeGraph(tree);
+        }
+        else
+        {
+            Console.WriteLine("No such tree exists.");
+        }
     }
 }
 

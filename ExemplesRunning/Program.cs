@@ -3,7 +3,7 @@
 //FindingExample.RunFindingMatchArrayIndexToValue();
 //FindingExample.RunFindingLocalMatrixMinimum();
 //FindingExample.RunFindingOrderStatistics();
-FindingExample.RunFindingMaxSumSubArray();
+//FindingExample.RunFindingMaxSumSubArray();
 
 //HanoiTowersExample.Run();
 
@@ -34,6 +34,7 @@ FindingExample.RunFindingMaxSumSubArray();
 //GraphExample.RunDijkstraHeap();
 //GraphExample.RunTimeDependentShortestPathProblem();
 //GraphExample.RunZeroSkewOptimization();
+GraphExample.RunConstrainedSpanningTree();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();

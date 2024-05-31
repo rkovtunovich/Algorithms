@@ -2,33 +2,25 @@
 
 namespace Graphs.Core.Generators;
 
-public class UndirectedVariableEdgeLengthGenerator : IGraphGenerator
+public class UndirectedVariableEdgeLengthGenerator(int countVertices, Vertex? prototype = null) : IGraphGenerator
 {
     private readonly Random _random = new();
-    private readonly int _countVertices;
-    private readonly Vertex? _prototype;
-
-    public UndirectedVariableEdgeLengthGenerator(int countVertices, Vertex? prototype = null)
-    {
-        _countVertices = countVertices;
-        _prototype = prototype;
-    }
 
     public GraphBase Generate(string name = "undirected_var_length")
     {
         var graph = new UndirectedVariableEdgeLengthGraph(name);
 
-        for (int i = 1; i <= _countVertices; i++)
+        for (int i = 1; i <= countVertices; i++)
         {
             var vertex = new Vertex(i);
-            vertex.CopyFrom(_prototype);
+            vertex.CopyFrom(prototype);
 
             graph.AddVertex(vertex);
         }
 
         foreach (var vertex in graph)
         {
-            GenerateMutualConnections(graph, vertex, 0, (int)(graph.Count() / 1.7));
+            GenerateMutualConnections(graph, vertex, 0, (int)(graph.Count / 1.7));
         }
 
         foreach (var vertex in graph)

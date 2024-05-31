@@ -11,8 +11,11 @@ public class UndirectedGraph : GraphBase
 
     public override void AddEdge(Vertex source, Vertex destination)
     {
-        if (!_nodes.ContainsKey(source) || !_nodes.ContainsKey(destination))
-            throw new Exception("some of these vertices aren't included in the graph!");
+        if (!_nodes.ContainsKey(source))
+            AddVertex(source);
+            
+        if (!_nodes.ContainsKey(destination))
+            AddVertex(destination);
 
         var sourceEdges = _nodes[source];
         var destinationEdges = _nodes[destination];

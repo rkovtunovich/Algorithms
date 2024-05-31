@@ -1,4 +1,5 @@
 ﻿using Graphs.Core.Model.Graphs;
+using Graphs.Core.Model.Serialization;
 using System.Drawing;
 using System.Text;
 
@@ -6,9 +7,9 @@ namespace Graphs.Core;
 
 public class DOTSerializer : ISerializer
 {
-    private readonly HashSet<Vertex> _importantVertices = new();
+    private readonly HashSet<Vertex> _importantVertices = [];
 
-    private readonly HashSet<Vertex> _importantEdges = new();
+    private readonly HashSet<Vertex> _importantEdges = [];
 
     public Color ImportantVertexColor { get; set; } = Color.Green;
 
@@ -121,12 +122,12 @@ public class DOTSerializer : ISerializer
 
     #region Deserialization
 
-    public GraphBase Deserialize(string serializedGraph)
+    public GraphBase Deserialize(string serializedGraph, DeserializationOptions? options = null)
     {
         if (IsOriented(serializedGraph))
             return DeserializeOriented(serializedGraph);
         else
-            return DeserializeNonOriented(serializedGraph);
+            return DeserializeNonOriented(serializedGraph, options);
     }
 
     private bool IsOriented(string serializedGraph)
@@ -218,7 +219,15 @@ public class DOTSerializer : ISerializer
         return vertex;
     }
 
-    private GraphBase DeserializeNonOriented(string serializedGraph)
+    private GraphBase DeserializeNonOriented(string serializedGraph, DeserializationOptions? options = null)
+    {
+        if (options is not null && options.IsVariableLength)
+            return DeserializeNonOrientedVariableLength(serializedGraph);
+        else
+            return DeserializeNonOrientedFixedLength(serializedGraph);
+    }
+
+    private GraphBase DeserializeNonOrientedFixedLength(string serializedGraph)
     {
         var graph = new UndirectedGraph(GetGraphName(serializedGraph));
 
@@ -226,14 +235,49 @@ public class DOTSerializer : ISerializer
 
         foreach (var line in lines)
         {
-            if (line.Contains("--"))
+            if (!line.Contains("--"))
+                continue;
+
+            // TO DO
+            var vertices = line.Split("--");
+
+            var vertex1 = vertices[0].Trim();
+            var vertex2 = vertices[1].Trim();
+        }
+
+        return graph;
+    }
+
+    private GraphBase DeserializeNonOrientedVariableLength(string serializedGraph)
+    {
+        var graph = new UndirectedVariableEdgeLengthGraph(GetGraphName(serializedGraph));
+
+        var lines = serializedGraph.Split('\n');
+
+        foreach (var line in lines)
+        {
+            if (!line.Contains("--"))
+                continue;
+
+            var edges = line.Split(";", StringSplitOptions.RemoveEmptyEntries);
+
+            // edge is in the format: "1" -- "2" [label = "2,00"]
+
+            foreach (var edge in edges)
             {
-                var vertices = line.Split("--");
+                if (!edge.Contains("--"))
+                    continue;
 
-                var vertex1 = vertices[0].Trim();
-                var vertex2 = vertices[1].Trim();
+                var edgeParts = edge.Split("--");
 
-                // TO DO
+                var vertex1 = edgeParts[0].Replace("\"", string.Empty).Trim();
+                var secondPart = edgeParts[1].Split('[');
+                var vertex2 = secondPart[0].Replace("\"", string.Empty).Trim();
+
+                // length is in the format: [label = "2,00"]
+                var length = secondPart[1].Split('=')[1].Replace("\"", string.Empty).Trim(']');
+
+                graph.AddEdge(new Vertex(int.Parse(vertex1)), new Vertex(int.Parse(vertex2)), double.Parse(length));
             }
         }
 
@@ -243,18 +287,19 @@ public class DOTSerializer : ISerializer
     private string GetGraphName(string serializedGraph)
     {
         var lines = serializedGraph.Split('\n');
+        var firstLine = lines[0];
 
-        foreach (var line in lines)
-        {
-            if (line.Contains("graph"))
-            {
-                var graphName = line.Split(' ')[1].Trim();
+        if (!firstLine.Contains("graph"))
+            return "unnamed";
 
-                return graphName;
-            }
-        }
+        var parts = firstLine.Split(' ');
 
-        return "";
+        if (parts[0] == "digraph")
+            return parts[1];
+        if (parts[0] == "strict")
+            return parts[2];
+
+        return "unnamed";
     }
 
     #endregion

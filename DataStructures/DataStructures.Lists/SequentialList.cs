@@ -177,9 +177,11 @@ public class SequentialList<T> : IList<T>
         
     }
 
-    public void Sort()
+    public void Sort(bool ascending = true)
     {
         Array.Sort(_items, 0, _count);
+        if (!ascending)
+            Array.Reverse(_items, 0, _count);
     }
 
     public IEnumerator<T> GetEnumerator()

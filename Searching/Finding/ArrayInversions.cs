@@ -1,4 +1,4 @@
-﻿namespace Sorting.Common;
+﻿namespace Searching.Common;
 
 // This is an algorithm for counting inversions in an array.
 // An inversion is a pair of elements in an array such that their order in the array is opposite to their natural order.
@@ -14,6 +14,9 @@ public class ArrayInversions
     // Public method to count inversions in an array
     public static int Count(ref int[] array)
     {
+        if (array.Length is 0)
+            return 0;
+
         // Calls the recursive function to count inversions and sort the array
         (array, int count) = CountInversions(array, 0, array.Length - 1);
 

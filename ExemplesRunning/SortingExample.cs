@@ -1,5 +1,6 @@
 ﻿using DataStructures.Heaps;
 using Helpers;
+using Searching.Common;
 using Sorting.Common;
 using Sorting.Insertion;
 using System.Diagnostics;

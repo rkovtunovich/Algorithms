@@ -1,4 +1,4 @@
-﻿using Graphs.Application.MinimumArborescencesTree;
+﻿using Graphs.Application.MinimumArborescenceTrees;
 
 namespace Graphs.Tests.Application.MinimumArborescencesTree;
 
@@ -15,7 +15,7 @@ public class EdmondsAlgorithmShould
         graph.FillIncomeEdges(true);
 
         // act
-        var (tree, minimumCost) = EdmondsAlgorithm.FindArborescencesTree(graph);
+        var (tree, minimumCost) = EdmondsAlgorithm.FindArborescenceTree(graph);
 
         // assert
         tree.Should().NotBeNull();

@@ -3,7 +3,6 @@ using DataStructures.Lists;
 using Graphs.Core;
 using Graphs.Application.Coloring;
 using Graphs.Core.Generators;
-using Graphs.Application.MinimumArborescencesTree;
 using Graphs.Core.Model;
 using Graphs.Core.Model.Graphs;
 using Graphs.Application.MWIS;
@@ -13,6 +12,7 @@ using Graphs.Application.SpanningTrees;
 using Models.Scheduling;
 using View;
 using Graphs.Core.Model.Serialization;
+using Graphs.Application.MinimumArborescenceTrees;
 
 namespace ExamplesRunning.Graphs;
 
@@ -274,7 +274,7 @@ internal class GraphExample
 
         DOTVisualizer.VisualizeGraph(graph);
 
-        (var tree, var cost) = EdmondsAlgorithm.FindArborescencesTree(graph);
+        (var tree, var cost) = EdmondsAlgorithm.FindArborescenceTree(graph);
 
         DOTVisualizer.VisualizeGraph(tree);
 

@@ -2,17 +2,17 @@
 using Graphs.Core;
 using Graphs.Core.Model.Graphs;
 
-namespace Graphs.Application.MinimumArborescencesTree;
+namespace Graphs.Application.MinimumArborescenceTrees;
 
 public static class EdmondsAlgorithm
 {
     // An arborescence is a directed graph (a directed spanning tree of minimum cost) in which,
     // for a vertex u (called the root), there is exactly one directed path from u to any other vertex in the graph.
     // This concept is closely related to trees in undirected graphs, but it applies to directed graphs. 
-    public static (OrientedGraph tree, double minimumCost) FindArborescencesTree(OrientedGraph graph)
+    public static (OrientedGraph tree, double minimumCost) FindArborescenceTree(OrientedGraph graph)
     {
         var modifiedGraph = graph.Clone() as OrientedGraph ?? throw new NullReferenceException();
-        var tree = new OrientedGraph("arborescences_Tree", true);
+        var tree = new OrientedGraph("arborescence_Tree", true);
 
         // Step 1: Initialize. Add all vertices to the tree
         foreach (var vertex in modifiedGraph)

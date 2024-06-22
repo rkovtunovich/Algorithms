@@ -1,5 +1,12 @@
 ﻿namespace Searching.Common;
 
+// description: Randomized selection algorithm to find the k-th order statistic in an array.
+// The k-th order statistic of an array is the k-th smallest element in the array.
+// The algorithm is based on the quicksort algorithm, but instead of sorting the whole array,
+// it only sorts the part of the array that contains the k-th order statistic.
+// time complexity: O(n) on average, O(n^2) in the worst case
+// space complexity: O(1)
+
 public class RSelect
 {
     private static readonly Random _random = new();

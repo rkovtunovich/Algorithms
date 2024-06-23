@@ -4,11 +4,11 @@ namespace Sorting.Common
 {
     public static class MergeSort2DPoints
     {
-        private static IComparer<Point2D> _comparer;
+        private static IComparer<Point2D> _comparer = null!;
 
         public static void Sort(ref Point2D[] array, IComparer<Point2D> comparer)
         {
-            if (comparer is null) throw new ArgumentNullException(nameof(comparer));
+            ArgumentNullException.ThrowIfNull(comparer);
 
             _comparer = comparer;
 
@@ -20,11 +20,11 @@ namespace Sorting.Common
         private static Point2D[] SortArray(Point2D[] array, int startIndex, int endIndex)
         {
             if (startIndex == endIndex)
-                return new Point2D[] { array[startIndex] };
+                return [array[startIndex]];
 
-            int midlle = (endIndex + startIndex) / 2;
-            Point2D[] firstHalf = SortArray(array, startIndex, midlle);
-            Point2D[] secondHalf = SortArray(array, midlle + 1, endIndex);
+            int middle = (endIndex + startIndex) / 2;
+            Point2D[] firstHalf = SortArray(array, startIndex, middle);
+            Point2D[] secondHalf = SortArray(array, middle + 1, endIndex);
 
             return Merge(firstHalf, secondHalf);
         }

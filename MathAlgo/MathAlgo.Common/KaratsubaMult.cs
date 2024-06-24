@@ -1,63 +1,42 @@
-﻿namespace MathAlgo.Common
+﻿namespace MathAlgo.Common;
+
+public static class KaratsubaMult
 {
-    internal static class KaratsubaMult
+    // Karatsuba multiplication
+    // divide and conquer algorithm
+    // O(n^1.59) time complexity
+    // recurrence relation: T(n) = 3T(n/2) + O(n)
+    public static int Mult(int x, int y)
     {
-        internal static int Mult(int x, int y)
-        {
-            return RecMult(x, y);
-        }
+        return RecMult(x, y);
+    }
 
-        private static int RecMult(int x, int y)
-        {
-            if (x < 10 && y < 10)
-            {
-                return x * y;
-            }
+    private static int RecMult(int x, int y)
+    {
+        // Base case for single digit numbers
+        if (x < 10 && y < 10)
+            return x * y;
 
-            string xStr = x.ToString();
-            string yStr = y.ToString();
+        // Get the length of the numbers
+        int n = Math.Max(x.ToString().Length, y.ToString().Length);
 
-            string a, b, c, d;
+        // Split position
+        int m = (n / 2) + (n % 2);
 
-            if (x < 10)
-            {
-                a = "0";
-                b = xStr;
-            }
-            else
-            {
-                a = xStr.Substring(0, xStr.Length / 2);
-                b = xStr.Substring(xStr.Length / 2);
-            }
+        // Split x and y into high and low parts
+        int high1 = x / (int)Math.Pow(10, m);
+        int low1 = x % (int)Math.Pow(10, m);
+        int high2 = y / (int)Math.Pow(10, m);
+        int low2 = y % (int)Math.Pow(10, m);
 
-            if (y < 10)
-            {
-                c = "0";
-                d = yStr;
-            }
-            else
-            {
-                c = yStr.Substring(0, yStr.Length / 2);
-                d = yStr.Substring(yStr.Length / 2);
-            }
+        // 3 recursive calls    
+        int z0 = RecMult(low1, low2);
+        int z1 = RecMult((low1 + high1), (low2 + high2));
+        int z2 = RecMult(high1, high2);
 
-            int p = int.Parse(a) + int.Parse(b);
-            int q = int.Parse(c) + int.Parse(d);
+        // Karatsuba formula
+        int result = (z2 * (int)Math.Pow(10, 2 * m)) + ((z1 - z2 - z0) * (int)Math.Pow(10, m)) + z0;
 
-            int n = Math.Max(xStr.Length, yStr.Length);
-            int m = n / 2 + n % 2;
-
-            Console.WriteLine($"x {a}.{b} : y {c}.{d} |{n}:{n / 2 + n % 2}");
-
-            int ac = RecMult(int.Parse(a), int.Parse(c));
-            int bd = RecMult(int.Parse(b), int.Parse(d));
-            int pq = RecMult(p, q);
-
-            int abcd = pq - ac - bd;
-
-            int res = (int)Math.Pow(10, n) * ac + (int)Math.Pow(10, m) * abcd + bd;
-
-            return res;
-        }
+        return result;
     }
 }

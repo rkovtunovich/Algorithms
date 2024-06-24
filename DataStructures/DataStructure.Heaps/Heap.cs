@@ -31,7 +31,6 @@
 // In conclusion, heaps are a versatile data structure that are particularly useful when you need to repeatedly remove the object with the highest (or lowest) priority.
 // They provide a good compromise of both operation efficiency and memory usage.
 
-
 public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 {
     private const int InitialSize = 8;
@@ -41,8 +40,7 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
     private HeapNode<TKey, TValue>[] _nodes;
 
     // Dictionary to keep track of the positions of the values in the heap
-    // TODO: issue with performance in TryInsert and TryRemove methods. Replace dictionary with different data structure.
-    private Dictionary<TValue, int> _positions = new();
+    private Dictionary<TValue, int> _positions = [];
 
     #region Constructors
 
@@ -76,7 +74,7 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     public bool Empty()
     {
-        return Length == 0;
+        return Length is 0;
     }
 
     public HeapNode<TKey, TValue> Extremum { get => this[1]; }
@@ -92,7 +90,9 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
             Key = key,
             Value = value
         };
-        _positions[value] = _length;
+
+        if (value is not null)
+            _positions[value] = _length;
 
         SiftUp(_length);
     }
@@ -139,11 +139,9 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     public void ReplaceKeyByValue(TValue value, TKey newKey)
     {
-        if (!_positions.TryGetValue(value, out int position))
-        {
+        if (!_positions.TryGetValue(value, out int position))       
             throw new InvalidOperationException($"Value {value} not found.");
-        };
-
+        
         this[position] = new()
         {
             Value = value,
@@ -167,7 +165,7 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     protected int GetParentPosition(int childPosition)
     {
-        if (_length == 1)
+        if (_length is 1)
             return 1;
 
         return childPosition / 2;
@@ -177,6 +175,7 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
     {
         _positions[this[right].Value ?? throw new NullReferenceException("Value can't be null")] = left;
         _positions[this[left].Value ?? throw new NullReferenceException("Value can't be null")] = right;
+        
         (this[left], this[right]) = (this[right], this[left]);
     }
 

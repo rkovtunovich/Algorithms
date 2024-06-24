@@ -18,8 +18,11 @@ namespace Sorting.Common;
 public static class HeapSort<TKey, TValue> where TKey : INumber<TKey>
 {
     // Sorts an array of keys using a custom Heap class
-    public static void Sort(TKey[] array, Heap<TKey, TValue> heap)
+    public static void Sort(TKey[] array)
     {
+        // Create a new heap
+        var heap = new HeapMin<TKey, TValue>();
+
         // Insert each key from the input array into the heap
         for (int i = 0; i < array.Length; i++)
         {

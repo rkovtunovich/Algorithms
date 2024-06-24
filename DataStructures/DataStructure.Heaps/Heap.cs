@@ -173,8 +173,13 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     protected void Swap(int left, int right)
     {
-        _positions[this[right].Value ?? throw new NullReferenceException("Value can't be null")] = left;
-        _positions[this[left].Value ?? throw new NullReferenceException("Value can't be null")] = right;
+        var rightValue = this[right].Value;
+        if (rightValue is not null)
+            _positions[rightValue] = left;
+
+        var leftValue = this[left].Value;
+        if (leftValue is not null)
+            _positions[leftValue] = right;
         
         (this[left], this[right]) = (this[right], this[left]);
     }

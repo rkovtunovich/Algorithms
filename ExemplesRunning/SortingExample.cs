@@ -65,39 +65,11 @@ internal class SortingExample
         //var array = ArrayHelper.GetUnsortedArray(6, 0, 20);
         Viewer.ShowArray(array);
 
-        var stopWatch = new Stopwatch();
-
-        //var heap = new Heap<int>();
-
-        //for (int i = 0; i < array.Length; i++)
-        //{
-        //    heap.Insert(array[i]);
-        //}
-        //var generator = new GraphByHeapGenerator<int>(heap);
-        //var graph = generator.Generate();
-        //DOTVisualizer.VisualizeGraph(graph);
-
-        //for (int i = 0; i < array.Length; i++)
-        //{
-        //    array[i] = heap.ExtractMimimum();
-        //    graph = generator.Generate();
-        //    DOTVisualizer.VisualizeGraph(graph);
-        //}
-
-        //stopWatch.Start();
-        HeapSort<int, int>.Sort(array, new HeapMin<int, int>());
-        //stopWatch.Stop();
-
-        //Console.WriteLine($"-------------------");
-        //Console.WriteLine($"Run time {stopWatch.Elapsed}");
+        HeapSort<int, int>.Sort(array);
 
         Viewer.ShowArray(array);
 
-        HeapSort<int, int>.Sort(array, new HeapMax<int, int>());
-        //stopWatch.Stop();
-
-        //Console.WriteLine($"-------------------");
-        //Console.WriteLine($"Run time {stopWatch.Elapsed}");
+        HeapSort<int, int>.Sort(array);
 
         Viewer.ShowArray(array);
 

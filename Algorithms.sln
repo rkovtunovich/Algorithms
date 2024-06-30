@@ -81,7 +81,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Distance", "Distance", "{B2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distance.Common", "Distance\Distance.Common\Distance.Common.csproj", "{97B6D1FB-7D9D-4280-AB2C-B69851D0BC83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distance.Tests", "Distance\Distance.Tests\Distance.Tests.csproj", "{D82EE8D3-AD86-4316-B0D2-6DFC4A0065BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distance.Tests", "Distance\Distance.Tests\Distance.Tests.csproj", "{D82EE8D3-AD86-4316-B0D2-6DFC4A0065BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

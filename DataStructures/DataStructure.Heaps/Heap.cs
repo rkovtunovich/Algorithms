@@ -40,7 +40,9 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
     private HeapNode<TKey, TValue>[] _nodes;
 
     // Dictionary to keep track of the positions of the values in the heap
-    private Dictionary<TValue, int> _positions = [];
+    private Dictionary<TValue, int> _positionsByValue = [];
+
+    private Dictionary<TKey, int> _positionsByKey = [];
 
     #region Constructors
 
@@ -92,7 +94,9 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
         };
 
         if (value is not null)
-            _positions[value] = _length;
+            _positionsByValue[value] = _length;
+
+        _positionsByKey[key] = _length;
 
         SiftUp(_length);
     }
@@ -139,7 +143,7 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     public void ReplaceKeyByValue(TValue value, TKey newKey)
     {
-        if (!_positions.TryGetValue(value, out int position))       
+        if (!_positionsByValue.TryGetValue(value, out int position))       
             throw new InvalidOperationException($"Value {value} not found.");
         
         this[position] = new()
@@ -149,6 +153,43 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
         };
 
         SiftUp(position);
+        SiftDown(position);
+    }
+
+    public void ReplaceKey(TKey oldKey, TKey newKey)
+    {
+        if (!_positionsByKey.TryGetValue(oldKey, out int position))
+            throw new InvalidOperationException($"Key {oldKey} not found.");
+
+        this[position] = new()
+        {
+            Value = this[position].Value,
+            Key = newKey
+        };
+
+        SiftUp(position);
+        SiftDown(position);
+    }
+
+    public void RemoveByValue(TValue value)
+    {
+        if (!_positionsByValue.TryGetValue(value, out int position))
+            throw new InvalidOperationException($"Value {value} not found.");
+
+        Swap(position, _length);
+        _length--;
+
+        SiftDown(position);
+    }
+
+    public void RemoveByKey(TKey key)
+    {
+        if (!_positionsByKey.TryGetValue(key, out int position))
+            throw new InvalidOperationException($"Key {key} not found.");
+
+        Swap(position, _length);
+        _length--;
+
         SiftDown(position);
     }
 
@@ -175,12 +216,16 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
     {
         var rightValue = this[right].Value;
         if (rightValue is not null)
-            _positions[rightValue] = left;
+            _positionsByValue[rightValue] = left;
+
+        _positionsByKey[this[left].Key] = right;
 
         var leftValue = this[left].Value;
         if (leftValue is not null)
-            _positions[leftValue] = right;
-        
+            _positionsByValue[leftValue] = right;
+
+        _positionsByKey[this[right].Key] = left;
+
         (this[left], this[right]) = (this[right], this[left]);
     }
 

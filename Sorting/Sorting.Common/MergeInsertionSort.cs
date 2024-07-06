@@ -48,7 +48,7 @@ public static class MergeInsertionSort
         }
 
         int index = 0;
-        while (!heap.Empty())
+        while (!heap.Empty)
         {
             var node = heap.ExtractNode();
             var(sliceIndex, start, end) = node.Value;

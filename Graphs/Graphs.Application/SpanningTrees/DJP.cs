@@ -54,7 +54,7 @@ public static class DJP
             }
         }
 
-        while (!minHeap.Empty())
+        while (!minHeap.Empty)
         {
             var closest = minHeap.ExtractNode();
             completed.Add(closest.Value);

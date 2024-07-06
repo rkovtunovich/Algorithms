@@ -1,10 +1,10 @@
 ﻿namespace DataStructures.Heaps;
 
-public class HeapMax<TKey, TValue> : Heap<TKey, TValue> where TKey : IComparable<TKey>
+public class HeapMax<TKey, TValue> : BinaryHeap<TKey, TValue> where TKey : IComparable<TKey>
 {
     protected override void SiftUp(int position)
     {
-        if (position is 1)
+        if (IsRoot(position))
             return;
 
         int parent = GetParentPosition(position);

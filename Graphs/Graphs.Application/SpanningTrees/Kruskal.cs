@@ -46,7 +46,7 @@ public static class Kruskal
             heapMin.Insert(edge.Value, edge.Key);
         }
 
-        while (!heapMin.Empty())
+        while (!heapMin.Empty)
         {
             var edge = heapMin.ExtractNode();
 
@@ -80,7 +80,7 @@ public static class Kruskal
             heapMax.Insert(edge.Value, edge.Key);
         }
 
-        while (!heapMax.Empty())
+        while (!heapMax.Empty)
         {
             var edge = heapMax.ExtractNode();
 

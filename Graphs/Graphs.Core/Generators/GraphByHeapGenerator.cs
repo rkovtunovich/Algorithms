@@ -4,9 +4,9 @@ namespace Graphs.Core.Generators;
 
 public class GraphByHeapGenerator<TKey, TValue> : IGraphGenerator where TKey : INumber<TKey>
 {
-    private readonly Heap<TKey, TValue> _heap;
+    private readonly BinaryHeap<TKey, TValue> _heap;
 
-    public GraphByHeapGenerator(Heap<TKey, TValue> heap)
+    public GraphByHeapGenerator(BinaryHeap<TKey, TValue> heap)
     {
         _heap = heap;
     }

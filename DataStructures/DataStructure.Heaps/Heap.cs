@@ -1,7 +1,7 @@
 ﻿namespace DataStructures.Heaps;
 
 // A heap is a specialized tree-based data structure that satisfies the heap property.
-// It is a complete binary tree, meaning all levels of the tree are fully filled except for possibly the last level, which is filled from left to right. 
+// It is a complete d-ary tree, meaning all levels of the tree are fully filled except for possibly the last level, which is filled from left to right. 
 // 
 // There are two types of heaps: 
 // 1. **Max-Heap**: In a max heap, for any given node I, the value of I is greater than or equal to the values of its children.
@@ -33,9 +33,11 @@
 
 public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 {
+    private int _d;
+
     private const int InitialSize = 8;
 
-    private int _length = 0;
+    protected int _length = 0;
 
     private HeapNode<TKey, TValue>[] _nodes;
 
@@ -46,14 +48,16 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     #region Constructors
 
-    public Heap(int size)
+    public Heap(int size, int d)
     {
         _nodes = new HeapNode<TKey, TValue>[size];
+        _d = d;
     }
 
-    public Heap()
+    public Heap(int d)
     {
         _nodes = new HeapNode<TKey, TValue>[InitialSize];
+        _d = d;
     }
 
     #endregion
@@ -64,29 +68,27 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
     {
         get
         {
-            return _nodes[i - 1];
+            return _nodes[i];
         }
         set
         {
-            _nodes[i - 1] = value;
+            _nodes[i] = value;
         }
     }
 
+    public int Degree { get => _d; }
+
     public int Length { get => _length; }
 
-    public bool Empty()
-    {
-        return Length is 0;
-    }
+    public bool Empty => Length is 0;
 
-    public HeapNode<TKey, TValue> Extremum { get => this[1]; }
+    public HeapNode<TKey, TValue> Extremum { get => this[0]; }
 
     public void Insert(TKey key, TValue value = default)
     {
         if (_length == _nodes.Length)
             IncreaseContainer();
 
-        _length++;
         this[_length] = new()
         {
             Key = key,
@@ -99,30 +101,18 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
         _positionsByKey[key] = _length;
 
         SiftUp(_length);
-    }
 
-    public int GetLeftChildPosition(int pos)
-    {
-        int childPos = 2 * pos;
-
-        return childPos > _length ? -1 : childPos;
-    }
-
-    public int GetRightChildPosition(int pos)
-    {
-        int childPos = 2 * pos + 1;
-
-        return childPos > _length ? -1 : childPos;
+        _length++;
     }
 
     public HeapNode<TKey, TValue> ExtractNode()
     {
-        var minimum = this[1];
+        var minimum = this[0];
 
-        Swap(1, _length);
+        Swap(0, _length - 1);
         _length--;
 
-        SiftDown(1);
+        SiftDown(0);
 
         return minimum;
     }
@@ -197,6 +187,11 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     #region Service methods
 
+    protected bool IsRoot(int position)
+    {
+        return position is 0;
+    }
+
     private void IncreaseContainer()
     {
         HeapNode<TKey, TValue>[] keys = new HeapNode<TKey, TValue>[_length * 2];
@@ -204,12 +199,40 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
         _nodes = keys;
     }
 
-    protected int GetParentPosition(int childPosition)
+    protected int[] GetChildrenPositions(int position)
     {
-        if (_length is 1)
-            return 1;
+        var children = new int[_d];
+        for (int i = 1; i <= _d; i++)
+        {
+            var childPosition = position * _d + i;
+            if (childPosition <= _length)
+                children[i - 1] = childPosition;
+            else
+                children[i - 1] = -1;
+        }
 
-        return childPosition / 2;
+        return children;
+    }
+
+    protected virtual int GetParentPosition(int childPosition)
+    {
+        if(childPosition <= _d)
+            return 0;
+
+        return (childPosition - 1) / _d;
+    }
+
+    protected HeapNode<TKey, TValue>[] GetChildren(int position)
+    {
+        var children = new HeapNode<TKey, TValue>[_d];
+        for (int i = 0; i < _d; i++)
+        {
+            var childPosition = position * _d + i;
+            if (childPosition <= _length)
+                children[i] = this[childPosition];
+        }
+
+        return children;
     }
 
     protected void Swap(int left, int right)

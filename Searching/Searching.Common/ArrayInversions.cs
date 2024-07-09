@@ -17,14 +17,31 @@ public class ArrayInversions
         if (array.Length is 0)
             return 0;
 
+        // Metric to compare elements in the array
+        // By default, it's the identity function, which means that elements are compared as they are
+        var metric = new Func<int, int>(x => x);
+
         // Calls the recursive function to count inversions and sort the array
-        (array, int count) = CountInversions(array, 0, array.Length - 1);
+        (array, int count) = CountInversions(array, 0, array.Length - 1, metric);
 
         return count;
     }
 
+    public static int Count(ref int[] array, Func<int, int> metric)
+    {
+        if (array.Length is 0)
+            return 0;
+
+        // Calls the recursive function to count inversions and sort the array
+        (array, int count) = CountInversions(array, 0, array.Length - 1, metric);
+
+        return count;
+    }
+
+    #region Private Methods
+
     // Recursive method to count inversions in a segment of the array
-    private static (int[] array, int inversions) CountInversions(int[] array, int startIndex, int endIndex)
+    private static (int[] array, int inversions) CountInversions(int[] array, int startIndex, int endIndex, Func<int, int> metric)
     {
         // Base case: if the segment is a single element, return it with 0 inversions
         if (startIndex == endIndex)
@@ -34,12 +51,12 @@ public class ArrayInversions
         int middle = (endIndex + startIndex) / 2;
 
         // Recursively count inversions in the left half of the array segment
-        (int[] leftHalf, int leftInv) = CountInversions(array, startIndex, middle);
+        (int[] leftHalf, int leftInv) = CountInversions(array, startIndex, middle, metric);
         // Recursively count inversions in the right half of the array segment
-        (int[] rightHalf, int rightInv) = CountInversions(array, middle + 1, endIndex);
+        (int[] rightHalf, int rightInv) = CountInversions(array, middle + 1, endIndex, metric);
 
         // Merge the two halves and count inversions caused during the merge
-        (int[] merged, int mergeInversions) mergedResult = Merge(leftHalf, rightHalf);
+        (int[] merged, int mergeInversions) mergedResult = Merge(leftHalf, rightHalf, metric);
 
         // Add inversions found in left, right, and during the merge
         mergedResult.mergeInversions += leftInv + rightInv;
@@ -48,7 +65,7 @@ public class ArrayInversions
     }
 
     // Method to merge two halves of the array and count inversions
-    private static (int[], int) Merge(int[] leftHalf, int[] rightHalf)
+    private static (int[], int) Merge(int[] leftHalf, int[] rightHalf, Func<int, int> metric)
     {
         int length = leftHalf.Length + rightHalf.Length;
         int[] result = new int[length];
@@ -68,7 +85,7 @@ public class ArrayInversions
                 result[i] = leftHalf[currLeft++];
             }
             // If current element in left is less than or equal to right, copy it
-            else if (leftHalf[currLeft] <= rightHalf[currRight])
+            else if (leftHalf[currLeft] <= metric(rightHalf[currRight]))
             {
                 result[i] = leftHalf[currLeft++];
             }
@@ -77,11 +94,14 @@ public class ArrayInversions
             {
                 result[i] = rightHalf[currRight];
                 inversions += leftHalf.Length - currLeft;
+                
                 currRight++;
             }
         }
 
         return (result, inversions);
     }
+
+    #endregion
 }
 

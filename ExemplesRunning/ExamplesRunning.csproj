@@ -26,8 +26,8 @@
     <ProjectReference Include="..\NeedlemanWunsch\NeedlemanWunsch.csproj" />
     <ProjectReference Include="..\SalesmanProblem\SalesmanProblem.csproj" />
     <ProjectReference Include="..\Schedules\ScheduleOptimization\ScheduleOptimization.csproj" />
-    <ProjectReference Include="..\Searching\Finding\Searching.Common.csproj" />
-    <ProjectReference Include="..\Searching\PatternMatching\Searching.PatternMatching.csproj" />
+    <ProjectReference Include="..\Searching\Searching.Common\Searching.Common.csproj" />
+    <ProjectReference Include="..\Searching\Searching.PatternMatching\Searching.PatternMatching.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Common\Sorting.Common.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Insertion\Sorting.Insertion.csproj" />
     <ProjectReference Include="..\TowersOfHanoi\TowersOfHanoi.csproj" />

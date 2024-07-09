@@ -15,10 +15,10 @@ public class KaratsubaMultShould
     [InlineData(222, 222, 49284)]
     [InlineData(1234, 5678, 7006652)]
     [InlineData(12345678, 87654321, 1082152022374638)]
-    public void Mult(int x, int y, int expected)
+    public void Mult(int x, int y, long expected)
     {
         // Arrange & Act
-        int result = KaratsubaMult.Mult(x, y);
+        long result = KaratsubaMult.Mult(x, y);
 
         // Assert
         result.Should().Be(expected);

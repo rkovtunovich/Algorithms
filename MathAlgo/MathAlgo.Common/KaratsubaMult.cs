@@ -6,12 +6,12 @@ public static class KaratsubaMult
     // divide and conquer algorithm
     // O(n^1.59) time complexity
     // recurrence relation: T(n) = 3T(n/2) + O(n)
-    public static int Mult(int x, int y)
+    public static long Mult(int x, int y)
     {
         return RecMult(x, y);
     }
 
-    private static int RecMult(int x, int y)
+    private static long RecMult(int x, int y)
     {
         // Base case for single digit numbers
         if (x < 10 && y < 10)
@@ -30,12 +30,12 @@ public static class KaratsubaMult
         int low2 = y % (int)Math.Pow(10, m);
 
         // 3 recursive calls    
-        int z0 = RecMult(low1, low2);
-        int z1 = RecMult((low1 + high1), (low2 + high2));
-        int z2 = RecMult(high1, high2);
+        long z0 = RecMult(low1, low2);
+        long z1 = RecMult((low1 + high1), (low2 + high2));
+        long z2 = RecMult(high1, high2);
 
         // Karatsuba formula
-        int result = (z2 * (int)Math.Pow(10, 2 * m)) + ((z1 - z2 - z0) * (int)Math.Pow(10, m)) + z0;
+        long result = (z2 * (int)Math.Pow(10, 2 * m)) + ((z1 - z2 - z0) * (int)Math.Pow(10, m)) + z0;
 
         return result;
     }

@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Finding\Searching.Common.csproj" />
+    <ProjectReference Include="..\Searching.Common\Searching.Common.csproj" />
   </ItemGroup>
 
 

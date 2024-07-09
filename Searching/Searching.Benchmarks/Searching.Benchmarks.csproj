@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Helpers\Helpers.csproj" />
-    <ProjectReference Include="..\Finding\Searching.Common.csproj" />
+    <ProjectReference Include="..\Searching.Common\Searching.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -166,10 +166,10 @@ public class HeapMinShould
         heap.Insert(3, "three");
 
         // Act
-        var leftChildPosition = heap.GetLeftChildPosition(1);
+        var leftChildPosition = heap.GetLeftChildPosition(0);
 
         // Assert
-        leftChildPosition.Should().Be(2);
+        leftChildPosition.Should().Be(1);
     }
 
     [Fact]
@@ -182,9 +182,9 @@ public class HeapMinShould
         heap.Insert(3, "three");
 
         // Act
-        var rightChildPosition = heap.GetRightChildPosition(1);
+        var rightChildPosition = heap.GetRightChildPosition(0);
 
         // Assert
-        rightChildPosition.Should().Be(3);
+        rightChildPosition.Should().Be(2);
     }
 }

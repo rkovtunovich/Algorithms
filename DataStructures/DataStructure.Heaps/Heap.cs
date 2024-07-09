@@ -107,10 +107,10 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     public HeapNode<TKey, TValue> ExtractNode()
     {
-        var minimum = this[0];
+        var minimum = Extremum;
 
-        Swap(0, _length - 1);
         _length--;
+        Swap(0, _length);
 
         SiftDown(0);
 

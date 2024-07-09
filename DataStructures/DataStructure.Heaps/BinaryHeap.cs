@@ -23,16 +23,16 @@ public abstract class BinaryHeap<TKey, TValue> : Heap<TKey, TValue> where TKey :
 
     public int GetLeftChildPosition(int pos)
     {
-        int childPos = pos << 1;
+        int childPos = (pos << 1) + 1;
 
-        return childPos > _length ? -1 : childPos;
+        return childPos >= _length ? -1 : childPos;
     }
 
     public int GetRightChildPosition(int pos)
     {
-        int childPos = (pos << 1) + 1;
+        int childPos = (pos << 1) + 2;
 
-        return childPos > _length ? -1 : childPos;
+        return childPos >= _length ? -1 : childPos;
     }
 }
 

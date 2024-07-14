@@ -85,6 +85,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distance.Common", "Distance
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distance.Tests", "Distance\Distance.Tests\Distance.Tests.csproj", "{D264D9A5-234C-4E44-856F-E723FAD3900B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Searching.MajorityElementProblem", "Searching\Searching.MajorityElementProblem\Searching.MajorityElementProblem.csproj", "{3753A61F-A5A0-4ABC-AA7F-FE9A83A5B25A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -227,6 +229,10 @@ Global
 		{D264D9A5-234C-4E44-856F-E723FAD3900B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D264D9A5-234C-4E44-856F-E723FAD3900B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D264D9A5-234C-4E44-856F-E723FAD3900B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3753A61F-A5A0-4ABC-AA7F-FE9A83A5B25A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3753A61F-A5A0-4ABC-AA7F-FE9A83A5B25A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3753A61F-A5A0-4ABC-AA7F-FE9A83A5B25A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3753A61F-A5A0-4ABC-AA7F-FE9A83A5B25A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -255,6 +261,7 @@ Global
 		{2D3AFD70-16D2-48BB-BD10-D246D1A8A2C4} = {1B504758-5F54-45E4-87D7-D948ED955B97}
 		{75CAD1D4-EED8-4959-B550-79BC4628B180} = {CD2DA852-F927-4A70-ADEF-10D214CAC074}
 		{D264D9A5-234C-4E44-856F-E723FAD3900B} = {CD2DA852-F927-4A70-ADEF-10D214CAC074}
+		{3753A61F-A5A0-4ABC-AA7F-FE9A83A5B25A} = {02EB7DED-F843-4110-BA91-306FE35D1BBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F0EF03E-741C-47C2-9E8E-0624F896543E}

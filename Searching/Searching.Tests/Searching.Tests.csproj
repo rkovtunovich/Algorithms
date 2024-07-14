@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Searching.Common\Searching.Common.csproj" />
+    <ProjectReference Include="..\Searching.MajorityElementProblem\Searching.MajorityElementProblem.csproj" />
   </ItemGroup>
 
 

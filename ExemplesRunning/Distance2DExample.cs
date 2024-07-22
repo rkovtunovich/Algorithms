@@ -1,5 +1,5 @@
 ﻿using Helpers.Space;
-using Distance.Common;
+using Spacing.Common;
 
 namespace ExamplesRunning;
 

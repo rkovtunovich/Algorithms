@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Common\Sorting.Common.csproj" />
+    <ProjectReference Include="..\Spacing\Spacing.Core\Spacing.Core.csproj" />
   </ItemGroup>
 
 </Project>

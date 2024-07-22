@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Distance.Common\Distance.Common.csproj" />
+    <ProjectReference Include="..\Spacing.Common\Spacing.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

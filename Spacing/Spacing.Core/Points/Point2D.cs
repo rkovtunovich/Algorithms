@@ -1,4 +1,4 @@
-﻿namespace Models.Spacing;
+﻿namespace Spacing.Core.Points;
 
 public readonly struct Point2D : IPoint
 {
@@ -12,7 +12,7 @@ public readonly struct Point2D : IPoint
         this.x = x;
         this.y = y;
     }
-    
+
     /// <summary>
     /// Get the coordinate of the point in the given dimension.
     /// 0 for x, 1 for y.

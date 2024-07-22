@@ -1,4 +1,4 @@
-﻿namespace Distance.Tests;
+﻿namespace Spacing.Tests;
 
 public class TwoDimensionShould
 {

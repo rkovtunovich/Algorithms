@@ -1,8 +1,8 @@
 ﻿using Helpers.Space;
-using Models.Spacing;
+using Spacing.Core.Points;
 using Sorting.Common;
 
-namespace Distance.Common;
+namespace Spacing.Common;
 
 public class TwoDimension
 {

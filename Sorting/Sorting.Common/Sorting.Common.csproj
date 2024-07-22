@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\DataStructures\DataStructure.Heaps\DataStructures.Heaps.csproj" />
     <ProjectReference Include="..\..\DataStructures\DataStructures.Lists\DataStructures.Lists.csproj" />
     <ProjectReference Include="..\..\Models\Models.csproj" />
+    <ProjectReference Include="..\..\Spacing\Spacing.Core\Spacing.Core.csproj" />
     <ProjectReference Include="..\..\View\View.csproj" />
     <ProjectReference Include="..\Sorting.Insertion\Sorting.Insertion.csproj" />
   </ItemGroup>

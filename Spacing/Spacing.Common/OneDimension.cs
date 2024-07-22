@@ -1,6 +1,6 @@
 ﻿using Sorting.Common;
 
-namespace Distance.Common;
+namespace Spacing.Common;
 
 internal class OneDimension
 {

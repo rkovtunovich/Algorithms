@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\Spacing.Core\Spacing.Core.csproj" />
   </ItemGroup>
 
 </Project>

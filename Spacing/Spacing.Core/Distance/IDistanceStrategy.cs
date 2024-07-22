@@ -1,4 +1,4 @@
-﻿using Models.Spacing;
+﻿using Spacing.Core.Points;
 
 public interface IDistanceStrategy
 {

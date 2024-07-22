@@ -1,4 +1,4 @@
-﻿namespace Models.Spacing;
+﻿namespace Spacing.Core.Points;
 
 public readonly struct Point : IPoint
 {

@@ -14,16 +14,16 @@ public class TwoDimension
         if (showSteps)
             SpaceHelper.Show2DPoints(points);
 
-        // sort by x coordinate
-        MergeSort2DPoints.Sort(ref points, new XOrdinateComparer<Point2D>());
+        // sort by X coordinate
+        MergeSort2DPoints.Sort(ref points, 0);
 
         if (showSteps)
             SpaceHelper.Show2DPoints(points);
 
-        // copy of points sorted by y coordinate
+        // copy of points sorted by Y coordinate
         var copy = (Point2D[])points.Clone();
-        // sort by y coordinate
-        MergeSort2DPoints.Sort(ref points, new YOrdinateComparer<Point2D>());
+        // sort by Y coordinate
+        MergeSort2DPoints.Sort(ref points, 1);
 
         if (showSteps)
             SpaceHelper.Show2DPoints(points);
@@ -64,7 +64,7 @@ public class TwoDimension
 
     private static double GetDistance2D(Point2D p1, Point2D p2)
     {
-        return Math.Sqrt(Math.Pow(p1.x - p2.x, 2) + Math.Pow(p1.y - p2.y, 2));
+        return Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
     }
 
     private static (Point2D, Point2D, double) GetClosestPoints(Point2D[] pointsX, Point2D[] pointsY)
@@ -97,11 +97,11 @@ public class TwoDimension
 
     private static (Point2D x, Point2D y, double d) GetClosestPointsSplit(Point2D[] pointsX, Point2D[] pointsY, double currentClosestDistance)
     {
-        // the x coordinate of the last point in array is median because array is sorted and half divided
+        // the X coordinate of the last point in array is median because array is sorted and half divided
         int medianX = pointsX[^1].GetCoordinate(1);
-        // the range of x coordinates to check
+        // the range of X coordinates to check
         double xMin = medianX - currentClosestDistance;
-        // the range of x coordinates to check
+        // the range of X coordinates to check
         double xMax = medianX + currentClosestDistance;
 
         Point2D p1 = pointsX[0];

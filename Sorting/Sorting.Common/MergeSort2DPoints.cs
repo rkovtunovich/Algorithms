@@ -4,32 +4,26 @@ namespace Sorting.Common;
 
 public static class MergeSort2DPoints
 {
-    private static IComparer<Point2D> _comparer = null!;
-
-    public static void Sort(ref Point2D[] array, IComparer<Point2D> comparer)
+    public static void Sort(ref Point2D[] array, int dimension)
     {
-        ArgumentNullException.ThrowIfNull(comparer);
-
-        _comparer = comparer;
-
-        Point2D[] arr = SortArray(array, 0, array.Length - 1);
+        Point2D[] arr = SortArray(array, 0, array.Length - 1, dimension);
 
         array = arr;
     }
 
-    private static Point2D[] SortArray(Point2D[] array, int startIndex, int endIndex)
+    private static Point2D[] SortArray(Point2D[] array, int startIndex, int endIndex, int dimension)
     {
         if (startIndex == endIndex)
             return [array[startIndex]];
 
         int middle = (endIndex + startIndex) / 2;
-        Point2D[] firstHalf = SortArray(array, startIndex, middle);
-        Point2D[] secondHalf = SortArray(array, middle + 1, endIndex);
+        Point2D[] firstHalf = SortArray(array, startIndex, middle, dimension);
+        Point2D[] secondHalf = SortArray(array, middle + 1, endIndex, dimension);
 
-        return Merge(firstHalf, secondHalf);
+        return Merge(firstHalf, secondHalf, dimension);
     }
 
-    private static Point2D[] Merge(Point2D[] leftHalf, Point2D[] rightHalf)
+    private static Point2D[] Merge(Point2D[] leftHalf, Point2D[] rightHalf, int dimension)
     {
         int length = leftHalf.Length + rightHalf.Length;
         Point2D[] result = new Point2D[length];
@@ -48,7 +42,7 @@ public static class MergeSort2DPoints
                 result[i] = leftHalf[currLeft];
                 currLeft++;
             }
-            else if (_comparer.Compare(leftHalf[currLeft], rightHalf[currRight]) <= 0)
+            else if (leftHalf[currLeft].CompareByDimension(dimension, rightHalf[currRight]) <= 0)
             {
                 result[i] = leftHalf[currLeft];
                 currLeft++;

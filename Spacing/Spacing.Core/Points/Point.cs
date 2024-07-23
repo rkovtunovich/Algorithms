@@ -1,23 +1,29 @@
 ﻿namespace Spacing.Core.Points;
 
-public readonly struct Point : IPoint
+public readonly struct Point(int x) : IPoint
 {
     public int DimensionCount => 1;
 
-    public readonly int x;
-
-    public Point(int x)
-    {
-        this.x = x;
-    }
+    public readonly int X = x;
 
     public int GetCoordinate(int dimension = 0)
     {
-        return x;
+        return X;
     }
 
     public override string? ToString()
     {
-        return $"{x}";
+        return $"{X}";
+    }
+
+    public int CompareTo(IPoint? other)
+    {
+        if (other is null)      
+            return 1;
+        
+        if (DimensionCount != other.DimensionCount)        
+            throw new ArgumentException("Cannot compare points of different dimensions.");
+        
+        return GetCoordinate().CompareTo(other.GetCoordinate(0));
     }
 }

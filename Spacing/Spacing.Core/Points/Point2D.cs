@@ -1,21 +1,15 @@
 ﻿namespace Spacing.Core.Points;
 
-public readonly struct Point2D : IPoint
+public readonly struct Point2D(int x, int y) : IPoint
 {
-    public readonly int x;
-    public readonly int y;
+    public readonly int X = x;
+    public readonly int Y = y;
 
     public int DimensionCount => 2;
 
-    public Point2D(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
-    }
-
     /// <summary>
     /// Get the coordinate of the point in the given dimension.
-    /// 0 for x, 1 for y.
+    /// 0 for X, 1 for Y.
     /// </summary>
     /// <param name="dimension"></param>
     /// <returns></returns>
@@ -23,14 +17,47 @@ public readonly struct Point2D : IPoint
     {
         return dimension switch
         {
-            0 => x,
-            1 => y,
+            0 => X,
+            1 => Y,
             _ => throw new ArgumentOutOfRangeException(nameof(dimension))
         };
     }
 
     public override string? ToString()
     {
-        return $"{x}:{y}";
+        return $"{X}:{Y}";
+    }
+
+    public int CompareByX(IPoint? other)
+    {
+        if (other is null)
+            return 1;
+
+        if (DimensionCount != other.DimensionCount)
+            throw new ArgumentException("Cannot compare points of different dimensions.");
+
+        return GetCoordinate(0).CompareTo(other.GetCoordinate(0));
+    }
+
+    public int CompareByY(IPoint? other)
+    {
+        if (other is null)
+            return 1;
+
+        if (DimensionCount != other.DimensionCount)
+            throw new ArgumentException("Cannot compare points of different dimensions.");
+
+        return GetCoordinate(1).CompareTo(other.GetCoordinate(1));
+    }
+
+    public int CompareByDimension(int dimension, IPoint? other)
+    {
+        if (other is null)
+            return 1;
+
+        if (DimensionCount != other.DimensionCount)
+            throw new ArgumentException("Cannot compare points of different dimensions.");
+
+        return GetCoordinate(dimension).CompareTo(other.GetCoordinate(dimension));
     }
 }

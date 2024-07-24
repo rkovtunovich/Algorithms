@@ -1,9 +1,9 @@
 ﻿namespace Spacing.Core.Points;
 
-public readonly struct Point2D(int x, int y) : IPoint
+public readonly struct Point2D(double x, double y) : IPoint
 {
-    public readonly int X = x;
-    public readonly int Y = y;
+    public readonly double X = x;
+    public readonly double Y = y;
 
     public int DimensionCount => 2;
 
@@ -13,7 +13,7 @@ public readonly struct Point2D(int x, int y) : IPoint
     /// </summary>
     /// <param name="dimension"></param>
     /// <returns></returns>
-    public int GetCoordinate(int dimension)
+    public double GetCoordinate(int dimension)
     {
         return dimension switch
         {

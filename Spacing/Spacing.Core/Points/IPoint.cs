@@ -4,5 +4,5 @@ public interface IPoint
 {
     public int DimensionCount { get; }
 
-    public int GetCoordinate(int dimension);
+    public double GetCoordinate(int dimension);
 }

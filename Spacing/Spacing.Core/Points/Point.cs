@@ -1,12 +1,12 @@
 ﻿namespace Spacing.Core.Points;
 
-public readonly struct Point(int x) : IPoint
+public readonly struct Point(double x) : IPoint
 {
     public int DimensionCount => 1;
 
-    public readonly int X = x;
+    public readonly double X = x;
 
-    public int GetCoordinate(int dimension = 0)
+    public double GetCoordinate(int dimension = 0)
     {
         return X;
     }

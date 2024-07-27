@@ -1,6 +1,8 @@
-﻿namespace Spacing.Tests;
+﻿using Spacing.Common.TwoDimension;
 
-public class TwoDimensionShould
+namespace Spacing.Tests.TwoDimension;
+
+public class ClosestPointsFinderShould
 {
     [Fact]
     public void GetClosestPoints_WhenGivenPoints_ReturnsClosestPoints()
@@ -17,7 +19,7 @@ public class TwoDimensionShould
         };
 
         // Act
-        var (point1, point2, distance) = TwoDimension.GetClosestPoints(points);
+        var (point1, point2, distance) = ClosestPointsFinder.GetClosestPoints(points);
 
         // Assert
         point1.Should().BeEquivalentTo(new Point2D(2, 3));
@@ -42,7 +44,7 @@ public class TwoDimensionShould
         };
 
         // Act
-        var (point1, point2, distance) = TwoDimension.GetClosestPoints(points, true);
+        var (point1, point2, distance) = ClosestPointsFinder.GetClosestPoints(points, true);
 
         // Assert
         point1.Should().BeEquivalentTo(new Point2D(2, 3));
@@ -61,7 +63,7 @@ public class TwoDimensionShould
         };
 
         // Act
-        Action act = () => TwoDimension.GetClosestPoints(points);
+        Action act = () => ClosestPointsFinder.GetClosestPoints(points);
 
         // Assert
         act.Should().Throw<ArgumentException>()

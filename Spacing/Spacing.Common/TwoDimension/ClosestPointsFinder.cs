@@ -2,9 +2,9 @@
 using Spacing.Core.Points;
 using Sorting.Common;
 
-namespace Spacing.Common;
+namespace Spacing.Common.TwoDimension;
 
-public class TwoDimension
+public class ClosestPointsFinder
 {
     public static (Point2D, Point2D, double) GetClosestPoints(Point2D[] points, bool showSteps = false)
     {

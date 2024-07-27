@@ -1,5 +1,5 @@
 ﻿using Helpers.Space;
-using Spacing.Common;
+using Spacing.Common.TwoDimension;
 
 namespace ExamplesRunning;
 
@@ -9,7 +9,7 @@ public static class Distance2DExample
     {
         var points = SpaceHelper.GetSetOf2DPoints(10, 20, 20);
 
-        var point = TwoDimension.GetClosestPoints(points);
+        var point = ClosestPointsFinder.GetClosestPoints(points);
 
         Console.WriteLine(point);
 

@@ -1,15 +1,42 @@
-﻿namespace Sorting.Common;
+﻿using Sorting.Insertion;
 
-// Quick sort is an improvement on bubble sort.
-// The QuickSort algorithm is a divide-and-conquer sorting algorithm that works by selecting a 'pivot' element from the array and partitioning the other elements into two groups,
-// according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
-// Quick sort essentially is a recursive algorithm using divide-and-conquer idea.
-// Under normal circumstances, quick sort is faster than most sorting algorithms, and is currently the publicly acknowledged fastest sorting method.
-// However, when the sequence is basically ordered, it will deteriorate into bubble sort, which affects the performance of the sort.
-// In addition, quick sort is based on recursion and involves a huge amount of stack operations in the memory.
-// For machines with very limited memory, it would not be a good choice.
+namespace Sorting.Common;
 
-public class QuickSort
+// To optimize the QuickSort algorithm by utilizing Insertion Sort for small subarrays,
+// we can modify the QuickSort algorithm to use Insertion Sort when the size of the subarray is less than 𝑘.
+// The idea is that Insertion Sort is efficient for nearly sorted sequences or small-sized arrays.
+// This hybrid approach leverages the strengths of both algorithms.
+//
+// Steps to Hybrid QuickSort:
+// 1. QuickSort: Use QuickSort to recursively sort the array. However, when the size of the subarray is less than 𝑘, stop the recursion.
+// 2. Insertion Sort: After QuickSort has been applied to subarrays of size 𝑘 or more, use Insertion Sort to sort the entire array.
+//
+// Analysis:
+// Let's denote the running time of QuickSort as 𝑇(𝑛).
+// 1. Partitioning
+//    - The partitioning step takes 𝑂(𝑛) time.
+//    - For subarrays of size less than 𝑘, the partitioning step will not be performed.
+// 2. Recursion
+//    - The recurrence relation for the running time of hybrid QuickSort is: 𝑇(𝑛) = O(𝑛) + 2𝑇(𝑛/2) if 𝑛 > 𝑘, and 0 if 𝑛 ≤ 𝑘.
+// 3. Solving the Recurrence Relation
+//    - For n > k, the solution to the recurrence relation is 𝑇(𝑛) = O(n) + 2𝑇(𝑛/2) = O(n log n).
+//    - The height of the recursion tree is log n, and each level takes O(n/k) time, because the partitioning step is not performed for subarrays of size less than k.
+//    - At each level, the total time taken is O(n).
+//    - Therefore, the total time complexity is O(n log n/k).
+// 4. Insertion Sort
+//    - Once the QuickSort reduces the subarrays to size k or less, the Insertion Sort is applied to the entire array.
+//    - The InsertionSort runs O(n*k) time.
+// 5. Total Time Complexity
+//    - The total time complexity of the hybrid QuickSort is O(n log n/k) + O(n*k) = O(n log n + n*k).
+//
+// Choosing the value of k:
+// To choose the optimal value of k, we need to balance the two components of the total time complexity:
+// - O(n log n/k) for QuickSort
+// - O(n*k) for Insertion Sort
+// - For theoretical and practical considerations, k is typically chosen such as that log n/k = k.
+// - That implies k = sqrt(log n).
+// - Therefore, the optimal value of k = O(sqrt(n)).
+public class QuickSortHybrid
 {
     // A random number generator to be used for selecting pivot indices
     private static readonly Random _random = new();
@@ -21,6 +48,9 @@ public class QuickSort
             return;
 
         SortRec(array, 0, array.Length - 1, isDescending);
+
+        // Use Insertion Sort for the entire array
+        InsertionSort.Sort(array, isDescending);
     }
 
     // Sorts a list of elements of type T and updates the original list
@@ -32,6 +62,9 @@ public class QuickSort
         // Sort the array
         SortRec(array, 0, array.Length - 1, isDescending);
 
+        // Use Insertion Sort for the entire array
+        InsertionSort.Sort(array, isDescending);
+
         // Update the original list with the sorted element
         list = [.. array];
     }
@@ -39,8 +72,8 @@ public class QuickSort
     // Recursive function to sort an array of elements of type T within the specified range
     private static void SortRec<T>(T[] array, int leftIndex, int rightIndex, bool isDescending) where T : INumber<T>
     {
-        // Base case: return if there's only one element in the range
-        if (leftIndex == rightIndex)
+        // If the size of the subarray is less than k, stop the recursion
+        if (rightIndex - leftIndex + 1 <= DetermineK(array.Length))
             return;
 
         // Randomly select a pivot index within the range
@@ -84,4 +117,6 @@ public class QuickSort
     {
         return _random?.Next(min, max) ?? 0;
     }
+
+    private static int DetermineK(int n) => (int)Math.Sqrt(n);
 }

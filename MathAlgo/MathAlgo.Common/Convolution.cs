@@ -1,6 +1,4 @@
-﻿using Models.MathModels;
-
-namespace MathAlgo.Common;
+﻿namespace MathAlgo.Common;
 
 public static class Convolution
 {

@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Helpers\Helpers.csproj" />
-    <ProjectReference Include="..\..\Models\Models.csproj" />
+    <ProjectReference Include="..\MathAlgo.Models\MathAlgo.Models.csproj" />
   </ItemGroup>
 
 </Project>

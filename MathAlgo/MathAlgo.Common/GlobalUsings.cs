@@ -1,1 +1,1 @@
-global using Models.MathModels;
+global using MathAlgo.Models;

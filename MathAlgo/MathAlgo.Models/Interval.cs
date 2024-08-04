@@ -1,4 +1,4 @@
-﻿namespace Models.Scheduling;
+﻿namespace MathAlgo.Models;
 
 public record Interval
 {

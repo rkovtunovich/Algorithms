@@ -2,6 +2,6 @@ global using FluentAssertions;
 
 global using MathAlgo.Common;
 
-global using Models.MathModels;
+global using MathAlgo.Models;
 
 global using Xunit;

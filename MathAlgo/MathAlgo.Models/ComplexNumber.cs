@@ -1,4 +1,4 @@
-﻿namespace Models.MathModels;
+﻿namespace MathAlgo.Models;
 
 public readonly struct ComplexNumber(double real = 0, double imaginary = 0)
 {
@@ -45,7 +45,7 @@ public readonly struct ComplexNumber(double real = 0, double imaginary = 0)
     public static ComplexNumber operator /(double a, ComplexNumber b)
     {
         var denominator = b.Real * b.Real + b.Imaginary * b.Imaginary;
-        return new((a * b.Real) / denominator, (-a * b.Imaginary) / denominator);
+        return new(a * b.Real / denominator, -a * b.Imaginary / denominator);
     }
 
     public static ComplexNumber operator *(int a, ComplexNumber b)
@@ -56,7 +56,7 @@ public readonly struct ComplexNumber(double real = 0, double imaginary = 0)
     public static ComplexNumber operator /(int a, ComplexNumber b)
     {
         var denominator = b.Real * b.Real + b.Imaginary * b.Imaginary;
-        return new((a * b.Real) / denominator, (-a * b.Imaginary) / denominator);
+        return new(a * b.Real / denominator, -a * b.Imaginary / denominator);
     }
 
     public static ComplexNumber operator -(ComplexNumber a)
@@ -74,7 +74,7 @@ public readonly struct ComplexNumber(double real = 0, double imaginary = 0)
     {
         double real = Math.Abs(Real - Math.Round(Real)) < tolerance ? Math.Round(Real) : Real;
         double imaginary = Math.Abs(Imaginary - Math.Round(Imaginary)) < tolerance ? Math.Round(Imaginary) : Imaginary;
-        
+
         return new(real, imaginary);
     }
 
@@ -96,5 +96,5 @@ public readonly struct ComplexNumber(double real = 0, double imaginary = 0)
         _ => $"{imaginary}i"
     };
 
-    private static string GetSign(double value) => value < 0 ? "-" : "+"; 
+    private static string GetSign(double value) => value < 0 ? "-" : "+";
 }

@@ -93,7 +93,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spacing.Common", "Spacing\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spacing.Tests", "Spacing\Spacing.Tests\Spacing.Tests.csproj", "{92D9016F-CCCF-4846-A11F-415E36163AF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spacing.Core", "Spacing\Spacing.Core\Spacing.Core.csproj", "{256CFF57-675C-4350-8651-FFC866143CEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spacing.Core", "Spacing\Spacing.Core\Spacing.Core.csproj", "{256CFF57-675C-4350-8651-FFC866143CEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathAlgo.Models", "MathAlgo\MathAlgo.Models\MathAlgo.Models.csproj", "{89D646F0-DD33-48D1-8E37-D652AFFCB421}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -253,6 +255,10 @@ Global
 		{256CFF57-675C-4350-8651-FFC866143CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{256CFF57-675C-4350-8651-FFC866143CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{256CFF57-675C-4350-8651-FFC866143CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89D646F0-DD33-48D1-8E37-D652AFFCB421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89D646F0-DD33-48D1-8E37-D652AFFCB421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89D646F0-DD33-48D1-8E37-D652AFFCB421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89D646F0-DD33-48D1-8E37-D652AFFCB421}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -285,6 +291,7 @@ Global
 		{533B456A-FD0D-4704-ADDB-13C193A5C14C} = {CD2DA852-F927-4A70-ADEF-10D214CAC074}
 		{92D9016F-CCCF-4846-A11F-415E36163AF2} = {CD2DA852-F927-4A70-ADEF-10D214CAC074}
 		{256CFF57-675C-4350-8651-FFC866143CEF} = {CD2DA852-F927-4A70-ADEF-10D214CAC074}
+		{89D646F0-DD33-48D1-8E37-D652AFFCB421} = {989B2C6D-366D-450C-8E8F-9B7AFD79B282}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F0EF03E-741C-47C2-9E8E-0624F896543E}

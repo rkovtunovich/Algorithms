@@ -38,7 +38,7 @@ public static class BucketSort
             if (buckets[i] == null)
                 continue;
 
-            QuickSort.Sort(ref buckets[i]);
+            QuickSortClassic.Sort(ref buckets[i]);
             for (int j = 0; j < buckets[i].Count; j++)
             {
                 array[k++] = buckets[i][j];

@@ -16,7 +16,7 @@
     <ProjectReference Include="..\..\Models\Models.csproj" />
     <ProjectReference Include="..\..\Spacing\Spacing.Core\Spacing.Core.csproj" />
     <ProjectReference Include="..\..\View\View.csproj" />
-    <ProjectReference Include="..\Sorting.Insertion\Sorting.Insertion.csproj" />
+    <ProjectReference Include="..\Sorting.QuickSort\Sorting.QuickSort.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Sorting.Common;
+﻿namespace Sorting.QuickSort;
 
 // Quick sort is an improvement on bubble sort.
 // The QuickSort algorithm is a divide-and-conquer sorting algorithm that works by selecting a 'pivot' element from the array and partitioning the other elements into two groups,
@@ -9,7 +9,7 @@
 // In addition, quick sort is based on recursion and involves a huge amount of stack operations in the memory.
 // For machines with very limited memory, it would not be a good choice.
 
-public class QuickSort
+public class QuickSortClassic
 {
     // A random number generator to be used for selecting pivot indices
     private static readonly Random _random = new();

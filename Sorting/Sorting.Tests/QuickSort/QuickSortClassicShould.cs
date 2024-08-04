@@ -1,5 +1,6 @@
-﻿namespace Sorting.Tests.Common;
-public class QuickSortShould
+﻿namespace Sorting.Tests.QuickSort;
+
+public class QuickSortClassicShould
 {
     [Fact]
     public void Sort_WhenArrayIsEmpty_ShouldNotThrowException()
@@ -8,7 +9,7 @@ public class QuickSortShould
         var array = Array.Empty<int>();
 
         // Act
-        QuickSort.Sort(array);
+        QuickSortClassic.Sort(array);
 
         // Assert
         array.Should().BeEmpty();
@@ -21,7 +22,7 @@ public class QuickSortShould
         var array = new int[] { 1 };
 
         // Act
-        QuickSort.Sort(array);
+        QuickSortClassic.Sort(array);
 
         // Assert
         array.Should().BeEquivalentTo(new int[] { 1 });
@@ -34,7 +35,7 @@ public class QuickSortShould
         var array = new int[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5 };
 
         // Act
-        QuickSort.Sort(array);
+        QuickSortClassic.Sort(array);
 
         // Assert
         array.Should().BeInAscendingOrder();
@@ -47,7 +48,7 @@ public class QuickSortShould
         var array = new int[] { 9, 7, 5, 3, 1 };
 
         // Act
-        QuickSort.Sort(array, true);
+        QuickSortClassic.Sort(array, true);
 
         // Assert
         array.Should().BeInDescendingOrder();

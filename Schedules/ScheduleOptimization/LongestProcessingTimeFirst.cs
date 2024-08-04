@@ -1,5 +1,5 @@
 ﻿using DataStructures.Heaps;
-using Sorting.Common;
+using Sorting.QuickSort;
 
 namespace ScheduleOptimization;
 
@@ -42,7 +42,7 @@ public static class LongestProcessingTimeFirst
         }
 
         // Sort the jobs list in ascending order
-        QuickSort.Sort(ref jobs);
+        QuickSortClassic.Sort(ref jobs);
 
         // Loop through the jobs list in reverse order (i.e., starting from the longest job)
         for (int i = jobs.Count - 1; i >= 0; i--)

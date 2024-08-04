@@ -1,4 +1,6 @@
-﻿namespace Sorting.Tests.Common;
+﻿using Sorting.QuickSort;
+
+namespace Sorting.Tests.QuickSort;
 
 public class QuickSortHybridShould
 {

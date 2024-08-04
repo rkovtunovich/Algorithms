@@ -1,4 +1,4 @@
-﻿using Sorting.Common;
+﻿using Sorting.QuickSort;
 
 namespace Searching.Common;
 
@@ -9,7 +9,7 @@ public class FindingPairWithSum
     public static int[]? FindPairBinarySearch(int[] array, int sum)
     {
         // Sort the array
-        QuickSort.Sort(array);
+        QuickSortClassic.Sort(array);
 
         // Iterate through each element in the array
         for (int i = 0; i < array.Length; i++)
@@ -34,7 +34,7 @@ public class FindingPairWithSum
     public static int[]? FindPairTwoPointer(int[] array, int sum)
     {
         // Sort the array
-        QuickSort.Sort(array);
+        QuickSortClassic.Sort(array);
 
         // Set the starting and ending indices of the search range
         int startIndex = 0;

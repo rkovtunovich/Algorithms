@@ -1,6 +1,6 @@
 ﻿using Searching.Common;
 using Helpers;
-using Sorting.Common;
+using Sorting.QuickSort;
 
 namespace ExamplesRunning;
 
@@ -57,7 +57,7 @@ internal static class FindingExample
 
         int stat = RSelect.Find(array, 4);
 
-        QuickSort.Sort(array);
+        QuickSortClassic.Sort(array);
         Viewer.ShowArray(array);
 
         Console.WriteLine(stat);

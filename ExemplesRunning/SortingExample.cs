@@ -3,6 +3,7 @@ using Helpers;
 using Searching.Common;
 using Sorting.Common;
 using Sorting.Insertion;
+using Sorting.QuickSort;
 using System.Diagnostics;
 
 namespace ExamplesRunning;
@@ -47,7 +48,7 @@ internal class SortingExample
         var stopWatch = new Stopwatch();
 
         stopWatch.Start();
-        QuickSort.Sort(array);
+        QuickSortClassic.Sort(array);
         stopWatch.Stop();
 
         Console.WriteLine($"-------------------");

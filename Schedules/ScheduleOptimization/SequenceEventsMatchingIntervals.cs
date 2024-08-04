@@ -1,4 +1,4 @@
-﻿using Sorting.Common;
+﻿using Sorting.QuickSort;
 
 namespace ScheduleOptimization;
 
@@ -35,7 +35,7 @@ public class SequenceEventsMatchingIntervals
     {
         var matching = new Dictionary<int, Interval?>(); // Dictionary to store the matching of events with intervals.
 
-        QuickSort.Sort(ref events); // Sort the events in ascending order.
+        QuickSortClassic.Sort(ref events); // Sort the events in ascending order.
 
         // Sort intervals first by their length (margin of error) and then by start time.
         var sortedIntervals = intervals.OrderBy(x => (x.Duration)).ThenBy(x => x.Start).ToList<Interval?>();

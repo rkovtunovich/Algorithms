@@ -1,6 +1,6 @@
 ﻿using Sorting.Insertion;
 
-namespace Sorting.Common;
+namespace Sorting.QuickSort;
 
 // To optimize the QuickSort algorithm by utilizing Insertion Sort for small subarrays,
 // we can modify the QuickSort algorithm to use Insertion Sort when the size of the subarray is less than 𝑘.

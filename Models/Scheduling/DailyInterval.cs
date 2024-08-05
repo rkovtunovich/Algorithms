@@ -6,10 +6,6 @@ public record DailyInterval : Interval
 {
     public const int HoursInDay = 24;
 
-    public DailyInterval()
-    {
-    }
-
     public DailyInterval(int start, int end) : base(start, end)
     {
     }

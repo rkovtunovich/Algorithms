@@ -2,10 +2,6 @@
 
 public record Interval
 {
-    public Interval()
-    {
-    }
-
     public Interval(int start, int end)
     {
         Start = start;
@@ -26,5 +22,20 @@ public record Interval
     public bool Belongs(int value)
     {
         return value >= Start && value <= End;
+    }
+
+    public bool Overlaps(Interval interval)
+    {
+        return Start <= interval.End && interval.Start <= End;
+    }
+
+    public bool Before(Interval interval)
+    {
+        return End < interval.Start;
+    }
+
+    public bool After(Interval interval)
+    {
+        return Start > interval.End;
     }
 }

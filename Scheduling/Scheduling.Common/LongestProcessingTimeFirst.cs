@@ -1,7 +1,7 @@
 ﻿using DataStructures.Heaps;
 using Sorting.QuickSort;
 
-namespace ScheduleOptimization;
+namespace Scheduling.Common;
 
 // The algorithm appears to implement the Longest Processing Time First (LPTF) heuristic for machine scheduling.
 // The primary goal is to distribute a list of jobs across a certain number of machines in such a way that the workload is balanced as much as possible.

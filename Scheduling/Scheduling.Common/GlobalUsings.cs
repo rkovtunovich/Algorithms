@@ -1,6 +1,6 @@
 ﻿global using MathAlgo.Models;
 
-global using Models.Scheduling;
+global using Scheduling.Models;
 
 global using System.Collections;
 global using System.Numerics;

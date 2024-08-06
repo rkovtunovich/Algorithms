@@ -1,4 +1,4 @@
-﻿namespace ScheduleOptimization;
+﻿namespace Scheduling.Common;
 
 // Real world applications example:
 // You're working with a group of security consultants who are helping to monitor a large computer system. 
@@ -13,7 +13,7 @@
 
 public static class MinimizingIntervalCoverageProblem
 {
-  
+
     public static List<int> GetMinimumTimePointsSet(List<Interval> intervals)
     {
         var timePoints = new List<int>();

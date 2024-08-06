@@ -2,6 +2,10 @@
 
 public record Interval
 {
+    public Interval()
+    {
+    }
+
     public Interval(int start, int end)
     {
         Start = start;

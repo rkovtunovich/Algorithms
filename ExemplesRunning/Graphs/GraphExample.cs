@@ -9,7 +9,7 @@ using Graphs.Application.MWIS;
 using Graphs.Application.Optimization;
 using Graphs.Application.Search;
 using Graphs.Application.SpanningTrees;
-using Models.Scheduling;
+using Scheduling.Models;
 using View;
 using Graphs.Core.Model.Serialization;
 using Graphs.Application.MinimumArborescenceTrees;

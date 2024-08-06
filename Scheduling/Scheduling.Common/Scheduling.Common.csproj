@@ -9,9 +9,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\DataStructures\DataStructures.Common\DataStructures.Common.csproj" />
     <ProjectReference Include="..\..\DataStructures\DataStructures.HashTables\DataStructures.HashTables.csproj" />
-    <ProjectReference Include="..\..\MathAlgo\MathAlgo.Models\MathAlgo.Models.csproj" />
-    <ProjectReference Include="..\..\Models\Models.csproj" />
     <ProjectReference Include="..\..\Sorting\Sorting.Common\Sorting.Common.csproj" />
+    <ProjectReference Include="..\Scheduling.Models\Scheduling.Models.csproj" />
   </ItemGroup>
 
 </Project>

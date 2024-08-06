@@ -12,7 +12,6 @@
     <ProjectReference Include="..\..\DataStructures\DataStructures.BTrees\DataStructures.BTrees.csproj" />
     <ProjectReference Include="..\..\DataStructures\DataStructures.Common\DataStructures.Common.csproj" />
     <ProjectReference Include="..\..\DataStructures\DataStructures.HashTables\DataStructures.HashTables.csproj" />
-    <ProjectReference Include="..\..\Models\Models.csproj" />
   </ItemGroup>
 
 </Project>

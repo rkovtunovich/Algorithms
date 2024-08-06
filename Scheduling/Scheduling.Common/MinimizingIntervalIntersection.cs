@@ -1,4 +1,4 @@
-﻿namespace ScheduleOptimization;
+﻿namespace Scheduling.Common;
 
 // Real world applications example:
 // The manager of a large student union on campus comes to you with the following problem. 
@@ -51,11 +51,11 @@ public static class MinimizingIntervalIntersection
             var current = sortedByEnd[i];
 
             // Check if the current interval overlaps with the candidate interval.
-            if (current.End >= candidate.Start )
+            if (current.End >= candidate.Start)
             {
                 // If the current interval starts earlier and still overlaps, update the candidate.
-                if (current.Start < candidate.Start && current.End >= limit)             
-                    candidate = current;                               
+                if (current.Start < candidate.Start && current.End >= limit)
+                    candidate = current;
             }
             else
             {

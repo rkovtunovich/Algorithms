@@ -1,4 +1,4 @@
-﻿namespace ScheduleOptimization.Helpers;
+﻿namespace Scheduling.Common.Helpers;
 
 public static class IntervalViewer
 {
@@ -9,7 +9,7 @@ public static class IntervalViewer
             Console.Write($"[{interval.Start} : {interval.End}] \t");
             Console.Write("[");
 
-            if(interval.Start > interval.End)
+            if (interval.Start > interval.End)
             {
                 for (var i = 0; i < interval.End; i++)
                     Console.Write("-");

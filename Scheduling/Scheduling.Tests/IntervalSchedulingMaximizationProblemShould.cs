@@ -1,9 +1,8 @@
-﻿using Models.Scheduling;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using Scheduling.Models;
 
-namespace ScheduleOptimization.Tests;
+namespace Scheduling.Tests;
 
-public class IntervalSchedulingMaximizationProblemShould 
+public class IntervalSchedulingMaximizationProblemShould
 {
     // Expected Output: All intervals can be selected since none overlap.
     [Fact]
@@ -19,7 +18,7 @@ public class IntervalSchedulingMaximizationProblemShould
 
         // Act
         var result = IntervalSchedulingMaximizationProblem.GetOptimalSetForCycledTimeline(intervals);
-        
+
         // Assert
         result.Should().HaveCount(3);
     }
@@ -38,9 +37,9 @@ public class IntervalSchedulingMaximizationProblemShould
 
         // Act
         var result = IntervalSchedulingMaximizationProblem.GetOptimalSetForCycledTimeline(intervals);
-        
+
         // Assert
-        result.Should().HaveCount(2);     
+        result.Should().HaveCount(2);
     }
 
     // Expected Output: [(22, 2), (5, 8)].
@@ -57,7 +56,7 @@ public class IntervalSchedulingMaximizationProblemShould
 
         // Act
         var result = IntervalSchedulingMaximizationProblem.GetOptimalSetForCycledTimeline(intervals);
-        
+
         // Assert
         result.Should().HaveCount(2);
     }
@@ -77,7 +76,7 @@ public class IntervalSchedulingMaximizationProblemShould
 
         // Act
         var result = IntervalSchedulingMaximizationProblem.GetOptimalSetForCycledTimeline(intervals);
-        
+
         // Assert
         result.Should().HaveCount(2);
     }
@@ -98,7 +97,7 @@ public class IntervalSchedulingMaximizationProblemShould
 
         // Act
         var result = IntervalSchedulingMaximizationProblem.GetOptimalSetForCycledTimeline(intervals);
-        
+
         // Assert
         result.Should().HaveCount(1);
     }
@@ -120,7 +119,7 @@ public class IntervalSchedulingMaximizationProblemShould
 
         // Act
         var result = IntervalSchedulingMaximizationProblem.GetOptimalSetForCycledTimeline(intervals);
-        
+
         // Assert
         result.Should().HaveCount(2);
     }
@@ -141,7 +140,7 @@ public class IntervalSchedulingMaximizationProblemShould
 
         // Act
         var result = IntervalSchedulingMaximizationProblem.GetOptimalSetForCycledTimeline(intervals);
-        
+
         // Assert
         result.Should().HaveCount(1);
     }

@@ -1,6 +1,6 @@
-﻿using ScheduleOptimization.Helpers;
+﻿using Scheduling.Common.Helpers;
 
-namespace ScheduleOptimization;
+namespace Scheduling.Common;
 
 // The primary goal is to find the maximum number of mutually non-overlapping intervals (or tasks) that can be scheduled.
 // The algorithm is a greedy one, where you select the next job that finishes first, provided it doesn't conflict with the already selected jobs.
@@ -135,11 +135,11 @@ public class IntervalSchedulingMaximizationProblem
 
         if (interval.Start < cutPoint)
             key = periodLength;
-        else if(interval.End > interval.Start)
+        else if (interval.End > interval.Start)
             key = interval.End - cutPoint;
         else
             key = interval.End - cutPoint + periodLength;
 
-        return key;  
+        return key;
     }
 }

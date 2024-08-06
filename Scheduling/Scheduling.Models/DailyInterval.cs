@@ -1,6 +1,6 @@
 ﻿using MathAlgo.Models;
 
-namespace Models.Scheduling;
+namespace Scheduling.Models;
 
 public record DailyInterval : Interval
 {

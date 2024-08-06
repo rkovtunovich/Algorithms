@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ScheduleOptimization\ScheduleOptimization.csproj" />
+    <ProjectReference Include="..\Scheduling.Common\Scheduling.Common.csproj" />
   </ItemGroup>
 
 </Project>

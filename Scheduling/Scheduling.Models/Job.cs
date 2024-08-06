@@ -1,4 +1,4 @@
-﻿namespace Models.Scheduling;
+﻿namespace Scheduling.Models;
 
 public record Job
 {

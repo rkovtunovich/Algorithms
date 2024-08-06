@@ -1,4 +1,4 @@
-﻿namespace ScheduleOptimization;
+﻿namespace Scheduling.Common;
 
 public static class ResourceNumberMinimizationProblem
 {

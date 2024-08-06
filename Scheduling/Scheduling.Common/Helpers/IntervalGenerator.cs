@@ -1,8 +1,8 @@
-﻿namespace ScheduleOptimization.Helpers;
+﻿namespace Scheduling.Common.Helpers;
 
 public static class IntervalGenerator
 {
-    public static List<T> GetIntervals<T>(int count, int min, int max) where T : Interval, new () 
+    public static List<T> GetIntervals<T>(int count, int min, int max) where T : Interval, new()
     {
         var intervals = new List<T>();
         var random = new Random();
@@ -10,7 +10,7 @@ public static class IntervalGenerator
         {
             var start = random.Next(min, max);
             var end = random.Next(start, max);
-            intervals.Add(new T() { Start = start, End = end});
+            intervals.Add(new T() { Start = start, End = end });
         }
 
         return intervals;

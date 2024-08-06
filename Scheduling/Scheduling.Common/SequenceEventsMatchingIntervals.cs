@@ -1,6 +1,6 @@
 ﻿using Sorting.QuickSort;
 
-namespace ScheduleOptimization;
+namespace Scheduling.Common;
 
 // Real world problem example:
 // Some security consultants working in the financial domain are currently advising a client who is investigating a potential money-laundering scheme. 
@@ -38,7 +38,7 @@ public class SequenceEventsMatchingIntervals
         QuickSortClassic.Sort(ref events); // Sort the events in ascending order.
 
         // Sort intervals first by their length (margin of error) and then by start time.
-        var sortedIntervals = intervals.OrderBy(x => (x.Duration)).ThenBy(x => x.Start).ToList<Interval?>();
+        var sortedIntervals = intervals.OrderBy(x => x.Duration).ThenBy(x => x.Start).ToList<Interval?>();
 
         var isMatched = true; // Flag to indicate if all events are successfully matched.
 
@@ -84,4 +84,4 @@ public class SequenceEventsMatchingIntervals
     }
 }
 
-    
+

@@ -1,4 +1,4 @@
-﻿namespace ScheduleOptimization;
+﻿namespace Scheduling.Common;
 
 // Real world applications example:
 // A small business-say, a photocopying service with a single large machine-faces the following scheduling problem. 
@@ -47,7 +47,7 @@ public static class SingleMachineWeightedShortestProcessingTimeFirst
     public static List<Job> GetSchedule(List<Job> jobs)
     {
         var weightedJobs = new (double, Job)[jobs.Count];
-        
+
         for (int i = 0; i < jobs.Count; i++)
         {
             weightedJobs[i] = (jobs[i].Duration / (double)jobs[i].Weight, jobs[i]);

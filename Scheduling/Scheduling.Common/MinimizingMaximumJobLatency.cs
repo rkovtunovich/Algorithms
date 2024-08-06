@@ -1,4 +1,4 @@
-﻿namespace ScheduleOptimization;
+﻿namespace Scheduling.Common;
 
 // The algorithm aims to solve a scheduling problem focused on minimizing the maximum job latency.
 // Each job has a deadline and a duration.

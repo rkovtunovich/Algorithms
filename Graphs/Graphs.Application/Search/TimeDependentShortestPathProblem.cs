@@ -1,5 +1,4 @@
 ﻿using Graphs.Core.Model.Graphs;
-using Models.Scheduling;
 
 namespace Graphs.Application.Search;
 

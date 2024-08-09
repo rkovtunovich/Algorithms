@@ -25,6 +25,7 @@
     <ProjectReference Include="..\NeedlemanWunsch\NeedlemanWunsch.csproj" />
     <ProjectReference Include="..\SalesmanProblem\SalesmanProblem.csproj" />
     <ProjectReference Include="..\Scheduling\Scheduling.Common\Scheduling.Common.csproj" />
+    <ProjectReference Include="..\Scheduling\Scheduling.Intervals\Scheduling.Intervals.csproj" />
     <ProjectReference Include="..\Searching\Searching.Common\Searching.Common.csproj" />
     <ProjectReference Include="..\Searching\Searching.PatternMatching\Searching.PatternMatching.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Common\Sorting.Common.csproj" />

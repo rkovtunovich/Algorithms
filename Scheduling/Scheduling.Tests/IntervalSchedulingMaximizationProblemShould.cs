@@ -1,4 +1,5 @@
-﻿using Scheduling.Models;
+﻿using Scheduling.Intervals;
+using Scheduling.Models;
 
 namespace Scheduling.Tests;
 

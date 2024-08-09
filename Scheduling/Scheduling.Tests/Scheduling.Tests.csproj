@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Scheduling.Common\Scheduling.Common.csproj" />
+    <ProjectReference Include="..\Scheduling.Intervals\Scheduling.Intervals.csproj" />
   </ItemGroup>
 
 </Project>

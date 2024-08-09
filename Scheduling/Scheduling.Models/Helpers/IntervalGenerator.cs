@@ -1,4 +1,6 @@
-﻿namespace Scheduling.Common.Helpers;
+﻿using MathAlgo.Models;
+
+namespace Scheduling.Models.Helpers;
 
 public static class IntervalGenerator
 {

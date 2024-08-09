@@ -1,6 +1,4 @@
-﻿using Scheduling.Common.Helpers;
-
-namespace Scheduling.Common;
+﻿namespace Scheduling.Intervals;
 
 // The primary goal is to find the maximum number of mutually non-overlapping intervals (or tasks) that can be scheduled.
 // The algorithm is a greedy one, where you select the next job that finishes first, provided it doesn't conflict with the already selected jobs.

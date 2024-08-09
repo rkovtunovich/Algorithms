@@ -1,6 +1,7 @@
 ﻿using Scheduling.Common;
-using Scheduling.Common.Helpers;
+using Scheduling.Intervals;
 using Scheduling.Models;
+using Scheduling.Models.Helpers;
 
 namespace ExamplesRunning;
 

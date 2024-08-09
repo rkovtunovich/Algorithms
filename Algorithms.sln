@@ -99,6 +99,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scheduling.Tests", "Schedul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduling.Models", "Scheduling\Scheduling.Models\Scheduling.Models.csproj", "{8BC37C14-AC87-4882-A3AB-09F092E89FA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduling.Intervals", "Scheduling\Scheduling.Intervals\Scheduling.Intervals.csproj", "{9E147733-8BDA-4424-B90E-D6198BA0C855}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -265,6 +267,10 @@ Global
 		{8BC37C14-AC87-4882-A3AB-09F092E89FA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BC37C14-AC87-4882-A3AB-09F092E89FA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BC37C14-AC87-4882-A3AB-09F092E89FA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E147733-8BDA-4424-B90E-D6198BA0C855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E147733-8BDA-4424-B90E-D6198BA0C855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E147733-8BDA-4424-B90E-D6198BA0C855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E147733-8BDA-4424-B90E-D6198BA0C855}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -300,6 +306,7 @@ Global
 		{4D7B7F1F-2124-47A8-B2E5-434D77CFD6BC} = {1B504758-5F54-45E4-87D7-D948ED955B97}
 		{F2D915E2-A204-4819-838D-C0C3553F0EB5} = {1B504758-5F54-45E4-87D7-D948ED955B97}
 		{8BC37C14-AC87-4882-A3AB-09F092E89FA7} = {1B504758-5F54-45E4-87D7-D948ED955B97}
+		{9E147733-8BDA-4424-B90E-D6198BA0C855} = {1B504758-5F54-45E4-87D7-D948ED955B97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F0EF03E-741C-47C2-9E8E-0624F896543E}

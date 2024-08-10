@@ -1,7 +1,7 @@
 ﻿using Scheduling.Intervals;
 using Scheduling.Models;
 
-namespace Scheduling.Tests;
+namespace Scheduling.Tests.Intervals;
 
 public class IntervalSchedulingMaximizationProblemShould
 {

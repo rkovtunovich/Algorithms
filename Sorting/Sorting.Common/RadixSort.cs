@@ -25,13 +25,16 @@ namespace Sorting.Common;
 public static class RadixSort
 {
     // Radix Sort function
-    public static void Sort(int[] arr)
+    public static void Sort(int[] arr, bool showDetails = false)
     {
+        if (arr is null || arr.Length is 0)
+            return;
+
         int max = GetMax(arr); // Find the maximum number to know the number of digits
 
         // Perform counting sort for every digit
         for (int exp = 1; max / exp > 0; exp *= 10)
-            CountSort(arr, arr.Length, exp);
+            CountSort(arr, arr.Length, exp, showDetails);
     }
 
     // A utility function to get maximum value in arr[]
@@ -45,7 +48,7 @@ public static class RadixSort
     }
 
     // A function to do counting sort of arr[] according to the digit represented by exp
-    private static void CountSort(int[] arr, int n, int exp)
+    private static void CountSort(int[] arr, int n, int exp, bool showDetails)
     {
         int[] output = new int[n]; // output array
         int[] count = new int[10]; // Initialize count array
@@ -54,13 +57,15 @@ public static class RadixSort
         for (int i = 0; i < n; i++)
             count[arr[i] / exp % 10]++;
 
-        Viewer.ShowArray(count);
+        if (showDetails)
+            Viewer.ShowArray(count);
 
         // Change count[i] so that count[i] now contains actual position of this digit in output[]
         for (int i = 1; i < 10; i++)
             count[i] += count[i - 1];
 
-        Viewer.ShowArray(count);
+        if (showDetails)
+            Viewer.ShowArray(count);
 
         // Build the output array
         // This loop is one of the most important parts of the radix sort algorithm.
@@ -89,11 +94,17 @@ public static class RadixSort
         for (int i = n - 1; i >= 0; i--)
         {
             output[count[arr[i] / exp % 10] - 1] = arr[i];
-            Console.WriteLine($"i:{i} item = {arr[i]} {arr[i] / exp % 10} count index = {arr[i] / exp % 10} output index = {count[arr[i] / exp % 10] - 1}");
+
+            if (showDetails)
+                Console.WriteLine($"i:{i} item = {arr[i]} {arr[i] / exp % 10} count index = {arr[i] / exp % 10} output index = {count[arr[i] / exp % 10] - 1}");
+            
             count[arr[i] / exp % 10]--;
 
-            Viewer.ShowArray(count, nameof(count));
-            Viewer.ShowArray(output, nameof(output));
+            if (showDetails)
+            {
+                Viewer.ShowArray(count, nameof(count));
+                Viewer.ShowArray(output, nameof(output));
+            }
         }
 
         // Copy the output array to arr[], so that arr[] now contains sorted numbers according to current digit

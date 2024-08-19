@@ -2,7 +2,7 @@
 
 public record Job
 {
-    public Job(int id, int duration, int deadline)
+    public Job(int id, int duration, int deadline = 0)
     {
         Id = id;
         Duration = duration;

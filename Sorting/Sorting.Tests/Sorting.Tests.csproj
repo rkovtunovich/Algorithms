@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sorting.Common\Sorting.Common.csproj" />
+    <ProjectReference Include="..\Sorting.Distribution\Sorting.Distribution.csproj" />
   </ItemGroup>
 
 </Project>

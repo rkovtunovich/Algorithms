@@ -1,4 +1,4 @@
-﻿namespace Sorting.Common;
+﻿namespace Sorting.Distribution;
 
 public class CountingSort
 {
@@ -14,7 +14,7 @@ public class CountingSort
         var counts = new int[maxValue + 1];
 
         // Count the occurrences of each value in the input array.
-        foreach (var value in array)        
+        foreach (var value in array)
             counts[value]++;
 
         // Update the counts array to store the number of elements less than or equal to each value.

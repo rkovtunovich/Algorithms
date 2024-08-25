@@ -1,4 +1,4 @@
-﻿namespace Sorting.Tests.Common;
+﻿namespace Sorting.Tests.Distribution;
 
 public class CountingSortShould
 {

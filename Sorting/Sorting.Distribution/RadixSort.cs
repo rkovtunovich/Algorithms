@@ -1,6 +1,6 @@
 ﻿using View;
 
-namespace Sorting.Common;
+namespace Sorting.Distribution;
 
 // Radix Sort is a non-comparative sorting algorithm with linear time complexity.
 // It avoids comparison by creating and distributing items into buckets according to their radix.
@@ -97,7 +97,7 @@ public static class RadixSort
 
             if (showDetails)
                 Console.WriteLine($"i:{i} item = {arr[i]} {arr[i] / exp % 10} count index = {arr[i] / exp % 10} output index = {count[arr[i] / exp % 10] - 1}");
-            
+
             count[arr[i] / exp % 10]--;
 
             if (showDetails)

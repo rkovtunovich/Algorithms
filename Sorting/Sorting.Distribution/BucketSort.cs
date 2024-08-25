@@ -1,4 +1,4 @@
-﻿namespace Sorting.Common;
+﻿namespace Sorting.Distribution;
 
 // Bucket Sort is a sorting algorithm that works by dividing an array into a number of buckets.
 // Each bucket is then sorted individually, either using a different sorting algorithm, or by recursively applying the bucket sorting algorithm.

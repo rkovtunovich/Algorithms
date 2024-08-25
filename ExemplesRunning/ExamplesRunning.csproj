@@ -29,6 +29,7 @@
     <ProjectReference Include="..\Searching\Searching.Common\Searching.Common.csproj" />
     <ProjectReference Include="..\Searching\Searching.PatternMatching\Searching.PatternMatching.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Common\Sorting.Common.csproj" />
+    <ProjectReference Include="..\Sorting\Sorting.Distribution\Sorting.Distribution.csproj" />
     <ProjectReference Include="..\Sorting\Sorting.Insertion\Sorting.Insertion.csproj" />
     <ProjectReference Include="..\Spacing\Spacing.Common\Spacing.Common.csproj" />
     <ProjectReference Include="..\TowersOfHanoi\TowersOfHanoi.csproj" />

@@ -1,6 +1,7 @@
-﻿namespace NeedlemanWunsch;
+﻿namespace Biology.Common;
 
-public static class ProteinSequenceAligning<T> where T : notnull 
+// Needleman-Wunsch algorithm
+public static class ProteinSequenceAligning<T> where T : notnull
 {
     public static double[][] Align(List<T> sequence1, List<T> sequence2, double symbolPenalty, double gapPenalty)
     {
@@ -30,7 +31,7 @@ public static class ProteinSequenceAligning<T> where T : notnull
                 cases.Add(span[i - 1][j - 1] + currentSymbolPenalty);
                 cases.Add(span[i - 1][j] + gapPenalty);
                 cases.Add(span[i][j - 1] + gapPenalty);
-                
+
                 span[i][j] = cases.Min();
 
                 cases.Clear();

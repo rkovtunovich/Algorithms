@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Huffman", "Huffman\Huffman.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KnapsackProblem", "KnapsackProblem\KnapsackProblem.csproj", "{5B43203D-4735-4B18-A599-63D2F6D768F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeedlemanWunsch", "NeedlemanWunsch\NeedlemanWunsch.csproj", "{5BFB2E75-4066-4905-8BE5-AF549D1F3238}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaximumCoverage", "MaximumCoverage\MaximumCoverage.csproj", "{F5FB1898-A0AE-469B-AE28-2D5D141747A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalesmanProblem", "SalesmanProblem\SalesmanProblem.csproj", "{DFF4E3EF-8A5E-47C4-8FFD-8F5ED4AEF5BD}"
@@ -97,9 +95,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scheduling.Common", "Schedu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scheduling.Tests", "Scheduling\Scheduling.Tests\Scheduling.Tests.csproj", "{F2D915E2-A204-4819-838D-C0C3553F0EB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduling.Models", "Scheduling\Scheduling.Models\Scheduling.Models.csproj", "{8BC37C14-AC87-4882-A3AB-09F092E89FA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scheduling.Models", "Scheduling\Scheduling.Models\Scheduling.Models.csproj", "{8BC37C14-AC87-4882-A3AB-09F092E89FA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduling.Intervals", "Scheduling\Scheduling.Intervals\Scheduling.Intervals.csproj", "{9E147733-8BDA-4424-B90E-D6198BA0C855}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scheduling.Intervals", "Scheduling\Scheduling.Intervals\Scheduling.Intervals.csproj", "{9E147733-8BDA-4424-B90E-D6198BA0C855}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{56F5E211-D098-48D2-B7F9-7A68BA6E2F90}"
 	ProjectSection(SolutionItems) = preProject
@@ -125,7 +123,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{56
 		DataStructures\Diagrams\Three key elements of data structures.jpg = DataStructures\Diagrams\Three key elements of data structures.jpg
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sorting.Distribution", "Sorting\Sorting.Distribution\Sorting.Distribution.csproj", "{9B542EC8-F9EE-41BD-922E-089267F5A54C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sorting.Distribution", "Sorting\Sorting.Distribution\Sorting.Distribution.csproj", "{9B542EC8-F9EE-41BD-922E-089267F5A54C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Biology", "Biology", "{9EC52E5D-2DEF-41CA-9FE7-111C24253C99}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biology.Common", "Biology\Biology.Common\Biology.Common.csproj", "{F09B3770-B113-4B60-8BD5-72BCE7A2716C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biology.Tests", "Biology\Biology.Tests\Biology.Tests.csproj", "{566305A0-1965-499A-9667-7F06714A1D35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -181,10 +185,6 @@ Global
 		{5B43203D-4735-4B18-A599-63D2F6D768F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B43203D-4735-4B18-A599-63D2F6D768F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B43203D-4735-4B18-A599-63D2F6D768F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5BFB2E75-4066-4905-8BE5-AF549D1F3238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BFB2E75-4066-4905-8BE5-AF549D1F3238}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BFB2E75-4066-4905-8BE5-AF549D1F3238}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BFB2E75-4066-4905-8BE5-AF549D1F3238}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5FB1898-A0AE-469B-AE28-2D5D141747A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5FB1898-A0AE-469B-AE28-2D5D141747A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5FB1898-A0AE-469B-AE28-2D5D141747A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -301,6 +301,14 @@ Global
 		{9B542EC8-F9EE-41BD-922E-089267F5A54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B542EC8-F9EE-41BD-922E-089267F5A54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B542EC8-F9EE-41BD-922E-089267F5A54C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09B3770-B113-4B60-8BD5-72BCE7A2716C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09B3770-B113-4B60-8BD5-72BCE7A2716C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09B3770-B113-4B60-8BD5-72BCE7A2716C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09B3770-B113-4B60-8BD5-72BCE7A2716C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{566305A0-1965-499A-9667-7F06714A1D35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{566305A0-1965-499A-9667-7F06714A1D35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{566305A0-1965-499A-9667-7F06714A1D35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{566305A0-1965-499A-9667-7F06714A1D35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -339,6 +347,8 @@ Global
 		{9E147733-8BDA-4424-B90E-D6198BA0C855} = {1B504758-5F54-45E4-87D7-D948ED955B97}
 		{56F5E211-D098-48D2-B7F9-7A68BA6E2F90} = {36111B8C-157A-4353-8A4D-E10180E3ECF1}
 		{9B542EC8-F9EE-41BD-922E-089267F5A54C} = {FA0F85E5-C5BE-4E92-9B69-3631BC7EF2FD}
+		{F09B3770-B113-4B60-8BD5-72BCE7A2716C} = {9EC52E5D-2DEF-41CA-9FE7-111C24253C99}
+		{566305A0-1965-499A-9667-7F06714A1D35} = {9EC52E5D-2DEF-41CA-9FE7-111C24253C99}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F0EF03E-741C-47C2-9E8E-0624F896543E}

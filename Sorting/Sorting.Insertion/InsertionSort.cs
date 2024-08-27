@@ -3,8 +3,8 @@
 // This is an implementation of the Direct Insertion Sort algorithm for sorting arrays.
 // Insertion sort keeps inserting the values in the sequence into an already sorted sequence, until the end of this sequence.
 // Insertion sort is an improvement on bubble sort.
+// It is a stable algorithm, meaning that the relative order of equal elements is preserved.
 // Now it is not widely used. However, since the algorithm is relatively simple, it is still effective for the sorting of some relatively small sequences.
-
 public static class InsertionSort
 {
     // The Sort method is a generic implementation of the Direct Insertion Sort algorithm

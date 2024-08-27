@@ -3,7 +3,8 @@
 // Bubble sort is the slowest sorting algorithm.
 // Since it needs to compare each record in the sequence again and again, the number of comparisons is huge.
 // It is the most ineffective algorithm, with a complexity of O(n2)
-
+// It is not recommended for large data sets.
+// It is a stable algorithm, meaning that the relative order of equal elements is preserved.
 public static class BubbleSort
 {
     public static void Sort<T>(T[] array) where T : IComparable<T>

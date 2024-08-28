@@ -4,6 +4,14 @@
 // It is commonly used in bioinformatics for aligning protein or nucleotide sequences to identify similarities.
 // The algorithm aligns two sequences by maximizing the match score while allowing for gaps (insertions/deletions).
 // The function returns the aligned sequences along with the total alignment cost.
+//
+// Time complexity: O(n * m), where n and m are the lengths of the input sequences.
+// Space complexity: O(n * m), where n and m are the lengths of the input sequences.
+//
+// Note: There is also a space-optimized version of the Needleman-Wunsch algorithm that reduces the space complexity from O(n × m) to O(min(n, m)).
+// This is achieved by only storing the necessary rows or columns of the dynamic programming table at any given time.
+// Furthermore, by combining this approach with a divide and conquer strategy, the algorithm can recursively align subsequences,
+// further optimizing memory usage. This version is particularly useful for aligning large sequences where memory efficiency is crucial.
 public static class ProteinSequenceAligning<T> where T : notnull
 {
     /// <summary>

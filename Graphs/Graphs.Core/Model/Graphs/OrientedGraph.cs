@@ -92,6 +92,14 @@ public class OrientedGraph : GraphBase
             AddIncomeEdge(destination, source);
     }
 
+    public List<Vertex> GetIncomeEdges(Vertex vertex)
+    {
+        if (!IncomeEdges.TryGetValue(vertex, out List<Vertex>? value))
+            return [];
+
+        return IncomeEdges[vertex];
+    }
+
     public void AddIncomeEdge(Vertex owner, Vertex neighbor)
     {
         if (!IncomeEdges.TryGetValue(owner, out List<Vertex>? value))

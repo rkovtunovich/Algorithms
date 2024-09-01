@@ -112,13 +112,11 @@ internal class GraphExample
 
     internal static void RunBellmanFord()
     {
-        var generator = new OrientedVariableEdgeLengthGenerator(7, 0.5, 1);
+        var generator = new OrientedVariableEdgeLengthGenerator(7, 0.6, 1, true, true);
         var graph = generator.Generate("oriented_bellman_ford");
         DOTVisualizer.VisualizeGraph(graph);
 
         var result = BellmanFordAlgo.Search(graph as OrientedGraph, graph.First());
-
-        Viewer.ShowMatrix(result);
     }
 
     internal static void RunFloydWarshall()

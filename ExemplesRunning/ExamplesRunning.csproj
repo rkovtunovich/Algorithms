@@ -22,7 +22,6 @@
     <ProjectReference Include="..\KnapsackProblem\KnapsackProblem.csproj" />
     <ProjectReference Include="..\MathAlgo\MathAlgo.Common\MathAlgo.Common.csproj" />
     <ProjectReference Include="..\MaximumCoverage\MaximumCoverage.csproj" />
-    <ProjectReference Include="..\NeedlemanWunsch\NeedlemanWunsch.csproj" />
     <ProjectReference Include="..\SalesmanProblem\SalesmanProblem.csproj" />
     <ProjectReference Include="..\Scheduling\Scheduling.Common\Scheduling.Common.csproj" />
     <ProjectReference Include="..\Scheduling\Scheduling.Intervals\Scheduling.Intervals.csproj" />

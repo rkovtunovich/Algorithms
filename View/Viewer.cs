@@ -2,13 +2,15 @@
 
 public static class Viewer
 {
-    public static void ShowArray<T>(T[] array, string? description = null)
+    public static void ShowArray<T>(T[] array, string? description = null, Dictionary<T, string>? specialRepresentarions = null)
     {
         Console.WriteLine($"{description}{new string('_', Console.WindowWidth - description?.Length ?? 0)}");
 
         for (int i = 0; i < array.Length && array.Length < 100; i++)
         {
-            if (typeof(T) == typeof(double))
+            if (specialRepresentarions?.ContainsKey(array[i]) ?? false)
+                Console.Write($"{GetFormat(i)} {specialRepresentarions[array[i]]}");
+            else if (typeof(T) == typeof(double))
                 Console.Write($"{GetFormat(i)} {array[i]:0.00}");
             else
                 Console.Write($"{GetFormat(i)} {array[i]}");
@@ -18,12 +20,17 @@ public static class Viewer
         Console.WriteLine(new string('_', Console.WindowWidth));
     }
 
-    public static void ShowMatrix<T>(T[][] matrix)
+    public static void ShowMatrix<T>(T?[][] matrix, Dictionary<T, string>? specialRepresentarions = null)
     {
         for (int i = 0; i < matrix.Length; i++)
         {
             for (int j = 0; j < matrix[i].Length; j++)
-                Console.Write($"\t {matrix[i][j]}");
+            {
+                if (specialRepresentarions?.ContainsKey(matrix[i][j]) ?? false)
+                    Console.Write($"\t {specialRepresentarions[matrix[i][j]]}");
+                else
+                    Console.Write($"\t {matrix[i][j]}");
+            }
 
             Console.WriteLine();
         }

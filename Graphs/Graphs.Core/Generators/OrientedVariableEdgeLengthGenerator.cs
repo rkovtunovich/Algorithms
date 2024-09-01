@@ -9,16 +9,18 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
     private readonly int _countVertices;
     private readonly double _saturation;
     private readonly bool _trackIncomeEdges; // if it needs vertex without incoming edges
+    private readonly bool _hasNegativeEdges; 
 
     // if it needs vertex without incoming edges
     private readonly int? _originIndex;
 
-    public OrientedVariableEdgeLengthGenerator(int countVertices, double saturation, int? originIndex = null, bool trackIncomeEdges = false)
+    public OrientedVariableEdgeLengthGenerator(int countVertices, double saturation, int? originIndex = null, bool trackIncomeEdges = false, bool hasNegativeEdges = false)
     {
         _countVertices = countVertices;
         _originIndex = originIndex;
         _saturation = saturation;
         _trackIncomeEdges = trackIncomeEdges;
+        _hasNegativeEdges = hasNegativeEdges;
     }
 
     public GraphBase Generate(string name)
@@ -44,6 +46,10 @@ public class OrientedVariableEdgeLengthGenerator : IGraphGenerator
             foreach (var edge in edges)
             {
                 int length = random.Next(1, 10);
+
+                if (_hasNegativeEdges)
+                    length *= random.Next(0, 2) == 1 ? 1 : -1;
+
                 graph.SetEdgeLength(vertex, edge, length);
             }
         }

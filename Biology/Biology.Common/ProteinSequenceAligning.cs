@@ -25,7 +25,12 @@ public static class ProteinSequenceAligning<T> where T : notnull
     /// <returns>
     /// A tuple containing the aligned sequences and the total alignment cost.
     /// </returns>
-    public static (List<T> sequence1, List<T> sequence2, double cost) Align(List<T> sequence1, List<T> sequence2, double symbolPenalty, double gapPenalty, T gapSymbol = default)
+    public static (List<T>? sequence1, List<T>? sequence2, double cost) Align(List<T> sequence1,
+                                                                            List<T> sequence2,
+                                                                            double symbolPenalty,
+                                                                            double gapPenalty,
+                                                                            T gapSymbol = default,
+                                                                            bool costOnly = false)
     {
         // Initialize the dynamic programming table
         var dp = new double[sequence1.Count + 1][];
@@ -55,6 +60,12 @@ public static class ProteinSequenceAligning<T> where T : notnull
                         dp[i - 1][j] + gapPenalty),             // Gap in sequence2
                     dp[i][j - 1] + gapPenalty);                 // Gap in sequence1
             }
+        }
+
+        if (costOnly)
+        {
+            // Return only the total alignment cost
+            return (default, default, dp[sequence1.Count][sequence2.Count]);
         }
 
         // Reconstruct the optimal alignment from the DP table

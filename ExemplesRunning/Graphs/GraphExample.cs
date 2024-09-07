@@ -106,8 +106,7 @@ internal class GraphExample
 
         DOTVisualizer.VisualizeGraph(graph);
 
-        var MaxWeight = PathGraphMWISSearch.Find(graph);
-
+        var result = PathGraphMWISSearch.Find(graph);
     }
 
     internal static void RunBellmanFord()

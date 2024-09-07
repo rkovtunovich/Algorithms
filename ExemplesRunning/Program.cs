@@ -19,8 +19,8 @@
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
 //GraphExample.RunMST();
-//GraphExample.RunMWIS();
-GraphExample.RunBellmanFord();
+GraphExample.RunMWIS();
+//GraphExample.RunBellmanFord();
 //GraphExample.RunFloydWarshall();
 //GraphExample.RunWelshPowell();
 //GraphExample.RunColorCoding();

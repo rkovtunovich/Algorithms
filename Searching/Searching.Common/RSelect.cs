@@ -29,6 +29,11 @@ public class RSelect
         return FindRec(array, 0, array.Length - 1, orderStatistics);
     }
 
+    public static int Find(List<int> sequence, int orderStatistics)
+    {
+        return Find(sequence.ToArray(), orderStatistics);
+    }
+
     /// <summary>
     /// Recursive helper method to implement Randomized-Select.
     /// Partitions the array around a randomly chosen pivot and recursively processes the appropriate subarray.

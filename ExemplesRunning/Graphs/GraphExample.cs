@@ -66,7 +66,7 @@ internal class GraphExample
         var connected = DFS.SearchConnectedRec(graph, origin);
         DOTVisualizer.VisualizeGraph(graph, origin, connected);
 
-        var orientedGenerator = new OrientedGraphGenerator(8, 0.5);
+        var orientedGenerator = new OrientedGraphGenerator(new() { CountVertices = 8, Saturation = 0.5 });
         var graph2 = orientedGenerator.Generate("Kasaraju");
         DOTVisualizer.VisualizeGraph(graph2);
         DFS.KosarajuSharirSearch(graph2);
@@ -174,7 +174,7 @@ internal class GraphExample
 
     internal static void RunTopologicalOrderingOrCycleSearching()
     {
-        var orientedGenerator = new OrientedGraphGenerator(8, saturation: 0.55);
+        var orientedGenerator = new OrientedGraphGenerator(new() { CountVertices = 8, Saturation = 0.55 });
         var graph = orientedGenerator.Generate("oriented");
         DOTVisualizer.VisualizeGraph(graph);
 
@@ -313,7 +313,7 @@ internal class GraphExample
 
                 start = end;
 
-                if(start >= DailyInterval.HoursInDay)
+                if (start >= DailyInterval.HoursInDay)
                     break;
             }
         }
@@ -410,5 +410,23 @@ internal class GraphExample
             Console.WriteLine("No such tree exists.");
         }
     }
-}
 
+    internal static void RunOrderedGraphLongestPath()
+    {
+        var options = new OrientedGraphGeneratorOptions
+        {
+            CountVertices = 8,
+            Saturation = 0.55,
+            IsOrdered = true,
+            TrackIncomeEdges = true
+        };
+
+        var generator = new OrientedGraphGenerator(options);
+
+        var graph = generator.Generate("Ordered_graph_longest_path") as OrientedGraph;
+
+        DOTVisualizer.VisualizeGraph(graph);
+
+        var result = OrderedGraphLongestPath.Find(graph);
+    }
+}

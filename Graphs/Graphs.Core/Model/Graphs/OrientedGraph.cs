@@ -94,7 +94,7 @@ public class OrientedGraph : GraphBase
 
     public List<Vertex> GetIncomeEdges(Vertex vertex)
     {
-        if (!IncomeEdges.TryGetValue(vertex, out List<Vertex>? value))
+        if (!IncomeEdges.TryGetValue(vertex, out _))
             return [];
 
         return IncomeEdges[vertex];

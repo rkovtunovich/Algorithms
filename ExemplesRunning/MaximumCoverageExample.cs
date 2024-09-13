@@ -42,7 +42,7 @@ internal class MaximumCoverageExample
         var participantsCount = 10;
         var influencerCount = 3;
         var influenceDegree = 0.5;
-        var generator = new OrientedGraphGenerator(participantsCount, 0.35);
+        var generator = new OrientedGraphGenerator(new() { CountVertices = participantsCount, Saturation = 0.35 });
 
         var graph = generator.Generate("oriented_influence") as OrientedGraph;
         

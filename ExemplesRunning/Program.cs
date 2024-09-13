@@ -19,7 +19,7 @@
 //GraphExample.RunUndirectedExample();
 //GraphExample.RunOrientedExample();
 //GraphExample.RunMST();
-GraphExample.RunMWIS();
+//GraphExample.RunMWIS();
 //GraphExample.RunBellmanFord();
 //GraphExample.RunFloydWarshall();
 //GraphExample.RunWelshPowell();
@@ -35,6 +35,7 @@ GraphExample.RunMWIS();
 //GraphExample.RunTimeDependentShortestPathProblem();
 //GraphExample.RunZeroSkewOptimization();
 //GraphExample.RunConstrainedSpanningTree();
+GraphExample.RunOrderedGraphLongestPath();
 
 //DataStructuresExample.RunHeapExample();
 //DataStructuresExample.RunSearchTreeExample();

@@ -1,4 +1,4 @@
-﻿namespace Searching.Common;
+﻿namespace Searching.MediansAndOrderStatistics;
 
 public class ClosestNeighborsSearch
 {

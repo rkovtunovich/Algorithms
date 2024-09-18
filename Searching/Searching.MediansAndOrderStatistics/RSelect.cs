@@ -1,4 +1,4 @@
-﻿namespace Searching.Common;
+﻿namespace Searching.MediansAndOrderStatistics;
 
 // description: Randomized selection algorithm to find the k-th order statistic in an array.
 // The k-th order statistic of an array is the k-th smallest element in the array.

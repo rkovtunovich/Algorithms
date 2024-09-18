@@ -1,5 +1,4 @@
-﻿
-namespace Searching.Tests.Common;
+﻿namespace Searching.Tests.MediansAndOrderStatistics;
 
 public class MinMaxSearchShould
 {

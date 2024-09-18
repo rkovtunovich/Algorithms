@@ -1,5 +1,6 @@
-﻿using Searching.Common;
-using Helpers;
+﻿using Helpers;
+using Searching.Common;
+using Searching.MediansAndOrderStatistics;
 using Sorting.QuickSort;
 
 namespace ExamplesRunning;

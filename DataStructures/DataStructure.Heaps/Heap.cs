@@ -39,7 +39,7 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     protected int _length = 0;
 
-    private HeapNode<TKey, TValue>[] _nodes;
+    protected HeapNode<TKey, TValue>[] _nodes;
 
     // Dictionary to keep track of the positions of the values in the heap
     private Dictionary<TValue, int> _positionsByValue = [];

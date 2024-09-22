@@ -12,6 +12,18 @@ public abstract class BinaryHeap<TKey, TValue> : Heap<TKey, TValue> where TKey :
     {
     }
 
+    protected BinaryHeap(TKey[] array) : base(d)
+    {
+        _nodes = new HeapNode<TKey, TValue>[array.Length];
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            _nodes[i] = new HeapNode<TKey, TValue> { Key = array[i], Value = default };
+        }
+
+        Heapify(_nodes);
+    }
+
     protected override int GetParentPosition(int childPosition)
     {
         if (_length is 1)
@@ -33,6 +45,17 @@ public abstract class BinaryHeap<TKey, TValue> : Heap<TKey, TValue> where TKey :
         int childPos = (pos << 1) + 2;
 
         return childPos >= _length ? -1 : childPos;
+    }
+
+    public void Heapify(HeapNode<TKey, TValue>[] nodes)
+    {
+        _nodes = nodes;
+        _length = nodes.Length;
+
+        for (int i = _length / 2; i >= 0; i--)
+        {
+            SiftDown(i);
+        }
     }
 }
 

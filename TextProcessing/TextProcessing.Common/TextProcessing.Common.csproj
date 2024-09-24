@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataStructures\DataStructure.Heaps\DataStructures.Heaps.csproj" />
-    <ProjectReference Include="..\DataStructures\DataStructures.Common\DataStructures.Common.csproj" />
+    <ProjectReference Include="..\..\DataStructures\DataStructure.Heaps\DataStructures.Heaps.csproj" />
+    <ProjectReference Include="..\..\DataStructures\DataStructures.Common\DataStructures.Common.csproj" />
   </ItemGroup>
 
 </Project>

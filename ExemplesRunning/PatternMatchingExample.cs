@@ -1,4 +1,4 @@
-﻿using Searching.PatternMatching;
+﻿using TextProcessing.PatternMatching;
 using View;
 
 namespace ExamplesRunning;

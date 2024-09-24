@@ -1,6 +1,6 @@
 ﻿using Graphs.Core.Generators;
-using Huffman;
 using Graphs.Core;
+using TextProcessing.Common;
 
 namespace ExamplesRunning;
 

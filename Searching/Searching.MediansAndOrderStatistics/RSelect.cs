@@ -1,4 +1,6 @@
-﻿namespace Searching.MediansAndOrderStatistics;
+﻿using System.Numerics;
+
+namespace Searching.MediansAndOrderStatistics;
 
 // description: Randomized selection algorithm to find the k-th order statistic in an array.
 // The k-th order statistic of an array is the k-th smallest element in the array.
@@ -7,7 +9,7 @@
 // time complexity: O(n) on average, O(n^2) in the worst case
 // space complexity: O(1)
 
-public class RSelect
+public class RSelect<T> where T : INumber<T>
 {
     // Static Random instance to be used for generating random pivot indices.
     private static readonly Random _random = new();
@@ -18,8 +20,8 @@ public class RSelect
     /// </summary>
     /// <param name="array">The input array of integers.</param>
     /// <param name="orderStatistics">The order statistic to find (0-based index, i.e., 0 means the smallest element).</param>
-    /// <returns>The k-th smallest element in the array.</returns>
-    public static int Find(int[] array, int orderStatistics)
+    /// <returns>A tuple containing the k-th smallest element and its index in the array.</returns>
+    public static (int Index, T Element) Find(Span<T> array, int orderStatistics)
     {
         // Ensure that the input order statistic is within bounds.
         if (orderStatistics < 0 || orderStatistics >= array.Length)
@@ -29,7 +31,14 @@ public class RSelect
         return FindRec(array, 0, array.Length - 1, orderStatistics);
     }
 
-    public static int Find(List<int> sequence, int orderStatistics)
+    /// <summary>
+    /// Public method to find the k-th smallest element in an unsorted list (order statistic).
+    /// This is a wrapper method that converts the list to an array and calls the main Find method.
+    /// </summary>
+    /// <param name="sequence">The input list of integers.</param>
+    /// <param name="orderStatistics">The order statistic to find (0-based index, i.e., 0 means the smallest element).</param>
+    /// <returns>A tuple containing the k-th smallest element and its index in the list.</returns>
+    public static (int Index, T Element) Find(List<T> sequence, int orderStatistics)
     {
         return Find(sequence.ToArray(), orderStatistics);
     }
@@ -42,12 +51,12 @@ public class RSelect
     /// <param name="startIndex">The starting index of the current subarray.</param>
     /// <param name="endIndex">The ending index of the current subarray.</param>
     /// <param name="orderStatistics">The order statistic to find (0-based index).</param>
-    /// <returns>The k-th smallest element in the current subarray.</returns>
-    private static int FindRec(int[] array, int startIndex, int endIndex, int orderStatistics)
+    /// <returns>A tuple containing the k-th smallest element and its index in the array.</returns>
+    private static (int Index, T Element) FindRec(Span<T> array, int startIndex, int endIndex, int orderStatistics)
     {
         // Base case: if the subarray has one element, return it (this is the k-th element).
         if (startIndex >= endIndex)
-            return array[endIndex];
+            return (endIndex, array[endIndex]);
 
         // Randomly select a pivot index within the current range.
         int pivotIndex = GetBaseIndexRandom(startIndex, endIndex);
@@ -75,7 +84,7 @@ public class RSelect
 
         // Now, `innerBorder` holds the index of the pivot in the sorted order.
         if (innerBorder == orderStatistics)
-            return array[innerBorder]; // We found the k-th smallest element.
+            return (innerBorder, array[innerBorder]); // Return the k-th element if the pivot is at the k-th position.
         else if (innerBorder > orderStatistics)
             // Recurse into the left part if the order statistic is smaller than the pivot index.
             return FindRec(array, startIndex, innerBorder - 1, orderStatistics);

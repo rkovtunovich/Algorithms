@@ -10,7 +10,7 @@ public class RSelectShould
         int orderStatistics = 0;
 
         // Act
-        Action act = () => RSelect.Find(array, orderStatistics);
+        Action act = () => RSelect<int>.Find(array, orderStatistics);
 
         // Assert
         act.Should().Throw<ArgumentOutOfRangeException>();
@@ -24,7 +24,7 @@ public class RSelectShould
         int orderStatistics = -1;
 
         // Act
-        Action act = () => RSelect.Find(array, orderStatistics);
+        Action act = () => RSelect<int>.Find(array, orderStatistics);
 
         // Assert
         act.Should().Throw<ArgumentOutOfRangeException>();
@@ -38,7 +38,7 @@ public class RSelectShould
         int orderStatistics = 3;
 
         // Act
-        Action act = () => RSelect.Find(array, orderStatistics);
+        Action act = () => RSelect<int>.Find(array, orderStatistics);
 
         // Assert
         act.Should().Throw<ArgumentOutOfRangeException>();
@@ -52,10 +52,11 @@ public class RSelectShould
         int orderStatistics = 0;
 
         // Act
-        int result = RSelect.Find(array, orderStatistics);
+        (int index, int element) = RSelect<int>.Find(array, orderStatistics);
 
         // Assert
-        result.Should().Be(1);
+        index.Should().Be(0);
+        element.Should().Be(1);
     }
 
     [Fact]
@@ -66,10 +67,11 @@ public class RSelectShould
         int orderStatistics = 1;
 
         // Act
-        int result = RSelect.Find(array, orderStatistics);
+        (int index, int element) = RSelect<int>.Find(array, orderStatistics);
 
         // Assert
-        result.Should().Be(2);
+        index.Should().Be(1);
+        element.Should().Be(2);
     }
 
     [Fact]
@@ -80,9 +82,10 @@ public class RSelectShould
         int orderStatistics = 2;
 
         // Act
-        int result = RSelect.Find(array, orderStatistics);
+        (int index, int element) = RSelect<int>.Find(array, orderStatistics);
 
         // Assert
-        result.Should().Be(3);
+        index.Should().Be(2);
+        element.Should().Be(3);
     }
 }

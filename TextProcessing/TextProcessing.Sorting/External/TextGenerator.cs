@@ -4,9 +4,9 @@ public class TextGenerator
 {
     // Default values
     private static readonly string _defaultOutputFilePath = "source.txt";
-    private static readonly long _defaultSizeInBytes = 1L * 1024 * 1024 * 1024;//1L * 1024 * 1024 * 1024; // Default to 1GB
-    private static readonly string _defaultSeedFilePath = "seed.txt";
-    private static readonly long _defaultReportInterval = 10L * 1024 * 1024; // Report every 50MB
+    private static readonly long _defaultSizeInBytes = 10L * 1024 * 1024 * 1024; // Default to 10GB
+    private static readonly string _defaultSeedFilePath = "external\\seed.txt";
+    private static readonly long _defaultReportInterval = 100L * 1024 * 1024; // Report every 100MB
 
     public static void GenerateFile(string? outputFilePath, long? targetSizeInBytes, string? seedFilePath)
     {
@@ -30,7 +30,7 @@ public class TextGenerator
 
         Console.WriteLine($"Starting file generation at {DateTime.Now}");
         Console.WriteLine($"Generating file: {outputFilePath}");
-        Console.WriteLine($"Target size: {FormatSize(targetSizeInBytes.Value)}");
+        Console.WriteLine($"Target size: {FileSizeHelper.Format(targetSizeInBytes.Value)}");
 
         var random = new Random();
         var stringOptions = LoadSeedStrings(seedFilePath);
@@ -57,53 +57,12 @@ public class TextGenerator
                 lastReportedSize = totalBytesWritten;
                 var percentage = (double)totalBytesWritten / targetSizeInBytes * 100;
 
-                Console.WriteLine($"Progress: {percentage:F2}% ({FormatSize(totalBytesWritten)} of {FormatSize(targetSizeInBytes.Value)})");
+                Console.WriteLine($"Progress: {percentage:F2}% ({FileSizeHelper.Format(totalBytesWritten)} of {FileSizeHelper.Format(targetSizeInBytes.Value)})");
             }
         }
 
         Console.WriteLine($"File generation completed at {DateTime.Now}");
     }
-
-    public static bool ParseSize(string sizeStr, out long sizeInBytes)
-    {
-        sizeInBytes = 0;
-        sizeStr = sizeStr.Trim().ToUpper();
-        long multiplier = 1;
-
-        if (sizeStr.EndsWith("GB"))
-        {
-            multiplier = 1024L * 1024 * 1024;
-            sizeStr = sizeStr[..^2];
-        }
-
-        else if (sizeStr.EndsWith("MB"))
-        {
-            multiplier = 1024L * 1024;
-            sizeStr = sizeStr[..^2];
-        }
-
-        else if (sizeStr.EndsWith("KB"))
-        {
-            multiplier = 1024L;
-            sizeStr = sizeStr[..^2];
-        }
-
-        if (long.TryParse(sizeStr, out long size))
-        {
-            sizeInBytes = size * multiplier;
-            return true;
-        }
-
-        return false;
-    }
-
-    public static string FormatSize(long sizeInBytes) => sizeInBytes switch
-    {
-        >= 1024L * 1024 * 1024 => $"{sizeInBytes / (1024L * 1024 * 1024)} GB",
-        >= 1024L * 1024 => $"{sizeInBytes / (1024L * 1024)} MB",
-        >= 1024L => $"{sizeInBytes / 1024L} KB",
-        _ => $"{sizeInBytes} bytes"
-    };
 
     static List<string> LoadSeedStrings(string seedStringsFile)
     {

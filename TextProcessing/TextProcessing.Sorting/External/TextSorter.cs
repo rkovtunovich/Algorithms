@@ -8,8 +8,11 @@ public class TextSorter
     private static readonly string _defaultInputFilePath = "source.txt";
     private static readonly string _defaultOutputFilePath = "sorted.txt";
     private static readonly string _tempFolder = "temp";
-    private static readonly long _defaultChunkSize = 50L * 1024 * 1024; // 50MB
-    private static readonly int _defaultBufferSize = 64 * 1024; // 64KB
+    private static readonly long _defaultChunkSize = 200L * 1024 * 1024; // 100MB
+    private static readonly int _defaultReportInterval = 100 * 1024 * 1024; // Report every 100MB
+
+    // 1MB buffer size
+    private static readonly int _defaultBufferSize = 1024 * 1024;
 
     public static void SortFile(string? inputFilePath, string? outputFilePath)
     {
@@ -28,7 +31,9 @@ public class TextSorter
             outputFilePath = _defaultOutputFilePath;
         }
 
-        Console.WriteLine($"Starting file sort at {DateTime.Now}");
+        var sizeInBytes = new FileInfo(inputFilePath).Length;
+
+        Console.WriteLine($"Starting file sort at {DateTime.Now} with target size: {FileSizeHelper.Format(sizeInBytes)}");
         Console.WriteLine($"Input file: {inputFilePath}");
         Console.WriteLine($"Output file: {outputFilePath}");
 
@@ -41,7 +46,7 @@ public class TextSorter
         var chunkFiles = SplitAndSortChunks(inputFilePath, _tempFolder, _defaultChunkSize);
 
         // Merge sorted chunks into the output file
-        MergeChunks(chunkFiles, outputFilePath);
+        MergeChunks(chunkFiles, outputFilePath, sizeInBytes);
 
         // Clean up temporary files
         Directory.Delete(_tempFolder, true);
@@ -125,11 +130,14 @@ public class TextSorter
         Console.WriteLine($"Chunk sorted and saved in {stopwatch.Elapsed}: {chunkFile}");
     }
 
-    static void MergeChunks(List<string> chunkFiles, string outputFile)
+    static void MergeChunks(List<string> chunkFiles, string outputFile, long targetSizeInBytes)
     {
         Console.WriteLine($"Merging {chunkFiles.Count} sorted chunks into the output file: {outputFile}");
 
         var stopwatch = Stopwatch.StartNew();
+
+        var totalBytesWritten = 0L;
+        var lastReportedSize = 0L;
 
         var readers = new List<StreamReader>();
         try
@@ -164,7 +172,19 @@ public class TextSorter
                 var readerIndex = minEntry.Value;
 
                 // Write the smallest line
-                writer.WriteLine(minLine);
+                var line = minLine.ToString();
+                writer.WriteLine(line);
+
+                totalBytesWritten += Encoding.UTF8.GetByteCount(line) + Environment.NewLine.Length;
+
+                // Report progress
+                if (totalBytesWritten - lastReportedSize >= _defaultReportInterval)
+                {
+                    lastReportedSize = totalBytesWritten;
+                    var percentage = (double)totalBytesWritten / targetSizeInBytes * 100;
+
+                    Console.WriteLine($"Progress: {percentage:F2}% ({FileSizeHelper.Format(totalBytesWritten)} of {FileSizeHelper.Format(targetSizeInBytes)})");
+                }
 
                 if (!readers[readerIndex].EndOfStream)
                 {

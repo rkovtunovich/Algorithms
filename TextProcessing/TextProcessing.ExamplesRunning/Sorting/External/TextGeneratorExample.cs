@@ -29,7 +29,7 @@ static string? GetUserOutputFilePath(string[] args)
         if (args.Length < 2)
             return null;
 
-        if (!TextGenerator.ParseSize(args[1], out long sizeInBytes))
+        if (!FileSizeHelper.ParseSize(args[1], out long sizeInBytes))
             throw new ArgumentException("Invalid size format. Use numbers followed by optional unit (e.g., 100MB, 1GB).");
 
         return sizeInBytes;

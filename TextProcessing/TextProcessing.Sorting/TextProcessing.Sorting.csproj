@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <None Update="External\seed.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

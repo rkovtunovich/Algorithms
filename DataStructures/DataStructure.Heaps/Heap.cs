@@ -35,11 +35,15 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 {
     private int _d;
 
-    private const int InitialSize = 8;
-
     protected int _length = 0;
 
     protected HeapNode<TKey, TValue>[] _nodes;
+
+    protected IComparer<TKey> _comparer = Comparer<TKey>.Default;
+
+    protected bool _useKeyTracking = false;
+
+    protected bool _useValueTracking = false;
 
     // Dictionary to keep track of the positions of the values in the heap
     private Dictionary<TValue, int> _positionsByValue = [];
@@ -48,16 +52,13 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     #region Constructors
 
-    public Heap(int size, int d)
+    public Heap(HeapOptions<TKey> options)
     {
-        _nodes = new HeapNode<TKey, TValue>[size];
-        _d = d;
-    }
+        _nodes = new HeapNode<TKey, TValue>[options.Capacity];
+        _d = options.Degree;
 
-    public Heap(int d)
-    {
-        _nodes = new HeapNode<TKey, TValue>[InitialSize];
-        _d = d;
+        if (options.Comparer is not null)
+            _comparer = options.Comparer;
     }
 
     #endregion
@@ -95,10 +96,11 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
             Value = value
         };
 
-        if (value is not null)
+        if (value is not null && _useValueTracking)
             _positionsByValue[value] = _length;
 
-        _positionsByKey[key] = _length;
+        if (_useKeyTracking)
+            _positionsByKey[key] = _length;
 
         SiftUp(_length);
 
@@ -133,9 +135,9 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     public void ReplaceKeyByValue(TValue value, TKey newKey)
     {
-        if (!_positionsByValue.TryGetValue(value, out int position))       
+        if (!_positionsByValue.TryGetValue(value, out int position))
             throw new InvalidOperationException($"Value {value} not found.");
-        
+
         this[position] = new()
         {
             Value = value,
@@ -216,7 +218,7 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
     protected virtual int GetParentPosition(int childPosition)
     {
-        if(childPosition <= _d)
+        if (childPosition <= _d)
             return 0;
 
         return (childPosition - 1) / _d;
@@ -238,16 +240,18 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
     protected void Swap(int left, int right)
     {
         var rightValue = this[right].Value;
-        if (rightValue is not null)
+        if (rightValue is not null && _useValueTracking)
             _positionsByValue[rightValue] = left;
 
-        _positionsByKey[this[left].Key] = right;
+        if (_useKeyTracking)
+            _positionsByKey[this[left].Key] = right;
 
         var leftValue = this[left].Value;
-        if (leftValue is not null)
+        if (leftValue is not null && _useValueTracking)
             _positionsByValue[leftValue] = right;
 
-        _positionsByKey[this[right].Key] = left;
+        if (_useKeyTracking)
+            _positionsByKey[this[right].Key] = left;
 
         (this[left], this[right]) = (this[right], this[left]);
     }

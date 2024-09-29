@@ -6,10 +6,15 @@ public class PriorityQueue<TKey, TValue> where TKey : INumber<TKey>
 
     public PriorityQueue(bool isNonDecreasing)
     {
-        if(isNonDecreasing)
-            _heap = new HeapMin<TKey, TValue>();        
+        var heapOptions = new HeapOptions<TKey>
+        {
+            UseKeyTracking = true
+        };
+
+        if (isNonDecreasing)
+            _heap = new HeapMin<TKey, TValue>(heapOptions);     
         else       
-            _heap = new HeapMax<TKey, TValue>();       
+            _heap = new HeapMax<TKey, TValue>(heapOptions);       
     }
 
     public void Enqueue(TKey key, TValue value)

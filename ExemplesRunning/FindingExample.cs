@@ -56,7 +56,7 @@ internal static class FindingExample
 
         Viewer.ShowArray(array);
 
-        int stat = RSelect.Find(array, 4);
+        var stat = RSelect<int>.Find(array, 4);
 
         QuickSortClassic.Sort(array);
         Viewer.ShowArray(array);

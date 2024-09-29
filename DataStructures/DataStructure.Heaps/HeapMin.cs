@@ -2,6 +2,14 @@
 
 public class HeapMin<TKey, TValue> : BinaryHeap<TKey, TValue> where TKey : IComparable<TKey>
 {
+    public HeapMin(HeapOptions<TKey> options) : base(options)
+    {
+    }
+
+    public HeapMin() : base(new HeapOptions<TKey>())
+    {
+    }
+
     protected override void SiftUp(int position)
     {
         if (IsRoot(position))
@@ -9,7 +17,7 @@ public class HeapMin<TKey, TValue> : BinaryHeap<TKey, TValue> where TKey : IComp
 
         int parent = GetParentPosition(position);
 
-        if (this[parent].Key.CompareTo(this[position].Key) <= 0)
+        if (_comparer.Compare(this[parent].Key, this[position].Key) <= 0)
             return;
 
         Swap(parent, position);
@@ -34,12 +42,12 @@ public class HeapMin<TKey, TValue> : BinaryHeap<TKey, TValue> where TKey : IComp
     private int GetHeapifyDownPosition(int parent, int left, int right) => (parent, left, right) switch
     {
         (_, -1, -1) => parent,
-        (_, -1, _) when this[right].Key.CompareTo(this[parent].Key) < 0 => right,
-        (_, -1, _) when this[right].Key.CompareTo(this[parent].Key) >= 0 => parent,
-        (_, _, -1) when this[left].Key.CompareTo(this[parent].Key) < 0 => left,
-        (_, _, -1) when this[left].Key.CompareTo(this[parent].Key) >= 0 => parent,
-        (_, _, _) when this[left].Key.CompareTo(this[parent].Key) < 0 && this[left].Key.CompareTo(this[right].Key) <= 0 => left,
-        (_, _, _) when this[right].Key.CompareTo(this[parent].Key) < 0 && this[right].Key.CompareTo(this[left].Key) < 0 => right,
+        (_, -1, _) when _comparer.Compare(this[right].Key, this[parent].Key) < 0 => right,
+        (_, -1, _) when _comparer.Compare(this[right].Key, this[parent].Key) >= 0 => parent,
+        (_, _, -1) when _comparer.Compare(this[left].Key, this[parent].Key) < 0 => left,
+        (_, _, -1) when _comparer.Compare(this[left].Key, this[parent].Key) >= 0 => parent,
+        (_, _, _) when _comparer.Compare(this[left].Key, this[parent].Key) < 0 && _comparer.Compare(this[left].Key, this[right].Key) <= 0 => left,
+        (_, _, _) when _comparer.Compare(this[right].Key, this[parent].Key) < 0 && _comparer.Compare(this[right].Key, this[left].Key) < 0 => right,
         (_, _, _) => parent
     };
 }

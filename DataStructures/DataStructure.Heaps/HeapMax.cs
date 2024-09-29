@@ -2,6 +2,14 @@
 
 public class HeapMax<TKey, TValue> : BinaryHeap<TKey, TValue> where TKey : IComparable<TKey>
 {
+    public HeapMax(HeapOptions<TKey> options) : base(options)
+    {
+    }
+
+    public HeapMax() : base(new HeapOptions<TKey>())
+    {
+    }
+
     protected override void SiftUp(int position)
     {
         if (IsRoot(position))

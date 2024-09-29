@@ -2,11 +2,22 @@
 
 public class DaryMaxHeapShould
 {
+    private readonly HeapOptions<int> _options;
+
+    public DaryMaxHeapShould()
+    {
+        _options = new HeapOptions<int>
+        {
+            Capacity = 16,
+            Degree = 3
+        };
+    }
+
     [Fact]
     public void Insert_WhenHeapEmpty_ShouldInsertNode()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         // Act
         heap.Insert(1, "one");
@@ -19,7 +30,7 @@ public class DaryMaxHeapShould
     public void Insert_WhenHeapFilled_ShouldInsertNode()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -39,7 +50,7 @@ public class DaryMaxHeapShould
     public void Insert_WhenHeapFilled_ShouldInsertNodeAtCorrectPosition()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -74,7 +85,7 @@ public class DaryMaxHeapShould
     public void ExtractKey_WhenHeapFilled_ShouldReturnMinimumKey()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -93,7 +104,7 @@ public class DaryMaxHeapShould
     public void ExtractNode_WhenHeapFilled_ShouldReturnMinimumNode()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -112,7 +123,7 @@ public class DaryMaxHeapShould
     public void ReplaceKeyByValue_WhenHeapFilled_ShouldReplaceKeyByValue()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -141,7 +152,7 @@ public class DaryMaxHeapShould
     public void ReplaceKey_WhenHeapFilled_ShouldReplaceKey()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -170,7 +181,7 @@ public class DaryMaxHeapShould
     public void RemoveByValue_WhenHeapFilled_ShouldRemoveNodeByValue()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -197,7 +208,7 @@ public class DaryMaxHeapShould
     public void RemoveByKey_WhenHeapFilled_ShouldRemoveNodeByKey()
     {
         // Arrange
-        var heap = new DaryMaxHeap<int, string>(3);
+        var heap = new DaryMaxHeap<int, string>(_options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");

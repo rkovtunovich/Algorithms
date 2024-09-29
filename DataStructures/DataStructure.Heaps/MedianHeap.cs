@@ -38,8 +38,8 @@ public class MedianHeap<TKey, TValue> where TKey : INumber<TKey>
 
     public MedianHeap()
     {
-        _heapMin = new();
-        _heapMax = new();
+        _heapMin = new(new());
+        _heapMax = new(new());
     }
 
     public void Add(TKey key)

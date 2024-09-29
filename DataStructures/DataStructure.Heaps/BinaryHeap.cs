@@ -4,15 +4,13 @@ public abstract class BinaryHeap<TKey, TValue> : Heap<TKey, TValue> where TKey :
 {
     private const int d = 2;
 
-    protected BinaryHeap(int size) : base(size, d)
+    protected BinaryHeap(HeapOptions<TKey> options) : base(options)
     {
+        if (options.Degree != d)
+            throw new ArgumentException("Binary heap must have degree 2", nameof(options.Degree));
     }
 
-    protected BinaryHeap() : base(d)
-    {
-    }
-
-    protected BinaryHeap(TKey[] array) : base(d)
+    protected BinaryHeap(TKey[] array, HeapOptions<TKey> options) : base(options)
     {
         _nodes = new HeapNode<TKey, TValue>[array.Length];
 

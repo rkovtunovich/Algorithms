@@ -2,11 +2,7 @@
 
 public class DaryMaxHeap<TKey, TValue> : Heap<TKey, TValue> where TKey : IComparable<TKey>
 {
-    public DaryMaxHeap(int size, int d) : base(size, d)
-    {
-    }
-
-    public DaryMaxHeap(int d) : base(d)
+    public DaryMaxHeap(HeapOptions<TKey> options) : base(options)
     {
     }
 

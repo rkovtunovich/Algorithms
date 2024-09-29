@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System.Text;
+﻿using DataStructures.Heaps;
+using System.Diagnostics;
 
 namespace TextProcessing.Sorting.External;
 
@@ -72,22 +72,22 @@ public class TextSorter
                 lines.Add(line);
                 currentChunkSize += Encoding.UTF8.GetByteCount(line) + Environment.NewLine.Length;
 
-                if (currentChunkSize >= maxChunkSize)
-                {
-                    chunkCount++;
-                    string chunkFile = Path.Combine(tempFolder, $"chunk_{chunkCount}.txt");
-                    chunkFiles.Add(chunkFile);
+                if (currentChunkSize < maxChunkSize)               
+                    continue;
+                
+                chunkCount++;
+                string chunkFile = Path.Combine(tempFolder, $"chunk_{chunkCount}.txt");
+                chunkFiles.Add(chunkFile);
 
-                    // Reset for next chunk
-                    var linesToSort = lines.ToList();
-                    lines.Clear();
-                    currentChunkSize = 0;
+                // Reset for next chunk
+                var linesToSort = lines.ToList();
+                lines.Clear();
+                currentChunkSize = 0;
 
-                    Console.WriteLine($"Chunk {chunkCount} ready for sorting: {chunkFile}");
+                Console.WriteLine($"Chunk {chunkCount} ready for sorting: {chunkFile}");
 
-                    // Sort and save the chunk in a separate task  
-                    sortingTasks.Add(Task.Run(() => SortAndSaveChunk(linesToSort, chunkFile)));
-                }
+                // Sort and save the chunk in a separate task  
+                sortingTasks.Add(Task.Run(() => SortAndSaveChunk(linesToSort, chunkFile)));
             }
 
             // Handle the last chunk
@@ -139,7 +139,11 @@ public class TextSorter
                 readers.Add(new StreamReader(chunkFile));
 
             using var writer = new StreamWriter(outputFile, false, Encoding.UTF8, _defaultBufferSize);
-            var heap = new SortedDictionary<string, List<int>>(new LineComparer());
+            var heap = new HeapMin<string, int>(new HeapOptions<string>
+            {
+                Capacity = chunkFiles.Count,
+                Comparer = new LineComparer()
+            });
             var currentLines = new string[readers.Count];
 
             // Read the first line from each reader
@@ -149,29 +153,24 @@ public class TextSorter
                     continue;
 
                 currentLines[i] = readers[i].ReadLine();
-                AddToHeap(heap, currentLines[i], i);
+                
+                heap.Insert(currentLines[i], i);
             }
 
-            while (heap.Count > 0)
+            while (!heap.Empty)
             {
-                var minEntry = heap.First();
+                var minEntry = heap.ExtractNode();
                 string minLine = minEntry.Key;
-                var indices = minEntry.Value;
+                var readerIndex = minEntry.Value;
 
                 // Write the smallest line
                 writer.WriteLine(minLine);
 
-                var readerIndex = indices[0];
-
-                // Remove the line from the heap
-                indices.RemoveAt(0);
-                if (indices.Count is 0)
-                    heap.Remove(minLine);
-
                 if (!readers[readerIndex].EndOfStream)
                 {
                     currentLines[readerIndex] = readers[readerIndex].ReadLine();
-                    AddToHeap(heap, currentLines[readerIndex], readerIndex);
+
+                    heap.Insert(currentLines[readerIndex], readerIndex);
                 }
             }
 
@@ -182,19 +181,6 @@ public class TextSorter
             // Close all readers
             foreach (var reader in readers)
                 reader.Dispose();
-        }
-    }
-
-    static void AddToHeap(SortedDictionary<string, List<int>> heap, string line, int index)
-    {
-        if (!heap.TryGetValue(line, out var list))
-        {
-            list = [index];
-            heap.Add(line, list);
-        }
-        else
-        {
-            list.Add(index);
         }
     }
 }

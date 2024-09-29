@@ -1,6 +1,6 @@
 ﻿namespace DataStructures.Heaps;
 
-public abstract class BinaryHeap<TKey, TValue> : Heap<TKey, TValue> where TKey : IComparable<TKey>
+public abstract class BinaryHeap<TKey, TValue> : Heap<TKey, TValue> where TKey : notnull
 {
     private const int d = 2;
 

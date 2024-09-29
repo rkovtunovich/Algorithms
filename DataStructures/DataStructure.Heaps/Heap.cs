@@ -31,7 +31,7 @@
 // In conclusion, heaps are a versatile data structure that are particularly useful when you need to repeatedly remove the object with the highest (or lowest) priority.
 // They provide a good compromise of both operation efficiency and memory usage.
 
-public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
+public abstract class Heap<TKey, TValue> where TKey : notnull
 {
     private int _d;
 
@@ -59,6 +59,9 @@ public abstract class Heap<TKey, TValue> where TKey : notnull, IComparable<TKey>
 
         if (options.Comparer is not null)
             _comparer = options.Comparer;
+
+        _useKeyTracking = options.UseKeyTracking;
+        _useValueTracking = options.UseValueTracking;
     }
 
     #endregion

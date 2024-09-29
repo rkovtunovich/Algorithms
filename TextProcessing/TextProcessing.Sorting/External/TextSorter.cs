@@ -53,7 +53,7 @@ public class TextSorter
     static List<string> SplitAndSortChunks(string inputFile, string tempFolder, long maxChunkSize)
     {
         var chunkFiles = new List<string>();
-        var lines = new List<string>();
+        var lines = new List<LineData>();
         long currentChunkSize = 0;
         int chunkCount = 0;
 
@@ -69,7 +69,7 @@ public class TextSorter
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                lines.Add(line);
+                lines.Add(new LineData(line));
                 currentChunkSize += Encoding.UTF8.GetByteCount(line) + Environment.NewLine.Length;
 
                 if (currentChunkSize < maxChunkSize)               
@@ -112,7 +112,7 @@ public class TextSorter
         return chunkFiles;
     }
 
-    static void SortAndSaveChunk(List<string> lines, string chunkFile)
+    static void SortAndSaveChunk(List<LineData> lines, string chunkFile)
     {
         var stopwatch = Stopwatch.StartNew();
 
@@ -139,7 +139,7 @@ public class TextSorter
                 readers.Add(new StreamReader(chunkFile));
 
             using var writer = new StreamWriter(outputFile, false, Encoding.UTF8, _defaultBufferSize);
-            var heap = new HeapMin<string, int>(new HeapOptions<string>
+            var heap = new HeapMin<LineData, int>(new HeapOptions<LineData>
             {
                 Capacity = chunkFiles.Count,
                 Comparer = new LineComparer()
@@ -154,13 +154,13 @@ public class TextSorter
 
                 currentLines[i] = readers[i].ReadLine();
                 
-                heap.Insert(currentLines[i], i);
+                heap.Insert(new LineData(currentLines[i]), i);
             }
 
             while (!heap.Empty)
             {
                 var minEntry = heap.ExtractNode();
-                string minLine = minEntry.Key;
+                var minLine = minEntry.Key;
                 var readerIndex = minEntry.Value;
 
                 // Write the smallest line
@@ -170,7 +170,7 @@ public class TextSorter
                 {
                     currentLines[readerIndex] = readers[readerIndex].ReadLine();
 
-                    heap.Insert(currentLines[readerIndex], readerIndex);
+                    heap.Insert(new LineData(currentLines[readerIndex]), readerIndex);
                 }
             }
 

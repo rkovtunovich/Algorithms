@@ -9,7 +9,9 @@ public class DaryMaxHeapShould
         _options = new HeapOptions<int>
         {
             Capacity = 16,
-            Degree = 3
+            Degree = 3,
+            UseKeyTracking = true,
+            UseValueTracking = true
         };
     }
 

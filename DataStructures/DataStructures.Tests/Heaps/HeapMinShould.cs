@@ -95,7 +95,11 @@ public class HeapMinShould
     [Fact]
     public void ReplaceKey_WhenHeapFilled_ShouldReplaceKey()
     {
-        var heap = new HeapMin<int, string>();
+        var options = new HeapOptions<int>
+        {
+            UseKeyTracking = true
+        };
+        var heap = new HeapMin<int, string>(options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -111,7 +115,11 @@ public class HeapMinShould
     [Fact]
     public void ReplaceKeyByValue_WhenHeapFilled_ShouldReplaceKey()
     {
-        var heap = new HeapMin<int, string>();
+        var options = new HeapOptions<int>
+        {
+            UseValueTracking = true
+        };
+        var heap = new HeapMin<int, string>(options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -127,7 +135,11 @@ public class HeapMinShould
     [Fact]
     public void RemoveByValue_WhenHeapFilled_ShouldRemoveNode()
     {
-        var heap = new HeapMin<int, string>();
+        var options = new HeapOptions<int>
+        {
+            UseValueTracking = true
+        };
+        var heap = new HeapMin<int, string>(options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");
@@ -143,7 +155,11 @@ public class HeapMinShould
     [Fact]
     public void RemoveByKey_WhenHeapFilled_ShouldRemoveNode()
     {
-        var heap = new HeapMin<int, string>();
+        var options = new HeapOptions<int>
+        {
+            UseKeyTracking = true
+        };
+        var heap = new HeapMin<int, string>(options);
 
         heap.Insert(1, "one");
         heap.Insert(2, "two");

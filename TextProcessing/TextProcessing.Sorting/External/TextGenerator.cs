@@ -1,4 +1,6 @@
-﻿namespace TextProcessing.Sorting.External;
+﻿using System.Diagnostics;
+
+namespace TextProcessing.Sorting.External;
 
 public class TextGenerator
 {
@@ -39,6 +41,8 @@ public class TextGenerator
         Console.WriteLine($"Generating file: {outputFilePath}");
         Console.WriteLine($"Target size: {FileSizeHelper.Format(targetSizeInBytes.Value)}");
 
+        var stopwatch = Stopwatch.StartNew();
+
         var random = new Random();
         // Load the possible string parts from the seed file
         var stringOptions = LoadSeedStrings(seedFilePath);
@@ -76,6 +80,7 @@ public class TextGenerator
         }
 
         Console.WriteLine($"File generation completed at {DateTime.Now}");
+        Console.WriteLine($"Total time taken: {stopwatch.Elapsed}");
     }
 
     // Load possible string options from the seed file (one string per line)

@@ -1,7 +1,9 @@
 ﻿namespace TextProcessing.Sorting.External;
 
+// Comparer class for comparing two LineData objects
 class LineComparer : IComparer<LineData>
 {
+    // Compare two LineData objects first by the text part, and then by the number part
     public int Compare(LineData x, LineData y)
     {
         // Compare String parts first

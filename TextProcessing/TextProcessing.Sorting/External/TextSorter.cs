@@ -74,7 +74,8 @@ public class TextSorter
         var currentChunkSize = 0L;           // Track the size of the current chunk
         var chunkCount = 0;                  // Count the number of chunks created
 
-        var stopwatch = Stopwatch.StartNew();
+        var stopwatchTotal = Stopwatch.StartNew();
+        var stopwatchChunk = Stopwatch.StartNew();
 
         var sortingTasks = new List<Task>(); // List of tasks for parallel sorting
 
@@ -103,7 +104,8 @@ public class TextSorter
                 lines.Clear();
                 currentChunkSize = 0;
 
-                Console.WriteLine($"Chunk {chunkCount} ready for sorting: {chunkFile}");
+                Console.WriteLine($"Chunk {chunkCount} ready for sorting: {chunkFile} ({stopwatchChunk.Elapsed})");
+                stopwatchChunk.Restart();
 
                 // Sort and save the chunk in a separate task  
                 sortingTasks.Add(Task.Run(() => SortAndSaveChunk(linesToSort, chunkFile)));
@@ -126,7 +128,7 @@ public class TextSorter
         // Wait for all sorting tasks to complete
         Task.WaitAll([.. sortingTasks]);
 
-        Console.WriteLine($"Split and sort completed in {stopwatch.Elapsed}");
+        Console.WriteLine($"Split and sort completed in {stopwatchTotal.Elapsed}");
 
         return chunkFiles;
     }

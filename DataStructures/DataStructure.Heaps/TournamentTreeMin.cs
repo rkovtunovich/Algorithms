@@ -11,8 +11,11 @@ public class TournamentTreeMin<TKey, TValue> where TKey : notnull
     // Total number of leaves (input elements)
     private readonly int _leafCount;
 
+    // Tracks the number of active elements in the tree (not yet extracted)
+    private int _activeLeaves;
+
     // Array of HeapNode containing the key-value pairs (leaves)
-    private readonly HeapNode<TKey, TValue>[] _leaves;
+    private readonly HeapNode<TKey, TValue>?[] _leaves;
 
     // Array representing the tree, storing indices of the leaves
     private readonly int[] _tree;
@@ -28,9 +31,16 @@ public class TournamentTreeMin<TKey, TValue> where TKey : notnull
     public TournamentTreeMin(HeapOptions<TKey> options, HeapNode<TKey, TValue>[] initialLeaves)
     {
         _leafCount = initialLeaves.Length;
-        _leaves = initialLeaves;
+        _activeLeaves = _leafCount;
         _comparer = options.Comparer ?? Comparer<TKey>.Default; // Default comparer if none provided
         _tree = new int[_leafCount * 2 - 1]; // Complete binary tree structure
+
+        // Initialize the leaves array with the provided elements
+        _leaves = new HeapNode<TKey, TValue>?[_leafCount];
+        for (int i = 0; i < _leafCount; i++)
+        {
+            _leaves[i] = initialLeaves[i];
+        }
 
         BuildTree();
     }
@@ -43,18 +53,26 @@ public class TournamentTreeMin<TKey, TValue> where TKey : notnull
         // Initialize leaves in the last level of the binary tree
         for (int i = 0; i < _leafCount; i++)
         {
-            _tree[i + _leafCount - 1] = i;
+            _tree[i + _tree.Length - _leafCount] = i; // Leaves start at index _tree.Length - _leafCount
         }
 
         // Build the upper levels by comparing the child nodes
-        for (int i = _leafCount - 2; i >= 0; i--)
+        for (int i = _tree.Length - _leafCount - 1; i >= 0; i--)
         {
-            var leftIndex = _tree[2 * i + 1];
-            var rightIndex = _tree[2 * i + 2];
+            int leftChildIndex = 2 * i + 1;
+            int rightChildIndex = 2 * i + 2;
+
+            int leftIndex = _tree[leftChildIndex];
+            int rightIndex = rightChildIndex < _tree.Length ? _tree[rightChildIndex] : -1;
 
             _tree[i] = CompareNodes(leftIndex, rightIndex);
         }
     }
+
+    /// <summary>
+    /// Determines if the heap is empty (no elements left).
+    /// </summary>
+    public bool Empty => _activeLeaves is 0;
 
     /// <summary>
     /// Retrieves the current extremum (minimum) node in the heap.
@@ -62,7 +80,62 @@ public class TournamentTreeMin<TKey, TValue> where TKey : notnull
     /// <returns>The <see cref="HeapNode{TKey, TValue}"/> that contains the minimum key.</returns>
     public HeapNode<TKey, TValue> GetExtremum()
     {
-        return _leaves[_tree[0]]; // Root contains the minimum key
+        if (Empty)
+            throw new InvalidOperationException("The heap is empty.");
+
+        int winnerIndex = _tree[0];
+        if (winnerIndex == -1 || _leaves[winnerIndex] is null)
+            throw new InvalidOperationException("The heap is empty.");
+
+        return _leaves[winnerIndex].Value;
+    }
+
+    /// <summary>
+    /// Extracts the current extremum from the heap.
+    /// </summary>
+    /// <returns>The <see cref="HeapNode{TKey, TValue}"/> that contains the minimum key.</returns>
+    public HeapNode<TKey, TValue> ExtractExtremum()
+    {
+        if (Empty)
+            throw new InvalidOperationException("The heap is empty.");
+
+        var extremum = GetExtremum();
+
+        // Get the index of the leaf from which the extremum came
+        int leafIndex = _tree[0];
+
+        // Mark the leaf as exhausted
+        _leaves[leafIndex] = null;
+        _activeLeaves--;
+
+        // Adjust the tree from the leaf upwards
+        AdjustTreeUpwards(leafIndex + _leafCount - 1);
+
+        return extremum;
+    }
+
+    /// <summary>
+    /// Extracts the current extremum and replaces it with a new key-value pair.
+    /// </summary>
+    /// <param name="newKey">New key to insert into the heap.</param>
+    /// <param name="newValue">New value to insert into the heap.</param>
+    /// <returns>The <see cref="HeapNode{TKey, TValue}"/> that contains the previous minimum key.</returns>
+    public HeapNode<TKey, TValue> ExtractWithReplacement(TKey newKey, TValue newValue)
+    {
+        if (Empty)
+            throw new InvalidOperationException("The heap is empty.");
+
+        var extremum = GetExtremum();
+
+        // Replace the leaf from which the extremum came
+        int leafIndex = _tree[0];
+
+        _leaves[leafIndex] = new HeapNode<TKey, TValue> { Key = newKey, Value = newValue };
+
+        // Adjust the tree from the leaf upwards
+        AdjustTreeUpwards(leafIndex + _tree.Length - _leafCount);
+
+        return extremum;
     }
 
     /// <summary>
@@ -77,17 +150,9 @@ public class TournamentTreeMin<TKey, TValue> where TKey : notnull
         _leaves[leafIndex] = new HeapNode<TKey, TValue> { Key = newKey, Value = newValue };
 
         // Adjust the tree from the updated leaf upwards
-        int i = leafIndex + _leafCount - 1;
+        int i = leafIndex + _activeLeaves - 1;
 
-        while (i > 0)
-        {
-            i = (i - 1) / 2; // Move to parent node
-
-            var leftIndex = _tree[2 * i + 1];
-            var rightIndex = _tree[2 * i + 2];
-
-            _tree[i] = CompareNodes(leftIndex, rightIndex); // Rebalance based on comparison
-        }
+        AdjustTreeUpwards(i);
     }
 
     /// <summary>
@@ -97,7 +162,9 @@ public class TournamentTreeMin<TKey, TValue> where TKey : notnull
     /// <param name="newValue">New value for the root leaf.</param>
     public void UpdateRoot(TKey newKey, TValue newValue)
     {
-        Update(0, newKey, newValue);
+        var leafIndex = _tree[0];
+
+        Update(leafIndex, newKey, newValue);
     }
 
     /// <summary>
@@ -108,18 +175,42 @@ public class TournamentTreeMin<TKey, TValue> where TKey : notnull
     /// <returns>Index of the node with the smaller key.</returns>
     private int CompareNodes(int leftIndex, int rightIndex)
     {
-        if (leftIndex == -1)
-            return rightIndex; // No left node
+        bool leftNull = leftIndex is -1 || _leaves[leftIndex] is null;
+        bool rightNull = rightIndex is -1 || _leaves[rightIndex] is null;
 
-        if (rightIndex == -1)
-            return leftIndex; // No right node
+        if (leftNull && rightNull)
+            return -1; // Both nodes are null, return invalid index
+        if (leftNull)
+            return rightIndex;
+        if (rightNull)
+            return leftIndex;
 
-        // Retrieve the nodes from the leaves array
         var leftNode = _leaves[leftIndex];
         var rightNode = _leaves[rightIndex];
 
-        // Compare the keys
-        int cmp = _comparer.Compare(leftNode.Key, rightNode.Key);
-        return cmp <= 0 ? leftIndex : rightIndex; // Return index of smaller key
+        int cmp = _comparer.Compare(leftNode.Value.Key, rightNode.Value.Key);
+        return cmp <= 0 ? leftIndex : rightIndex;
+    }
+
+    /// <summary>
+    /// Adjusts the tree upwards from the specified leaf index.
+    /// </summary>
+    /// <param name="treeIndex">Index of the leaf to start adjusting from.</param>
+    private void AdjustTreeUpwards(int treeIndex)
+    {
+        while (treeIndex > 0)
+        {
+            int parentIndex = (treeIndex - 1) / 2;
+
+            int leftChildIndex = 2 * parentIndex + 1;
+            int rightChildIndex = 2 * parentIndex + 2;
+
+            int leftIndex = leftChildIndex < _tree.Length ? _tree[leftChildIndex] : -1;
+            int rightIndex = rightChildIndex < _tree.Length ? _tree[rightChildIndex] : -1;
+
+            _tree[parentIndex] = CompareNodes(leftIndex, rightIndex);
+
+            treeIndex = parentIndex;
+        }
     }
 }

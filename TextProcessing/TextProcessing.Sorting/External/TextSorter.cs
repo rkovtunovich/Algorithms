@@ -10,7 +10,7 @@ public class TextSorter
     private static readonly string _defaultOutputFilePath = "sorted.txt";
     private static readonly string _tempFolder = "temp";
     private static readonly long _defaultChunkSize = 500L * 1024 * 1024; // 500MB chunk size for sorting
-    private static readonly int _defaultReportInterval = 100 * 1024 * 1024; // Report progress every 100MB
+    private static readonly int _defaultReportInterval = 250 * 1024 * 1024; // Report progress every 250MB
 
     // Buffer sizes for reading/writing files
     private static readonly int _bufferSizeSortingPhase = 4 * 1024 * 1024; // 4MB buffer size for sorting
@@ -167,14 +167,11 @@ public class TextSorter
                 readers.Add(new StreamReader(chunkFile));
 
             using var writer = new StreamWriter(outputFile, false, Encoding.UTF8, _bufferSizeMergingPhase);
-            // Min-heap to store the smallest line from each chunk
-            var heap = new HeapMin<LineData, int>(new HeapOptions<LineData>
-            {
-                Capacity = chunkFiles.Count,
-                Comparer = new LineComparer()
-            });
+
             var currentLines = new string[readers.Count];
 
+            var initialLeaves = new HeapNode<LineData, int>[readers.Count];
+            
             // Read the first line from each reader
             for (int i = 0; i < readers.Count; i++)
             {
@@ -183,13 +180,23 @@ public class TextSorter
 
                 currentLines[i] = readers[i].ReadLine();
 
-                heap.Insert(new LineData(currentLines[i]), i);
+                initialLeaves[i] = new HeapNode<LineData, int>(new LineData(currentLines[i]), i);
             }
 
-            // Merge the smallest lines from the heap
-            while (!heap.Empty)
+            // Min-tournamentTree to store the smallest line from each chunk
+            var tournamentTree = new TournamentTreeMin<LineData, int>(new HeapOptions<LineData>
             {
-                var minEntry = heap.ExtractNode();
+                Comparer = new LineComparer()
+            }, initialLeaves);
+
+            // Merge the smallest lines from the tournamentTree
+            while (true)
+            {
+                if (tournamentTree.Empty)
+                    break;
+
+                var minEntry = tournamentTree.GetExtremum();
+
                 var minLine = minEntry.Key;
                 var readerIndex = minEntry.Value;
 
@@ -213,8 +220,22 @@ public class TextSorter
                 {
                     currentLines[readerIndex] = readers[readerIndex].ReadLine();
 
-                    heap.Insert(new LineData(currentLines[readerIndex]), readerIndex);
+                    tournamentTree.UpdateRoot(new LineData(currentLines[readerIndex]), readerIndex);
                 }
+                else if (readers.Any(r => !r.EndOfStream))
+                {
+                    var nextReaderIndex = readers.FindIndex(r => !r.EndOfStream);
+                    currentLines[nextReaderIndex] = readers[nextReaderIndex].ReadLine();
+                    tournamentTree.UpdateRoot(new LineData(currentLines[nextReaderIndex]), nextReaderIndex);
+                }
+                else
+                {
+                    tournamentTree.ExtractExtremum();
+                }
+
+                // If all readers are at the end of the file, exit the loop
+                if (tournamentTree.Empty && readers.All(r => r.EndOfStream))
+                    break;
             }
 
             Console.WriteLine($"Chunks merged in {stopwatch.Elapsed}");

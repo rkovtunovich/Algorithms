@@ -103,4 +103,30 @@ public class TournamentTreeShouldMin
         // Assert
         minimum.Should().BeEquivalentTo(new HeapNode<int, string>(0, "Zero"));
     }
+
+    [Fact]
+    public void ExtractExtremum_WhenKeyIsExtracted_ShouldReturnNewMinimum()
+    {
+        // Arrange
+        var leaves = new HeapNode<int, string>[]
+        {
+            new( 1, "One"),
+            new( 2, "Two" ),
+            new( 3, "Three"),
+            new( 4, "Four" ),
+            new( 5, "Five" ),
+            new( 6, "Six" ),
+            new(7, "Seven"),
+            new(8, "Eight" )
+        };
+
+        var tree = new TournamentTreeMin<int, string>(new(), leaves);
+
+        // Act
+        tree.ExtractExtremum();
+        var minimum = tree.GetExtremum();
+
+        // Assert
+        minimum.Should().BeEquivalentTo(new HeapNode<int, string>(2, "Two"));
+    }
 }

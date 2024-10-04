@@ -52,10 +52,9 @@ public class RSelectShould
         int orderStatistics = 0;
 
         // Act
-        (int index, int element) = RSelect<int>.Find(array, orderStatistics);
+        int element = RSelect<int>.Find(array, orderStatistics);
 
         // Assert
-        index.Should().Be(0);
         element.Should().Be(1);
     }
 
@@ -67,10 +66,9 @@ public class RSelectShould
         int orderStatistics = 1;
 
         // Act
-        (int index, int element) = RSelect<int>.Find(array, orderStatistics);
+        int element = RSelect<int>.Find(array, orderStatistics);
 
         // Assert
-        index.Should().Be(1);
         element.Should().Be(2);
     }
 
@@ -78,14 +76,13 @@ public class RSelectShould
     public void Find_WhenOrderStatisticsIsLast_ShouldReturnLargestElement()
     {
         // Arrange
-        int[] array = { 3, 2, 1 };
+        List<int> array = [3, 2, 1];
         int orderStatistics = 2;
 
         // Act
-        (int index, int element) = RSelect<int>.Find(array, orderStatistics);
+        int element = RSelect<int>.Find(array, orderStatistics);
 
         // Assert
-        index.Should().Be(2);
         element.Should().Be(3);
     }
 }

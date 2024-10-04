@@ -18,7 +18,7 @@ public class ClosestNeighborsSearch
         var differences = sequence.Select(x => Math.Abs(x - target)).ToList();
 
         // Step 2: Find the k-th smallest element in the differences array using RSelect
-        (_, var kthSmallestDifference) = RSelect<int>.Find(differences.ToArray(), k - 1);
+        var kthSmallestDifference = RSelect<int>.Find(differences.ToArray(), k - 1);
 
         // Step 3: Find all elements in the original sequence that have a difference less than or equal to the k-th smallest difference
         var result = new List<int>();

@@ -8,6 +8,8 @@
 /// </summary>
 public static class WeightedMedian
 {
+    private static Random _random = new();
+
     /// <summary>
     /// Finds the weighted median of a set of values and their corresponding weights.
     /// The algorithm works in O(n) time by utilizing a selection algorithm 
@@ -16,18 +18,17 @@ public static class WeightedMedian
     /// <param name="values">Array of elements whose weighted median needs to be found.</param>
     /// <param name="weights">Array of corresponding weights for each value.</param>
     /// <returns>The weighted median value.</returns>
-    public static double Find(double[] values, double[] weights)
+    public static WeightedValue Find(WeightedValue[] weightedValues)
     {
-        // Check if the input arrays have the same length.
-        if (values.Length != weights.Length)
-            throw new ArgumentException("Values and weights must have the same length.");
-
-        // Check if the arrays are non-empty.
-        if (values.Length == 0 || weights.Length == 0)
+        // Check if the input arrays are non-empty.
+        if (weightedValues.Length is 0)
             throw new ArgumentException("Values and weights must not be empty.");
 
+        // Normalize the weights to ensure they sum up to 1.
+        NormalizeWeights(weightedValues);
+
         // Call the recursive helper function to find the weighted median.
-        return WeightedMedianHelper(values, weights, 0, values.Length - 1);
+        return WeightedMedianHelper(weightedValues, 0, weightedValues.Length - 1);
     }
 
     /// <summary>
@@ -40,47 +41,66 @@ public static class WeightedMedian
     /// <param name="left">Left boundary index of the subarray.</param>
     /// <param name="right">Right boundary index of the subarray.</param>
     /// <returns>The weighted median value.</returns>
-    private static double WeightedMedianHelper(double[] values, double[] weights, int left, int right)
+    private static WeightedValue WeightedMedianHelper(WeightedValue[] weightedValues, int left, int right, double weightBelow = 0, double weightAbove = 0)
     {
         // Base case: If the subarray has one element, return it (as it's the median).
         if (left == right)
-            return values[left];
+            return weightedValues[left];
 
         // Step 1: Use a linear-time selection algorithm (RSelect) to find the pivot.
-        var span = values.AsSpan(left, right - left + 1);
-        int orderStatistics = (right - left) / 2;
-        (var pivotIndex, _) = RSelect<double>.Find(span, orderStatistics); // Find pivot using Randomized-Select.
+        // Use a custom RSelect that returns the pivot index
+        int pivotIndex = GetPivotIndex(weightedValues, left, right);
 
         // Step 2: Partition the array around the pivot and calculate the total weights.
+        int partitionIndex = Partition(weightedValues, left, right, pivotIndex); // Partition the array
+
+        Console.WriteLine($"Pivot: {weightedValues[partitionIndex].Value}");
+
         double totalWeightLeft = 0;
         double totalWeightRight = 0;
-        int partitionIndex = Partition(values, weights, left, right, pivotIndex); // Partition the array.
 
         // Calculate the total weight on the left of the partition (elements smaller than pivot).
         for (int i = left; i < partitionIndex; i++)
-            totalWeightLeft += weights[i];
+            totalWeightLeft += weightedValues[i].Weight;
 
         // Calculate the total weight on the right of the partition (elements greater than pivot).
         for (int i = partitionIndex + 1; i <= right; i++)
-            totalWeightRight += weights[i];
+            totalWeightRight += weightedValues[i].Weight;
 
         // Step 3: Check the weighted median conditions.
         // If the total weight on the left is less than 1/2 and adding the pivot's weight reaches or exceeds 1/2,
         // then the pivot is the weighted median.
-        if (totalWeightLeft < 0.5 && totalWeightLeft + weights[partitionIndex] >= 0.5)
+        var partitionWeight = weightedValues[partitionIndex].Weight;
+        if (totalWeightLeft + weightBelow < 0.5 && totalWeightLeft + weightBelow + partitionWeight >= 0.5)
         {
-            return values[partitionIndex];  // The pivot is the weighted median.
+            return weightedValues[partitionIndex];  // The pivot is the weighted median.
         }
         // If the total weight on the left exceeds 1/2, the weighted median is in the left part.
-        else if (totalWeightLeft >= 0.5)
+        else if (totalWeightLeft + weightBelow >= 0.5)    
         {
-            return WeightedMedianHelper(values, weights, left, partitionIndex - 1);
+            return WeightedMedianHelper(weightedValues, left, partitionIndex - 1, weightBelow, totalWeightRight + weightAbove);
         }
         // If the total weight on the right is less than 1/2, the weighted median is in the right part.
         else
         {
-            return WeightedMedianHelper(values, weights, partitionIndex + 1, right);
+            return WeightedMedianHelper(weightedValues, partitionIndex + 1, right, totalWeightLeft + partitionWeight + weightBelow, weightAbove);
         }
+    }
+
+    private static int GetPivotIndex(WeightedValue[] weightedValues, int left, int right)
+    {
+        var list = weightedValues[left..(right + 1)];
+        int orderStatistics = (right - left) / 2;
+        var element = RSelect<WeightedValue>.Find(list, orderStatistics); // Find pivot using Randomized-Select.
+        int pivotIndex = Array.IndexOf(weightedValues, element, left); // Get the index of the pivot.
+
+        return pivotIndex;
+    }
+
+    private static void Swap(WeightedValue[] array, int i, int j)
+    {
+        if (i != j)
+            (array[j], array[i]) = (array[i], array[j]);
     }
 
     /// <summary>
@@ -94,30 +114,48 @@ public static class WeightedMedian
     /// <param name="right">Right boundary index of the subarray to partition.</param>
     /// <param name="pivotIndex">Index of the pivot element.</param>
     /// <returns>The final index of the pivot after partitioning.</returns>
-    private static int Partition(double[] values, double[] weights, int left, int right, int pivotIndex)
+    private static int Partition(WeightedValue[] weightedValues, int left, int right, int pivotIndex)
     {
         // Get the value of the pivot and move it to the end of the subarray.
-        double pivotValue = values[pivotIndex];
-        (values[pivotIndex], values[right], weights[pivotIndex], weights[right])
-            = (values[right], values[pivotIndex], weights[right], weights[pivotIndex]);
+        var pivotValue = weightedValues[pivotIndex];
+        Swap(weightedValues, pivotIndex, right);
 
         int storeIndex = left;
         // Partition the array by moving elements smaller than the pivot to the left.
         for (int i = left; i < right; i++)
         {
-            if (values[i] < pivotValue)
+            if (weightedValues[i].CompareTo(pivotValue) < 0)
             {
-                (values[i], values[storeIndex], weights[i], weights[storeIndex])
-                    = (values[storeIndex], values[i], weights[storeIndex], weights[i]);
-
+                Swap(weightedValues, i, storeIndex);
                 storeIndex++;
             }
         }
 
         // Move the pivot element to its final sorted position.
-        (values[storeIndex], values[right], weights[storeIndex], weights[right])
-            = (values[right], values[storeIndex], weights[right], weights[storeIndex]);
+        Swap(weightedValues, storeIndex, right);
 
         return storeIndex;  // Return the final position of the pivot.
+    }
+
+    private static void NormalizeWeights(WeightedValue[] weightedValues)
+    {
+        double totalWeight = 0;
+        foreach (var value in weightedValues)
+        {
+            if (value.Weight < 0)
+                throw new ArgumentException("Weights must be non-negative.");
+
+            totalWeight += value.Weight;
+        }
+            
+
+        if(totalWeight is 0)
+            throw new ArgumentException("Total weight must be greater than zero.");
+
+        if (totalWeight is 1)
+            return;
+
+        for (int i = 0; i < weightedValues.Length; i++)
+            weightedValues[i].Weight /= totalWeight;
     }
 }

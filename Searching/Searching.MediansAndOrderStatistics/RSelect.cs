@@ -81,8 +81,6 @@ public class RSelect<T> where T : IComparable<T>
         // Place the pivot in its final sorted position (between smaller and larger elements).
         (array[pivotIndex], array[innerBorder]) = (array[innerBorder], array[pivotIndex]);
 
-        var leftSize = innerBorder - startIndex;
-
         // Now, `innerBorder` holds the index of the pivot in the sorted order.
         if (innerBorder == orderStatistics)
             return array[innerBorder]; // Return the k-th element if the pivot is at the k-th position.
@@ -91,7 +89,7 @@ public class RSelect<T> where T : IComparable<T>
             return FindRec(array, startIndex, innerBorder - 1, orderStatistics);
         else
             // Recurse into the right part if the order statistic is greater than the pivot index.
-            return FindRec(array, innerBorder + 1, endIndex, orderStatistics - leftSize - 1);
+            return FindRec(array, innerBorder + 1, endIndex, orderStatistics);
     }
 
     /// <summary>

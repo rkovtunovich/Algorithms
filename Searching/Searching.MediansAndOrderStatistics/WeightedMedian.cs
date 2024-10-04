@@ -87,6 +87,13 @@ public static class WeightedMedian
         }
     }
 
+    /// <summary>
+    /// Selects a pivot element using the Randomized-Select algorithm.
+    /// </summary>
+    /// <param name="values">Array of elements to select the pivot from.</param>
+    /// <param name="left">Left boundary index of the subarray.</param>
+    /// <param name="right">Right boundary index of the subarray.</param>
+    /// <returns>The index of the selected pivot element.</returns>
     private static int GetPivotIndex(WeightedValue[] weightedValues, int left, int right)
     {
         var list = weightedValues[left..(right + 1)];
@@ -97,6 +104,13 @@ public static class WeightedMedian
         return pivotIndex;
     }
 
+    /// <summary>
+    /// Swaps two elements in the array.
+    /// </summary>
+    /// <param name="array">Array of elements.</param>
+    /// <param name="i">Index of the first element.</param>
+    /// <param name="j">Index of the second element.</param>
+    /// <returns>The array with the elements at indices i and j swapped.</returns>
     private static void Swap(WeightedValue[] array, int i, int j)
     {
         if (i != j)
@@ -137,6 +151,10 @@ public static class WeightedMedian
         return storeIndex;  // Return the final position of the pivot.
     }
 
+    /// <summary>
+    /// Normalizes the weights of the elements such that they sum up to 1.
+    /// </summary>
+    /// <param name="weightedValues">Array of elements with corresponding weights.</param>
     private static void NormalizeWeights(WeightedValue[] weightedValues)
     {
         double totalWeight = 0;

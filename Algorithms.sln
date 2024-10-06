@@ -127,7 +127,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biology.Common", "Biology\B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biology.Tests", "Biology\Biology.Tests\Biology.Tests.csproj", "{566305A0-1965-499A-9667-7F06714A1D35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Searching.MediansAndOrderStatistics", "Searching\Searching.MediansAndOrderStatistics\Searching.MediansAndOrderStatistics.csproj", "{C7D272B8-84C4-4D55-8DA1-C4E168172B68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Searching.MediansAndOrderStatistics", "Searching\Searching.MediansAndOrderStatistics\Searching.MediansAndOrderStatistics.csproj", "{C7D272B8-84C4-4D55-8DA1-C4E168172B68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TextProcessing", "TextProcessing", "{2669D6D8-6FB6-4539-AA0C-52A7D0F1F823}"
 EndProject
@@ -135,9 +135,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextProcessing.Common", "Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextProcessing.PatternMatching", "TextProcessing\TextProcessing.PatternMatching\TextProcessing.PatternMatching.csproj", "{9787EE0B-5A26-45CD-9B60-560138BE42FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing.Sorting", "TextProcessing\TextProcessing.Sorting\TextProcessing.Sorting.csproj", "{1037A3DC-393E-414A-AF89-74BBA40070B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextProcessing.Sorting", "TextProcessing\TextProcessing.Sorting\TextProcessing.Sorting.csproj", "{1037A3DC-393E-414A-AF89-74BBA40070B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing.ExamplesRunning", "TextProcessing\TextProcessing.ExamplesRunning\TextProcessing.ExamplesRunning.csproj", "{A7552B89-9CBE-4BDB-B3FE-2246C8B196B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextProcessing.ExamplesRunning", "TextProcessing\TextProcessing.ExamplesRunning\TextProcessing.ExamplesRunning.csproj", "{A7552B89-9CBE-4BDB-B3FE-2246C8B196B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing.Tests", "TextProcessing\TextProcessing.Tests\TextProcessing.Tests.csproj", "{3F9934CC-2D02-430A-AE33-74AEF9894F06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -329,6 +331,10 @@ Global
 		{A7552B89-9CBE-4BDB-B3FE-2246C8B196B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7552B89-9CBE-4BDB-B3FE-2246C8B196B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7552B89-9CBE-4BDB-B3FE-2246C8B196B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F9934CC-2D02-430A-AE33-74AEF9894F06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F9934CC-2D02-430A-AE33-74AEF9894F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F9934CC-2D02-430A-AE33-74AEF9894F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F9934CC-2D02-430A-AE33-74AEF9894F06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -373,6 +379,7 @@ Global
 		{9787EE0B-5A26-45CD-9B60-560138BE42FF} = {2669D6D8-6FB6-4539-AA0C-52A7D0F1F823}
 		{1037A3DC-393E-414A-AF89-74BBA40070B0} = {2669D6D8-6FB6-4539-AA0C-52A7D0F1F823}
 		{A7552B89-9CBE-4BDB-B3FE-2246C8B196B7} = {2669D6D8-6FB6-4539-AA0C-52A7D0F1F823}
+		{3F9934CC-2D02-430A-AE33-74AEF9894F06} = {2669D6D8-6FB6-4539-AA0C-52A7D0F1F823}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F0EF03E-741C-47C2-9E8E-0624F896543E}

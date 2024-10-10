@@ -96,7 +96,6 @@ public static class MaxSumSubArray
         return (startIndex, endIndex, maxSum);
     }
 
-
     public static (int start, int end, int sum) FindHybrid(int[] arr, int threshold = 10)
     {
         if (arr is null || arr.Length is 0)
@@ -127,9 +126,18 @@ public static class MaxSumSubArray
             return (crossStart, crossEnd, crossSum);
     }
 
-    public static (int start, int end, int sum) FindKadane(int[] arr)
+    /// <summary>
+    /// Find the maximum sum subarray using Kadane's algorithm.
+    /// Initially was implemented as profit calculation in stock market.
+    /// Time complexity: O(n)
+    /// Space complexity: O(1)
+    /// </summary>
+    /// <param name="array">The input array</param>
+    /// <returns>A tuple containing the start index, end index, and the sum of the maximum sum subarray</returns>
+    /// <exception cref="ArgumentException">Thrown when the input array is empty or null</exception>
+    public static (int start, int end, int sum) FindKadane(int[] array)
     {
-        if (arr is null || arr.Length is 0)
+        if (array is null || array.Length is 0)
             throw new ArgumentException("Array is empty or null");
 
         int maxSum = int.MinValue;
@@ -138,10 +146,10 @@ public static class MaxSumSubArray
         int endIndex = 0;
         int tempStartIndex = 0;
 
-        for (int i = 0; i < arr.Length; i++)
+        for (int i = 0; i < array.Length; i++)
         {
             // Add current element to the sum
-            sum += arr[i];
+            sum += array[i];
             if (sum > maxSum)   
             {
                 maxSum = sum;

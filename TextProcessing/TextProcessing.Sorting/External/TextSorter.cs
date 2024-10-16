@@ -50,17 +50,28 @@ public class TextSorter
 
         var stopwatch = Stopwatch.StartNew();
 
-        // Create a temporary folder for chunk files
-        Directory.CreateDirectory(_tempFolder);
+        try
+        {
+            // Create a temporary folder for chunk files
+            Directory.CreateDirectory(_tempFolder);
 
-        // Split the input file into sorted chunks
-        var chunkFiles = SplitAndSortChunks(inputFilePath, _tempFolder, chunkSize.Value);
+            // Split the input file into sorted chunks
+            var chunkFiles = SplitAndSortChunks(inputFilePath, _tempFolder, chunkSize.Value);
 
-        // Merge sorted chunks into the output file
-        MergeChunks(chunkFiles, outputFilePath, sizeInBytes);
-
-        // Clean up temporary files
-        Directory.Delete(_tempFolder, true);
+            // Merge sorted chunks into the output file
+            MergeChunks(chunkFiles, outputFilePath, sizeInBytes);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred during file sort: {ex.Message}");
+            throw;
+        }
+        finally
+        {
+            // Clean up temporary files
+            if (Directory.Exists(_tempFolder))
+                Directory.Delete(_tempFolder, true);
+        }
 
         Console.WriteLine($"File sort completed at {DateTime.Now}");
         Console.WriteLine($"Elapsed time: {stopwatch.Elapsed}");

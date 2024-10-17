@@ -22,7 +22,7 @@ public class SequentialStack<T>
 
     public T Pop()
     {
-        if (_top == -1)
+        if (_top is -1)
             throw new InvalidOperationException("Stack is empty.");
 
         T item = _items[_top];
@@ -33,15 +33,14 @@ public class SequentialStack<T>
 
     public T Peek()
     {
-        if (_top == -1)
+        if (_top is -1)
             throw new InvalidOperationException("Stack is empty.");
 
         return _items[_top];
     }
 
-    public int Count
-    {
-        get { return _top + 1; }
-    }
+    public int Count => _top + 1;
+
+    public bool IsEmpty => _top is -1;
 }
 

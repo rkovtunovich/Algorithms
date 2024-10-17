@@ -40,8 +40,7 @@ public class SequentialQueue<T>
         return _array[_head];
     }
 
-    public int Count
-    {
-        get { return _tail - _head; }
-    }
+    public int Count => _tail - _head;
+
+    public bool IsEmpty => _head is 0;
 }

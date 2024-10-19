@@ -1,7 +1,8 @@
+using Scheduling.Common.Allocation;
 
-namespace Scheduling.Tests.Common;
+namespace Scheduling.Tests.Common.Allocation;
 
-public class AllocationAndSchedulingWithDelaysProblemShould
+public class SchedulingWithDelaysProblemShould
 {
     [Fact]
     public void Solve_WhenGivenArrivalsAndPowerFunction_ShouldReturnOptimalValue()
@@ -11,7 +12,7 @@ public class AllocationAndSchedulingWithDelaysProblemShould
         var powerFunction = new Func<int, double>(j => Math.Pow(2, j - 1)); // 1, 2, 4, 8
 
         // Act
-        var (Value, ActionsSequence) = AllocationAndSchedulingWithDelaysProblem.Solve(arrivals, powerFunction);
+        var (Value, ActionsSequence) = SchedulingWithDelaysProblem.Solve(arrivals, powerFunction);
 
         // Assert
         Value.Should().Be(5);
@@ -26,10 +27,10 @@ public class AllocationAndSchedulingWithDelaysProblemShould
         var powerFunction = new Func<int, double>(j => 5);
 
         // Act
-        var (Value, ActionsSequence) = AllocationAndSchedulingWithDelaysProblem.Solve(arrivals, powerFunction);
+        var (Value, ActionsSequence) = SchedulingWithDelaysProblem.Solve(arrivals, powerFunction);
 
         // Assert
-        Value.Should().Be(4); 
+        Value.Should().Be(4);
         ActionsSequence.Should().BeEquivalentTo(new List<int> { 1, 1, 1, 1 });
     }
 
@@ -41,7 +42,7 @@ public class AllocationAndSchedulingWithDelaysProblemShould
         var powerFunction = new Func<int, double>(j => Math.Pow(2, j - 1)); // 1, 2, 4, 8
 
         // Act
-        var (Value, ActionsSequence) = AllocationAndSchedulingWithDelaysProblem.Solve(arrivals, powerFunction);
+        var (Value, ActionsSequence) = SchedulingWithDelaysProblem.Solve(arrivals, powerFunction);
 
         // Assert
         Value.Should().Be(8);

@@ -1,4 +1,4 @@
-﻿namespace Scheduling.Common;
+﻿namespace Scheduling.Common.Allocation;
 
 // The generalized problem can be formalized as follows:
 // 1. Resource Arrival: at each time step t, a certain number of "opportunities" (e.g. jobs, resources, tasks, items, etc.) arrive.
@@ -13,7 +13,7 @@
 // 3. Decision points: at each time step t, we decide whether to act on the opportunities or wait for a better opportunity.
 // 4. Objective function: we want to maximize the cumulative total value of the opportunities we capture.
 
-public class AllocationAndSchedulingWithDelaysProblem
+public class SchedulingWithDelaysProblem
 {
     public static (double Value, List<int> ActionsSequence) Solve(int[] arrivals, Func<int, double> powerFunction)
     {
@@ -33,8 +33,8 @@ public class AllocationAndSchedulingWithDelaysProblem
                 dp[i] = Math.Max(dp[i], actingValue);
 
                 // track the optimal decision at each time step
-                if (dp[i] == actingValue)                
-                    tracking[i] = j;              
+                if (dp[i] == actingValue)
+                    tracking[i] = j;
             }
         }
 
@@ -42,7 +42,7 @@ public class AllocationAndSchedulingWithDelaysProblem
         var actionSequence = Enumerable.Repeat(0, arrivals.Length).ToList();
 
         // start from the last time step and backtrack to the first time step
-        for (int i = arrivals.Length, j = 0; i > 0; i -= tracking[i], j++)      
+        for (int i = arrivals.Length, j = 0; i > 0; i -= tracking[i], j++)
             actionSequence[j] = tracking[i];
 
         // reverse the action sequence to get the correct order

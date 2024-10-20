@@ -2,8 +2,9 @@
 
 public class DoublyLinkedList<T> : ICollection<T>
 {
-    private DoublyListNode<T>? _head;
-    private DoublyListNode<T>? _tail;
+    public DoublyListNode<T>? Head { get; private set; }
+
+    public DoublyListNode<T>? Tail { get; private set; }
 
     public int Count { get; private set; }
 
@@ -12,16 +13,16 @@ public class DoublyLinkedList<T> : ICollection<T>
     public void Add(T value)
     {
         var node = new DoublyListNode<T>(value);
-        if (_head == null)
+        if (Head is null)
         {
-            _head = node;
-            _tail = node;
+            Head = node;
+            Tail = node;
         }
         else
         {
-            node.Next = _head;
-            _head.Prev = node;
-            _head = node;
+            node.Next = Head;
+            Head.Prev = node;
+            Head = node;
         }
 
         Count++;
@@ -30,69 +31,66 @@ public class DoublyLinkedList<T> : ICollection<T>
     public void AddLast(T value)
     {
         var node = new DoublyListNode<T>(value);
-        if (_tail == null)
+        if (Tail is null)
         {
-            _head = node;
-            _tail = node;
+            Head = node;
+            Tail = node;
         }
         else
         {
-            node.Prev = _tail;
-            _tail.Next = node;
-            _tail = node;
+            node.Prev = Tail;
+            Tail.Next = node;
+            Tail = node;
         }
         Count++;
     }
 
     public void RemoveFirst()
     {
-        if (_head == null)
-        {
+        if (Head is null)       
             throw new InvalidOperationException("List is empty.");
-        }
-        if (_head == _tail)
+        
+        if (Head == Tail)
         {
-            _head = null;
-            _tail = null;
+            Head = null;
+            Tail = null;
         }
         else
         {
-            _head = _head.Next;
-            _head.Prev = null;
+            Head = Head.Next;
+            Head.Prev = null;
         }
         Count--;
     }
 
     public void RemoveLast()
     {
-        if (_tail == null)
-        {
+        if (Tail is null)
             throw new InvalidOperationException("List is empty.");
-        }
-        if (_head == _tail)
+        
+        if (Head == Tail)
         {
-            _head = null;
-            _tail = null;
+            Head = null;
+            Tail = null;
         }
         else
         {
-            _tail = _tail.Prev;
-            _tail.Next = null;
+            Tail = Tail.Prev;
+            Tail.Next = null;
         }
+
         Count--;
     }
 
     public void Remove(DoublyListNode<T> node)
     {
-        if (node == null)
-        {
-            throw new ArgumentNullException(nameof(node));
-        }
-        if (node.Prev == null)
+        ArgumentNullException.ThrowIfNull(node);
+
+        if (node.Prev is null)
         {
             RemoveFirst();
         }
-        else if (node.Next == null)
+        else if (node.Next is null)
         {
             RemoveLast();
         }
@@ -100,24 +98,45 @@ public class DoublyLinkedList<T> : ICollection<T>
         {
             node.Prev.Next = node.Next;
             node.Next.Prev = node.Prev;
+            
             Count--;
         }
     }
 
     public bool Remove(T item)
     {
-        throw new NotImplementedException();
+        var node = Find(item);
+        if (node is null)
+            return false;
+
+        Remove(node);
+
+        return true;
     }
 
     public void Clear()
     {
-        _head = null;
-        _tail = null;
+        Head = null;
+        Tail = null;
+    }
+
+    public DoublyListNode<T>? Find(T item)
+    {
+        var current = Head;
+        while (current is not null)
+        {
+            if (current.Value!.Equals(item))
+                return current;
+
+            current = current.Next;
+        }
+
+        return null;
     }
 
     public bool Contains(T item)
     {
-        throw new NotImplementedException();
+        return Find(item) is not null;
     }
 
     public void CopyTo(T[] array, int arrayIndex)
@@ -129,13 +148,30 @@ public class DoublyLinkedList<T> : ICollection<T>
         }
     }
 
+    public void UnionWith(DoublyLinkedList<T> other)
+    {
+        if (other is null)
+            return;
+
+        Tail.Next = other.Head;
+        other.Head.Prev = Tail;
+        Tail = other.Tail;
+
+        Count += other.Count;
+    }
+
     public IEnumerator<T> GetEnumerator()
     {
-        throw new NotImplementedException();
+        var current = Head;
+        while (current is not null)
+        {
+            yield return current.Value!;
+            current = current.Next;
+        }
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        throw new NotImplementedException();
+        return GetEnumerator();
     }
 }

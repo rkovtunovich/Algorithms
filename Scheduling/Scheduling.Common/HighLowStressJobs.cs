@@ -5,6 +5,7 @@ public class HighLowStressJobs
 {
     /// <summary>
     /// Finds the maximum revenue obtainable from low-stress and high-stress jobs over n weeks.
+    /// This is particular case of the <see cref="SchedulingWithPenaltySwitching"/> problem."/>
     /// </summary>
     /// <param name="lowStress">An array representing the revenue from low-stress jobs for each week.</param>
     /// <param name="highStress">An array representing the revenue from high-stress jobs for each week.</param>

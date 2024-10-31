@@ -1,6 +1,6 @@
-﻿using DataStructures.Common.BinaryTrees;
-using DataStructures.Common.BinaryTrees.Search;
-using DataStructures.Common.BinaryTrees.Search.AVL;
+﻿using DataStructures.Trees.BinaryTrees;
+using DataStructures.Trees.BinaryTrees.Search;
+using DataStructures.Trees.BinaryTrees.Search.AVL;
 using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;

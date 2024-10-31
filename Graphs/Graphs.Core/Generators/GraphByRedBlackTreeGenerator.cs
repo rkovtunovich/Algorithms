@@ -1,6 +1,6 @@
-﻿using DataStructures.Common.BinaryTrees;
-using DataStructures.Common.BinaryTrees.Search;
-using DataStructures.Common.BinaryTrees.Search.RedBlack;
+﻿using DataStructures.Trees.BinaryTrees;
+using DataStructures.Trees.BinaryTrees.Search;
+using DataStructures.Trees.BinaryTrees.Search.RedBlack;
 using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;

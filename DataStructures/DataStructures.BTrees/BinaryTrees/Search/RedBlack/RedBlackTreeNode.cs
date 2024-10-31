@@ -1,4 +1,6 @@
-﻿namespace DataStructures.Common.BinaryTrees.Search.RedBlack;
+﻿using DataStructures.Trees.BinaryTrees;
+
+namespace DataStructures.Trees.BinaryTrees.Search.RedBlack;
 
 public class RedBlackTreeNode<TKey, TValue> : TreeNode<TKey, TValue> where TKey : INumber<TKey>
 {

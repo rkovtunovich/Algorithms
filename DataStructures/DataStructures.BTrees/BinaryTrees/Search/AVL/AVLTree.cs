@@ -1,4 +1,7 @@
-﻿namespace DataStructures.Common.BinaryTrees.Search.AVL;
+﻿using DataStructures.Trees.BinaryTrees;
+using DataStructures.Trees.BinaryTrees.Search;
+
+namespace DataStructures.Trees.BinaryTrees.Search.AVL;
 
 // An AVL tree (named after inventors Adelson-Velsky and Landis) is a self-balancing binary search tree.
 // In an AVL tree, the heights of the two child subtrees of any node differ by at most one.
@@ -82,35 +85,35 @@ public class AVLTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : INumb
     private void RotateLeft(AVLTreeNode<TKey, TValue> parent, AVLTreeNode<TKey, TValue> child)
     {
         if (HasLeftChild(child))
-            AttachRight(child.LeftChild, parent);
+            parent.AttachRight(child.LeftChild);
         else
             Detach(child);
 
         if (!HasParent(parent))
             SetRoot(child);
         else if (IsLeftChild(parent))
-            AttachLeft(child, parent.Parent);
+            parent.Parent.AttachLeft(child);
         else
-            AttachRight(child, parent.Parent);
+            parent.Parent.AttachRight(child);
 
-        AttachLeft(parent, child);
+        child.AttachLeft(parent);
     }
 
     private void RotateRight(AVLTreeNode<TKey, TValue> parent, AVLTreeNode<TKey, TValue> child)
     {
         if (HasRightChild(child))
-            AttachLeft(child.RightChild, parent);
+            parent.AttachLeft(child.RightChild);
         else
             Detach(child);
 
         if (!HasParent(parent))
             SetRoot(child);
         else if (IsRightChild(parent))
-            AttachRight(child, parent.Parent);
+            parent.Parent.AttachRight(child);
         else
-            AttachLeft(child, parent.Parent);
+            parent.Parent.AttachLeft(child);
 
-        AttachRight(parent, child);
+        child.AttachRight(parent);
     }
 
     private void RotateLeftRight(AVLTreeNode<TKey, TValue> parent, AVLTreeNode<TKey, TValue> child)
@@ -195,14 +198,14 @@ public class AVLTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : INumb
         if (child.Key <= parent.Key)
         {
             if (!HasLeftChild(parent))
-                AttachLeft(child, parent);
+                parent.AttachLeft(child);
             else
                 InsertRecursively(parent.LeftChild as AVLTreeNode<TKey, TValue>, child);
         }
         else
         {
             if (!HasRightChild(parent))
-                AttachRight(child, parent);
+                parent.AttachRight(child);
             else
                 InsertRecursively(parent.RightChild as AVLTreeNode<TKey, TValue>, child);
         }

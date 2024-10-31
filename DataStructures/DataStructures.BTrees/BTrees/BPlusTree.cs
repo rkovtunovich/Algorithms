@@ -1,4 +1,4 @@
-﻿namespace DataStructures.BTrees;
+﻿namespace DataStructures.Trees.BTrees;
 
 public class BPlusTree<TKey, TValue> : BTree<TKey> where TKey : INumber<TKey>
 {
@@ -197,7 +197,7 @@ public class BPlusTree<TKey, TValue> : BTree<TKey> where TKey : INumber<TKey>
         else if (rightSibling is not null)
         {
             UpdateLeavesLinksDeleting(node);
-            
+
             if (node.IsLeaf)
                 UpdateIndexes(node.Parent, key, rightSibling.FirstKey);
 

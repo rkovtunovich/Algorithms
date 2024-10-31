@@ -1,4 +1,4 @@
-﻿namespace DataStructures.Common.BinaryTrees;
+﻿namespace DataStructures.Trees.BinaryTrees;
 
 // A binary tree is a tree-like model of data where each node can have at most two children, referred to as the left child and the right child. 
 // 1. **Structure**: Each node in a binary tree contains a data element, and two pointers to other nodes.
@@ -35,6 +35,15 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 
     public TreeNode<TKey, TValue>? Root => _root;
 
+    protected virtual TreeNode<TKey, TValue> CreateNode(TKey key, TValue? value)
+    {
+        return new()
+        {
+            Key = key,
+            Value = value
+        };
+    }
+
     #region Modification
 
     public virtual void Insert(TKey key, TValue? value = default)
@@ -59,31 +68,66 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
         DeleteNode(node);
     }
 
-    public void AttachLeft(TreeNode<TKey, TValue> child, TreeNode<TKey, TValue> parent)
-    {
-        child.Parent = parent;
-        parent.LeftChild = child;
-    }
-
-    public void AttachRight(TreeNode<TKey, TValue> child, TreeNode<TKey, TValue> parent)
-    {
-        child.Parent = parent;
-        parent.RightChild = child;
-    }
-
-    protected virtual TreeNode<TKey, TValue> CreateNode(TKey key, TValue? value)
-    {
-        return new()
-        {
-            Key = key,
-            Value = value
-        };
-    }
-
-    public void Clean()
+    public void Clear()
     {
         _root = null;
     }
+
+    #endregion
+
+    #region Traversing
+
+    public virtual void TraverseInOrder(Action<TreeNode<TKey, TValue>> action)
+    {
+        TraverseInOrderRec(Root, action);
+    }
+
+    public virtual void TraverseInOrderMorris(Action<TreeNode<TKey, TValue>> action)
+    {
+        var current = Root;
+        while (current is not null)
+        {
+            if (!current.HasLeftChild)
+            {
+                action(current);
+                current = current.RightChild;
+            }
+            else
+            {
+                var predecessor = current.LeftChild;
+                while (predecessor.HasRightChild && predecessor.RightChild != current)
+                    predecessor = predecessor.RightChild;
+
+                if (!predecessor.HasRightChild)
+                {
+                    predecessor.RightChild = current;
+                    current = current.LeftChild;
+                }
+                else
+                {
+                    predecessor.RightChild = null;
+                    action(current);
+                    current = current.RightChild;
+                }
+            }
+        }
+    }
+
+    #region Service methods
+
+    private void TraverseInOrderRec(TreeNode<TKey, TValue>? node, Action<TreeNode<TKey, TValue>> action)
+    {
+        if (node is null)
+            return;
+
+        TraverseInOrderRec(node.LeftChild, action);
+
+        action(node);
+
+        TraverseInOrderRec(node.RightChild, action);
+    }
+
+    #endregion
 
     #endregion
 
@@ -96,14 +140,14 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
         if (child.Key <= parent.Key)
         {
             if (!HasLeftChild(parent))
-                AttachLeft(child, parent);
+                parent.AttachLeft(child);
             else
                 InsertRecursively(parent.LeftChild, child);
         }
         else
         {
             if (!HasRightChild(parent))
-                AttachRight(child, parent);
+                parent.AttachRight(child);
             else
                 InsertRecursively(parent.RightChild, child);
         }
@@ -180,7 +224,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
             Detach(node);
 
             if (node == Root)
-                Clean();
+                Clear();
 
             return;
         }
@@ -190,17 +234,20 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
         {
             var next = node.RightChild;
             var parent = node.Parent;
+            if (parent is null)
+            {
+                SetRoot(next);
+                return;
+            }
+
             bool isLeft = IsLeftChild(node);
 
             Detach(node);
 
             if (isLeft)
-                AttachLeft(next, parent);
+                parent.AttachLeft(next);
             else
-                AttachRight(next, parent);
-
-            if (node == Root)
-                SetRoot(next);
+               parent.AttachRight(next);
 
             return;
         }
@@ -210,17 +257,20 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
         {
             var next = node.LeftChild;
             var parent = node.Parent;
+            if (parent is null)
+            {
+                SetRoot(next);
+                return;
+            }
+
             bool isLeft = IsLeftChild(node);
 
             Detach(node);
 
             if (isLeft)
-                AttachLeft(next, parent);
+                parent.AttachLeft(next);
             else
-                AttachRight(next, parent);
-
-            if (node == Root)
-                SetRoot(next);
+                parent.AttachRight(next);
 
             return;
         }
@@ -237,13 +287,19 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
         {
             var next = node.LeftChild;
             var parent = node.Parent;
+            if (parent is null)
+            {
+                SetRoot(next);
+                return;
+            }
+
             bool isLeft = IsLeftChild(node);
 
             Detach(node);
             if (isLeft)
-                AttachLeft(next, parent);
+               parent.AttachLeft(next); 
             else
-                AttachRight(next, parent);
+                parent.AttachRight(next);
         }
     }
 

@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataStuctures", "DataStuctu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures.Heaps", "DataStructures\DataStructure.Heaps\DataStructures.Heaps.csproj", "{4A67230A-1B46-4525-A470-57C87780FF3D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures.BTrees", "DataStructures\DataStructures.BTrees\DataStructures.BTrees.csproj", "{0B113622-06A7-46F8-B243-D66ADC855E15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures.Trees", "DataStructures\DataStructures.BTrees\DataStructures.Trees.csproj", "{0B113622-06A7-46F8-B243-D66ADC855E15}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures.Common", "DataStructures\DataStructures.Common\DataStructures.Common.csproj", "{4109CB2A-3F74-4B41-B2DB-B6696ECB563A}"
 EndProject

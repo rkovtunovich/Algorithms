@@ -1,6 +1,6 @@
 ﻿using DataStructures.Lists;
 
-namespace DataStructures.BTrees;
+namespace DataStructures.Trees.BTrees;
 
 public class BPlusTreeNode<TKey, TValue> : BTreeNode<TKey> where TKey : INumber<TKey>
 {

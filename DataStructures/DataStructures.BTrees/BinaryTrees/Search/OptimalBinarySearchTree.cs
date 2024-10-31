@@ -1,6 +1,4 @@
-﻿using DataStructures.Common.BinaryTrees;
-
-namespace DataStructures.Common.BinaryTrees.Search;
+﻿namespace DataStructures.Trees.BinaryTrees.Search;
 
 public class OptimalBinarySearchTree<TKey, TValue> : BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 {

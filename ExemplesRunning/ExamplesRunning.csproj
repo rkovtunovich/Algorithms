@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataStructures\DataStructures.BTrees\DataStructures.BTrees.csproj" />
+    <ProjectReference Include="..\DataStructures\DataStructures.BTrees\DataStructures.Trees.csproj" />
     <ProjectReference Include="..\DeferredAcceptance\DeferredAcceptance.csproj" />
     <ProjectReference Include="..\Graphs\Graphs.Application\Graphs.Application.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />

@@ -1,4 +1,4 @@
-﻿using DataStructures.BTrees;
+﻿using DataStructures.Trees.BTrees;
 using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;

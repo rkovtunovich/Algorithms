@@ -1,18 +1,18 @@
-﻿using DataStructures.Common.BinaryTrees.Search.AVL;
-using DataStructures.Lists;
-using Graphs.Core;
+﻿using DataStructures.Lists;
+using DataStructures.Trees.BinaryTrees.Search.AVL;
 using Graphs.Application.Coloring;
-using Graphs.Core.Generators;
-using Graphs.Core.Model;
-using Graphs.Core.Model.Graphs;
+using Graphs.Application.MinimumArborescenceTrees;
 using Graphs.Application.MWIS;
 using Graphs.Application.Optimization;
 using Graphs.Application.Search;
 using Graphs.Application.SpanningTrees;
+using Graphs.Core;
+using Graphs.Core.Generators;
+using Graphs.Core.Model;
+using Graphs.Core.Model.Graphs;
+using Graphs.Core.Model.Serialization;
 using Scheduling.Models;
 using View;
-using Graphs.Core.Model.Serialization;
-using Graphs.Application.MinimumArborescenceTrees;
 
 namespace ExamplesRunning.Graphs;
 

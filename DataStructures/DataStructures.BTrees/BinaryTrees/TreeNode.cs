@@ -1,4 +1,4 @@
-﻿namespace DataStructures.Common.BinaryTrees;
+﻿namespace DataStructures.Trees.BinaryTrees;
 
 public class TreeNode<TKey, TValue> where TKey : INumber<TKey>
 {
@@ -18,11 +18,11 @@ public class TreeNode<TKey, TValue> where TKey : INumber<TKey>
 
     public bool IsRightChild => HasParent && Parent?.RightChild == this;
 
-    public bool HasParent => Parent != null;
+    public bool HasParent => Parent is not null;
 
-    public bool HasLeftChild => LeftChild != null;
+    public bool HasLeftChild => LeftChild is not null;
 
-    public bool HasRightChild => RightChild != null;
+    public bool HasRightChild => RightChild is not null;
 
     public bool HasBothChildren => HasLeftChild && HasRightChild;
 
@@ -44,5 +44,17 @@ public class TreeNode<TKey, TValue> where TKey : INumber<TKey>
             else
                 return Parent?.LeftChild;
         }
+    }
+
+    public void AttachLeft(TreeNode<TKey, TValue> child)
+    {
+        LeftChild = child;
+        child.Parent = this;
+    }
+
+    public void AttachRight(TreeNode<TKey, TValue> child)
+    {
+        RightChild = child;
+        child.Parent = this;
     }
 }

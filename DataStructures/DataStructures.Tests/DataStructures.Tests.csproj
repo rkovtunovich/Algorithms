@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataStructure.Heaps\DataStructures.Heaps.csproj" />
-    <ProjectReference Include="..\DataStructures.BTrees\DataStructures.BTrees.csproj" />
+    <ProjectReference Include="..\DataStructures.BTrees\DataStructures.Trees.csproj" />
     <ProjectReference Include="..\DataStructures.Common\DataStructures.Common.csproj" />
     <ProjectReference Include="..\DataStructures.HashTables\DataStructures.HashTables.csproj" />
     <ProjectReference Include="..\DataStructures.Lists\DataStructures.Lists.csproj" />

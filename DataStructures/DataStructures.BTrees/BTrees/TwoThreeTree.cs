@@ -1,4 +1,4 @@
-﻿namespace DataStructures.BTrees;
+﻿namespace DataStructures.Trees.BTrees;
 
 // Properties of 2-3 tree:
 // 

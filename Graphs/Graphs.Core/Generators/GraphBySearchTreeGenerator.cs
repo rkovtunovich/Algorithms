@@ -1,4 +1,4 @@
-﻿using DataStructures.Common.BinaryTrees;
+﻿using DataStructures.Trees.BinaryTrees;
 using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Core.Generators;

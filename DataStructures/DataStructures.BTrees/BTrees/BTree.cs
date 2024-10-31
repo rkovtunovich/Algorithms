@@ -1,4 +1,4 @@
-﻿namespace DataStructures.BTrees;
+﻿namespace DataStructures.Trees.BTrees;
 
 public abstract class BTree<TKey> where TKey : INumber<TKey>
 {

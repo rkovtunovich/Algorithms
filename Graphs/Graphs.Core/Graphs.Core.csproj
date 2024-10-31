@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DataStructures\DataStructure.Heaps\DataStructures.Heaps.csproj" />
-    <ProjectReference Include="..\..\DataStructures\DataStructures.BTrees\DataStructures.BTrees.csproj" />
+    <ProjectReference Include="..\..\DataStructures\DataStructures.BTrees\DataStructures.Trees.csproj" />
     <ProjectReference Include="..\..\DataStructures\DataStructures.Common\DataStructures.Common.csproj" />
     <ProjectReference Include="..\..\DataStructures\DataStructures.HashTables\DataStructures.HashTables.csproj" />
   </ItemGroup>

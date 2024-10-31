@@ -1,4 +1,4 @@
-﻿namespace DataStructures.Common.BinaryTrees.Search.RedBlack;
+﻿namespace DataStructures.Trees.BinaryTrees.Search.RedBlack;
 
 // A Red-Black tree is a type of self-balancing binary search tree where each node has an extra bit for denoting the color of the node,
 // either red or black. A Red-Black tree satisfies the following properties:
@@ -67,19 +67,15 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
         }
         else if (child.Key <= parent.Key)
         {
-            if (!parent.HasLeftChild)
-            {
-                AttachLeft(child, parent);
-            }
+            if (!parent.HasLeftChild)           
+                parent.AttachLeft(child);         
             else
                 InsertRecursively(parent.LeftChild, child);
         }
         else
         {
-            if (!parent.HasRightChild)
-            {
-                AttachRight(child, parent);
-            }
+            if (!parent.HasRightChild)          
+                parent.AttachRight(child);            
             else
                 InsertRecursively(parent.RightChild, child);
         }
@@ -351,35 +347,35 @@ public class RedBlackTree<TKey, TValue> : SearchTree<TKey, TValue> where TKey : 
     private void RotateLeft(RedBlackTreeNode<TKey, TValue> parent, RedBlackTreeNode<TKey, TValue> child)
     {
         if (child.HasLeftChild)
-            AttachRight(child.LeftChild, parent);
+            parent.AttachRight(child.LeftChild);
         else
             Detach(child);
 
         if (!parent.HasParent)
             SetRoot(child);
         else if (parent.IsLeftChild)
-            AttachLeft(child, parent.Parent);
+            parent.Parent.AttachLeft(child);
         else
-            AttachRight(child, parent.Parent);
+            parent.Parent.AttachRight(child);
 
-        AttachLeft(parent, child);
+        child.AttachLeft(parent);
     }
 
     private void RotateRight(RedBlackTreeNode<TKey, TValue> parent, RedBlackTreeNode<TKey, TValue> child)
     {
         if (child.HasRightChild)
-            AttachLeft(child.RightChild, parent);
+             parent.AttachLeft(child.RightChild);
         else
             Detach(child);
 
         if (!parent.HasParent)
             SetRoot(child);
         else if (parent.IsRightChild)
-            AttachRight(child, parent.Parent);
+            parent.Parent.AttachRight(child);
         else
-            AttachLeft(child, parent.Parent);
+            parent.Parent.AttachLeft(child);
 
-        AttachRight(parent, child);
+        child.AttachRight(parent);
     }
 
     #endregion

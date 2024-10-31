@@ -1,6 +1,6 @@
-﻿using DataStructures.Common.BinaryTrees.Search;
-using DataStructures.Common.BinaryTrees;
-using DataStructures.Heaps;
+﻿using DataStructures.Heaps;
+using DataStructures.Trees.BinaryTrees;
+using DataStructures.Trees.BinaryTrees.Search;
 
 namespace TextProcessing.Common;
 
@@ -15,9 +15,6 @@ public class HuffmanCodeGenerator
 {
     public BinaryTree<double, string> Generate(Dictionary<string, double> alphabet)
     {
-
-        var codes = new Dictionary<string, string>();
-
         var heapMin = new HeapMin<double, BinaryTree<double, string>>();
 
         foreach (var code in alphabet)
@@ -36,8 +33,8 @@ public class HuffmanCodeGenerator
             var tree = new BinaryTree<double, string>();
             double key = x.Root.Key + y.Root.Key;
             tree.Insert(key, x.Root.Value + y.Root.Value);
-            tree.AttachLeft(x.Root, tree.Root);
-            tree.AttachRight(y.Root, tree.Root);
+            tree.Root.AttachLeft(x.Root);
+            tree.Root.AttachRight(y.Root);
 
             heapMin.Insert(key, tree);
         }

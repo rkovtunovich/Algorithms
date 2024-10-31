@@ -1,4 +1,4 @@
-﻿namespace DataStructures.Common.BinaryTrees.Search;
+﻿namespace DataStructures.Trees.BinaryTrees.Search;
 
 public class SearchTree<TKey, TValue> : BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 {
@@ -41,27 +41,6 @@ public class SearchTree<TKey, TValue> : BinaryTree<TKey, TValue> where TKey : IN
             return node.Parent;
         else
             return node.Parent?.Parent;
-    }
-
-    public void TraverseInOrder(Action<TreeNode<TKey, TValue>> action)
-    {
-        TraverseInOrderRec(Root, action);
-    }
-
-    #endregion
-
-    #region Service methods
-
-    private void TraverseInOrderRec(TreeNode<TKey, TValue>? node, Action<TreeNode<TKey, TValue>> action)
-    {
-        if (node is null)
-            return;
-
-        TraverseInOrderRec(node.LeftChild, action);
-
-        action(node);
-
-        TraverseInOrderRec(node.RightChild, action);
     }
 
     #endregion

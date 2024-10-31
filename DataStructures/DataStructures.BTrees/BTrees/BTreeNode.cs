@@ -1,6 +1,6 @@
 ﻿using DataStructures.Lists;
 
-namespace DataStructures.BTrees;
+namespace DataStructures.Trees.BTrees;
 
 public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber<TKey>
 {
@@ -48,7 +48,7 @@ public class BTreeNode<TKey> : IComparable<BTreeNode<TKey>> where TKey : INumber
 
     public virtual BTreeNode<TKey>? GetLeftSibling()
     {
-        if(Parent is null)
+        if (Parent is null)
             return null;
 
         var index = Parent.Children.IndexOf(this);

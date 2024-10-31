@@ -1,4 +1,6 @@
-﻿namespace DataStructures.Common.BinaryTrees.Search.AVL;
+﻿using DataStructures.Trees.BinaryTrees;
+
+namespace DataStructures.Trees.BinaryTrees.Search.AVL;
 
 public class AVLTreeNode<TKey, TValue> : TreeNode<TKey, TValue> where TKey : INumber<TKey>
 {

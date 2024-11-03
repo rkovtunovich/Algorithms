@@ -1,6 +1,6 @@
 ﻿using Sorting.QuickSort;
 
-namespace Scheduling.Common;
+namespace Scheduling.Intervals;
 
 // Real world problem example:
 // Some security consultants working in the financial domain are currently advising a client who is investigating a potential money-laundering scheme. 

@@ -1,4 +1,4 @@
-﻿namespace Scheduling.Common;
+﻿namespace Scheduling.Intervals;
 
 public static class ResourceNumberMinimizationProblem
 {

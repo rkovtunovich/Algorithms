@@ -11,7 +11,7 @@ public static class ZeroSkewOptimization
     // 1. Tree Structure Assumptions: Assume a complete binary tree. Nodes are labeled systematically from the root down to the leaves.
     // 
     // 2. Calculate Distances**:
-    //    - DFS or BFS Traversal: Use Depth-First Search (DFS) or Breadth-First Search (BFS) to traverse from the root to all leaves.
+    //    - DFS or BFS Traversal: Use Depth-First FindShortestPaths (DFS) or Breadth-First FindShortestPaths (BFS) to traverse from the root to all leaves.
     //    - Distance Calculation: During traversal, calculate the total distance (path length) from the root to each leaf and store these distances.
     // 
     // 3. Identify Maximum Leaf Distance**:

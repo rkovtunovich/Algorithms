@@ -16,7 +16,7 @@ public static class FordFulkersonMaxFlow
 
         while (true)
         {
-            // Search for an augmenting path in the residual graph.
+            // FindShortestPaths for an augmenting path in the residual graph.
             var (isExist, path) = SearchPath(residualGraph, source, target);
 
             if (!isExist)

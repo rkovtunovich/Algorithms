@@ -115,7 +115,7 @@ internal class GraphExample
         var graph = generator.Generate("oriented_bellman_ford");
         DOTVisualizer.VisualizeGraph(graph);
 
-        var result = BellmanFordAlgo.Search(graph as OrientedGraph, graph.First());
+        var result = BellmanFordAlgorithm.FindShortestPaths(graph as OrientedGraph, graph.First());
     }
 
     internal static void RunFloydWarshall()

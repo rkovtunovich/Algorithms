@@ -79,6 +79,12 @@ public abstract class GraphBase : IEnumerable<Vertex>
         return null;
     }
 
+    public void AddVertices(params Vertex[] vertices)
+    {
+        foreach (var vertex in vertices)       
+            AddVertex(vertex);      
+    }
+
     public virtual void AddVertex(Vertex vertex)
     {
         if (_nodes.ContainsKey(vertex))

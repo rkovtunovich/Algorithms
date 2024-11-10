@@ -18,7 +18,7 @@ namespace Graphs.Application.Coloring;
 // especially when combined with dynamic programming techniques.
 //
 // 1. Randomly color the vertices of the input graph using k distinct colors, where k is the desired size of the subgraph to be found (e.g., the length of the path or cycle).
-// 2. Search for colorful subgraphs, i.e., subgraphs where all vertices have distinct colors.
+// 2. FindShortestPaths for colorful subgraphs, i.e., subgraphs where all vertices have distinct colors.
 // 3. Repeat steps 1 and 2 multiple times to increase the probability of finding the desired subgraph.
 //
 // size is k in the code

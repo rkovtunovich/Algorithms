@@ -17,7 +17,7 @@ public class ResourcePlacementShould
         static double accessCost(int from, int to) => Math.Abs(to - from);
 
         // Act
-        var (minCost, placementNodes) = ResourcePlacement.Optimize2(numNodes, placementCost, accessCost);
+        var (minCost, placementNodes) = ResourcePlacement.Optimize(numNodes, placementCost, accessCost);
 
         // Assert
         minCost.Should().Be(1);
@@ -33,7 +33,7 @@ public class ResourcePlacementShould
         static double accessCost(int from, int to) => Math.Abs(to - from);
         
         // Act
-        var (minCost, placementNodes) = ResourcePlacement.Optimize2(numNodes, placementCost, accessCost, true);
+        var (minCost, placementNodes) = ResourcePlacement.Optimize(numNodes, placementCost, accessCost, true);
         
         // Assert
         minCost.Should().Be(2);
@@ -60,7 +60,7 @@ public class ResourcePlacementShould
         static double accessCost(int from, int to) => Math.Abs(to - from);
 
         // Act
-        var (minCost, placementNodes) = ResourcePlacement.Optimize2(numNodes, placementCost, accessCost);
+        var (minCost, placementNodes) = ResourcePlacement.Optimize(numNodes, placementCost, accessCost);
 
         // Assert
         minCost.Should().Be(8);
@@ -76,7 +76,7 @@ public class ResourcePlacementShould
         static double accessCost(int from, int to) => 1; // Constant access cost
 
         // Act
-        var (minCost, placementNodes) = ResourcePlacement.Optimize2(numNodes, placementCost, accessCost);
+        var (minCost, placementNodes) = ResourcePlacement.Optimize(numNodes, placementCost, accessCost);
 
         // Assert
         minCost.Should().Be(0);
@@ -108,7 +108,7 @@ public class ResourcePlacementShould
         static double accessCost(int from, int to) => Math.Pow(to - from, 2); // Quadratic access cost
 
         // Act
-        var (minCost, placementNodes) = ResourcePlacement.Optimize2(numNodes, placementCost, accessCost);
+        var (minCost, placementNodes) = ResourcePlacement.Optimize(numNodes, placementCost, accessCost);
 
         // Assert
         minCost.Should().Be(20); // Expected minimum cost
@@ -124,7 +124,7 @@ public class ResourcePlacementShould
         static double accessCost(int from, int to) => Math.Exp(to - from) - 1; // Exponential access cost
 
         // Act
-        var (minCost, placementNodes) = ResourcePlacement.Optimize2(numNodes, placementCost, accessCost);
+        var (minCost, placementNodes) = ResourcePlacement.Optimize(numNodes, placementCost, accessCost);
 
         // Assert
         minCost.Should().BeApproximately(5, 0.001); // Place at every node due to high access cost
@@ -156,7 +156,7 @@ public class ResourcePlacementShould
         static double accessCost(int from, int to) => (to - from) * (from % 2 is 0 ? 2 : 1); // Variable access cost
 
         // Act
-        var (minCost, placementNodes) = ResourcePlacement.Optimize2(numNodes, placementCost, accessCost);
+        var (minCost, placementNodes) = ResourcePlacement.Optimize(numNodes, placementCost, accessCost);
 
         // Assert
         minCost.Should().Be(7);

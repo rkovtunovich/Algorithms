@@ -2,8 +2,10 @@
 
 namespace Graphs.Application.Search;
 
-public static class BellmanFordAlgo
+public static class BellmanFordAlgorithm
 {
+    #region Shortest Paths
+
     /// <summary>
     /// Executes the Bellman-Ford algorithm to find the shortest paths from the start vertex
     /// to all other vertices in the graph.
@@ -15,8 +17,11 @@ public static class BellmanFordAlgo
     /// and the predecessor vertex used to reach the current vertex.
     /// </returns>
     /// <exception cref="InvalidOperationException">Thrown if the graph contains a negative weight cycle.</exception>
-    public static (double distance, Vertex? predecessor)[] Search(OrientedGraph graph, Vertex start)
+    public static (double distance, Vertex? predecessor)[] FindShortestPaths(OrientedGraph graph, Vertex start)
     {
+        if(!graph.TrackIncomeEdges)
+            throw new InvalidOperationException("Graph must track income edges");
+
         var vertexCount = graph.Count;
         var distances = new (double distance, Vertex? predecessor)[vertexCount];
 
@@ -104,7 +109,7 @@ public static class BellmanFordAlgo
     /// <param name="distances">The array of distances and predecessors.</param>
     /// <returns>A list of vertices representing the shortest path from start to end.</returns>
     /// <exception cref="InvalidOperationException">Thrown if no path exists between the start and end vertices.</exception>
-    public static List<Vertex> GetPath(Vertex start, Vertex end, (double distance, Vertex? predecessor)[] distances)
+    public static List<Vertex> ReconstructPath(Vertex start, Vertex end, (double distance, Vertex? predecessor)[] distances)
     {
         var path = new List<Vertex>();
 
@@ -122,4 +127,118 @@ public static class BellmanFordAlgo
 
         return path;
     }
+
+    #endregion
+
+    #region Opportunity cycle
+
+    /// <summary>
+    /// Executes the Bellman-Ford algorithm to find negative weight cycles, indicating an opportunity cycle.
+    /// </summary>
+    /// <param name="graph">The graph with logarithmic transformed weights.</param>
+    /// <param name="start">The starting vertex for the search.</param>
+    /// <returns>
+    /// A list of vertices representing an opportunity cycle if one exists; otherwise, null.
+    /// </returns>
+    public static List<Vertex>? FindOpportunityCycle(OrientedGraph graph)
+    {
+        if (!graph.TrackIncomeEdges)
+            throw new InvalidOperationException("Graph must track income edges");
+
+        var vertexCount = graph.Count;
+        var distances = new (double distance, Vertex? predecessor)[vertexCount];
+
+        // Initialize distances and predecessors
+        for (int i = 0; i < vertexCount; i++)
+            distances[i].distance = double.MaxValue;
+
+        distances[0].distance = 0; // Start from the first vertex (arbitrary)
+
+        // Relax edges up to V-1 times
+        for (int i = 1; i <= vertexCount - 1; i++)        
+            foreach (var vertex in graph)         
+                UpdateDistances(graph, vertex, distances);
+            
+        // Detect and extract the negative cycle
+        return ExtractNegativeCycle(graph, distances);
+    }
+
+    private static void UpdateDistances(OrientedGraph graph, Vertex vertex, (double distance, Vertex? predecessor)[] distances)
+    {
+        foreach (var edge in graph.GetIncomeEdges(vertex))
+        {
+            var newDistance = distances[edge.Index - 1].distance + graph.GetEdgeLength(edge, vertex);
+            if (newDistance < distances[vertex.Index - 1].distance)
+            {
+                distances[vertex.Index - 1].distance = newDistance;
+                distances[vertex.Index - 1].predecessor = edge;
+            }
+        }
+    }
+
+    private static List<Vertex>? ExtractNegativeCycle(OrientedGraph graph, (double distance, Vertex? predecessor)[] distances)
+    {
+        for (int i = 0; i < graph.Count; i++)
+        {
+            var current = graph.GetVertexByIndex(i);
+
+            foreach (var edge in graph.GetIncomeEdges(current!))
+            {
+                if (distances[edge.Index - 1].distance + graph.GetEdgeLength(edge, current!) >= distances[i].distance)                
+                    continue;
+                
+                // Cycle detected, backtrack to find the cycle path
+                var cycle = new List<Vertex>();
+                var visited = new HashSet<int>();
+
+                while (!visited.Contains(current!.Index))
+                {
+                    visited.Add(current.Index);
+                    cycle.Add(current);
+
+                    current = distances[current.Index - 1].predecessor;
+
+                    if (current is null)
+                        break;
+                }
+
+                cycle.Reverse();
+
+                return cycle;
+            }
+        }
+
+        return null; // No negative cycle found
+    }
+
+    /// <summary>
+    /// Converts a matrix of trade ratios to a graph with logarithmic transformed weights.
+    /// </summary>
+    /// <param name="tradeRatios"></param>
+    /// <returns>Oriented graph with logarithmic transformed weights.</returns>
+    public static OrientedGraph RatiosToGraph(double[,] tradeRatios)
+    {
+        var graph = new OrientedGraph("ratios");
+
+        for (int i = 0; i < tradeRatios.GetLength(0); i++)
+            graph.AddVertex(new Vertex(i + 1));
+
+        for (int i = 0; i < tradeRatios.GetLength(0); i++)
+        {
+            for (int j = 0; j < tradeRatios.GetLength(1); j++)
+            {
+                if (i == j || tradeRatios[i, j] <= 0)               
+                    continue;
+                
+                double weight = -Math.Log(tradeRatios[i, j]);
+                var vertexA = graph.GetVertexByIndex(i + 1);
+                var vertexB = graph.GetVertexByIndex(j + 1);
+                graph.AddEdgeWithLength(vertexA!, vertexB!, weight);
+            }
+        }
+
+        return graph;
+    }
+
+    #endregion
 }

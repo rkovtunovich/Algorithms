@@ -193,6 +193,28 @@ public abstract class GraphBase : IEnumerable<Vertex>
         }
     }
 
+    public virtual void IntersectWith(GraphBase graph)
+    {
+        // Remove vertices that are not present in the other graph.
+        // Remove edges that are not present in the other graph.
+        foreach (var vertex in this)
+        {
+            if (!graph.HasVertex(vertex))
+                RemoveVertex(vertex);
+        }
+
+        if(!IsVariableEdgeLength())
+            return;
+
+        // Update edge lengths, taking minimum values.
+        foreach (var edge in _edgesLengths)
+        {
+            var length = graph.GetEdgeLength(edge.Key.Item1, edge.Key.Item2);
+            if (length < edge.Value)
+                _edgesLengths[edge.Key] = length;
+        }
+    }
+
     #endregion
 
     #region Connections

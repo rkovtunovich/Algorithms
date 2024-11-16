@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="SerializedGraphs\SearchCycle_OrientedGraphWithSycle_CycleFound.txt">
+    <None Update="SerializedGraphs\SearchCycle_WhenOrientedGraphWithSycle_CycleFound.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="SerializedGraphs\FindArborescencesTree_OrientedGraphWithSycle_TreeWithMinimumCost.txt">

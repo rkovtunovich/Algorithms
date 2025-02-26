@@ -19,28 +19,40 @@ public class OrientedGraph : GraphBase
 
     #region Vertices
 
+    /// <summary>
+    /// Finds the root of an oriented tree or hierarchy.
+    /// The root is defined as the vertex with the minimum in-degree (i.e., no incoming edges or the fewest).
+    /// In a tree-like hierarchy, this should be exactly one vertex with in-degree = 0.
+    /// If multiple vertices share the same minimum in-degree, any of them could serve as the root.
+    /// </summary>
+    /// <returns>The vertex identified as the root.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown if the graph is empty or if no root can be determined.
+    /// </exception>
     public Vertex FindRoot()
     {
-        // Initialize variables to keep track of minimum in-degree and corresponding vertex
+        // If the graph is empty, there's no root.
+        if (!this.Any())
+            throw new InvalidOperationException("The graph has no vertices, cannot determine root.");
+
+        // We'll track the minimum in-degree found so far, and the corresponding vertex.
         int minInDegree = int.MaxValue;
         Vertex? root = null;
 
-        // Loop through all vertices in the graph
+        // Loop over each vertex in the graph to compute its in-degree.
+        // The in-degree of a vertex v is the number of edges (x -> v) that exist in the graph.
         foreach (var vertex in this)
         {
-            // Skip vertices with degree 0
-            if (GetDegree(vertex) == 0)
-                continue;
-
-            // Calculate in-degree for each vertex
+            // Compute how many incoming edges 'vertex' has
             int inDegree = 0;
             foreach (var otherVertex in this)
             {
-                if (IsConnected(otherVertex, vertex))
-                    inDegree++;
+                // Check if there's a directed edge (otherVertex -> vertex)
+                if (IsConnected(otherVertex, vertex))              
+                    inDegree++;            
             }
 
-            // Update minimum in-degree and root vertex
+            // Update the root candidate if this vertex has fewer incoming edges
             if (inDegree < minInDegree)
             {
                 minInDegree = inDegree;
@@ -48,6 +60,7 @@ public class OrientedGraph : GraphBase
             }
         }
 
+        // If no root was found (should be impossible if the graph has vertices), throw an exception
         if (root is null)
             throw new InvalidOperationException("Could not determine root of the graph.");
 

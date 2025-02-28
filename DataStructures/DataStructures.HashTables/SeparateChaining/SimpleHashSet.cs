@@ -1,4 +1,4 @@
-﻿namespace DataStructures.HashTables;
+﻿namespace DataStructures.HashTables.SeparateChaining;
 
 // // A simple hash set implementation using a hash table.
 public class SimpleHashSet<T> : IHashTable<T> where T : notnull

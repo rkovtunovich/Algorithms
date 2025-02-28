@@ -1,4 +1,4 @@
-﻿using DataStructures.HashTables;
+﻿using DataStructures.HashTables.SeparateChaining;
 using DataStructures.Lists;
 using Graphs.Core.Model;
 using Graphs.Core.Model.Graphs;

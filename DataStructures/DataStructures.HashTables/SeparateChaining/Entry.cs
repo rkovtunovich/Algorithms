@@ -1,4 +1,4 @@
-﻿namespace DataStructures.HashTables;
+﻿namespace DataStructures.HashTables.SeparateChaining;
 
 public class Entry<T> where T : notnull
 {

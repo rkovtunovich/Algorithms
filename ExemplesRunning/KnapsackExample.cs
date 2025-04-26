@@ -1,5 +1,5 @@
 ﻿using Helpers;
-using KnapsackProblem;
+using ResourceOptimization.Allocation;
 
 namespace ExamplesRunning;
 
@@ -11,7 +11,7 @@ internal static class KnapsackExample
         var sizes = ArrayHelper.GetUnsortedArray(5, 1, 10).ToList();
         var capacity = 10;
 
-        var result = Knapsack.Choose(values, sizes, capacity);
+        var result = KnapsackProblem.Choose(values, sizes, capacity);
 
         Viewer.ShowArray(values.ToArray());
         Viewer.ShowArray(sizes.ToArray());

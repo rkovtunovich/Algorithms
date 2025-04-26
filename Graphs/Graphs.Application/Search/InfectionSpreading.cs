@@ -1,4 +1,4 @@
-﻿using DataStructures.HashTables;
+﻿using DataStructures.HashTables.OpenAddressing;
 using Graphs.Core.Model.Graphs;
 
 namespace Graphs.Application.Search;

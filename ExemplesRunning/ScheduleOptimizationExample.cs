@@ -1,7 +1,7 @@
-﻿using Scheduling.Common;
-using Scheduling.Intervals;
-using Scheduling.Models;
-using Scheduling.Models.Helpers;
+﻿using ResourceOptimization.Scheduling;
+using ResourceOptimization.Intervals;
+using ResourceOptimization.Models;
+using ResourceOptimization.Models.Helpers;
 
 namespace ExamplesRunning;
 

@@ -1,12 +1,12 @@
-﻿using DataStructures.Trees.BinaryTrees.Search;
+﻿using DataStructures.HashTables.OpenAddressing;
+using DataStructures.Heaps;
+using DataStructures.Trees.BinaryTrees.Search;
 using DataStructures.Trees.BinaryTrees.Search.AVL;
 using DataStructures.Trees.BinaryTrees.Search.RedBlack;
 using DataStructures.Trees.BTrees;
-using DataStructures.HashTables;
-using DataStructures.Heaps;
+using Graphs.Core;
 using Graphs.Core.Generators;
 using Helpers;
-using Graphs.Core;
 
 namespace ExamplesRunning;
 

@@ -1,7 +1,7 @@
 ﻿namespace DataStructures.HashTables.OpenAddressing;
 
 // A simple hash set implemented with open addressing and a free list.
-public class SimpleHashSet<T> : IHashTable<T> where T : notnull
+public class SimpleHashSet<TItem> : IHashTable<TItem> where TItem : notnull
 {
     private const int InitialCapacity = 16;
 
@@ -10,7 +10,7 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
     private const int FillingLimitPercent = 70;
 
     // Array holding all entries.
-    private Entry<T>[] _table;
+    private Entry<TItem>[] _table;
 
     // Count of active entries.
     private int _count = 0;
@@ -20,20 +20,20 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
 
     public SimpleHashSet()
     {
-        _table = new Entry<T>[InitialCapacity];
+        _table = new Entry<TItem>[InitialCapacity];
         for (int i = 0; i < _table.Length; i++)
-            _table[i] = new Entry<T>();
+            _table[i] = new Entry<TItem>();
     }
 
     public SimpleHashSet(int capacity)
     {
-        _table = new Entry<T>[capacity];
+        _table = new Entry<TItem>[capacity];
         for (int i = 0; i < _table.Length; i++)
-            _table[i] = new Entry<T>();
+            _table[i] = new Entry<TItem>();
     }
 
     // Adds a value to the set.
-    public void Add(T value)
+    public void Add(TItem value)
     {
         // Resize if needed.
         if (NeedResize())
@@ -88,7 +88,7 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
     }
 
     // Checks whether the set contains the given value.
-    public bool Contains(T value)
+    public bool Contains(TItem value)
     {
         int index = GetIndex(value);
         int startIndex = index;
@@ -109,7 +109,7 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
     }
 
     // Removes the value from the set.
-    public void Remove(T value)
+    public void Remove(TItem value)
     {
         int index = GetIndex(value);
         int startIndex = index;
@@ -141,7 +141,7 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
     public int Length => _count;
 
     // Computes the initial bucket index from the value's hash code.
-    private int GetIndex(T value)
+    private int GetIndex(TItem value)
     {
         int hash = value.GetHashCode();
         return Math.Abs(hash) % _table.Length;
@@ -158,9 +158,9 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
     {
         var oldTable = _table;
         int newCapacity = oldTable.Length * 2;
-        _table = new Entry<T>[newCapacity];
+        _table = new Entry<TItem>[newCapacity];
         for (int i = 0; i < newCapacity; i++)      
-            _table[i] = new Entry<T>();
+            _table[i] = new Entry<TItem>();
         
         // Reset count and free list.
         _count = 0;
@@ -172,9 +172,15 @@ public class SimpleHashSet<T> : IHashTable<T> where T : notnull
                 Add(entry.Value);
     }
 
+    public void Load(IEnumerable<TItem> items)
+    {
+        foreach (var item in items)
+            Add(item);
+    }
+
     #region IEnumerable Implementation 
 
-    public IEnumerator<T> GetEnumerator()
+    public IEnumerator<TItem> GetEnumerator()
     {
         foreach (var entry in _table)
             if (entry.Status is EntryStatus.Active)

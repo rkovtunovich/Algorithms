@@ -1,4 +1,4 @@
-namespace Searching.Common;
+namespace Searching.MediansAndOrderStatistics;
 
 public static class MinMaxSearch
 {
@@ -30,7 +30,7 @@ public static class MinMaxSearch
         }
 
         // Start from the second element (if n is odd) or the third element (if n is even)
-        int i = (n % 2 == 0) ? 2 : 1;
+        int i = n % 2 == 0 ? 2 : 1;
 
         while (i < n - 1)
         {

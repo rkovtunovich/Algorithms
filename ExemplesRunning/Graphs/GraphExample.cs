@@ -11,7 +11,7 @@ using Graphs.Core.Generators;
 using Graphs.Core.Model;
 using Graphs.Core.Model.Graphs;
 using Graphs.Core.Model.Serialization;
-using Scheduling.Models;
+using ResourceOptimization.Models;
 using View;
 
 namespace ExamplesRunning.Graphs;

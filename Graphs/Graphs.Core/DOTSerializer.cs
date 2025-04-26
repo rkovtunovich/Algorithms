@@ -150,7 +150,7 @@ public class DOTSerializer : ISerializer
             string line = lines[i].Trim().Replace("\"", string.Empty);
 
             string[] parts = line.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length == 0)
+            if (parts.Length is 0)
                 continue;
 
             var firstPart = parts[0];
@@ -166,7 +166,7 @@ public class DOTSerializer : ISerializer
                 var edge = part.Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
 
                 // there are no edges
-                if (edge.Length == 1)
+                if (edge.Length is 1)
                     continue;
 
                 edges.Add(edge[1].Trim());
@@ -188,12 +188,11 @@ public class DOTSerializer : ISerializer
                 var edgeVertex = GetVertex(edgeDescription[0].Trim());
                 graph.AddEdge(vertex, edgeVertex);
 
-                if (edgeDescription.Length == 1)
+                if (edgeDescription.Length is 1)
                     continue;
 
                 var edgeLength = edgeDescription[1].Trim().Split('=')[1].Trim();
                 graph.SetEdgeLength(vertex, edgeVertex, double.Parse(edgeLength));
-
             }
         }
 

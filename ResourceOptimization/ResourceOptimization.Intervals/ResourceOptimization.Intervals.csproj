@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ResourceOptimization\ResourceOptimization.Models\ResourceOptimization.Models.csproj" />
-    <ProjectReference Include="..\Graphs.Core\Graphs.Core.csproj" />
+    <ProjectReference Include="..\..\Sorting\Sorting.Common\Sorting.Common.csproj" />
+    <ProjectReference Include="..\ResourceOptimization.Models\ResourceOptimization.Models.csproj" />
   </ItemGroup>
 
 </Project>

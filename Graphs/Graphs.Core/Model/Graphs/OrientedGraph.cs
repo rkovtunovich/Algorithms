@@ -213,7 +213,8 @@ public class OrientedGraph : GraphBase
 
             foreach (var edge in edges)
             {
-                transposed.AddConnection(edge, vertex);
+                var distance = GetEdgeLength(vertex, edge);
+                transposed.AddEdgeWithLength(edge, vertex, distance);
             }
         }
 

@@ -2,6 +2,7 @@
 
 global using Graphs.Core.Abstraction;
 global using Graphs.Core.Model;
+global using Graphs.Core.Model.Graphs;
 
 global using ResourceOptimization.Models;
 

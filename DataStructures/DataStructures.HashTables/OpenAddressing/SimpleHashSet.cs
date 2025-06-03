@@ -5,8 +5,8 @@ public class SimpleHashSet<TItem> : IHashTable<TItem> where TItem : notnull
 {
     private const int InitialCapacity = 16;
 
-    // When the table is more than this percent full (active entries),
-    // we trigger a resize.
+    // When the table is more than this percent full (active entries), we trigger a resize.
+    // Note: As the table gets fuller (α→1), unsuccessful searches explode(go to ∞).  
     private const int FillingLimitPercent = 70;
 
     // Array holding all entries.

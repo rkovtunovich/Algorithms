@@ -1,4 +1,4 @@
-namespace Inventory;
+namespace ResourceOptimization.Inventory;
 
 /// <summary>
 /// Provides a dynamic programming solver for the classical Wagner–Whitin
@@ -44,8 +44,8 @@ public static class GasStationLotSizing
         int capacity)
     {
         int n = demand.Length;
-        if (n == 0)
-            return new Plan(0, Array.Empty<Order>());
+        if (n is 0)
+            return new Plan(0, []);
 
         // Precompute prefix sums of demand and demand*index for O(1) cost queries.
         var prefix = new int[n + 1];
@@ -66,8 +66,12 @@ public static class GasStationLotSizing
         // Compute DP backwards.
         for (int i = n - 1; i >= 0; i--)
         {
-            // Option to skip ordering if today's demand is zero.
-            double bestCost = dp[i + 1];
+            // If today's demand is zero we could “skip” without ordering,
+            // otherwise force an order option by initializing to +∞.
+            int todayDemand = prefix[i + 1] - prefix[i];
+            double bestCost = todayDemand is 0
+                            ? dp[i + 1]
+                            : double.PositiveInfinity;
             int bestNext = i + 1;
 
             for (int j = i; j < n; j++)
@@ -76,7 +80,7 @@ public static class GasStationLotSizing
                 if (quantity > capacity)
                     break; // further j will only increase quantity
 
-                if (quantity == 0)
+                if (quantity is 0)
                     continue; // ordering nothing is pointless
 
                 int weightedSum = weighted[j + 1] - weighted[i];
@@ -97,10 +101,10 @@ public static class GasStationLotSizing
 
         // Reconstruct the optimal ordering plan.
         var orders = new List<Order>();
-        for (int day = 0; day < n; )
+        for (int day = 0; day < n;)
         {
             int nextDay = next[day];
-            if (nextDay == day + 1 && prefix[day + 1] - prefix[day] == 0)
+            if (nextDay == day + 1 && prefix[day + 1] - prefix[day] is 0)
             {
                 // No order, zero demand for this day.
                 day++;

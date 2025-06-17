@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ResourceOptimization.Intervals\ResourceOptimization.Intervals.csproj" />
+    <ProjectReference Include="..\ResourceOptimization.Inventory\ResourceOptimization.Inventory.csproj" />
     <ProjectReference Include="..\ResourceOptimization.Scheduling\ResourceOptimization.Scheduling.csproj" />
     <ProjectReference Include="..\ResourceOptimization.Allocation\ResourceOptimization.Allocation.csproj" />
 	<ProjectReference Include="..\ResourceOptimization.Models\ResourceOptimization.Models.csproj" />

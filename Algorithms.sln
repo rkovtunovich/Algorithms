@@ -132,6 +132,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		Choosing Between Forward DP and Backward DP.md = Choosing Between Forward DP and Backward DP.md
+		Agents.md = Agents.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ResourceOptimization", "ResourceOptimization", "{A95CE3C9-D4CE-4248-82A1-18C436E3D5E5}"

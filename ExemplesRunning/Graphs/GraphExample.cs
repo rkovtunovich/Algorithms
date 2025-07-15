@@ -214,12 +214,12 @@ internal class GraphExample
         Console.WriteLine(result);
     }
 
-    internal static void RunFordFulkerson()
+    internal static void RunMaxFlow()
     {
         var graph = GraphGenerators.GenerateOrientedFlow("oriented_flow", 8);
         DOTVisualizer.VisualizeGraph(graph);
 
-        var result = FordFulkersonMaxFlow.AugmentingPathSearch(graph, graph.First(), graph.Last());
+        var result = MaxFlowAlgorithms.FordFulkerson(graph, graph.First(), graph.Last());
 
         Console.WriteLine(result);
     }

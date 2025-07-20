@@ -220,6 +220,40 @@ public class BinaryTreeShould
     }
 
     [Fact]
+    public void TraversePreOrder_WhenTreeIsNotEmpty_ShouldTraversePreOrder()
+    {
+        // Arrange
+        var tree = new BinaryTree<int, int>();
+        tree.Insert(2, 0);
+        tree.Insert(1, 0);
+        tree.Insert(3, 0);
+        var capturedKeys = new List<int>();
+        
+        // Act
+        tree.TraversePreOrder(node => capturedKeys.Add(node.Key));
+        
+        // Assert
+        capturedKeys.Should().BeEquivalentTo([2, 1, 3]);
+    }
+
+    [Fact]
+    public void TraversePostOrder_WhenTreeIsNotEmpty_ShouldTraversePostOrder()
+    {
+        // Arrange
+        var tree = new BinaryTree<int, int>();
+        tree.Insert(2, 0);
+        tree.Insert(1, 0);
+        tree.Insert(3, 0);
+        var capturedKeys = new List<int>();
+        
+        // Act
+        tree.TraversePostOrder(node => capturedKeys.Add(node.Key));
+        
+        // Assert
+        capturedKeys.Should().BeEquivalentTo([1, 3, 2]);
+    }
+
+    [Fact]
     public void TraverseInOrderMorris_WhenTreeIsNotEmpty_ShouldTraverseInOrder()
     {
         // Arrange

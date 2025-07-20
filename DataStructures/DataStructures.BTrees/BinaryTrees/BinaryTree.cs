@@ -79,8 +79,20 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 
     public virtual void TraverseInOrder(Action<TreeNode<TKey, TValue>> action)
     {
-        TraverseInOrderRec(Root, action);
+        BinaryTree<TKey, TValue>.TraverseInOrderRec(Root, action);
     }
+
+    /// <summary>
+    /// Direct traversal (pre-order): node → left → right
+    /// </summary>
+    public virtual void TraversePreOrder(Action<TreeNode<TKey, TValue>> action)
+        => BinaryTree<TKey, TValue>.TraversePreOrderRec(Root, action);
+
+    /// <summary>
+    /// Backward traversal (post-order): left → right → node
+    /// </summary>
+    public virtual void TraversePostOrder(Action<TreeNode<TKey, TValue>> action)
+        => BinaryTree<TKey, TValue>.TraversePostOrderRec(Root, action);
 
     public virtual void TraverseInOrderMorris(Action<TreeNode<TKey, TValue>> action)
     {
@@ -115,16 +127,38 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
 
     #region Service methods
 
-    private void TraverseInOrderRec(TreeNode<TKey, TValue>? node, Action<TreeNode<TKey, TValue>> action)
+    private static void TraverseInOrderRec(TreeNode<TKey, TValue>? node, Action<TreeNode<TKey, TValue>> action)
     {
         if (node is null)
             return;
 
-        TraverseInOrderRec(node.LeftChild, action);
+        BinaryTree<TKey, TValue>.TraverseInOrderRec(node.LeftChild, action);
 
         action(node);
 
-        TraverseInOrderRec(node.RightChild, action);
+        BinaryTree<TKey, TValue>.TraverseInOrderRec(node.RightChild, action);
+    }
+
+    private static void TraversePreOrderRec(TreeNode<TKey, TValue>? node,
+                                 Action<TreeNode<TKey, TValue>> action)
+    {
+        if (node is null)
+            return;
+
+        action(node);
+        BinaryTree<TKey, TValue>.TraversePreOrderRec(node.LeftChild, action);
+        BinaryTree<TKey, TValue>.TraversePreOrderRec(node.RightChild, action);
+    }
+
+    private static void TraversePostOrderRec(TreeNode<TKey, TValue>? node,
+                                      Action<TreeNode<TKey, TValue>> action)
+    {
+        if (node is null)
+            return;
+
+        BinaryTree<TKey, TValue>.TraversePostOrderRec(node.LeftChild, action);
+        BinaryTree<TKey, TValue>.TraversePostOrderRec(node.RightChild, action);
+        action(node);
     }
 
     #endregion

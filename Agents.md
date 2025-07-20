@@ -46,7 +46,7 @@
 
 * Write **unit tests** with **xUnit**.
 * Use **NSubstitute** for mocking dependencies.
-* Use **FluentAssertions** for expressive assertions.
+* Use **AwesomeAssertions** for expressive assertions.
 * Use Arrange, Act, Assert comments in a unit test.
 * Use 'dotnet test <SolutionName>' for runs each test project in turn 
 * Don't use --no-build if the solution has been changed since the last build. 

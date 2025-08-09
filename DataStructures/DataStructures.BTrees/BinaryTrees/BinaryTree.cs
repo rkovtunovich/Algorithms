@@ -417,7 +417,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
     protected bool IsLeftChild(TreeNode<TKey, TValue> node)
     {
         if (node.Parent is null)
-            throw new Exception("This node hasn't parent");
+            throw new InvalidOperationException("This node hasn't parent");
 
         return node.Parent.LeftChild == node;
     }
@@ -425,7 +425,7 @@ public class BinaryTree<TKey, TValue> where TKey : INumber<TKey>
     protected bool IsRightChild(TreeNode<TKey, TValue> node)
     {
         if (node.Parent is null)
-            throw new Exception("This node hasn't parent");
+            throw new InvalidOperationException("This node hasn't parent");
 
         return node.Parent.RightChild == node;
     }

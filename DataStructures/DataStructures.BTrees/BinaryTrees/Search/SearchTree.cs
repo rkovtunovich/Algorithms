@@ -22,10 +22,15 @@ public class SearchTree<TKey, TValue> : BinaryTree<TKey, TValue> where TKey : IN
         if (node.LeftChild is not null)
             return SearchMaximum(node.LeftChild);
 
-        if (node.Parent?.RightChild == node)
-            return node.Parent;
-        else
-            return node.Parent?.Parent;
+        var cur = node;
+        var p = node.Parent;
+        while (p is not null && cur == p.LeftChild)
+        {
+            cur = p;
+            p = p.Parent;
+        }
+
+        return p; // null if no predecessor (node is global minimum)
     }
 
     public TreeNode<TKey, TValue>? GetSuccessor(TKey key)
@@ -37,10 +42,15 @@ public class SearchTree<TKey, TValue> : BinaryTree<TKey, TValue> where TKey : IN
         if (node.RightChild is not null)
             return SearchMinimum(node.RightChild);
 
-        if (node.Parent?.LeftChild == node)
-            return node.Parent;
-        else
-            return node.Parent?.Parent;
+        var cur = node;
+        var p = node.Parent;
+        while (p is not null && cur == p.RightChild)
+        {
+            cur = p;
+            p = p.Parent;
+        }
+
+        return p; // null if no successor (node is global maximum)
     }
 
     #endregion

@@ -1,4 +1,4 @@
-global using FluentAssertions;
+global using AwesomeAssertions;
 
 global using DataStructures.Heaps;
 global using DataStructures.Lists;

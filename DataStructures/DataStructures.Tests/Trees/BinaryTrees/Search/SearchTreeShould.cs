@@ -7,6 +7,13 @@ public class SearchTreeShould
     private static SearchTree<int, int> CreateTree()
     {
         var tree = new SearchTree<int, int>();
+        // Constructing the following tree:
+        //       5
+        //      / \
+        //     3   7
+        //    / \ / 
+        //   2  4 6  
+
         tree.Insert(5, 5);
         tree.Insert(3, 3);
         tree.Insert(7, 7);
@@ -140,7 +147,7 @@ public class SearchTreeShould
     }
 
     [Fact]
-    public void GetPredecessor_WhenNodeIsLeftChild_ShouldReturnGrandparent()
+    public void GetPredecessor_WhenNodeIsMinimum_ShouldReturnNull()
     {
         // Arrange
         var tree = CreateTree();
@@ -149,8 +156,7 @@ public class SearchTreeShould
         var predecessor = tree.GetPredecessor(2);
 
         // Assert
-        predecessor.Should().NotBeNull();
-        predecessor!.Key.Should().Be(5);
+        predecessor.Should().BeNull();
     }
 
     [Fact]
@@ -206,5 +212,33 @@ public class SearchTreeShould
         // Assert
         successor.Should().NotBeNull();
         successor!.Key.Should().Be(5);
+    }
+
+    [Fact]
+    public void GetSuccessor_WhenNoRightChild_ShouldReturnSuccessor()
+    {
+        // Arrange
+       //     7
+       //   /   \
+       //  3     8
+       // / \     \
+       //2   5     9
+       //   /
+       //  4
+        var tree = new SearchTree<int, int>();
+        tree.Insert(7);
+        tree.Insert(2);
+        tree.Insert(3);
+        tree.Insert(4);
+        tree.Insert(5);
+        tree.Insert(8);
+        tree.Insert(9);
+
+        // Act
+        var successor = tree.GetSuccessor(5);
+
+        // Assert
+        successor.Should().NotBeNull();
+        successor!.Key.Should().Be(7);
     }
 }

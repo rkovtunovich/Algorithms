@@ -101,6 +101,58 @@ public static class MaxFlowAlgorithms
         return maxFlow;
     }
 
+    /// <summary>
+    /// Computes max s‑t flow using the Ford–Fulkerson capacity‑scaling technique.
+    /// In each phase δ, we only use residual edges with capacity ≥ δ (δ starts
+    /// from the largest power of two ≤ max capacity and halves each phase).
+    /// </summary>
+    /// <remarks>
+    /// • For **integer capacities**, runs in O(E² log U), where U is max capacity.<br/>
+    /// • With fractional capacities, use a tolerance EPS; termination and bounds
+    ///   still behave well if capacities are near‑integral.
+    /// </remarks>
+    public static double FordFulkersonScaling(
+        GraphBase graph,
+        Vertex source,
+        Vertex sink,
+        bool visualize = false)
+    {
+        ArgumentNullException.ThrowIfNull(graph);
+
+        const double EPS = 1e-9;
+
+        var residual = BuildInitialResidual(graph);
+        double maxFlow = 0;
+
+        double delta = InitialDelta(residual);
+        if (delta <= EPS) 
+            return 0;
+
+        while (delta > EPS)
+        {
+            // Keep augmenting while there is a δ‑path.
+            while (TryFindAugmentingPathDfsWithDelta(residual, source, sink, delta, out var parent, out var bottleneck))
+            {
+                // Augment along the path.
+                for (var v = sink; v != source; v = parent[v.ArrayIndex()])
+                {
+                    var u = parent[v.ArrayIndex()];
+                    residual.ChangeEdgeLength(u, v, -bottleneck);
+                    residual.ChangeEdgeLength(v, u, bottleneck);
+                }
+
+                maxFlow += bottleneck;
+
+                if (visualize)
+                    DOTVisualizer.VisualizeGraph(residual);
+            }
+
+            delta *= 0.5; // next scaling phase
+        }
+
+        return maxFlow;
+    }
+
     #region Helpers
 
     private static GraphBase BuildInitialResidual(GraphBase original)
@@ -203,6 +255,78 @@ public static class MaxFlowAlgorithms
 
         return foundPath;
     }
+
+    /// <summary>
+    /// Highest power of two ≤ max residual capacity in the graph (≥ 1).
+    /// </summary>
+    private static double InitialDelta(GraphBase residual)
+    {
+        double maxCap = 0;
+        foreach (var u in residual)
+        {
+            foreach (var v in residual.GetAdjacentEdges(u))
+            {
+                var c = residual.GetEdgeLength(u, v);
+                if (c > maxCap) maxCap = c;
+            }
+        }
+
+        if (maxCap <= 1) return Math.Max(0, maxCap); // 0 or 1
+
+        // If capacities are integers (even if stored as double), this is exact.
+        var pow = Math.Pow(2, Math.Floor(Math.Log(maxCap, 2)));
+        return pow < 1 ? 1 : pow;
+    }
+
+    /// <summary>
+    /// DFS that searches only edges with residual capacity ≥ delta.
+    /// Returns true and provides parent[] / bottleneck if a δ‑augmenting path exists.
+    /// </summary>
+    private static bool TryFindAugmentingPathDfsWithDelta(
+        GraphBase residual,
+        Vertex s,
+        Vertex t,
+        double delta,
+        out Vertex[] parent,
+        out double bottleneck)
+    {
+        const double EPS = 1e-9;
+        var visited = new HashSet<Vertex>();
+        var par = new Vertex[residual.Count];
+        bottleneck = double.PositiveInfinity;
+
+        double pathMin = double.PositiveInfinity;
+
+        bool Dfs(Vertex u, double minSoFar)
+        {
+            if (u == t)
+            {
+                pathMin = minSoFar;
+                return true;
+            }
+
+            visited.Add(u);
+
+            foreach (var v in residual.GetAdjacentEdges(u))
+            {
+                if (visited.Contains(v)) continue;
+
+                var cap = residual.GetEdgeLength(u, v);
+                if (cap + EPS < delta) continue; // critical: only edges with cap ≥ δ
+
+                par[v.ArrayIndex()] = u;
+                if (Dfs(v, Math.Min(minSoFar, cap))) return true;
+            }
+
+            return false;
+        }
+
+        var found = Dfs(s, double.PositiveInfinity);
+        parent = par;
+        if (found) bottleneck = pathMin;
+        return found;
+    }
+
 
     #endregion
 }
